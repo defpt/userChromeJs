@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name  		NewTabPlus.uc.js
+// @name			NewTabPlus.uc.js
 // @description		修改整合版标签增强
 // @include			chrome://browser/content/browser.xul
 // @include			chrome://browser/content/bookmarks/bookmarksPanel.xul
@@ -31,14 +31,6 @@
 			eval('gURLBar.handleCommand = ' + str);
 		}
 	} catch(e) {} 
-    //当地址栏失去焦点后，恢复原来的地址
-	gBrowser.addEventListener("DOMWindowCreated", function () {
-        window.content.document.addEventListener("click", function (e) {
-            if (e.ctrlKey) {
-                document.getElementById("urlbar").handleRevert();
-            }
-        }, false);
-    }, false);
 	//中键点击bookmark菜单不关闭
 	try {
         eval('BookmarksEventHandler.onClick =' +
