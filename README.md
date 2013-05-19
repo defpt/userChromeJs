@@ -4,7 +4,7 @@
 
 -rebuild_userChomre.uc.xul 橙色菜单工具栏版，脚本主页@Mozest论坛,这里只是修改了下图标以便配合火狐橙色菜单  http://g.mozest.com/thread-41859-1-1,
 
--HistoryMenu.uc.js 是历史按钮菜单，里面带最近关闭的标签页
+-HistoryMenu.uc.js 简单的历史按钮、右击恢复关闭的标签
 
 -JsToolsMenu.uc.js 是一些小工具，做成了按钮菜单
 
