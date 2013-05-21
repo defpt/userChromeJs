@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay>
+<!--
+// ==UserScript==
+// @name           Kaomoji.uc.xul
+// @namespace      http://d.hatena.ne.jp/Griever
+// @include        main
+// ==/UserScript==
+ -->
+<overlay id="menu_overlay"  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+
+var kaomoji = {
+	list : [
+		"谢谢楼主的分享!这个绝对要顶！！！" ,
+		"纯支持下……ʅ（´◔౪◔）ʃ",
+		"这个不错，要支持……" ,
+		"坐等楼下高手解答……⊙_⊙",
+		"楼上正解……ʅ（´◔౪◔）ʃ" ,
+		"多谢解答…… ╮（╯◇╰）╭" ,
+		"不客气，大家互相帮助……╮（╯◇╰）╭",
+		"不明真相的围观群众……ʅ（´◔౪◔）ʃ" ,
+    "☆.。.:*(嘿´Д｀嘿).。.:*☆",
+    "@_@",
+    "（#￣▽￣#）",
+    "～>_<～",
+    "╮（╯◇╰）╭",
+    "ʅ（´◔౪◔）ʃ",
+	],
+	init : function(){
+		var popup = document.getElementById('kaomoji-popup');
+		this.list.forEach(function(elem, index){
+			var menuitem = document.createElement('menuitem');
+			menuitem.setAttribute('label', elem);
+			menuitem.setAttribute('accesskey', index%10);
+			menuitem.setAttribute('oncommand', 'if(gContextMenu.onTextInput) kaomoji.insert(gContextMenu.target, this.label)');
+			popup.appendChild(menuitem);
+		}, this);
+
+		this.contextMenu = document.getElementById('kaomoji-context-menu');
+		this.contextMenu.setAttribute('label', "快速回复");
+		document.getElementById('contentAreaContextMenu').addEventListener('popupshowing', this, false);
+	},
+	uninit : function(){
+		document.getElementById('contentAreaContextMenu').removeEventListener('popupshowing', this, false);
+	},
+	handleEvent : function(event){
+		this.contextMenu.hidden = !gContextMenu.onTextInput;
+	},
+	insert : function(obj, word){
+		var nStart = obj.selectionStart;
+		var nEnd = obj.selectionEnd;
+		var sTop = obj.scrollTop;
+
+		var strValue = obj.value.substring(0, nStart) + word + obj.value.substring(nEnd, obj.value.length);
+		obj.value = strValue;
+		obj.setSelectionRange(nStart + word.length, nStart + word.length);
+		obj.scrollTop = sTop;
+	},
+};
+setTimeout(function(){ kaomoji.init(); }, 1000);
+window.addEventListener('unload', function(){ kaomoji.uninit(); }, false);
+
+	]]></script>
+	<popup id="contentAreaContextMenu">
+		<menu label="顔文字" id="kaomoji-context-menu" accesskey="F" insertbefore="context-undo">
+			<menupopup id="kaomoji-popup" style="max-width:25em;"/>
+		</menu>
+	</popup>
+</overlay>
+
