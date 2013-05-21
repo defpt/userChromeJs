@@ -8,6 +8,8 @@
 
 -JsToolsMenu.uc.js 是一些小工具，做成了按钮菜单
 
+-JsTranslator.uc.js 翻译按钮合集
+
 -MyMenu.uc.js 是自制菜单，我把橙色菜单隐藏了，用这个来替换橙色菜单
 
 -MyTabPlus.uc.js 是整理收藏的自用标签增强
