@@ -23,17 +23,13 @@
 ![rebuildAppmenu](http://a.ikafan.com/attachment/forum/201303/28/18335330gzqae3gygyia0e.png)
 ![论坛灌水](http://d.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=e6b364ca21a446237acaa66aa8190333/4034970a304e251f1e5bfa48a686c9177e3e53d5.jpg)
 
-一些大神的脚本资源：
-
 紫云飞原创脚本： http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html
 
 饭友ywzhaiqi自用脚本  https://github.com/ywzhaiqi/userChromeJS
 
 饭友lastdream2013自用脚本  https://github.com/lastdream2013/userChrome
 
-https://github.com/alice0775/userChrome.js
+原创资源： https://github.com/alice0775/userChrome.js
 
-https://github.com/Griever/userChromeJS
+原创资源：https://github.com/Griever/userChromeJS
 
-
-https://bitbucket.org/zbinlin
