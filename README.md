@@ -25,14 +25,14 @@
 
 一些大神的脚本资源
 
+紫云飞原创脚本： http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html
+
 https://github.com/alice0775/userChrome.js
 
 https://github.com/Griever/userChromeJS
 
-https://github.com/ywzhaiqi/userChromeJS
+饭友ywzhaiqi自用脚本  https://github.com/ywzhaiqi/userChromeJS
 
-https://github.com/lastdream2013/userChrome
-
-http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html
+饭友lastdream2013自用脚本  https://github.com/lastdream2013/userChrome
 
 https://bitbucket.org/zbinlin
