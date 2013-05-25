@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Historymenu.uc.js
 // @namespace            Historymenu@gmail.com
-// @description          简单的历史按钮、右击恢复关闭的标签
+// @description          简单的历史按钮、左键点击打开菜单，右键点击恢复最后关闭的标签
 // @author               defpt
 // @charset              UTF-8
 // @version              1.0.2 2013.5.19
@@ -18,7 +18,7 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		Historymenu.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
 		Historymenu.setAttribute("type", "menu");
 		Historymenu.setAttribute("removable", "true");
-		Historymenu.addEventListener("click",function(event){event.preventDefault();event.stopPropagation();if(event.button==2) 					undoCloseTab();}, false);
+		Historymenu.addEventListener("click",function(event){if(event.button==2){event.preventDefault();event.stopPropagation();undoCloseTab();}}, false);
 		Historymenu.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKySURBVDhPZVPdS9NhFN51f0GXQQrVVJxflLqlpo6yINCbELzRXQROpvNjfs+PpkaCLqMPUbtRUEmcF7rQTXSI5idleKsItYhQZm7anHs65+BvCP7g7P3tfd/nOec85/mpMqxWcNxvbpY1u60NuqYmqCsqEGU0StwuL0daYyNy6OzyXQ4hUDYyKRJqauS/ZXgY72dn8YHCOjYmYE11dQSoYFTKC68ptbV4MTGB3z4fAqen8B4e4ufBAf6enMDn9+P1zAzu1ddLhQomQsDg0aUl8POOsuZ1dCCtoQE6AmTT+UuHA8GzM7i3t5FK+4wTguzWViRQaTbKzI9xcBCxZjMSqRVDXx+mFhagNhgQR5o86+lB6PwcH+fnEV9VBcaquByOw+Nj9M/NiXj69nYkEYG5vx8rGxuIKihAbkuLgFrGxxEKhfC4sxNaElZ1hxSuGxnBaTCIRzabbGbRZQ1dNvT2YmF5Gdf1emjoXorFIm39OToSPTiZ6mZpqWT+RYKlE5j14LhLFbydnMTy6ip0hYUotdvxnFrSmEz4truLma0tGfEVAh5lOrWUU1eHzy4X1tfXUUNCuhYX4fJ4kFhSgi87O3AqBLeIkfvy09hyL0yUReLEEHERkXloMtfUatzIy0N0fj5iioux5/VKUjaYintiNZng1dSUTIBNI1pQz08rKxFbVIRMqiieAKaBAYTDYRR0d4seMkZW943TKQc8qjgCZZCQOiJJJpCWPMIufEgi+wIBONbWBPOAx5hxYQh22DyZhKfRPDoqeiRRBckETqUz09AQDmjUX/f2RGTthRsjTuTeuaQBtxsnRMJ2/r6/L/GD7PyPXPhpZUVE5nu8ihMZrJDwyqU+6eqCfXoa05ubMi7+oLhnPuPMClgq4J/LJKwJX4ohk0SXlUmw2UTsK5+zFf8BgHKPDXrUClwAAAAASUVORK5CYII=)";
 		navigator.palette.appendChild(Historymenu);
 		
