@@ -1,6 +1,6 @@
 一些自用（包括自写以及修改）的UC脚本，其中：
 
--EasyDrag.uc.js 从紫云飞大大博客定制的拖拽，
+-EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
 
 -rebuild_userChomre.uc.xul 橙色菜单工具栏版，脚本主页@Mozest论坛,这里只是修改了下图标以便配合火狐橙色菜单  http://g.mozest.com/thread-41859-1-1,
 
