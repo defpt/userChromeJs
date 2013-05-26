@@ -1,11 +1,10 @@
 // ==UserScript==
-// @name                  EasyDrag.uc.js
-// @namespace             EasyDrag@gmail.com
-// @description           从紫云飞大大博客定制的自用拖拽，请到56行自行设置图片保存路径
-// @charset               UTF-8
+// @name               EasyDrag.uc.js
+// @namespace          EasyDrag@gmail.com
+// @description        从紫云飞大大博客定制的自用拖拽，请到55行自行设置图片保存路径
 // ==/UserScript==
 location == "chrome://browser/content/browser.xul" && (function(event) {
-  var self = arguments.callee;
+	var self = arguments.callee;
 	if (!event) {
 		["dragstart", "dragover", "drop"].forEach(function(type) {
 			gBrowser.mPanelContainer.addEventListener(type, self, false);
@@ -53,7 +52,7 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 					}
 					if (direction == "L") {
 						//下载图片(指定位置不弹窗)
-						var path = "D:\\defpt\\Pictures";//请自行设置图标保存路径
+						var path = "D:\\defpt\\Pictures";
 						var uri = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI(event.dataTransfer.getData("application/x-moz-file-promise-url"), null, null)
 						var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 						file.initWithPath(path);
