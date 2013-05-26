@@ -4,24 +4,23 @@
 // @description          几个常用JS工具
 // @author               defpt
 // @charset              UTF-8
-// @version              1.0.1  2013.02.25 
+// @version              1.0.2  2013.05.25 
 // ==/UserScript==
 (function ToolsBtn() {
     function createBtn() {
-	    //注释部分为可拖动按钮
-	    //var navigator = document.getElementById("navigator-toolbox");
-		//if (!navigator || navigator.palette.id !== "BrowserToolbarPalette") return;
+	    var navigator = document.getElementById("navigator-toolbox");
+		if (!navigator || navigator.palette.id !== "BrowserToolbarPalette") return;
 		var Btn = document.createElement("toolbarbutton");
 		Btn.id = "JsTools-menu";
 		Btn.setAttribute("type", "menu");
 		Btn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
 		Btn.setAttribute("removable", "true");
-		Btn.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC0SURBVDhPzZHLDcMgDIa7XmdhlIzRXHKGCciBO5kAsQAbuNiJCQ9HStVDa+m/+PFhfj9ezxm+0V8CVgjQhVu7nlMjQBnQaoNEkwFsX+8kf2E6dogbaM4V6B5pMZQXAXo5WsvqBnzERAKv2l4RYB2Nl1dQDK1zKAHAr2UHprbGkDovmMh/5XUz0AUIDv3IF4oJUuXNCBgMPDfao70MATxRsXC9/pUIYF19oPvDKMHEz/RrwAxvW9HO7DPaCHYAAAAASUVORK5CYII=)";
+		Btn.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIJSURBVDhPjZPLa1pBGMXNoyFZZJNCA2ZTkoBKFzW+Dco18YH4BK8asD5waUERuogYiDtJ2rjJzkUhS+0f0ErARTEgWdukiy4abH1ck2opuNWer1whELX54DD3zpz53ZkzcwXD4XCuVCptqtXqdxKJ5KtYLP4DXeP9baVSWR8MBk8F0wqAxUwmozOZTOcGg6FrtVrvLBbLHQC/pVJppVwub8DzhLc/LAzO4Cur0G6xWNyPRqMXXq+XI+n1+i7DMEcYE/L2h9Xv99dgWKFnwJ5Xq9U9j8fDhcPhpsvl6gBwPRUgEok+x+NxhkykRCLBYgu3kUikGQgEWjqdrj0VoNVqv2Gvv9BmkUFaqVQ27HY7NwK43e6rqYBYLHZmNpsptB7J6XTe0kQCBIPBps1m+44V7kyE1Ot1BsZL2i/Lsm2aHAqFmpQByeFwdORy+U/0u8dC0Pms1Wo50+n0GSZeAdLA17/4/f4bgpEoE5lMxmFrryZBliANZIdYaguFwhtAftyHKBSKrtFofI1xIU5slp8+vmAS5fP5Q5/P9y9MEuWDkHs4mQMessDbxxdML3K53PEoGxJlRbdUo9GcEIS3Ti6YXmaz2VOshKNwCULHrFKpOo8CUMG4lUql3tNK6HjpmgP26dEA7HUeZlUymfxAmeDufKzVag70LfOW/xcgi5iwDXnwbECL/0cg+AvF50+3dSE9eAAAAABJRU5ErkJggg==)";
 		Btn.setAttribute("label","JsTools");
 		//Btn.setAttribute("tooltiptext","JsTools");
-		//navigator.palette.appendChild(Btn);
+		navigator.palette.appendChild(Btn);
 		//可选位置status-bar  urlbar-icons addon-bar alltabs-button TabsToolbar go-button
-        document.getElementById("urlbar-icons").appendChild(Btn);
+        //document.getElementById("urlbar-icons").appendChild(Btn);
 		
 		Popup = document.createElement("menupopup");
 		//Popup.setAttribute("position", "after_end");//适合放右边
@@ -74,6 +73,11 @@
             label: "宽度匹配",
             command: "AutoWidth();",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGXSURBVDhPYxh4MHHiRPv///8zQrlEA5Ce/v5+B4aWlpZX9fX1TFBxogFIT3Nz8yu4AatWrWI+fPiwIFAOp2tAtoLUgNSiGLB//36WdevWuU2YMKEZKMECVY8BQHIgNRs2bHABscEGtLa2vt66dasrkHOdm5v77Zw5c3iBhhpkZ2ebAA0W2bZtmyiI3d7ert/Z2ckLUgNUew1kCFDda4a2trbP4uLi30RERP5zcXG9rays1BESEvouLCz8u66uLrampiYOyP8NEisrK9MGqQGpFRMT+wbSCzLgG5Dzi4+P7z8nJ+fb9PR0fUFBwV8CAgL/srKykjIyMlJAbCD+mZycrMfBwfGWl5cXZMAvoOu/gb2wePHilLS0tBcgA2bOnCkC9F8YUGPsmjVrVEE4NTU1FuiaUJAcyACgQc8XLVqUDPYCKCCAfuVYsGBBOtC50/AFItASVqA3pgPVpoH0gAMRRAA1MQEDi/3IkSPK+BIVSA6kBqQWpAfFAKgaogHcAGDUhJOblDs6OiIYQKkKKkYyoEQvFDAwAACRUudRsBI1mwAAAABJRU5ErkJggg==",
+        },
+		{
+            label: "站内搜索",
+            command: "InSearch();",
+            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIOSURBVDhPtZLfa1JhGMc9x58cPXO1ZjmYHgw0EHLMYeqlTjcGccRdDXSciygo/LGrunNzxIaDHdxYti5KNliigyAiGOxqGFab0fQP8Ebv/Bu072untrJBI/rCh3Pe532e7/u8P2T/QxTQgpuAA4OABn+lAcCDVbAL8kAEc+AaIOYXigUPwKFcLj/V6XRVcKJSqb4i9gE8BgbwRxMKRdP4HjAMc+zxePLpdDqRyWQe+f3+nFar/URRVBk5YeSoexW/SYPJJfDFbre/KpVKdxqNxmC73R4oFArjMFxXKpWfNRrNc5Zlh6SaM9lsthG0ug0++ny+e7FY7Ocq3W5XEQgE7ur1+vcKheINQje+z5xTMBgchfMLmqaPOI6bdzqdSmmKiDaZTJOY38eZvDYYDNel+JmKxaLObDYvos0jsInQLUBMyPWZYJzA6kVsb8Xtdl9FrE9UNBqdMRqN+zist4Bc4yyYAQmMN3A+216vV4hEIuSN9KtWq10RBOGh1WrNq9XqPRS8BM/wL6L1NdIZxk+ROgFUvaLzwmFR5XJ5JJfL8fF4/AnP88tgMZlMLmSz2fsul2sV29hB6haYAnJS94uISavVYur1+milUrkNw7FqtWpuNptDoihOORyODVzlO5CyWCx6qaxfxAjQEr2XBzMWnUyHQqG1cDgspFIpppd8GZHuYMh1Op3hH8b/KJnsG8oVmLKVinkyAAAAAElFTkSuQmCC",
         },
         {
             label: "自动刷新",
@@ -217,6 +221,9 @@ loadURI("javascript:document.body.oncopy=null;void(0);");}
 //宽度适配
 function AutoWidth(){
 loadURI("javascript:(function(){function%20t(f){a=d.createNodeIterator(d,1,f,false);while(a.nextNode()){}}var%20d=document;t(function(e){x=e.offsetLeft;l=e.offsetParent;while(l!=null){x+=l.offsetLeft;l=l.offsetParent}var%20w=d.documentElement.clientWidth-x;var%20s=e.style;if(s.marginLeft)w-=s.marginLeft;if(s.marginRight)w-=s.marginRight;if(s.paddingLeft)w-=s.paddingLeft;if(s.paddingRight)w-=s.paddingRight;if(s.borderSize)w-=s.borderSize;w-=d.defaultView.innerWidth-d.documentElement.offsetWidth;if(e.tagName=='IMG'){h=e.clientHeight*w/e.clientWidth;s.maxHeight=h}s.maxWidth=w+'px'})})();");}
+//站内搜索
+function InSearch(){
+loadURI("javascript:var%20ax=prompt('%E8%B0%B7%E6%AD%8C%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2\n%E8%AF%B7%E8%BE%93%E5%85%A5%E6%90%9C%E7%B4%A2%E5%85%B3%E9%94%AE%E5%AD%97','');if(ax.length>0){window.open('http://www.google.com/search?hl=zh-CN&client=opera&q=site:'+encodeURIComponent(location.hostname)+'%20'+encodeURIComponent(ax))};void(0)");}
 //高亮关键词
 function Hightlightword() {
 loadURI("javascript:%20(%20function%20(){%20var%20count=0,%20text,%20dv;text=prompt%20(%20%22Search%20phrase:%22,%20%22%22%20)%20;if%20(%20text==null%20%20||%20%20text.length==0%20)%20return;dv=document.defaultView;function%20searchWithinNode%20(%20node,%20te,%20len%20){%20var%20pos,%20skip,%20spannode,%20middlebit,%20endbit,%20middleclone;skip=0;if%20(%20%20node.nodeType==3%20%20){%20pos=node.data.toUpperCase%20()%20.indexOf%20(%20te%20)%20;if%20(%20pos>=0%20){%20spannode=document.createElement%20(%20%22SPAN%22%20)%20;spannode.style.backgroundColor=%22yellow%22;middlebit=node.splitText%20(%20pos%20)%20;endbit=middlebit.splitText%20(%20len%20)%20;middleclone=middlebit.cloneNode%20(%20true%20)%20;spannode.appendChild%20(%20middleclone%20)%20;middlebit.parentNode.replaceChild%20(%20spannode,middlebit%20)%20;++count;skip=1;%20}}%20else%20if%20(%20%20node.nodeType==1&&%20node.childNodes%20&&%20node.tagName.toUpperCase%20()%20!=%22SCRIPT%22%20&&%20node.tagName.toUpperCase!=%22STYLE%22%20){%20for%20%20(%20var%20child=0;%20child%20<%20%20node.childNodes.length;%20++child%20){%20child=child+searchWithinNode%20(%20node.childNodes[child],%20te,%20len%20)%20;%20}}%20return%20skip;%20}%20window.status=%22Searching%20for%20'%22+text+%22'...%22;searchWithinNode%20(%20document.body,%20text.toUpperCase%20()%20,%20text.length%20)%20;window.status=%22Found%20%22+count+%22%20occurrence%22+%20(%20count==1?%22%22:%22s%22%20)%20+%22%20of%20'%22+text+%22'.%22;%20})()%20;");}
