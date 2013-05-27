@@ -4,7 +4,7 @@
 // @description        从紫云飞大大博客定制的鼠标手势
 // ==/UserScript==
 location == "chrome://browser/content/browser.xul" && (function () {
-  ucjsMouseGestures = {
+	ucjsMouseGestures = {
 		lastX: 0,
 		lastY: 0,
 		sourceNode: "",
@@ -14,11 +14,18 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		hideFireContext: false,
 		shouldFireContext: false,
 		GESTURES: {
-			//打开新标签
+			//转到页首
 			"U": {
-				name: "\u6253\u5f00\u65b0\u6807\u7b7e",
+				name: "\u8f6c\u5230\u9875\u9996",
 				cmd: function() {
-					BrowserOpenTab();
+					goDoCommand("cmd_scrollTop");
+				}
+			},
+			//转到页尾
+			"D": {
+				name: "\u8f6c\u5230\u9875\u5c3e",
+				cmd: function() {
+					goDoCommand("cmd_scrollBottom");
 				}
 			},
 			//后退
@@ -93,20 +100,28 @@ location == "chrome://browser/content/browser.xul" && (function () {
 					undoCloseTab();
 				}
 			},
-			//转到页首
+			//打开新标签
 			"RU": {
-				name: "\u8f6c\u5230\u9875\u9996",
+				name: "\u6253\u5f00\u65b0\u6807\u7b7e",
 				cmd: function() {
-					goDoCommand("cmd_scrollTop");
+					BrowserOpenTab();
 				}
 			},
-			//转到页尾
-			"RD": {
-				name: "\u8f6c\u5230\u9875\u5c3e",
+			//下一页，配合nextpage.uc.xul脚本
+			"RDR": {
+				name: "NextPage",
 				cmd: function() {
-					goDoCommand("cmd_scrollBottom");
+					nextPage.next(true);
 				}
 			},
+			//上一页，配合nextpage.uc.xul脚本
+			"LDL": {
+				name: "PrevPage",
+				cmd: function() {
+					nextPage.prev();
+				}
+			},
+			
 		},
 		init: function () {
 			var self = this;
