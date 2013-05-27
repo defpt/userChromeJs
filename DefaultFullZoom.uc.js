@@ -12,7 +12,7 @@
 //@1/2/13 第二版
 var FullZoomConfig = new function () {
     //默认的缩放级别
-    this.defaultLv = 110;
+    this.defaultLv = 100;
     //只缩放文字
     this.Textmode = true;
     //是否应用于本地文件?
@@ -33,7 +33,7 @@ var FullZoomConfig = new function () {
     this.ignoreImageDocument = true;
 
     //快捷菜单的缩放项目,需要注意的是最大值和最小值不能超过zoom.minPercent和zoom.maxPercent
-    this.zoomValues = "0.85,0.9,0.95,1,1.05,1.15,1.25,1.35,1.45,1.55,1.65,1.75,2";
+    this.zoomValues = "0.85,0.95,1.05,1.15,1.25,1.35,1.45,1.55,1.65,1.75,2";
     //label
     this.fitToWindow = "\u9002\u5408\u7A97\u53E3\u5BBD\u5EA6";
     this.reset = "\u91CD\u7F6E";
@@ -1249,7 +1249,7 @@ var ZoomManager = {
 
 //ui
 function fullZoomUI() {
-    var statusbar = document.getElementById("TabsToolbar"); //status-bar navigator-toolbox urlbar-icons  TabsToolbar
+    var statusbar = document.getElementById("urlbar-icons"); //status-bar navigator-toolbox urlbar-icons  TabsToolbar
     var button = document.createElement("statusbarpanel");
     button.setAttribute("id", "statusbarZoomLevel");
     button.setAttribute("onmousedown", "fullZoomBtn.clickStatusLabel(event);");
@@ -1264,7 +1264,7 @@ function fullZoomUI() {
     popup.setAttribute("ignorekeys", "true");
     popup.setAttribute("position", "event.preventDefault();");
     popup.setAttribute("onpopupshowing", "event.stopPropagation();\
-  	event.target.shown = true;\
+		event.target.shown = true;\
         if (event.target == this)\
 	    fullZoomBtn.onPopupShowing(event)");
     popupSet.appendChild(popup);
