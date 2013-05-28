@@ -52,6 +52,11 @@
             command: "OpenBrowserWindow({private: true});",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIrSURBVDhP7ZDLTxNRGMUnJCZG1ya6c60L/xmXKDEaFsZIQBNAoLevoUMf03mVwrTzno7T0lLoYHBBCSomRhYkrowbY0xYsgIRaecwHUcT49qdv+Qk93z3Ozc3h/onjI4uXxh+Yl6ObOA7lwazyP4JWVhMR0dq5Gnj6iRj7tOS6TMlC0zJ7Gcko0cLlk+LtV6mtLrPLu1dG+wSgqEkZ+9RCUFHslQ/TRSNk3SwmJddcOoK2GodRaUByfbAa63AN5CtNJHi7H6Ss45I0fyREQ1QSV7rZ9U1FPU1cGYHnLUBee0NKs0unM13aO18AKusYL7sIiG5yOke8sYGBHcLtGD4VIrXzwbhlGgiVlB78aJ6NJtb9uclM/wBW3GDRQ2T84v+NCMfTiSkszlWBV/vgub1HjW7oB2IzktMZ/WDsIgAQshQLFf9rm68B29vYoaRT6KrkFhBO85p65jJal/DQVZZRaLcACN7n1mt64nGtpPkrWNp5RUKahsJoXaUFj1njm17E7nal7jkICbWwEj67fABkiuDVVvILDqB7Egm8vLzQG7o6eAuXnJAllpBDx2MJyuHYfgXhLO+Ce42yo2tQF1kyg6UzltU13fBaB6k5g6K1gswShtjtHw6/Ei5FUV/Un/96QrJt3fjBdWnJRtpwRiU1A9K7qcEE3TJxrNs1R+Pyx9HxrTrUexvaH7rxmSqOTVB3AeEaBdHAt0bV+7febw8dfehfDNa+89vKOocv0Vm+0fY7LgAAAAASUVORK5CYII=",
         },
+		{
+            label: "清理浏览痕迹", 
+            command: "Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);",
+            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhP1ZDRDYAgDES7fgdwAaeAiTqGWtJikRNjDB9ecumVvJYATRUv66a29r1+uMAHnmx4LwQjGz5B6DZkw1vlnCGMnFLqlzAzhKEP1sZO+YKSDUQ51ioRqdu1H2WvOqO5KL5f+1H22vyDQxG4y9ezjyLaAWyfFc3OVpTLAAAAAElFTkSuQmCC",
+        },
 		{label: "-",},//我是分割线
 		{
             label: "设置选项",
@@ -69,20 +74,20 @@
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHoSURBVDhPY8AHnAMiLZ0C4sygXNKAh4cHe25l69PsipbHWlqhbFBh4kF0emlWx9RF/0E4Or0kHSpMHDA2NmYtqOl8OGHuyv8gXFDded/e3p4FKk0YRKWXpLZNmv9/whygAUDcCmRHphUnQqVRgZWVH697UHxCYFxmT3hKwfa43PIHFa0T//fOWva/b/ZyMAaxy1sm/E/IrrwfnpK/HaTWFahHyz6UhyE6raiosnXS/9aJ8/53TFn4v3v6kv+9M5dhxSA5kBqQWpCe6PSifIZTpy7Ltk+ed61r+uL/3TOWEIVBatsnzr1y/vx5abA3jp89q9k2ac6dzqkL/3dNW4QXg9S0TZxz6+SFC2pgzTBw+PAJ/Za+2Q9BTgQpwoZBci39sx4cPXVBB6oNFTT3Tk1u7p/9v33yfKwYJNfWNyMeqhwTpBZUlzT3zfrfNmkeVgySS82rLIQqxwRpRbUzWoC2tE6YA8YtUAznA+XSimomQ5VjguyypiMgRc39s/7Xdk392zN13rGeafNP1HZO+QcSA8kB1RyAKscEeZWtT+o6pwKjaNbFjdv3JPz//58fiAU2bNud1Dph1qW6rqn/cyuaH0KVY4Jp85a1rNy4NefTp0+iUCE4+Pfvn+iq9dtyZ8xb1ggVAgIGBgDd8HTEqKvnWQAAAABJRU5ErkJggg==",
         },
 		{
-            label: "脚本管理",//其实就是打开chrome文件夹
+            label: "脚本管理",//
             command: "Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('UChrm', Components.interfaces.nsILocalFile).launch();",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABTSURBVDhPzYzBCcAwDMS8fgbIAJ00hXAFw1kP0zwiuI+QHUcY81nfpDbkDQrJGxSSNygkb1BI3shhZzq/4QHRiivuelBNGVMd5SljqqM8ZX+IeAGxoR/+53UAlAAAAABJRU5ErkJggg==",
         },
 		{label: "-",},//我是分割线
 		{
-            label: "about:config",//
-            command: "gBrowser.selectedTab = gBrowser.addTab('about:config');",
-            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVDhPjZK/S8NAFMcjiOIigl0ErYM4OTooDm4uTk4urv4JglvdrElr2pomubY2ufyy9kdaiCUiinXWRaQ4iIM4iQhuilUb79KrbTXQfuDBvXvv+73H46h2RMmYZkVtlU0aa5H0wVw2mx0ipd7gpMzGThx+o3BoXnpjgZ42LMtHyt2RS6WRXaCWsUEzGAE+AM0cIy3dcRynL5YyAkFOrjdNWKAdkfJ/KpVKPzl2EOLV+9Ykcl0zj72niCQ00bbtQZK6KDnLj0RfLQPoRIC+SMqdoGINvXalF8qTOMdmYVE9aRfjEOTDeVfwF4ZXnnEDWtZLWFC3GEG5+SvGAWBunUg6iSZ14CXwCrTMiyTMzxBpg4SS8zM8vPYSeAUdlz8jST2q2fYwsaAow7B8yL2At91qhB9sQj9rF7v3vOJ+NPTokwBzs8SigWaa49GUscxJ2SX8qfBdbF/f/DUQlMdi8XQ0oRZWcI4+3aUr7AZqdE1CgnJXrVYHpEx+AefBOHwlLd0R5Pw2FtFodHpPecfnMFDPSbk3uHQmgHZTc8WidgtgcYqUegdvn5cyE42Mon4AKKVSBCWmd9wAAAAASUVORK5CYII=",
-        },
-		{
             label: "userChrome.css",//编辑userChrome.css 
             command: "edituserchrome();",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKjSURBVDhPjVJLaxNRFB4QV90KLly46MKFC7dKLUGlSFEXUopShagIKkJBpBRKrdamryRN2jzbvGaSSZNMk3TymiSTNpmaaVPbxr4LahcRBLPwJ2RxnHOdIkWRfnCY4d7zffec7xzqf1g5+HG+UNnVpIprXfLml0vq8b9R2frWIso72mBcfBniC2k7w0kjRvvG+JSrNmx2/kwUKmk19W846EiH3uI97B0YhSGDDfp1RtAZ7WCwecFBc+CLpCFRWOVz8tZFlXIcT1+8ksYmXSphDmguA3OZJRCkKhRWdqH48QAW1vZreXmHVSnHcbfzoWRy0A2Lm23giygQThaBFyuQXfpEhPC7uLoPuVL1pkr7g7b2O5LSq0KONGzeMLiDPASiWZjlCxDiFyCek0ExEjLSBiTFFUkUt5tU6m+0XmuThicchGByMGD1hMDJRMEbSgIbzxMRvIsKHyCWLUMsv3xPpVJUtVo9fflKq/RubArm88vENKPNB5MzLPl3sXHwzCbAF04RkeC8CEFerC/vfW0mAjjfq63X997oJiCSKpIkg9UDE3YaTE4/EbK4gmD3RYgQVoUtKrmK3XCKypY3NTfab9Ve971XnJeIcUgcNc+QwOnoLW4S5ukAEUNR8wxb93C5CxSXKmlud9yvPX7WDQwnkD6x78HxKcC2MN6OmEng2ZGwYjowUYGmQskFbeeDJ7XOrkekRJw/GoVJuFgYfYPjMDBsgiG9lbQ27Y8pniRkP5fVUEJpvfS8u6eBAlgmly4RM3GM+Dq2gKU7aa6h+PM9XVx3E/OOIFU/n5l0s1qlvEMsE43EUHYf/HOCslCL9ahQpmNCuYUJZ5u3t+vHd+AIhkCgqadf18tEM4dsLC8brD6tO5Q8q16fHOnFyjkynhOBon4BGyz36HJLvuYAAAAASUVORK5CYII=",
+        },
+		{
+            label: "about:config",//
+            command: "gBrowser.selectedTab = gBrowser.addTab('about:config');",
+            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVDhPjZK/S8NAFMcjiOIigl0ErYM4OTooDm4uTk4urv4JglvdrElr2pomubY2ufyy9kdaiCUiinXWRaQ4iIM4iQhuilUb79KrbTXQfuDBvXvv+73H46h2RMmYZkVtlU0aa5H0wVw2mx0ipd7gpMzGThx+o3BoXnpjgZ42LMtHyt2RS6WRXaCWsUEzGAE+AM0cIy3dcRynL5YyAkFOrjdNWKAdkfJ/KpVKPzl2EOLV+9Ykcl0zj72niCQ00bbtQZK6KDnLj0RfLQPoRIC+SMqdoGINvXalF8qTOMdmYVE9aRfjEOTDeVfwF4ZXnnEDWtZLWFC3GEG5+SvGAWBunUg6iSZ14CXwCrTMiyTMzxBpg4SS8zM8vPYSeAUdlz8jST2q2fYwsaAow7B8yL2At91qhB9sQj9rF7v3vOJ+NPTokwBzs8SigWaa49GUscxJ2SX8qfBdbF/f/DUQlMdi8XQ0oRZWcI4+3aUr7AZqdE1CgnJXrVYHpEx+AefBOHwlLd0R5Pw2FtFodHpPecfnMFDPSbk3uHQmgHZTc8WidgtgcYqUegdvn5cyE42Mon4AKKVSBCWmd9wAAAAASUVORK5CYII=",
         },
 		{
             label: "代码片段速记器",
@@ -96,11 +101,6 @@
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVDhPYxg8IDc3l71jyvy8numLyiB4SUJ9fT0bVBo/ACnsmLLgKhD/65y68D8Id01b9Kdt8oISqBLcoL5rvgRQwzSYRmQMNORf97TFS/pmLZuKjHtmLu1v75+vADagecoc+fbJ8/ZhMwAf7pi6cBlFBrRNmbd41IBBY0D9lPkS7ZPnr2ifsuAhKbh18ryJYAMGGDAwAABwCaOsaCZu9QAAAABJRU5ErkJggg==",
         },
 		/*
-		{
-            label: "清理浏览痕迹", 
-            command: "Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);",
-            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhP1ZDRDYAgDES7fgdwAaeAiTqGWtJikRNjDB9ecumVvJYATRUv66a29r1+uMAHnmx4LwQjGz5B6DZkw1vlnCGMnFLqlzAzhKEP1sZO+YKSDUQ51ioRqdu1H2WvOqO5KL5f+1H22vyDQxG4y9ezjyLaAWyfFc3OVpTLAAAAAElFTkSuQmCC",
-        },
 		{
             label: "关于火狐",
             command: "openAboutDialog();",
