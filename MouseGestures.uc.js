@@ -107,21 +107,13 @@ location == "chrome://browser/content/browser.xul" && (function () {
 					BrowserOpenTab();
 				}
 			},
-			//下一页，配合nextpage.uc.xul脚本
-			"RDR": {
-				name: "NextPage",
+			//添加书签
+			"RULD": {
+				name: "\u6DFB\u52A0\u4E66\u7B7E",
 				cmd: function() {
-					nextPage.next(true);
+					PlacesCommandHook.bookmarkCurrentPage(true, PlacesUtils.bookmarksMenuFolderId);
 				}
 			},
-			//上一页，配合nextpage.uc.xul脚本
-			"LDL": {
-				name: "PrevPage",
-				cmd: function() {
-					nextPage.prev();
-				}
-			},
-			
 		},
 		init: function () {
 			var self = this;
