@@ -1,6 +1,8 @@
-一些自用（包括自写以及修改）的UC脚本，其中：
+自用（包括自写、修改、整理）UC脚本，其中：
 
 -EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
+
+-ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
 
 -externalFuncMenu.uc.js 以lastdream2013的externalFuncMenu.uc.js脚本为基础，添加了自用功能
 
