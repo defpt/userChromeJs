@@ -2,6 +2,8 @@
 
 -EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
 
+-externalFuncMenu.uc.js 以lastdream2013的externalFuncMenu.uc.js脚本为基础，添加了自用功能
+
 -rebuild_userChomre.uc.xul 橙色菜单工具栏版，脚本主页@Mozest论坛,这里只是修改了下图标以便配合火狐橙色菜单  http://g.mozest.com/thread-41859-1-1,
 
 -HistoryMenu.uc.js 简单的历史按钮、左键点击打开菜单，右击恢复最后关闭的标签
