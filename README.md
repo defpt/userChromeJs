@@ -4,7 +4,9 @@
 
 -ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
 
--externalFuncMenu.uc.js 以lastdream2013的externalFuncMenu.uc.js脚本为基础，添加了自用功能
+-externalFuncMenu.uc.js 以lastdream2013的externalFuncMenu.uc.js脚本为基础的右键菜单，添加了自用功能
+
+-ExternalFuncButtonM.uc.js 是按钮菜单，功能同上
 
 -rebuild_userChomre.uc.xul 来自Mozest论坛,这里只是修改了下图标以便配合自用火狐橙色菜单
 
@@ -14,7 +16,7 @@
 
 -JsTranslator.uc.js 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
 
--MyMenu.uc.js 是自制菜单，我把橙色菜单隐藏了，用这个来替换橙色菜单
+-MyMenu.uc.js、externalAppButton.uc.js 是两个自制菜单，我把橙色菜单隐藏了，用这个来替换橙色菜单
 
 -MyTabPlus.uc.js 是整理收藏的自用标签增强
 
