@@ -27,9 +27,9 @@
 -论坛灌水.uc.xul 自用版，添加了一些颜文字，右键菜单改为快速回复
 
 ![MyMenu](http://g.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=15e4445f8644ebf869716737e9c2a617/bba1cd11728b4710c7968090c2cec3fdfc032334.jpg)
-![菜单](http://a.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=42538ad8342ac65c6305657bcbc9c32c/80cb39dbb6fd5266a8c26aacaa18972bd5073698.jpg)
+![菜单](http://f.hiphotos.baidu.com/album/pic/item/4d086e061d950a7b5f73b87c0bd162d9f3d3c9c0.jpg?psign=5f73b87c0bd162d9f2d3572c11dfa9ec8b13632763d0edf8)
 ![JsToolsMenu](http://f.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=8ba0230c0d33874498c52c746134a8c4/d000baa1cd11728b3a94f17ec9fcc3cec3fd2c34.jpg)
-![多功能菜单](http://a.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=8a2c497de1fe9925cf0c6a5804932fe2/b21c8701a18b87d6977afaa7060828381f30fd4a.jpg)
+![多功能菜单](http://h.hiphotos.baidu.com/album/pic/item/a2cc7cd98d1001e98e51e2b7b90e7bec54e7971d.jpg?psign=8e51e2b7b90e7bec54e736d12f2eb9389a504fc2d562b325)
 ![rebuildAppmenu](http://a.ikafan.com/attachment/forum/201303/28/18335330gzqae3gygyia0e.png)
 ![论坛灌水](http://d.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=e6b364ca21a446237acaa66aa8190333/4034970a304e251f1e5bfa48a686c9177e3e53d5.jpg)
 
