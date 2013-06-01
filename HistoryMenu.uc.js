@@ -4,7 +4,7 @@
 // @description          简单的历史按钮、左键点击打开菜单，右键点击恢复最后关闭的标签
 // @author               defpt
 // @charset              UTF-8
-// @version              1.0.2 2013.5.19
+// @version              v2013.5.30
 // ==/UserScript==
 const XULNS = 'http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul';
 location == "chrome://browser/content/browser.xul" && (function () { 
@@ -19,7 +19,7 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		Historymenu.setAttribute("type", "menu");
 		Historymenu.setAttribute("removable", "true");
 		Historymenu.addEventListener("click",function(event){if(event.button==2){event.preventDefault();event.stopPropagation();undoCloseTab();}}, false);
-		Historymenu.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKySURBVDhPZVPdS9NhFN51f0GXQQrVVJxflLqlpo6yINCbELzRXQROpvNjfs+PpkaCLqMPUbtRUEmcF7rQTXSI5idleKsItYhQZm7anHs65+BvCP7g7P3tfd/nOec85/mpMqxWcNxvbpY1u60NuqYmqCsqEGU0StwuL0daYyNy6OzyXQ4hUDYyKRJqauS/ZXgY72dn8YHCOjYmYE11dQSoYFTKC68ptbV4MTGB3z4fAqen8B4e4ufBAf6enMDn9+P1zAzu1ddLhQomQsDg0aUl8POOsuZ1dCCtoQE6AmTT+UuHA8GzM7i3t5FK+4wTguzWViRQaTbKzI9xcBCxZjMSqRVDXx+mFhagNhgQR5o86+lB6PwcH+fnEV9VBcaquByOw+Nj9M/NiXj69nYkEYG5vx8rGxuIKihAbkuLgFrGxxEKhfC4sxNaElZ1hxSuGxnBaTCIRzabbGbRZQ1dNvT2YmF5Gdf1emjoXorFIm39OToSPTiZ6mZpqWT+RYKlE5j14LhLFbydnMTy6ip0hYUotdvxnFrSmEz4truLma0tGfEVAh5lOrWUU1eHzy4X1tfXUUNCuhYX4fJ4kFhSgi87O3AqBLeIkfvy09hyL0yUReLEEHERkXloMtfUatzIy0N0fj5iioux5/VKUjaYintiNZng1dSUTIBNI1pQz08rKxFbVIRMqiieAKaBAYTDYRR0d4seMkZW943TKQc8qjgCZZCQOiJJJpCWPMIufEgi+wIBONbWBPOAx5hxYQh22DyZhKfRPDoqeiRRBckETqUz09AQDmjUX/f2RGTthRsjTuTeuaQBtxsnRMJ2/r6/L/GD7PyPXPhpZUVE5nu8ihMZrJDwyqU+6eqCfXoa05ubMi7+oLhnPuPMClgq4J/LJKwJX4ohk0SXlUmw2UTsK5+zFf8BgHKPDXrUClwAAAAASUVORK5CYII=)";
+		Historymenu.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEWSURBVDhPY1DouvefEkxbA/bd/fp/3pkP/9V6scuDME4DDCY9+P/80+//IHDp+Y//9rMeYVWHYUDUimf/LwM1/Pv3D6wZBj79+Ps/Z9NLFLUgjGJA7Krn/3//RdWIDECGLrvw8b9KDw4D7rz5CVWKHwQteYppgNOcx1Bp3ADkuo4Db+GaUQxIWP0cqgwCQM5FDoenH3//D0ayGYbhBoACDwRef/nzP3vjy/9a/ff/P/7wCyy26/YXcKwga4RhuAGGkx/8/wN0YvchhBOXnP/4v3HvGzgfG0YJxL13vv4/8ejbf0UkMUIYxQDXuY//f/v19//aK5/+K3WjKsSFUQwAYVAUgVKe54InKOK4MIYBpGIKDbj3HwC5Ud3pME/iBgAAAABJRU5ErkJggg==)";
 		navigator.palette.appendChild(Historymenu);
 		
 		//历史菜单
