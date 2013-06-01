@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name           ExternalFuncButtonM.uc.js
-// @description    多功能菜单，代码来自lastdream2013，功能整理by defpt
+// @description    多功能菜单，功能整理by defpt
 // @include        main
 // @author         lastdream2013
 // @charset        UTF-8
+// @version        v20130530
 // ==/UserScript==
 var gExternalFuncButtonM = {
 	autohideEmptySubDirs: true,  //自动隐藏没有一个子项目的子目录菜单
