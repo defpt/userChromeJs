@@ -6,8 +6,8 @@
 // @charset        UTF-8
 // ==/UserScript==
 var gExternalFuncButtonM = {
-  autohideEmptySubDirs: true,  //自动隐藏没有一个子项目的子目录菜单
-	moveSubDirstoBottom: true,  //把主菜单下的子目录移动到最下面
+	autohideEmptySubDirs: true,  //自动隐藏没有一个子项目的子目录菜单
+	moveSubDirstoBottom: false,  //把主菜单下的子目录移动到最下面
 	moveablePositonOrInsertafter: true, //true : ToolbarPalette moveable button  false: insert appbutton in "insertafter" 
 	insertafter: 'alltabs-button',  // useless if moveablePositonOrInsertafter is true;  urlbar-icons addon-bar TabsToolbar alltabs-button
 	toolbar :
@@ -22,6 +22,7 @@ var gExternalFuncButtonM = {
 				name : '批处理功能',
 				image : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMwSURBVDhPrVJrSFNhGD7dr0hRatq9zNS8pKUdnKaV1nTpnOHUtbaotkWBS51h3lYblShpWTpXKqVdcKURZUWtNiuhDP3VBf9YBNrm1LlcoJ3zfW/udAqDfvbAy8vD+zwP7/fxEpOhVqun6vX6GSwlZAUCL6mSv4ClhGsGAFNY+jcmD47d5ajkFXGHC5/wbytvx+kLG9NVGSVhMnY8oSX+DgHil/nIVY6w8D7/Qv77+C8nLcmQ+24HKLsjQfsuFVRt4e/L7yXVCsSceJfWta2rM5ggs9V6qV+eKapOZY2FfZ1+iLxL0NzmuSihaQ6Krycoeet6KHy5BUSqwDLNecU6uV7+56kMFMaAjlOf0ijeE7exxNYVqOR5Dj5tzJsoFS55nIUFdd4oXTdv7NybZCr7sv8Dl4fZIi0tbZosXxC+37Cxm29aBKktC2lxMwkITfwKi+8/KBBcXoel9R605IY3KC6GmGXZ/CA2IGCm7HpQs6prKwgNnpSocQEIdcHY5hwCCv1gqs/RD0mXfEBU7Q6pVR5UkTEWxBr/WmZ1V0rm8UDFwbaVSNTkRcdqZ+CY0ythcHQYaIoGRCPot1uAq/PDwoZVSHLNFx29s2E85VCIkAlIzljurW2L7lS0rkW7qrxonbkG2j8Y8ZB9CJyjTnA6nWCz2+BFjwnrOmpw5s0gusgUjTQtSSYmwAVu5pKYI43LxsJzCXygbjdyOL7DyLAdbIM2GBgcgG8jDrDaBkF5PwNlPQvDpa92jWyMWBXC2glCVbZZLKlYNBqTR4xHFhNIeUuMbQND2GL9ClarFff3W/CJpzKcZQ6ltW+3j1d27XGkiDgJjNlgMEzjcrmzyEQ3YVaLL6RXe0LKFU/q5KN8PGyxY2vfAD5jPoFzX3Ooys8CaLDsBTJmGZckyTlMgJ49iKidQZtS1IuN0to1fQVmEva2bMDV5ip0vr2cVr7mQINdAmdNvN7suuiHEVEBAYyZmHTSv09TfiGw+mDN+p5Tz6NH8zq2geZjIlR28m2lzxJ6M3OCtax2uqv/E9t55FJ3d/f5kmJ/DcnzOMbbv7ogSep73MfHxy0yMtSblf0vEMRPhbul4Mu/IqIAAAAASUVORK5CYII="
 			},
+			{name: 'separator'}
 		],
 
 		//1.在这里定义好想要出现在主菜单下,或在主菜单子目录下的程序(subdir没有定义, 或在上面子目录名列表中找不到名称相匹配的[比如写错了], 就会出现在主菜单下面)；
@@ -151,7 +152,7 @@ var gExternalFuncButtonM = {
 					content.document.documentElement.appendChild(content.document.createElement("script")).src = "http://tongwen.openfoundry.org/NewTongWen/tools/bookmarklet_tw2.js";
 				},
 			},
-			{name: 'separator'},
+			//子菜单
 			{
 				name : 'Chrome 打开',
 				subdir : '备用功能',
