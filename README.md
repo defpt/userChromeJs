@@ -2,6 +2,8 @@
 
 -EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
 
+-DownloadPlus.uc.js  自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名
+
 -ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
 
 -externalFuncMenu.uc.js 以lastdream2013的externalFuncMenu.uc.js脚本为基础的右键菜单，添加了自用功能
