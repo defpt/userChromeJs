@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name               DownloadPlus.uc.js
 // @namespace          DownloadPlus@gmail.com
-// @description        自用综合整理（紫云飞、ywzhaiqi）的Download脚本，新建下载和下载重命名
+// @description        自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名
 // @include            chrome://browser/content/browser.xul
 // @include            chrome://browser/content/places/places.xul
 // @include            chrome://mozapps/content/downloads/unknownContentType.xul
