@@ -145,12 +145,11 @@ downloadPlaySound.init();
 			document.documentElement.removeAttribute("ondialogaccept");
 		}
 	}, false);
-	/*/另存为
+	//另存为
 	var saveas = document.documentElement.getButton("extra1");
 	saveas.setAttribute("hidden", "false");
 	saveas.setAttribute("label", "\u53E6\u5B58\u4E3A");
 	saveas.setAttribute("oncommand", 'var file=(dialog.promptForSaveToFileAsync||dialog.promptForSaveToFile).call(dialog,dialog.mLauncher,window,dialog.mLauncher.suggestedFileName,"",true);if(file){dialog.mLauncher.saveToDisk(file,1);dialog.onCancel=function(){};close()}')
-	*/
 })();
 //自动关闭下载产生的空白标签
 (function () {
