@@ -11,7 +11,6 @@
     location == "chrome://browser/content/browser.xul" && (function () {
         var button = document.getElementById("downloads-button");
         button.addEventListener("click", onClicked, false);
-    // 暂且用笨办法
         setInterval(function checkNewButton(){
            var button = document.getElementById("downloads-indicator");
            if(!button) return;
