@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name               DownloadPlus.uc.js
 // @namespace          DownloadPlus@gmail.com
-// @description        自用综合整理（Alice0775、紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名+另存为，
+// @description        自用综合整理（Alice0775、紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载、
+//                     下载重命名+另存为（另存为,据说有bug，先注释掉，期待改进），
 //                     自动关闭下载产生的空白标签，完成下载提示音
 // @include            main
 // @include            chrome://browser/content/browser.xul
@@ -146,7 +147,7 @@ downloadPlaySound.init();
 			document.documentElement.removeAttribute("ondialogaccept");
 		}
 	}, false);
-    /*/另存为
+    /*/另存为,据说有bug，先注释掉，期待改进
 	var saveas = document.documentElement.getButton("extra1");
 	saveas.setAttribute("hidden", "false");
 	saveas.setAttribute("label", "\u53E6\u5B58\u4E3A");
