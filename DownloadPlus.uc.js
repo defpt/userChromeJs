@@ -10,7 +10,7 @@
 // @include            chrome://mozapps/content/downloads/unknownContentType.xul
 // ==/UserScript==
 
-//下载提示
+//下载提示音
 (function () {
     var downloadPlaySound = {
     DL_START : "",
