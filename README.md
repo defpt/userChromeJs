@@ -2,7 +2,7 @@
 
 -EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
 
--DownloadPlus.uc.js  自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名
+-DownloadPlus.uc.js  自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名+另存为
 
 -ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
 
@@ -34,6 +34,7 @@
 ![多功能菜单](http://h.hiphotos.baidu.com/album/pic/item/a2cc7cd98d1001e98e51e2b7b90e7bec54e7971d.jpg?psign=8e51e2b7b90e7bec54e736d12f2eb9389a504fc2d562b325)
 ![rebuildAppmenu](http://a.ikafan.com/attachment/forum/201303/28/18335330gzqae3gygyia0e.png)
 ![论坛灌水](http://d.hiphotos.baidu.com/album/s%3D680%3Bq%3D90/sign=e6b364ca21a446237acaa66aa8190333/4034970a304e251f1e5bfa48a686c9177e3e53d5.jpg)
+![Download](http://e.hiphotos.baidu.com/album/pic/item/bf096b63f6246b60a84b24cfeaf81a4c500fa2c0.jpg)
 
 紫云飞原创脚本： http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html
 
