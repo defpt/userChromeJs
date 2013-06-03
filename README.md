@@ -2,7 +2,7 @@
 
 -EasyDrag.uc.js、MouseGestures.uc.js  从紫云飞大大博客定制的拖拽以及鼠标手势
 
--DownloadPlus.uc.js  自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名+另存为
+-DownloadPlus.uc.js  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 
 -ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
 
