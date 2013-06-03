@@ -1,11 +1,98 @@
 // ==UserScript==
 // @name               DownloadPlus.uc.js
 // @namespace          DownloadPlus@gmail.com
-// @description        自用综合整理（紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名+另存为
+// @description        自用综合整理（Alice0775、紫云飞、ywzhaiqi）的Download脚本，右键点击下载按钮新建下载以及下载重命名+另存为，
+//                     自动关闭下载产生的空白标签，完成下载提示音
+// @include            main
 // @include            chrome://browser/content/browser.xul
 // @include            chrome://browser/content/places/places.xul
 // @include            chrome://mozapps/content/downloads/unknownContentType.xul
 // ==/UserScript==
+
+//下载提示
+(function () {
+    var downloadPlaySound = {
+    DL_START : "",
+    DL_DONE  : "file:///C:/WINDOWS/Media/chimes.wav",//设置响铃
+    DL_CANCEL: "",
+    DL_FAILED: "",
+
+    observerService: null,
+    init: function sampleDownload_init() {
+        window.addEventListener("unload", this, false);
+        this.observerService = Components.classes["@mozilla.org/observer-service;1"]
+                                    .getService(Components.interfaces.nsIObserverService);
+        this.observerService.addObserver(this, "dl-start", false);
+        this.observerService.addObserver(this, "dl-done", false);
+        this.observerService.addObserver(this, "dl-cancel", false);
+        this.observerService.addObserver(this, "dl-failed", false);
+    },
+
+    uninit: function() {
+        window.removeEventListener("unload", this, false);
+        this.observerService.removeObserver(this, "dl-start");
+        this.observerService.removeObserver(this, "dl-done");
+        this.observerService.removeObserver(this, "dl-cancel");
+        this.observerService.removeObserver(this, "dl-failed");
+    },
+
+    observe: function (subject, topic, state) {
+        var oDownload = subject.QueryInterface(Components.interfaces.nsIDownload);
+        var oFile = null;
+        try{
+            oFile = oDownload.targetFile;  
+        } catch (e){
+            oFile = oDownload.target;     
+        }
+
+        if (topic == "dl-start"){
+        if (this.DL_START)
+            this.playSoundFile(this.DL_START);
+        }
+
+        if(topic == "dl-cancel"){
+            if (this.DL_CANCEL) this.playSoundFile(this.DL_CANCEL);
+        }
+        else if(topic == "dl-failed"){
+            if (this.DL_FAILED) this.playSoundFile(this.DL_FAILED);
+        }
+        else if(topic == "dl-done"){
+            if (this.DL_DONE) this.playSoundFile(this.DL_DONE);
+        }
+    },
+
+    playSoundFile: function(aFilePath) {
+        var ios = Components.classes["@mozilla.org/network/io-service;1"]
+              .createInstance(Components.interfaces["nsIIOService"]);
+        try {
+            var uri = ios.newURI(aFilePath, "UTF-8", null);
+        } catch(e) {
+            return;
+        }
+        var file = uri.QueryInterface(Components.interfaces.nsIFileURL).file;
+        if (!file.exists()) return;
+        this.play(uri);
+    },
+
+    play: function(aUri) {
+        var sound = Components.classes["@mozilla.org/sound;1"]
+              .createInstance(Components.interfaces["nsISound"]);
+        sound.play(aUri);
+    },
+
+    handleEvent: function(event) {
+        switch (event.type) {
+          case "load":
+            this.init();
+            break;
+          case "unload":
+            this.uninit();
+            break;
+        }
+    }
+}
+downloadPlaySound.init();
+})();
 //新建下载
 (function(){
     location == "chrome://browser/content/browser.xul" && (function () {
@@ -59,10 +146,21 @@
 			document.documentElement.removeAttribute("ondialogaccept");
 		}
 	}, false);
-    /*/另存为,据说有bug，期待大大们改进
+    /*/另存为
 	var saveas = document.documentElement.getButton("extra1");
 	saveas.setAttribute("hidden", "false");
 	saveas.setAttribute("label", "\u53E6\u5B58\u4E3A");
 	saveas.setAttribute("oncommand", 'var file=(dialog.promptForSaveToFileAsync||dialog.promptForSaveToFile).call(dialog,dialog.mLauncher,window,dialog.mLauncher.suggestedFileName,"",true);if(file){dialog.mLauncher.saveToDisk(file,1);dialog.onCancel=function(){};close()}')
-	*/
+    */
+})();
+//自动关闭下载产生的空白标签
+(function () {
+	eval("gBrowser.mTabProgressListener = " + gBrowser.mTabProgressListener.toString().replace(/(?=var location)/, '\
+      if (aWebProgress.DOMWindow.document.documentURI == "about:blank"\
+          && aRequest.QueryInterface(nsIChannel).URI.spec != "about:blank") {\
+        aWebProgress.DOMWindow.setTimeout(function() {\
+          !aWebProgress.isLoadingDocument && aWebProgress.DOMWindow.close();\
+        }, 100);\
+      }\
+    '));
 })();
