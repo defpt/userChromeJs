@@ -92,6 +92,7 @@ downloadPlaySound.init();
 })();
 //新建下载 by 紫云飞、ywzhaiqi
 (function(){
+    if (location != "chrome://browser/content/browser.xul") return;
     var downloads_button_id = "downloads-button";
     var downloads_indicator_id = "downloads-indicator";
     addButtonListener(downloads_button_id);
