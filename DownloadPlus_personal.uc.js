@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name           DownloadPlus_personal.uc.js
 // @namespace      DownloadPlus_personal@gmail.com
-// @description    新建下载，删除文件，下载窗口（下载重命名 + 双击复制链接 + 另存为），完成下载提示音，自动关闭下载产生的空白标签
+// @description    新建下载+下载重命名+双击复制链接+另存为+完成下载提示音+自动关闭下载产生的空白标签
 // @note           微改自用 ywzhaiqi 整合版
 // @include        chrome://browser/content/browser.xul
 // @include        chrome://mozapps/content/downloads/unknownContentType.xul
@@ -12,13 +12,12 @@
     switch (location.href) {
         case "chrome://browser/content/browser.xul":
             newDownload_button(); // 下载按钮右键点击新建下载
-            downloadsPanel_removeFile();// 硬盘删除下载文件
             download_sound_play();//下载提示音
             autoClose_blankTab();//自动关闭下载产生的空白标签
             break;
         case "chrome://mozapps/content/downloads/unknownContentType.xul":
             download_dialog_changeName(); // 下载改名
-            download_dialog_saveAs(); // 下载另存为
+            download_dialog_saveAs(); // 另存为
             download_dialog_showCompleteURL();// 下载弹出窗口双击链接复制完整链接
             break;
     }
@@ -145,50 +144,6 @@
             "name", "top=" + (window.screenY + 50) + ",left=" + (window.screenX + 50));
         }
     }
-    //下载按钮菜单中可直接硬盘删除文件 by 黑仪大螃蟹
-    function downloadsPanel_removeFile() {
-        var removeDownloadfile = {
-            removeStatus: function() {
-                var RMBtn = document.querySelector("#removeDownload");
-                var state = document.querySelector("#downloadsListBox").selectedItems[0].getAttribute('state');
-                RMBtn.setAttribute("disabled", "true");
-                if (state != "0" && state != "4" && state != "5")
-                    RMBtn.removeAttribute("disabled");
-            },
-            removeMenu: function() {
-                try {
-                    removeDownloadfile.removeStatus();
-                } catch (e) {};
-                if (document.querySelector("#removeDownload")) return;
-                var menuitem = document.createElement("menuitem"),
-                    rlm = document.querySelector('.downloadRemoveFromHistoryMenuItem');
-                menuitem.setAttribute("label", rlm.getAttribute("label").indexOf("History") != -1 ? "Delete File" : "\u4ECE\u786C\u76D8\u4E2D\u5220\u9664");
-                menuitem.setAttribute("id", "removeDownload");
-                menuitem.onclick = function() {
-                    var path = decodeURI(DownloadsView.richListBox.selectedItem.image)
-                        .replace(/moz\-icon\:\/\/file\:\/\/\//, "").replace(/\?size\=32$/, "")
-                        .replace(/\?size\=32\&state\=normal$/, "").replace(/\//g, "\\\\");
-                    if (DownloadsView.richListBox.selectedItem.getAttribute('state') == "2") {
-                        path = path + ".part";
-                    }
-                    var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-                    file.initWithPath(path);
-                    file.exists() && file.remove(0);
-                    new DownloadsViewItemController(DownloadsView.richListBox.selectedItem).doCommand("cmd_delete");
-                };
-                document.querySelector("#downloadsContextMenu").appendChild(rlm);
-                document.querySelector("#downloadsContextMenu").insertBefore(menuitem, rlm.nextSibling);
-                removeDownloadfile.removeStatus();
-            },
-            Start: function() {
-                document.querySelector("#downloadsContextMenu").addEventListener("popupshowing", this.removeMenu, false);
-            }
-        }
-        try {
-            eval("DownloadsPanel.showPanel = " + DownloadsPanel.showPanel.toString()
-                .replace(/DownloadsPanel\.\_openPopupIfDataReady\(\)/, "{$&;removeDownloadfile\.Start\(\);}"));
-        } catch (e) {}
-    }
     //显示真实完全地址showCompleteURL by 紫云飞
     function download_dialog_showCompleteURL() {
         var s = document.querySelector("#source");
@@ -196,12 +151,11 @@
         s.setAttribute("crop", "center");
         s.setAttribute("tooltiptext", dialog.mLauncher.source.spec);
         s.addEventListener("dblclick", function() {
-            Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper).copyString(dialog.mLauncher.source.spec)
+            Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper).copyString(dialog.mLauncher.source.spec);
         }, false);
     }
     //下载重命名 by 紫云飞
     function download_dialog_changeName() {
-        if (location != "chrome://mozapps/content/downloads/unknownContentType.xul") return;
         document.querySelector("#mode").addEventListener("select", function() {
             if (dialog.dialogElement("save").selected) {
                 if (!document.querySelector("#locationtext")) {
@@ -216,7 +170,7 @@
                 document.querySelector("#locationtext").hidden = true;
                 document.querySelector("#location").hidden = false;
             }
-        }, false)
+        }, false);
         dialog.dialogElement("save").selected && dialog.dialogElement("save").click();
         window.addEventListener("dialogaccept", function() {
             if ((document.querySelector("#locationtext").value != document.querySelector("#location").value) && dialog.dialogElement("save").selected) {
