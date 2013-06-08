@@ -4,8 +4,6 @@
 
 -DownloadPlus.uc.js  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 
--ScrollWithMouse.uc.js 来自Mozest.com 社区的鼠标拖动滚屏脚本如其名Scroll with the Mouse
-
 -ExternalFuncBtn.uc.js 多功能辅助按钮菜单，以lastdream2013的代码为基础，添加了自用功能
 
 -HistoryMenu.uc.js 简单的历史按钮、左键点击打开菜单，右击恢复最后关闭的标签
@@ -14,7 +12,7 @@
 
 -MyMenu.uc.js和ExternalAppBtn.uc.js 是两个类似的自制菜单，我把橙色菜单隐藏了，用这个来替换橙色菜单
 
--MyTabPlus.uc.js 是整理收藏的自用标签增强
+-TabPlus.uc.js 自用标签增强
 
 -UserCSSLoader.uc.js 样式管理自用微改版
 
