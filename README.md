@@ -1,4 +1,8 @@
-	自用（包括自写、修改、整理）UC脚本，[此处可看菜单按钮详情](https://github.com/defpt/userChromeJs/tree/master/ButtonMenu)，其中：
+  	一些脚本资源站点：[紫云飞原创脚本](http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html)、 [饭友ywzhaiqi自用脚本](https://github.com/ywzhaiqi/userChromeJS) 、 [饭友lastdream2013自用脚本](https://github.com/lastdream2013/userChrome)、 [Alice00775 原创资源](https://github.com/alice0775/userChrome.js)、 [Griever 原创资源](https://github.com/Griever/userChromeJS)、[Mozilla 社区脚本资源](https://j.mozest.com/zh-CN/)
+
+_______________________________________________________________________________________________________________________________________________________
+
+自用（包括自写、修改、整理）UC脚本，[此处可看菜单按钮详情](https://github.com/defpt/userChromeJs/tree/master/ButtonMenu)，其中：
 
 	* [Copylink.uc](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
 
@@ -26,5 +30,5 @@
 
 	* [论坛灌水.uc.xul](https://github.com/defpt/userChromeJs/blob/master/%E8%AE%BA%E5%9D%9B%E7%81%8C%E6%B0%B4.uc.xul) 自用版，添加了一些颜文字，右键菜单改为快速回复
 
-	一些脚本资源站点：[紫云飞原创脚本](http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html)、 [饭友ywzhaiqi自用脚本](https://github.com/ywzhaiqi/userChromeJS) 、 [饭友lastdream2013自用脚本](https://github.com/lastdream2013/userChrome)、 [Alice00775 原创资源](https://github.com/alice0775/userChrome.js)、 [Griever 原创资源](https://github.com/Griever/userChromeJS)、[Mozilla 社区脚本资源](https://j.mozest.com/zh-CN/)
+
 
