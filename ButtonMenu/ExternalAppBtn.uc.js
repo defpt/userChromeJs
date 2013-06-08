@@ -8,14 +8,15 @@
 // @version        v20130606
 // ==/UserScript==
 var gExternalAppbuttonMEx = {
-    autohideEmptySubDirs: true,//自动隐藏没有一个子项目的子目录菜单
-    moveSubDirstoBottom: true,//把主菜单下的子目录移动到最下面
+    autohideEmptySubDirs: true,
+    //自动隐藏没有一个子项目的子目录菜单
+    moveSubDirstoBottom: true,
+    //把主菜单下的子目录移动到最下面
     subdirPopupHash: [],
     subdirMenuHash: [],
     toolbar: {
         //定义主菜单下子目录,加{name: 'separator'}建立分隔线
-        subdirs: [
-        {
+        subdirs: [{
             name: '本地配置',
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABvSURBVDhPzZMxDoBACAR5v35AW/2C/9Ms2QIvC5ydk0zDQKLF2T9YtuNa9/OOYsbcMx5HuVKjDjtfX6gWZuR5/wtqDv0YqAiZnbKXMZDupEEg9+IwyuyUXUXI7JRdRcjslF3FGXmu30Lnp7eSY/YAKguIXvpmB7QAAAAASUVORK5CYII="
         },
@@ -38,20 +39,21 @@ var gExternalAppbuttonMEx = {
             path: '\\chrome\\userContent.css',
             subdir: '本地配置'
         },
-		{
-            name: 'prefs.js',
-            path: '\\prefs.js',
+        {
+            name: '本地 GitHub',
+            path: 'C:\\Users\\YI\\Documents\\GitHub',
             subdir: '本地配置'
         },
         {
-            name: 'user.js',
+            name: '编辑 user.js',
             path: '\\user.js',
             subdir: '本地配置'
         },
-		{
+        {
             name: 'separator',
             subdir: '本地配置'
         },
+        //下面四个子菜单项为本地批处理，可换为任意本地程序或路径
         {
             name: '更新奶牛规则.bat',
             path: 'D:\\Program Files\\MyFirefox\\ADMuncher.bat',
@@ -62,17 +64,17 @@ var gExternalAppbuttonMEx = {
             path: 'D:\\Program Files\\MyFirefox\\UserJsUpdata.bat',
             subdir: '本地配置'
         },
-		{
+        {
             name: '同步配置脚本.bat',
             path: 'D:\\Program Files\\MyFirefox\\Backupchrome.bat',
             subdir: '本地配置'
         },
-		{
+        {
             name: '备份本地配置.bat',
             path: 'D:\\Program Files\\MyFirefox\\BackupProfiles.bat',
             subdir: '本地配置'
         }],
-        //定义firefox的功能, command就是一小段程序
+        //定义firefox的功能
         configs: [
         //辅助功能
         {
@@ -186,10 +188,10 @@ var gExternalAppbuttonMEx = {
         var navigator = document.getElementById("navigator-toolbox");
         if (!navigator || navigator.palette.id !== "BrowserToolbarPalette") return;
         var ExternalAppBtn = document.createElementNS(XULNS, 'toolbarbutton');
-        ExternalAppBtn.id = "ExternalAppbtnMEx";
-        ExternalAppBtn.setAttribute("label", "扩展程序按钮");
+        ExternalAppBtn.id = "AppMenuButton";
+        ExternalAppBtn.setAttribute("label", "菜单按钮");
         ExternalAppBtn.setAttribute("onclick", "event.preventDefault();event.stopPropagation();");
-        ExternalAppBtn.setAttribute("tooltiptext", "扩展程序按钮,可以自定义扩展程序和功能");
+        ExternalAppBtn.setAttribute("tooltiptext", "菜单按钮,可以自定义功能和本地程序");
         ExternalAppBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
         ExternalAppBtn.setAttribute("type", "menu");
         ExternalAppBtn.setAttribute("removable", "true");
@@ -314,7 +316,7 @@ function updateToolbar() {
     var toolbars = document.querySelectorAll("toolbar");
     Array.slice(toolbars).forEach(function(toolbar) {
         var currentset = toolbar.getAttribute("currentset");
-        if (currentset.split(",").indexOf("ExternalAppbtnMEx") < 0) return;
+        if (currentset.split(",").indexOf("AppMenuButton") < 0) return;
         toolbar.currentSet = currentset;
         try {
             BrowserToolboxCustomizeDone(true);
