@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           ExternalFuncButtonM.uc.js
+// @name           ExternalFuncBtn.uc.js
 // @description    多功能菜单，功能整理by defpt，注意onenote以及chrome要定义在自己的本地路径
 // @include        main
 // @author         lastdream2013
@@ -11,7 +11,7 @@ var gExternalFuncButtonM = {
     //自动隐藏空子目录
     moveSubDirstoBottom: false,
     //子目录移动到最下面
-    moveablePositonOrInsertafter: false,
+    moveablePositonOrInsertafter: true,
     //可自定义按钮是否可移动
     insertafter: 'urlbar-icons',
     //不可移动时可选 urlbar-icons addon-bar TabsToolbar alltabs-button
@@ -314,13 +314,14 @@ var gExternalFuncButtonM = {
 
         var ExternalFuncBtn = document.createElement('toolbarbutton');
         ExternalFuncBtn.id = "assistantTools";
-        ExternalFuncBtn.setAttribute("label", "assistantTools");
+        ExternalFuncBtn.setAttribute("label", "辅助工具");
         ExternalFuncBtn.setAttribute("onclick", "event.preventDefault();event.stopPropagation();");
-        //ExternalFuncBtn.setAttribute("tooltiptext", "小书签工具");
+        //ExternalFuncBtn.setAttribute("tooltiptext", "辅助工具菜单");
         ExternalFuncBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
         ExternalFuncBtn.setAttribute("type", "menu");
         ExternalFuncBtn.setAttribute("removable", "true");
-        ExternalFuncBtn.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALySURBVDhPpdBbSJNxGAbwryipyC6CIBIlKTp5SjppdECDCs0181i22lBLt5a6TTenY9MdXN/m3GduztPYnJodTMQKScvKiR1JaGokBYaXdRvkvv2fzCiIiqAunpv3gR8PL2VOTMX/ZAHw+Xz/lL8CNK0faHQ3Ot283BO/638A7UGRI8Nr4jDGESqay+VMnb020NBoRbnkIuxWGg9v9WDmyb13PX3dut8CpqgED71i/dvbi7fgbnA0bHw+DDo1OyOKZt+ok1lXS0Pg2fgYHrvMuE5XZPwCfD/UUGEBNxU251y7MVBccgGvJbvJLM0lvd3tZPDB8OcpA8//wXH8yh8BS3KOkQlej0t74/z5JULCTToCxcVC6DUVhKnVs1admvQZhKN/BL5GLM5n5aoy9hiXG4iO2ESSEuPAT0+GIOuYn3P4IEo1muFfAFvCiRFLcNR7a8ieR9mZKZ+k8hKilGaSgoIsIpFLUUPrYGFMc+r5JcI8gekngA7dBWZ5BMbCj2IiaCeM62JRqJDg1f3LeDZA46l3CIN3ruFqp5N0us2k0yKY9Sbm+G5yz5UuAPmhW/3OpdvYyVRRwBeTzV5bHUfiDx0g7a4mMjU+SiaeD2N6fAQzE2OYfjmKyRf9GL3hgXdzCh5tSOqg6pZFkt6gGHKP2kaGFkVBFbqTJHCOQCIRo9ZsgKLGAKXNAXWDjVQ1OojW3hJw3b7BupQqdiI86dsP+lfGEi8VSRyrtoMTv4+czD0NZUUpqjTlyFNW4Ey1EWe1lyDQm5GrpYnd0wZGIiPKJSF+yuSsR2FmJtQR+3E8agdO5/HQcNmMJocVXR2tYOpqoCwvgVQiml8lgkatgGO+U5QW4wyXA8pkrIZMIfuYyj81eTQ9BTKZOOB22tDWasPQQC/6+7rh8bSAqTdBZ9BAq1ejUiVHgfg86u0WUClpHBQViSzCgnOmvHw+eIKcubSsNFRpK3Gn/zp6ezrn04WO9mYwViOqtSpIy4qRmsGFVluJL5fyhkpu7HjSAAAAAElFTkSuQmCC)";
+        //ExternalFuncBtn.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALySURBVDhPpdBbSJNxGAbwryipyC6CIBIlKTp5SjppdECDCs0181i22lBLt5a6TTenY9MdXN/m3GduztPYnJodTMQKScvKiR1JaGokBYaXdRvkvv2fzCiIiqAunpv3gR8PL2VOTMX/ZAHw+Xz/lL8CNK0faHQ3Ot283BO/638A7UGRI8Nr4jDGESqay+VMnb020NBoRbnkIuxWGg9v9WDmyb13PX3dut8CpqgED71i/dvbi7fgbnA0bHw+DDo1OyOKZt+ok1lXS0Pg2fgYHrvMuE5XZPwCfD/UUGEBNxU251y7MVBccgGvJbvJLM0lvd3tZPDB8OcpA8//wXH8yh8BS3KOkQlej0t74/z5JULCTToCxcVC6DUVhKnVs1admvQZhKN/BL5GLM5n5aoy9hiXG4iO2ESSEuPAT0+GIOuYn3P4IEo1muFfAFvCiRFLcNR7a8ieR9mZKZ+k8hKilGaSgoIsIpFLUUPrYGFMc+r5JcI8gekngA7dBWZ5BMbCj2IiaCeM62JRqJDg1f3LeDZA46l3CIN3ruFqp5N0us2k0yKY9Sbm+G5yz5UuAPmhW/3OpdvYyVRRwBeTzV5bHUfiDx0g7a4mMjU+SiaeD2N6fAQzE2OYfjmKyRf9GL3hgXdzCh5tSOqg6pZFkt6gGHKP2kaGFkVBFbqTJHCOQCIRo9ZsgKLGAKXNAXWDjVQ1OojW3hJw3b7BupQqdiI86dsP+lfGEi8VSRyrtoMTv4+czD0NZUUpqjTlyFNW4Ey1EWe1lyDQm5GrpYnd0wZGIiPKJSF+yuSsR2FmJtQR+3E8agdO5/HQcNmMJocVXR2tYOpqoCwvgVQiml8lgkatgGO+U5QW4wyXA8pkrIZMIfuYyj81eTQ9BTKZOOB22tDWasPQQC/6+7rh8bSAqTdBZ9BAq1ejUiVHgfg86u0WUClpHBQViSzCgnOmvHw+eIKcubSsNFRpK3Gn/zp6ezrn04WO9mYwViOqtSpIy4qRmsGFVluJL5fyhkpu7HjSAAAAAElFTkSuQmCC)";//机器人
+		ExternalFuncBtn.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJHSURBVDhPY4CB////87x8+VLl8ePHeiD8/PlzBZB4fX09E1gBPgDUzAxU6CIjI7NXT0/vnY6OzlNtbe1VCxcutAcZDFWGG9y/f5+jt7c3sKioaL+Hh8cjLy+vV46Ojl/V1NTuLF261AxoCAtUKSZYtWoVM4j+9++f0NmzZzV37txZmJycfDksLOyls7PzO19f34Vv3rzhAyvGBn78+KHR1dWVCjSI58qVK2wvXrwQj4mJ2RweHv4pODj4ZXR09KWnT59yQZVjggcPHhhJSko+8fb2ngc0yC0kJKTJ3t7+UWxs7HMg+3VaWtpxoBc4oMoxwYcPH5QjIyP3mpiY/FJXV79pYWHxGqjxbXx8/OOoqKhXwPA4tW7dOuVjx45xQrWgAlAAnTp1Khzo1ztAxZ+CgoJeA/3/Aqj5BdAVT93d3d8aGhruXrFihT7Ii1BtqODTp0+ily9fjq2qqtqYn59/vbi4+GxiYuKl0NDQl0CDnoJiREVF5fCiRYus9u/fjz1GgImIBxiAekBs+ezZM5OrV68GJCQknAQa8gYYkA+BLvmmpKR0duLEiW54oxUGzpw5wwV0FTAywi8C8Rugdx4AvflVVlb2an9/fxAw2nmhShEAaDIjDIP4R44c4QWGTxIwTK4CAxrkkvvAMPogLS197/bt20ZgTYQAyJA9e/Zk+/n53Y6Li3sOxI9sbGzeAPOLOVQJXgB2CdBFguvXry8DxtIjHx+fJ1OnTm0GikmAVRABwIYA/Sz95MmTeCBOArKVwTKUAwYGAIupKaEX0N6mAAAAAElFTkSuQmCC)";//扳手图标
 
         var ExternalFuncPopup = document.createElement('menupopup');
         ExternalFuncPopup.setAttribute('onpopupshowing', 'event.stopPropagation();gExternalFuncButtonM.onpopupshowing();');

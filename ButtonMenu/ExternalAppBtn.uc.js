@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name           externalAppButton.uc.js
+// @name           externalAppBtn.uc.js
 // @namespace      externalAppButton@gmail.com
-// @description    自用菜单，功能整理by defpt
+// @description    自用菜单，功能整理by defpt,注意设置自己的本地路径
 // @include        main
 // @author         lastdream2013
 // @charset        UTF-8
