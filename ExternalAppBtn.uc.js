@@ -8,19 +8,15 @@
 // @version        v20130606
 // ==/UserScript==
 var gExternalAppbuttonMEx = {
-    autohideEmptySubDirs: true, //自动隐藏没有一个子项目的子目录菜单
-    moveSubDirstoBottom: true,  //把主菜单下的子目录移动到最下面
+    autohideEmptySubDirs: true,//自动隐藏没有一个子项目的子目录菜单
+    moveSubDirstoBottom: true,//把主菜单下的子目录移动到最下面
     subdirPopupHash: [],
     subdirMenuHash: [],
     toolbar: {
         //定义主菜单下子目录,加{name: 'separator'}建立分隔线
         subdirs: [
         {
-            name: '配置文件',
-            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKjSURBVDhPjVJLaxNRFB4QV90KLly46MKFC7dKLUGlSFEXUopShagIKkJBpBRKrdamryRN2jzbvGaSSZNMk3TymiSTNpmaaVPbxr4LahcRBLPwJ2RxnHOdIkWRfnCY4d7zffec7xzqf1g5+HG+UNnVpIprXfLml0vq8b9R2frWIso72mBcfBniC2k7w0kjRvvG+JSrNmx2/kwUKmk19W846EiH3uI97B0YhSGDDfp1RtAZ7WCwecFBc+CLpCFRWOVz8tZFlXIcT1+8ksYmXSphDmguA3OZJRCkKhRWdqH48QAW1vZreXmHVSnHcbfzoWRy0A2Lm23giygQThaBFyuQXfpEhPC7uLoPuVL1pkr7g7b2O5LSq0KONGzeMLiDPASiWZjlCxDiFyCek0ExEjLSBiTFFUkUt5tU6m+0XmuThicchGByMGD1hMDJRMEbSgIbzxMRvIsKHyCWLUMsv3xPpVJUtVo9fflKq/RubArm88vENKPNB5MzLPl3sXHwzCbAF04RkeC8CEFerC/vfW0mAjjfq63X997oJiCSKpIkg9UDE3YaTE4/EbK4gmD3RYgQVoUtKrmK3XCKypY3NTfab9Ve971XnJeIcUgcNc+QwOnoLW4S5ukAEUNR8wxb93C5CxSXKmlud9yvPX7WDQwnkD6x78HxKcC2MN6OmEng2ZGwYjowUYGmQskFbeeDJ7XOrkekRJw/GoVJuFgYfYPjMDBsgiG9lbQ27Y8pniRkP5fVUEJpvfS8u6eBAlgmly4RM3GM+Dq2gKU7aa6h+PM9XVx3E/OOIFU/n5l0s1qlvEMsE43EUHYf/HOCslCL9ahQpmNCuYUJZ5u3t+vHd+AIhkCgqadf18tEM4dsLC8brD6tO5Q8q16fHOnFyjkynhOBon4BGyz36HJLvuYAAAAASUVORK5CYII="
-        },
-		{
-            name: '本地程序',
+            name: '本地配置',
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABvSURBVDhPzZMxDoBACAR5v35AW/2C/9Ms2QIvC5ydk0zDQKLF2T9YtuNa9/OOYsbcMx5HuVKjDjtfX6gWZuR5/wtqDv0YqAiZnbKXMZDupEEg9+IwyuyUXUXI7JRdRcjslF3FGXmu30Lnp7eSY/YAKguIXvpmB7QAAAAASUVORK5CYII="
         },
         {
@@ -28,91 +24,71 @@ var gExternalAppbuttonMEx = {
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ0SURBVDhPjVFLbBJRFB23ummauHBhYjTRtRKNmpoajS2aRtpC1NCWWoKgdLDUUhlKy8Aw/JlCKZ+ZQikw1Eqpn5LoxpV7E+PCuNGVMSZuaGLS4obre5NpICSanuRkXs5958657xKduNin6R64Z5i8dUdv7u1VdcnywTHxeO49E8sB5n3S8VKWDw53NPNxKV+F+OomMFF+S5YPjlR+425UWIdQWoRcsXJJlv8NpXrsrHrMLAyPkxGNjmQfzno+Rfl1iPBlMM24v2jGSQ7VgmodKSjV+j7Z1oJphjZ74znwL69JxMbF7IZEfA7IOhPLwhOXf0S2tWC2e+cjmTJwwrP/0reUBzsduSbbWrDM+R3hjCj9LZQuwf65k75EHiYslPXGoO4mGuuNatRUUAwMHCYyWfGqh+N/LvKlD5uv31IJQawFkwUI42ZtDKWKQLFxmPVwwKKRF0Ip0BqsRgIADjWbzVM7OzvdOJEnkjrvjgqSoZPSeyTWIJgsSl+zzUMRV/qHjg2Omt6ptCbxcv/tM9oH0w4PJ0iX2+lbWoWYUCqUK9usl0t/Zzj+W2HzlYIYNdlsLhQHRyIpFmZcYfBy/A86kvmFo/rR7JiucBroYLwHJ0Y8sbu7e1x6RLRGF4tW5EOXMV3B5Oe9vb2TjUbjNB1Kfd3Xnf4EkE/pC5KpHY9stI1BkXETTKvT/7tHqTnaPzRybno+9Gdfnw8sg9FCKWVbCxY7o6dRPO/iCuBGlDcGxinHsNHqmHQGEpKGawvBJBim5nSyrYV0tqDIFCq1nFitrZSqpXK1ZkNbOVKv17vK1W17trRVyYkvUK3yPJrMXZdtMgjiL/o0qQAqtCMRAAAAAElFTkSuQmCC"
         },
         {
-            name: 'about:Firefox',
+            name: '关于火狐',
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVDhPjZK/S8NAFMcjiOIigl0ErYM4OTooDm4uTk4urv4JglvdrElr2pomubY2ufyy9kdaiCUiinXWRaQ4iIM4iQhuilUb79KrbTXQfuDBvXvv+73H46h2RMmYZkVtlU0aa5H0wVw2mx0ipd7gpMzGThx+o3BoXnpjgZ42LMtHyt2RS6WRXaCWsUEzGAE+AM0cIy3dcRynL5YyAkFOrjdNWKAdkfJ/KpVKPzl2EOLV+9Ykcl0zj72niCQ00bbtQZK6KDnLj0RfLQPoRIC+SMqdoGINvXalF8qTOMdmYVE9aRfjEOTDeVfwF4ZXnnEDWtZLWFC3GEG5+SvGAWBunUg6iSZ14CXwCrTMiyTMzxBpg4SS8zM8vPYSeAUdlz8jST2q2fYwsaAow7B8yL2At91qhB9sQj9rF7v3vOJ+NPTokwBzs8SigWaa49GUscxJ2SX8qfBdbF/f/DUQlMdi8XQ0oRZWcI4+3aUr7AZqdE1CgnJXrVYHpEx+AefBOHwlLd0R5Pw2FtFodHpPecfnMFDPSbk3uHQmgHZTc8WidgtgcYqUegdvn5cyE42Mon4AKKVSBCWmd9wAAAAASUVORK5CYII="
-        }
-        ], 
+        }],
         //下面定义子菜单功能
         apps: [{
             name: 'userChrome.css',
             path: '\\chrome\\userChrome.css',
-            subdir: '配置文件'
+            subdir: '本地配置'
         },
         {
             name: 'userContent.css',
             path: '\\chrome\\userContent.css',
-            subdir: '配置文件'
+            subdir: '本地配置'
         },
-        {
+		{
             name: 'prefs.js',
             path: '\\prefs.js',
-            subdir: '配置文件'
+            subdir: '本地配置'
         },
         {
             name: 'user.js',
             path: '\\user.js',
-            subdir: '配置文件'
+            subdir: '本地配置'
         },
-		//本地程序
 		{
-            name: 'ADMuncher',
+            name: 'separator',
+            subdir: '本地配置'
+        },
+        {
+            name: '更新奶牛规则.bat',
             path: 'D:\\Program Files\\MyFirefox\\ADMuncher.bat',
-            subdir: '本地程序'
+            subdir: '本地配置'
+        },
+        {
+            name: '更新油猴脚本.bat',
+            path: 'D:\\Program Files\\MyFirefox\\UserJsUpdata.bat',
+            subdir: '本地配置'
         },
 		{
-            name: '油猴脚本更新',
-            path: 'D:\\Program Files\\MyFirefox\\UserJsUpdata.bat',
-            subdir: '本地程序'
-        }
-        ],
+            name: '同步配置脚本.bat',
+            path: 'D:\\Program Files\\MyFirefox\\Backupchrome.bat',
+            subdir: '本地配置'
+        },
+		{
+            name: '备份本地配置.bat',
+            path: 'D:\\Program Files\\MyFirefox\\BackupProfiles.bat',
+            subdir: '本地配置'
+        }],
         //定义firefox的功能, command就是一小段程序
         configs: [
-		//about:Firefox
-		{
-            name: 'about:config',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:config')",
-            subdir: 'about:Firefox'
-        },
-        {
-            name: 'about:cache',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:cache')",
-            subdir: 'about:Firefox'
-        },
-        {
-            name: 'about:firefox',
-            command: "openAboutDialog();",
-            subdir: 'about:Firefox'
-        },
-        {
-            name: 'about:home',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:home')",
-            subdir: 'about:Firefox'
-        },
-        {
-            name: 'about:plugins',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:plugins')",
-            subdir: 'about:Firefox'
-        },
-        {
-            name: 'about:support',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:support')",
-            subdir: 'about:Firefox'
-        },
-		//辅助功能
+        //辅助功能
         {
             name: '清理浏览痕迹',
             subdir: '辅助功能',
             command: "Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);"
         },
         {
-            name: '打开文件...',
-            subdir: '辅助功能',
-            command: "BrowserOpenFileWindow();"
-        },
-        {
             name: '网页另存为...',
             subdir: '辅助功能',
             command: "saveDocument(window.content.document);"
+        },
+        {
+            name: '打开文件...',
+            subdir: '辅助功能',
+            command: "BrowserOpenFileWindow();"
         },
         {
             name: 'separator',
@@ -133,14 +109,45 @@ var gExternalAppbuttonMEx = {
             subdir: '辅助功能',
             command: "toJavaScriptConsole();"
         },
+        //关于火狐
+        {
+            name: 'about:config',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:config')",
+            subdir: '关于火狐'
+        },
+        {
+            name: 'about:cache',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:cache')",
+            subdir: '关于火狐'
+        },
+        {
+            name: 'about:firefox',
+            command: "openAboutDialog();",
+            subdir: '关于火狐'
+        },
+        {
+            name: 'about:home',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:home')",
+            subdir: '关于火狐'
+        },
+        {
+            name: 'about:plugins',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:plugins')",
+            subdir: '关于火狐'
+        },
+        {
+            name: 'about:support',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:support')",
+            subdir: '关于火狐'
+        },
         //下面定义主菜单功能
         {
-            name: '重启浏览器',
+            name: '重启火狐',
             command: "Services.appinfo.invalidateCachesOnRestart() || Application.restart();",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKlSURBVDhPdZNLTBNhFIVngTuVmAgbF67cqLsmmPhqYkTRGImhhQCKtBKr8rJgabXSDoW2zLRT2tLH0DLAQLEQglJJfCQYYqIEiQutcUECCAt3rgppeCi/c8osLMGbnOTmnvPNvTNNqb1KcVGdW3ijSnW98m4ThB4z2f5/nS1S5ZVqGsMPjPaNViZEaA+f6vAJf1rZMMGsTPuQR0aOZ9flkqoTumZ6xRkQCReJk65I/Ovs5y8XHD5hiQ3FNrt6Rwk8ZJCVsZ1SXis/fN9gW3H3PCNeYZQwwb6Z7e3tfHjpdPro8vLPMwMjCYEJDa4jg2zWJbdrTSIbGiJeaQs24WS1psGvUCj2FVfci11RVVdMT0/nTLx5p5GuWEcWTAbGdqPdu+WJxsm/orkeUqN/+qGVDf5+7PCTUm3DuFJpzfFGY11uPkbAgKW09aZbDn8f4aTTdgub3Pxwpre6eKKurtdOTc0cobnoJhiwlO4RbZbejXR2iylPREw6A0LaJW3YLTY8ROpM7c9xtZnp/gEGLFXbYjMzQZE8cfgXUqlUHu0KTrGSuZeMNu4VHmC0cgtgwFLNls47dp9AWmyejYKiyoMWxt9s9/VJv4SYJczgKZXq/ciCAUsND08eM3cGttqkj1Zeozckk8lDTl90tsPbS5zd/RllemkGr7ym0UC7eQIGLC6iOjx8AqE6ky1dWHLz1Orqar44OsF4ePETNDDygsXskqqqABlk27nwywyMGp98e9LCBH7ZpCt0Tda1q2qN/rh0KiEkF0KPmU5vWUMGWTAyvlNjidfFMNo4nhja3KS61rRepqn/BqHHDB4yyMpYdn2cmzvtDgrvzU7/ltUVIlZWltRjBg8ZOb53Sf+BA/OLi+f64+PtkcGxQQj99/ml8/DkmFwU9RcBXOUTTWNTuwAAAABJRU5ErkJggg=="
         },
         {
-            name: '新建隐私窗口',
+            name: '隐私窗口',
             command: "OpenBrowserWindow({private: true});",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIrSURBVDhP7ZDLTxNRGMUnJCZG1ya6c60L/xmXKDEaFsZIQBNAoLevoUMf03mVwrTzno7T0lLoYHBBCSomRhYkrowbY0xYsgIRaecwHUcT49qdv+Qk93z3Ozc3h/onjI4uXxh+Yl6ObOA7lwazyP4JWVhMR0dq5Gnj6iRj7tOS6TMlC0zJ7Gcko0cLlk+LtV6mtLrPLu1dG+wSgqEkZ+9RCUFHslQ/TRSNk3SwmJddcOoK2GodRaUByfbAa63AN5CtNJHi7H6Ss45I0fyREQ1QSV7rZ9U1FPU1cGYHnLUBee0NKs0unM13aO18AKusYL7sIiG5yOke8sYGBHcLtGD4VIrXzwbhlGgiVlB78aJ6NJtb9uclM/wBW3GDRQ2T84v+NCMfTiSkszlWBV/vgub1HjW7oB2IzktMZ/WDsIgAQshQLFf9rm68B29vYoaRT6KrkFhBO85p65jJal/DQVZZRaLcACN7n1mt64nGtpPkrWNp5RUKahsJoXaUFj1njm17E7nal7jkICbWwEj67fABkiuDVVvILDqB7Egm8vLzQG7o6eAuXnJAllpBDx2MJyuHYfgXhLO+Ce42yo2tQF1kyg6UzltU13fBaB6k5g6K1gswShtjtHw6/Ei5FUV/Un/96QrJt3fjBdWnJRtpwRiU1A9K7qcEE3TJxrNs1R+Pyx9HxrTrUexvaH7rxmSqOTVB3AeEaBdHAt0bV+7febw8dfehfDNa+89vKOocv0Vm+0fY7LgAAAAASUVORK5CYII="
         },
@@ -167,8 +174,9 @@ var gExternalAppbuttonMEx = {
             command: "Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('UChrm', Components.interfaces.nsILocalFile).launch();",
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABTSURBVDhPzYzBCcAwDMS8fgbIAJ00hXAFw1kP0zwiuI+QHUcY81nfpDbkDQrJGxSSNygkb1BI3shhZzq/4QHRiivuelBNGVMd5SljqqM8ZX+IeAGxoR/+53UAlAAAAABJRU5ErkJggg=="
         },
-		{name: 'separator'}
-        ]
+        {
+            name: 'separator'
+        }]
     },
     _externalAppPopup: null,
     _isready: false,
