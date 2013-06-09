@@ -56,22 +56,22 @@ var gExternalAppbuttonMEx = {
         //下面四个子菜单项为本地批处理，可换为任意本地程序或路径
         {
             name: '更新奶牛规则.bat',
-            path: 'D:\\Program Files\\MyFirefox\\ADMuncher.bat',
+            path: '\\chrome\\Batch\\ADMuncher.bat',
             subdir: '本地配置'
         },
         {
             name: '更新油猴脚本.bat',
-            path: 'D:\\Program Files\\MyFirefox\\UserJsUpdata.bat',
+            path: '\\chrome\\Batch\\UpdataUserJs.bat',
             subdir: '本地配置'
         },
         {
-            name: '同步配置脚本.bat',
-            path: 'D:\\Program Files\\MyFirefox\\Backupchrome.bat',
+            name: '同步UC脚本.bat',
+            path: '\\chrome\\Batch\\SyncChrome.bat',
             subdir: '本地配置'
         },
         {
             name: '备份本地配置.bat',
-            path: 'D:\\Program Files\\MyFirefox\\BackupProfiles.bat',
+            path: '\\chrome\\Batch\\BackupProfiles.bat',
             subdir: '本地配置'
         }],
         //定义firefox的功能
