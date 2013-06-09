@@ -32,7 +32,7 @@
 
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 
-* [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/ButtonMenu/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)
+* [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)
 
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
 
