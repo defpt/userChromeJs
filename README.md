@@ -6,7 +6,7 @@
 ———————————————————————————————————————————————————————
 
 下面是一些自用（包括自写、修改、整理的）UC脚本，
-[此处可查看菜单按钮图样](https://github.com/defpt/userChromeJs/tree/master/ButtonMenu)
+[此处可查看菜单按钮图样](https://github.com/defpt/userChromeJs/blob/master/Picture/README.md)
 
 * [Copylink.uc.js](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
 
@@ -16,9 +16,9 @@
 
 * [EasyDrag.uc.js](https://github.com/defpt/userChromeJs/blob/master/EasyDrag.uc.js) 和 [MouseGestures.uc.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures.uc.js)  是从紫云飞大大博客定制的拖拽以及鼠标手势
 
-* [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ButtonMenu/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，[在此可下载配套批处理](https://github.com/defpt/Batch)，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ButtonMenu/MyMenu.uc.js)
+* [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，[在此可下载配套批处理](https://github.com/defpt/Batch)，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
 
-* [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ButtonMenu/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
+* [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 简单的历史按钮、左键点击打开菜单，右击恢复最后关闭的标签
 
