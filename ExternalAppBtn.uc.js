@@ -40,8 +40,8 @@ var gExternalAppbuttonMEx = {
             subdir: '本地配置'
         },
         {
-            name: '本地 GitHub',
-            path: 'C:\\Users\\YI\\Documents\\GitHub',
+            name: '编辑 prefs.js',
+            path: '\\prefs.js',
             subdir: '本地配置'
         },
         {
