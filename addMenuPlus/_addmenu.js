@@ -1,22 +1,23 @@
 //此配置基于ywzhaiqi修改版定制 by defpt
 // ===================== 橙色按钮菜单 ======================
-css('    /*=====橙色菜单定制=========*/\
-            #appmenu_newTab,\
-            #appmenu_newPrivateWindow,\
-            #appmenuPrimaryPane > hbox,\
-            #appmenu_find,\
-            #appmenu_find+menuseparator,\
-            #appmenu_savePage,\
-            #appmenu_sendLink,\
-            #appmenu_print,\
-            #tiletabs-appmenu+menuseparator,\
-            #tiletabs-appmenu,\
-            #appmenu_webDeveloper+menuseparator,\
-            #appmenu_fullScreen,\
-            #sync-setup-appmenu,\
-            #sync-syncnowitem-appmenu,\
-            #appmenu-quit,\
-            #appmenuSecondaryPane{display: none !important;}');
+css('/*=====橙色菜单定制=========*/\
+    #appmenu_newTab,\
+    #appmenu_newPrivateWindow,\
+    #appmenuPrimaryPane > hbox,\
+    #appmenu_find,\
+    #appmenu_find+menuseparator,\
+    #appmenu_savePage,\
+    #appmenu_sendLink,\
+    #appmenu_print,\
+    #tiletabs-appmenu+menuseparator,\
+    #tiletabs-appmenu,\
+    				#appmenu_webDeveloper,\
+    #appmenu_webDeveloper+menuseparator,\
+    #appmenu_fullScreen,\
+    #sync-setup-appmenu,\
+    #sync-syncnowitem-appmenu,\
+    #appmenu-quit,\
+    #appmenuSecondaryPane{display: none !important;}');
 app([{
             label : "重启浏览器",
             oncommand : "Services.appinfo.invalidateCachesOnRestart() || Application.restart();",
@@ -102,19 +103,25 @@ addFuncsub([{
             url : "about:config"
         }, {
             label : '打开文件...',
-            command : "BrowserOpenFileWindow();"
+            oncommand : "BrowserOpenFileWindow();"
         }, {
             label : '网页另存为...',
-            command : "saveDocument(window.content.document);"
-        }, {}, {
-            label : '清理浏览痕迹',
-            command : "Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);"
+            oncommand : "saveDocument(window.content.document);"
         }, {
-            label : '安全模式重启',
-            command : "safeModeRestart();"
+            label : '清理浏览痕迹',
+            oncommand : "Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);"
+        }, {}, {
+            label : "代码片段速记",
+            oncommand : "Scratchpad.openScratchpad();"
         }, {
             label : "重新加载配置",
             oncommand : "setTimeout(function(){ addMenu.rebuild(true); }, 10);"
+        }, {
+            label : '安全模式重启',
+            oncommand : "safeModeRestart();"
+        }, {
+            label : "DomInspector",
+            command : "Tasks:InspectPage"
         }
     ]);
 //===================== 标签右键菜单 ======================
@@ -226,8 +233,7 @@ openpageinsub([{
                 openWebPanel(content.document.title, content.location);
             },
             image : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAG2SURBVDhPYwirOPifEgw2ILr2GBAfJwlH1R55BDeAHBxYvus5iAYbEFi8i2Tsn78dYYBv3hYU7F+w5X9J76H/SfW74WJ++Vv+x1Tt+B9ethXM98ldjzDAI3MtHHtlrf1fM+nQ/ycvP/0/cfHJ/6Ta7f8jSjf/71148n/vguP/A/LXgdW5pixDGOCcvAyMXVKW/c9v3/n/3NUn/6/fefH/69cf/y9cf/b/1KXH/zfsufo/OH81XK1z0hKEAfZx88E4unT1/+nLjv7Pa974PyR/2f91Oy78f/vu4/8dh679D8pdBlcHwlZRsxAGWEXM+G8TNeN/YPaC/84Js8F8EPZMmfu/bdpOoPhCuBgMW4ZPQxhgGjwJiCdCMYiNwGYh2MUN/fsRBhj4dZOM9X1bEQZoezT+0/Fs+U8K1nKvvwc3QMmueLGqXfFmNduKOxoudf9BWMW58reaQ8U5kLiqfekmZKxiV7Je2TonB26AjIwFp6CgMb+SVd4UFfuK/wpWJZ8VLXJnSWsGqYqK2vOgY3FxPW4GBnsWuAEMEMAsZ57TL2+R80zGJKWUT8ZNCCqOE8ANIB8f/A8A6TwzNR33LdQAAAAASUVORK5CYII="
-        },
-		{
+        }, {
             label : "GDocs 中打开",
             condition : "nolink",
             url : "http://docs.google.com/viewer?url=%u",
