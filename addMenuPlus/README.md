@@ -5,6 +5,6 @@ addMenuPlus.uc.js 说明文档
 
 定制方法就不啰嗦了，看 [ywzhaiqi 修改版](https://github.com/ywzhaiqi/userChromeJS/tree/master/addmenuPlus) 即可，说的很清楚，很详细！！！放chrome路径下即可！！！
 
-效果图就是图中的样子
+效果就是图中的样子
 -------------
 ![addMenuPlus](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/addmenu.png?raw=true)
