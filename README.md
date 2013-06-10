@@ -1,12 +1,12 @@
-说明文档
+一些自用脚本的说明文档
 =======
-
 一些脚本资源站点：[紫云飞原创脚本](http://www.cnblogs.com/ziyunfei/archive/2011/11/25/2263756.html)、 [饭友ywzhaiqi自用脚本](https://github.com/ywzhaiqi/userChromeJS) 、 [饭友lastdream2013自用脚本](https://github.com/lastdream2013/userChrome)、 [Alice00775 原创资源](https://github.com/alice0775/userChrome.js)、 [Griever 原创资源](https://github.com/Griever/userChromeJS)、[Mozilla 社区脚本资源](https://j.mozest.com/zh-CN/)
 
-———————————————————————————————————————————————————————
-
-下面是一些自用（包括自写、修改、整理的）UC脚本，
+---------------
+下面是一些自用（包括自写、修改、整理的）UC脚本
 [此处可查看菜单按钮图样](https://github.com/defpt/userChromeJs/blob/master/Picture/README.md)
+
+* [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus)  使用外挂式配置方便的定制 Firefox 的各种菜单，比如：橙色菜单、链接右键菜单、页面右键菜单、标签右键菜单、甚至工具菜单（我没定制工具菜单）
 
 * [Copylink.uc.js](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
 
