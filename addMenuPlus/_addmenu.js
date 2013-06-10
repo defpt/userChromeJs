@@ -133,7 +133,7 @@ page([{
             insertBefore : "context-copylink"
         }, {
             label : "复制链接文本+URL",
-            text : "%LINK_TEXT%\n%URL%",
+            text : "%LINK_TEXT%\n%l",
             condition : "link",
             insertBefore : "context-copylink"
         }, {
