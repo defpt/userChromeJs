@@ -7,4 +7,4 @@ addMenuPlus.uc.js 说明文档
 
 效果图就是图中的样子
 -------------
-![addMenuPlus](https://github.com/defpt/userChromeJs/blob/master/Picture/addmenu.png?raw=true)
+![addMenuPlus](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/addmenu.png?raw=true)
