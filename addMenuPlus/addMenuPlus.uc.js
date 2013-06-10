@@ -8,7 +8,6 @@
 // @compatibility  Firefox 21
 // @charset        UTF-8
 // @version        0.0.7
-// @note           0.0.7 基于ywzhaiqi修改版定制 by defpt
 // ==/UserScript==
 /***** 説明 *****
 可添加的范围
