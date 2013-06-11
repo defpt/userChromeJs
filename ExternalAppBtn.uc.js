@@ -23,10 +23,6 @@ var gExternalAppbuttonMEx = {
         {
             name: '辅助功能',
             image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ0SURBVDhPjVFLbBJRFB23ummauHBhYjTRtRKNmpoajS2aRtpC1NCWWoKgdLDUUhlKy8Aw/JlCKZ+ZQikw1Eqpn5LoxpV7E+PCuNGVMSZuaGLS4obre5NpICSanuRkXs5958657xKduNin6R64Z5i8dUdv7u1VdcnywTHxeO49E8sB5n3S8VKWDw53NPNxKV+F+OomMFF+S5YPjlR+425UWIdQWoRcsXJJlv8NpXrsrHrMLAyPkxGNjmQfzno+Rfl1iPBlMM24v2jGSQ7VgmodKSjV+j7Z1oJphjZ74znwL69JxMbF7IZEfA7IOhPLwhOXf0S2tWC2e+cjmTJwwrP/0reUBzsduSbbWrDM+R3hjCj9LZQuwf65k75EHiYslPXGoO4mGuuNatRUUAwMHCYyWfGqh+N/LvKlD5uv31IJQawFkwUI42ZtDKWKQLFxmPVwwKKRF0Ip0BqsRgIADjWbzVM7OzvdOJEnkjrvjgqSoZPSeyTWIJgsSl+zzUMRV/qHjg2Omt6ptCbxcv/tM9oH0w4PJ0iX2+lbWoWYUCqUK9usl0t/Zzj+W2HzlYIYNdlsLhQHRyIpFmZcYfBy/A86kvmFo/rR7JiucBroYLwHJ0Y8sbu7e1x6RLRGF4tW5EOXMV3B5Oe9vb2TjUbjNB1Kfd3Xnf4EkE/pC5KpHY9stI1BkXETTKvT/7tHqTnaPzRybno+9Gdfnw8sg9FCKWVbCxY7o6dRPO/iCuBGlDcGxinHsNHqmHQGEpKGawvBJBim5nSyrYV0tqDIFCq1nFitrZSqpXK1ZkNbOVKv17vK1W17trRVyYkvUK3yPJrMXZdtMgjiL/o0qQAqtCMRAAAAAElFTkSuQmCC"
-        },
-        {
-            name: '关于火狐',
-            image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVDhPjZK/S8NAFMcjiOIigl0ErYM4OTooDm4uTk4urv4JglvdrElr2pomubY2ufyy9kdaiCUiinXWRaQ4iIM4iQhuilUb79KrbTXQfuDBvXvv+73H46h2RMmYZkVtlU0aa5H0wVw2mx0ipd7gpMzGThx+o3BoXnpjgZ42LMtHyt2RS6WRXaCWsUEzGAE+AM0cIy3dcRynL5YyAkFOrjdNWKAdkfJ/KpVKPzl2EOLV+9Ykcl0zj72niCQ00bbtQZK6KDnLj0RfLQPoRIC+SMqdoGINvXalF8qTOMdmYVE9aRfjEOTDeVfwF4ZXnnEDWtZLWFC3GEG5+SvGAWBunUg6iSZ14CXwCrTMiyTMzxBpg4SS8zM8vPYSeAUdlz8jST2q2fYwsaAow7B8yL2At91qhB9sQj9rF7v3vOJ+NPTokwBzs8SigWaa49GUscxJ2SX8qfBdbF/f/DUQlMdi8XQ0oRZWcI4+3aUr7AZqdE1CgnJXrVYHpEx+AefBOHwlLd0R5Pw2FtFodHpPecfnMFDPSbk3uHQmgHZTc8WidgtgcYqUegdvn5cyE42Mon4AKKVSBCWmd9wAAAAASUVORK5CYII="
         }],
         //下面定义子菜单功能
         apps: [{
@@ -77,6 +73,11 @@ var gExternalAppbuttonMEx = {
         //定义firefox的功能
         configs: [
         //辅助功能
+		{
+            name: 'about:config',
+            command: "getBrowser().selectedTab = getBrowser().addTab ('about:config')",
+            subdir: '辅助功能'
+        },
         {
             name: '清理浏览痕迹',
             subdir: '辅助功能',
@@ -111,36 +112,10 @@ var gExternalAppbuttonMEx = {
             subdir: '辅助功能',
             command: "toJavaScriptConsole();"
         },
-        //关于火狐
-        {
-            name: 'about:config',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:config')",
-            subdir: '关于火狐'
-        },
-        {
-            name: 'about:cache',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:cache')",
-            subdir: '关于火狐'
-        },
-        {
-            name: 'about:firefox',
-            command: "openAboutDialog();",
-            subdir: '关于火狐'
-        },
-        {
-            name: 'about:home',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:home')",
-            subdir: '关于火狐'
-        },
-        {
-            name: 'about:plugins',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:plugins')",
-            subdir: '关于火狐'
-        },
-        {
-            name: 'about:support',
-            command: "getBrowser().selectedTab = getBrowser().addTab ('about:support')",
-            subdir: '关于火狐'
+		{
+            name: '立即同步火狐',
+            subdir: '辅助功能',
+            command: "gSyncUI.doSync(event);"
         },
         //下面定义主菜单功能
         {
