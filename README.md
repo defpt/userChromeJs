@@ -14,7 +14,7 @@
 
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus_personal.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 
-* [EasyDrag.uc.js](https://github.com/defpt/userChromeJs/blob/master/EasyDrag.uc.js) 和 [MouseGestures.uc.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures.uc.js)  是从紫云飞大大博客定制的拖拽以及鼠标手势
+* [EasyDrag](https://github.com/defpt/userChromeJs/blob/master/EasyDrag) 和 [MouseGestures.uc.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures.uc.js)  是从紫云飞大大博客定制的拖拽以及鼠标手势
 
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，[在此可下载配套批处理](https://github.com/defpt/Batch)，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
 

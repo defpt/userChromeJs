@@ -1,7 +1,7 @@
 EasyDrag说明文档
 =====
 
-[EasyDrag.uc.js]()  是从紫大博客定制的自用修改版拖拽脚本，包括
+[EasyDrag.uc.js](https://github.com/defpt/userChromeJs/blob/master/EasyDrag/EasyDrag.uc.js)  是从紫大博客定制的自用修改版拖拽脚本，包括
 
 **对文字进行搜索、站内搜索、复制以及google翻译；对图片进行百度|谷歌搜索、下载图片以及新标签打开图片；对链接不同方式打开以及复制链接文本、地址。** 此外，增加了几个功能，代码如下：
 
