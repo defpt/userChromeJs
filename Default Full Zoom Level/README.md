@@ -1,12 +1,9 @@
-Default Full Zoom Level 说明文档
-=======
+#Default Full Zoom Level 说明文档
 
-应某些朋友改了按钮图标版，也一起放这里吧
+###[DefaultFullZoom.uc.js](https://github.com/defpt/userChromeJs/blob/master/Default%20Full%20Zoom%20Level/DefaultFullZoom.uc.js) 是原版
 
-+ [DefaultFullZoom.uc.js]() 原版
+###[DefaultFullZoomBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/Default%20Full%20Zoom%20Level/DefaultFullZoomBtn.uc.js) 是我应饭友改的按钮图标版
 
-+ [DefaultFullZoomBtn.uc.js]() 按钮图标版
+##效果图如下：
 
-##地址栏效果图
-
-![]()
+![DefaultFullZoom](https://github.com/defpt/userChromeJs/blob/master/Default%20Full%20Zoom%20Level/DefaultFullZoom.png?raw=true)
