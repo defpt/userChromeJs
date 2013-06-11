@@ -14,6 +14,7 @@
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签
 * [JsTranslator.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsTranslator.uc.js) 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
+* [MyContext.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyContext.uc.js) 右键菜单，添加了三个右键菜单，用谷歌网页快照打开链接、复制链接文本+地址、复制网页标题+链接地址，简化隐私窗口打开链接的右键菜单
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
