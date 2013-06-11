@@ -61,27 +61,26 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 						return;
 					}
 				} else if (event.dataTransfer.types.contains("text/x-moz-url")) {
-					var link_ = event.dataTransfer.getData("text/x-moz-url").split("\n");
-                    if (direction == "U") {
-					    //新标签打开链接(后台)
-                        gBrowser.addTab(link_[0]);
-                        return;
-                    }
-                    if (direction == "D") {
-                        //新标签打开链接(前台)
-                        gBrowser.selectedTab = gBrowser.addTab(link_[0]);
-                        return;
-                    }
-                    if (direction == "L") {
-                        //复制链接文字
-                        Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(link_[1]);
-                        return;
-                    }
-                    if (direction == "R") {
-                        //复制链接地址
-                        Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(link_[0]);
-                        return;
-                    }
+					if (direction == "U") {
+						//新标签打开链接(后台)
+						gBrowser.addTab(event.dataTransfer.getData("text/x-moz-url").split("\n")[0]);
+						return;
+					}
+					if (direction == "D") {
+						//新标签打开链接(前台)
+						gBrowser.selectedTab = gBrowser.addTab(event.dataTransfer.getData("text/x-moz-url").split("\n")[0]);
+						return;
+					}
+					if (direction == "L") {
+						//复制链接
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(event.dataTransfer.getData("text/x-moz-url").split("\n")[0]);
+						return;
+					}
+					if (direction == "R") {
+						//复制链接文字
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(event.dataTransfer.getData("text/x-moz-url").split("\n")[1]);
+						return;
+					}
 				} else {
 					if (direction == "U") {
 						//Google搜索选中文字(站内)(前台)
