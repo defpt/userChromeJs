@@ -6,6 +6,7 @@
 **下面是一些自用（包括自写、修改、整理的）UC脚本** [此处是一些按钮图样](https://github.com/defpt/userChromeJs/blob/master/Picture/README.md)
 
 + [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus)  使用外挂式配置方便的定制 Firefox 的各种菜单，比如：橙色菜单、链接右键菜单、页面右键菜单、标签右键菜单、甚至工具菜单（我没定制工具菜单）
++ [Bookmarkplus.uc.js](https://github.com/defpt/userChromeJs/blob/master/Bookmarkplus.uc.js) 书签菜单按钮的补丁，把另一个侧栏书签按钮给合并过来了，现在左键菜单，右键侧栏书签
 * [Copylink.uc.js](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus_personal.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
