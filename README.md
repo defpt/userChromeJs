@@ -10,7 +10,7 @@
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus_personal.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 * [EasyDrag](https://github.com/defpt/userChromeJs/blob/master/EasyDrag) 和 [MouseGestures.uc.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures.uc.js)  是从紫大博客定制的拖拽以及鼠标手势
-* [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，[在此可下载配套批处理](https://github.com/defpt/Batch)，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
+* [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签
 * [JsTranslator.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsTranslator.uc.js) 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
