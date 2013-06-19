@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                  MyMenu.uc.js
 // @namespace             MyMenu@gmail.com
-// @description           菜单按钮
+// @description           菜单按钮，已经整合到ExternalAppBtn.uc.js
 // @author                defpt
 // @charset               UTF-8
 // @compatibility         Firefox 20+
