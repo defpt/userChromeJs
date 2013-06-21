@@ -16,6 +16,7 @@
 * [JsTranslator.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsTranslator.uc.js) 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
 * [MyContext.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyContext.uc.js) 右键菜单，添加了三个右键菜单，用谷歌网页快照打开链接、复制链接文本+地址、复制网页标题+链接地址，简化隐私窗口打开链接的右键菜单
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动
+* [SidebarBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/SidebarBtn.uc.js)   简单的侧栏按钮：**点击左键**在侧栏打开附加组件管理（配合这个 [侧栏样式](http://userstyles.org/styles/48731/add-ons-manager-in-the-sidebar) 简直绝了，建议把默认的窗口模式删除，只在侧栏起效）、**点击中键**打开侧栏书签、**点击右键**打开侧栏历史，如需使用更多功能请使用侧栏增强脚本或扩展
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
