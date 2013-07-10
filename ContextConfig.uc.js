@@ -56,12 +56,13 @@ var MyContext = {
 		menuitem.setAttribute("label", "在隐私窗口打开链接");
     },
     onPopupShowing: function(aPopup) {
-        var copymenu = document.getElementById("context-copylink");
-        aPopup.insertBefore(this.mItem, copymenu);
-        aPopup.insertBefore(this.mItem1, copymenu);
-        aPopup.appendChild(this.mItem2, copymenu);
-		aPopup.appendChild(this.mItem3, copymenu);
-        aPopup.insertBefore(this.mItem4, copymenu);
+        var contextmenu = document.getElementById("contentAreaContextMenu");
+		var copylink = document.getElementById("context-copylink");
+        aPopup.insertBefore(this.mItem, copylink);
+        aPopup.insertBefore(this.mItem1, copylink);
+        aPopup.appendChild(this.mItem2, contextmenu);
+		aPopup.appendChild(this.mItem3, contextmenu);
+        aPopup.insertBefore(this.mItem4, copylink);
 		
         this.mItem.setAttribute("oncommand", "MyContext.webcache();");
         this.mItem.hidden = !gContextMenu.onLink;
