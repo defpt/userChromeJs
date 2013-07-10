@@ -9,7 +9,7 @@
 * [Copylink.uc.js](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
 * [ContextConfig.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextConfig.uc.js) 右键菜单，添加了几个右键菜单，用谷歌网页快照打开链接、复制链接文本+地址、复制网页标题+链接地址、尚译划词翻译，简化隐私窗口打开链接的右键菜单
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
-* [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus_personal.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
+* [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签
