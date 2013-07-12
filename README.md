@@ -15,7 +15,7 @@
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签
 * [JsTranslator.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsTranslator.uc.js) 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动
-* [SidebarBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/SidebarBtn.uc.js)   简单的侧栏按钮：**点击左键**在侧栏打开附加组件管理（配合这个 [侧栏样式](http://userstyles.org/styles/48731/add-ons-manager-in-the-sidebar) 简直绝了，建议把默认的窗口模式删除，只在侧栏起效）、**点击中键**打开侧栏书签、**点击右键**打开侧栏历史，如需使用更多功能请使用侧栏增强脚本或扩展
+* [SidebarBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/SidebarBtn.uc.js)   从lastdream2013版的SidebarMod.uc.js修改而来，去除了某些我用不到的站点以及Splitter，改为工具栏按钮，左键：侧栏历史 中键：侧栏书签 右键：附加组件。此外配合这个 [侧栏样式](http://userstyles.org/styles/48731/add-ons-manager-in-the-sidebar) 简直绝了，建议把默认的窗口模式删除，只在侧栏起效
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
