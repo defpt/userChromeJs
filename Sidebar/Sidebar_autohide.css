@@ -1,0 +1,40 @@
+ @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+ @-moz-document url(chrome://browser/content/browser.xul) {
+    #sidebar-box {
+      -moz-appearance: none !important;
+      position: fixed !important;
+      top: 70px !important;/*调节侧栏高度*/
+      height: 25px !important;/*触发区域高度*/
+      left: -250px !important;/*触发区域宽度=width-left*/
+      width: 260px !important; /*设置侧栏宽度*/
+      overflow:hidden!important;
+      border: 1px solid rgba(151,151,151,.4) !important;
+      border-left: 0 !important;
+      border-radius: 0 5px 5px 0 !important;
+      opacity: 0 !important; /*设置为1时为不透明*/
+      -moz-transition: 0.2s linear !important;/*隐藏侧栏动画时间*/
+    }
+
+    #sidebar-box:hover {
+      left: 0px !important;  
+      height: 89%!important;/*请根据自己实际情况设置该值*/
+      opacity: 1 !important;
+      -moz-transition: 0.2s linear !important;/*显示侧栏动画时间*/
+    }
+
+    #sidebar {
+      height: 96.5% !important;/*请根据自己实际情况设置该值*/
+      width: 100% !important;
+      border-bottom-right-radius:5px !important;
+    }
+
+    #sidebar-splitter {
+      display: none !important;
+    }
+
+    #sidebar-header {
+      width: 100% !important;
+      font-weight: bold !important;
+    }
+ }
