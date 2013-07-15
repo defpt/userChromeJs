@@ -17,7 +17,7 @@
 				if (e.button == 2 && !e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
 					e.preventDefault();
 					e.stopPropagation();
-					openWebPanel('附加组件', 'chrome://mozapps/content/extensions/extensions.xul');
+					BrowserOpenAddonsMgr();
 				} 
 			},
 			false);
