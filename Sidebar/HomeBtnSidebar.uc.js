@@ -5,25 +5,9 @@
 // @charset         UTF-8
 // @author          defpt
 // @note            感谢Sidebar脚本的原作者以及lastdream2013，此脚本从lastdream2013的SidebarMod.uc.js修改而来
-                    //去除了某些我用不到的站点以及Splitter，添加到主页按钮，左键主页，右键侧栏历史（可选组件栏）
+                    //去除了某些我用不到的站点以及Splitter，开关设置在了主页按钮右键
 // ==/UserScript==
 (function() {
-//给主页按钮添加右键打开附加组件栏
-    var HomeBtn = document.getElementById("home-button");
-	if(HomeBtn) {
-		HomeBtn.setAttribute("tooltiptext","左键：我的主页\n右键：侧栏历史");
-		HomeBtn.addEventListener("click",
-			function(e) {
-				if (e.button == 2 && !e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
-					e.preventDefault();
-					e.stopPropagation();
-					//openWebPanel('附加组件', 'chrome://mozapps/content/extensions/extensions.xul'); //附加组件
-					toggleSidebar('viewHistorySidebar'); //侧栏历史
-				} 
-			},
-			false);
-	}
-//定义侧边栏
     if (!document.getElementById('sidebar-box')) return;
 	if (!window.SidebarMod) {
 		window.SidebarMod = {
@@ -78,6 +62,7 @@
 					}
 				]
 			}],
+
 			makeButton: function (sitelist, parent) {
 				var i,
 					len = sitelist.length,
@@ -133,6 +118,88 @@
 				insertpoint.parentNode.insertBefore(frag, insertpoint);
 			},
 
+			//给主页按钮添加右键打开附加组件栏
+			addtoHomeBtn: function () {
+				var HomeBtn = document.getElementById("home-button");
+				if(HomeBtn) {
+					HomeBtn.setAttribute("tooltiptext","左键：我的主页\n右键：开关侧栏");
+					HomeBtn.addEventListener("click",
+						function(e) {
+							if (e.button == 2 && !e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
+								e.preventDefault();
+								e.stopPropagation();
+								toggleSidebar();
+							} 
+						},
+						false);
+				}
+			},
+
+			toggleSidebar: function (commandID, forceOpen) {
+				var sidebarBox = document.getElementById("sidebar-box"),
+				sidebar = document.getElementById("sidebar"),
+				sidebarTitle = document.getElementById("sidebar-title"),
+				sidebarBoxArrow = document.getElementById('sidebar-box-arrow'),
+				lastcommand = commandID || sidebarBox.getAttribute('sidebarcommand') || sidebarBox.getAttribute('sidebarlastcommand') || 'viewBookmarksSidebar';
+				
+				if (!commandID && sidebarBox.hidden) {
+					if (sidebarBox.getAttribute('sidebarcommand') === '') {
+						toggleSidebar(lastcommand, true);
+						sidebarBox.setAttribute('sidebarlastcommand', lastcommand);
+					} else {
+						sidebarBox.hidden = false;
+						if (sidebarBoxArrow) sidebarBoxArrow.className = '';
+					}
+					return;
+				}
+				
+				if (!commandID) commandID = sidebarBox.getAttribute("sidebarcommand");
+				let sidebarBroadcaster = document.getElementById(commandID);
+				
+				if (sidebarBroadcaster.getAttribute("checked") == "true") {
+					if (!forceOpen) {
+						if (sidebarBox.getAttribute('sidebarcommand') !== 'viewWebPanelsSidebar') {
+							sidebar.setAttribute("src", "about:blank");
+							sidebar.docShell.createAboutBlankContentViewer(null);
+							sidebarBox.setAttribute("sidebarcommand", "");
+							sidebarTitle.value = "";
+							sidebarBox.setAttribute('sidebarlastcommand', lastcommand);
+						}
+						sidebarBox.setAttribute("sidebarcommand", "");
+						sidebarBox.setAttribute('sidebarlastcommand', lastcommand);
+						sidebarBroadcaster.removeAttribute("checked");
+						sidebarBox.hidden = true;
+						if (sidebarBoxArrow) sidebarBoxArrow.className = 'right';
+						gBrowser.selectedBrowser.focus();
+					} else {
+						fireSidebarFocusedEvent();
+					}
+					return;
+				}
+				
+				var broadcasters = document.getElementsByAttribute("group", "sidebar");
+				for (let broadcaster of broadcasters) {
+					if (broadcaster.localName != "broadcaster") continue;
+					if (broadcaster != sidebarBroadcaster) broadcaster.removeAttribute("checked");
+					else sidebarBroadcaster.setAttribute("checked", "true");
+				}
+				
+				sidebarBox.hidden = false;
+				if (sidebarBoxArrow)sidebarBoxArrow.className = '';
+				
+				var url = sidebarBroadcaster.getAttribute("sidebarurl");
+				var title = sidebarBroadcaster.getAttribute("sidebartitle");
+				if (!title) title = sidebarBroadcaster.getAttribute("label");
+				sidebar.setAttribute("src", url);
+				sidebarBox.setAttribute("sidebarcommand", sidebarBroadcaster.id);
+				if ( title &&  title !== '') sidebarTitle.value = title;
+				sidebarBox.setAttribute("src", url);
+				sidebarBox.setAttribute('sidebarlastcommand', lastcommand);
+				
+				if (sidebar.contentDocument.location.href != url) sidebar.addEventListener("load", sidebarOnLoad, true);
+				else fireSidebarFocusedEvent();
+			},
+
 			modifySidebarClickBehaviour: function () {
 				var sidebar = document.getElementById('sidebar');
 				sidebar.addEventListener('DOMContentLoaded', function(){
@@ -155,8 +222,11 @@
 					'if (wpb) wpb.onclick = null;' + '}'
 				);
 			},
+
 			init: function() {
+				window.toggleSidebar = this.toggleSidebar;
 				this.makeButton(this.sitelist);
+				this.addtoHomeBtn();
 				this.modifySidebarClickBehaviour();
 			}
 		};
