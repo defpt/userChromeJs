@@ -555,32 +555,35 @@ USL.getFocusedWindow = function () {
 	var win = document.commandDispatcher.focusedWindow;
 	return (!win || win == window) ? content : win;
 };
-//urlbar-icons  TabsToolbar  addon-bar PlacesToolbar
+//urlbar-icons  TabsToolbar  addon-bar PlacesToolbar nav-bar
 USL.init = function(){
 	  USL.isready = false;
 	   var overlay = '\
 		<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" \
 			xmlns:html="http://www.w3.org/1999/xhtml"> \
-		 <toolbarpalette id="urlbar-icons">\
-			<toolbarbutton id="UserScriptLoader-icon" label="UserScriptLoader" \
-					class="toolbarbutton-1 chromeclass-toolbar-additional" type="menu" \
+		 <toolbarpalette id="nav-bar">\
+			<toolbarbutton id="UserScriptLoader-icon" \
+			        label="UserScriptLoader" \
+					class="toolbarbutton-1 chromeclass-toolbar-additional" \
+					type="menu" \
 					onclick="USL.iconClick(event);" \
 					tooltiptext="油猴脚本管理器（鼠标右键开 | 关)" >\
 		<menupopup id="UserScriptLoader-popup" \
+		           position="after_end"\
 		           onpopupshowing="USL.onPopupShowing(event);"\
 		           onpopuphidden="USL.onPopupHidden(event);"\
 		           onclick="USL.menuClick(event);">\
 			<menuseparator id="UserScriptLoader-menuseparator"/>\
+			<menuitem label="重新加载脚本"\
+					          oncommand="USL.rebuild();" />\
 			<menuitem label="打开脚本目录"\
 					  id="UserScriptLoader-openFolderMenu"\
 					  oncommand="USL.openFolder();" />\
-			<menuitem label="重新加载脚本"\
-					          oncommand="USL.rebuild();" />\
 			<menu label="用户脚本命令"\
 			      id="UserScriptLoader-register-menu">\
 				<menupopup id="UserScriptLoader-register-popup"/>\
 			</menu>\
-			<menu label="管理菜单" id="UserScriptLoader-submenu">\
+			<menu label="其它选项设置" id="UserScriptLoader-submenu">\
 				<menupopup id="UserScriptLoader-submenu-popup">\
 					<menuitem label="删除系统pref预加载"\
 					          oncommand="USL.deleteStorage(\'pref\');" />\
@@ -1081,7 +1084,7 @@ USL.saveFile = function (aFile, data) {
 USL.loadSetting = function() {
 	try {
 		var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-		aFile.appendRelativePath("UserScriptLoader.json");
+		aFile.appendRelativePath("Local\\UserScriptLoader.json");
 		var data = USL.loadText(aFile);
 		data = JSON.parse(data);
 		USL.database.pref = data.pref;
@@ -1103,7 +1106,7 @@ USL.saveSetting = function() {
 	USL.pref.setValue('DEBUG', USL.DEBUG);
 
 	var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-	aFile.appendRelativePath("UserScriptLoader.json");
+	aFile.appendRelativePath("Local\\UserScriptLoader.json");
 	USL.saveText(aFile, JSON.stringify(USL.database));
 };
 
@@ -1227,11 +1230,6 @@ function addStyle(css) {
 /* http://www.famfamfam.com/lab/icons/silk/preview.php */\
 #UserScriptLoader-icon {\
 	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALtSURBVDhPjdN7SFNRHAfwYyUkvUDNJAqCiBKCoCglLM25xNxSsxBnKmYvKF2upXOZGptztpfTq6ZOzXJhUGlmuagZrSwzTVdb4TPSYpgPMDDNzG93g2aWQn/84N5zf7/POb9zzyFKtuP0/4aatQh/j9kA0zvT1FxBBZJjOQGkWuxH+oU7yXiGDyn68/u8QCFdSLHIS7k/GUv3IRB4E1iBbCa5IWUQymg2/pwXoIKIpiCIjKoDCdJ96cJdBBLmQtvSFQEO4xf3EOp37j8Atc+hrCLCZfI2dwOuRLuCClqA0vBlaJD6oqkgGDdPbfqpZjnq0nYT7nlvkmQHhN4kQeJPlGVxq0ffVsWir0GIzjvxqEvegsY8NiwvMjHQlImeeh6uJWyckoSsmJBHrpmwAbQIFcf9u5S1dPKxIgCW5yIMtsgx0paLz4ZMWJrk+NSswGCrEgMvs9BYdAg54atQLdkLa60NqM5kQh3uhteVsfjy6hJa9OmgSo7A/EwBwyMxki4dhL4m2YaYarjIOuAG6vSWGeDymW0Q7XdGi/YYnaSC5mo89hz3gUwVi8KKROzgbEdqegiG2yn06i9AGbUegtDVM0DK/rVTaWxXvLkdj+E2NWTySKzc6gyROAYazVms2+EOqYiDEWMh3UY29LmhOO3n9NW+idGei815JzymPzakYqBZifaHEkgyOGh5qMaAuQp3tanoeJqDfoMMbdd56LyXCGnYyj47wPUiKdpzXt+7dQI8yI5B130xvXn5GHpdiqG2cvQ/pdCqFaLiFAs6WRQ6aEAW4m6xA9aTVRzn8a2rno9aCQd5h32RH8UAFemP4qP76Hf6OYaBW6IIdNQL0ECFge/n1DULEDKWfHigCkbPoxQYa5LwvDIRT8q5aKzkofVmMrr1GeilWzQUR0AU6jJmNLXPvkxWRMBcbinle04bSiJhqk7A+zo+zLU8NGuPQ6cKQfHJzT9S6ImsxbOO8p9hvbLWPzNX/J2rZDtO/wLIbGc98IvR+AAAAABJRU5ErkJggg==");\
-}\
-#UserScriptLoader-icon > .toolbarbutton-icon {\
-	max-width: 18px !important;\
-    padding: 0 !important;\
-    margin: 0 !important;\
 }\
 #UserScriptLoader-icon[state="disable"] {\
 	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJdSURBVDhPlZPLS6JhFMbnn2nXv+DCVWZ2w7xhGxOJbjO50BTMaBOSIGGCF0Zb1CIhGS+EoqCJhJe8UDZuZjEws2jdQGM15TPvOcNYxriYxeF87/u95/c973PO906r1fb+I/B2jwHX19dP/wqVSmWam5v7NDk5+X1sbKwrl8uDr98PBYg9k4iqUqm8m5iYgCim6M7Ozkanp6d97Xb7eShArD+KuFWr1aBimUwGUcjSBbAr1PhenR0EiOfI4uLio91ux9LSEhXBaDRib28P4XAYVqv1WaPRZMbHxz8IRdY+QCzez8zMeFZWVm5jsRiKxSJOT0+xvb2NUCiEarWKWq2GbDZLkCedTne/sLBw/xcAsXgQkh99Ph8qlQqazSYuLy9xfn7OhRcXF2i1WpwjkQgMBgPcbjcrZMDu7i5vRqNRNBoN/pLX60WpVEI6nYbT6QQpI0gqlYJer4fZbH4BWCwWiLsxgA6RbDLR5XIhEAiwmTabDVdXVygUCjCZTPy+DxAL6jkSiQRL39nZwcjICLa2tuD3+zE6OsrPon18DdoTvv0QtX9MlEgkn9fW1npkXr1eRy6Xw+bmJudOp4OjoyO+DnlycnKCTCaD+fn5b32AVCq1OxyOByqgu1OmL5Eakl0ul7lwY2MD+/v7DBA+3PQBNFmrq6s/yTyPx8MzsLy8zJnMoixazGbTmWAwCDHWXwYACoXiK7Uxn8+z08fHxzg8POQcj8fZvLOzM26jmIM7oWzwZyLI1NTUjZjC3sHBAZLJJLeQBoq6Q/D19fVf9CEqHhjlN8HtGRJvzmp7vwFji4ZDlVnnwQAAAABJRU5ErkJggg==");\

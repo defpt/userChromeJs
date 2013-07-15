@@ -1,5 +1,5 @@
-// ==UserScript==
-// @name           UserCSSLoader
+﻿// ==UserScript==
+// @name           UserCSSLoader.uc.js
 // @description    Stylish样式管理自用微改版
 // @namespace      http://d.hatena.ne.jp/Griever/
 // @author         Griever
@@ -9,12 +9,23 @@
 // @charset        UTF-8
 // @version        0.0.4
 // ==/UserScript==
-//到about:config里修改 "view_source.editor.path" 以指定编辑器
+/****** 使用方法 ******
+
+在菜单“CSS-Stylish管理”菜单中：
+左键点击各CSS项，开关此样式；
+中键点击各CSS项，外部编辑器编辑;
+右键点击各CSS项，脚本自带编辑器编辑，可预览，语法高亮；
+
+在about:config里修改 "view_source.editor.path" 以指定编辑器
+在about:config里修改"UserCSSLoader.FOLDER" 指定存放文件夹
+
+类似滚动条css的浏览器chrome样式，请改成以"xul-"为开头，或以".as.css"为结尾的文件名，才能正常载入 */
+
 (function(){
 
 let { classes: Cc, interfaces: Ci, utils: Cu, results: Cr } = Components;
 if (!window.Services)
-  Cu.import("resource://gre/modules/Services.jsm");
+	Cu.import("resource://gre/modules/Services.jsm");
 
 // 起動時に他の窓がある（２窓目の）場合は抜ける
 let list = Services.wm.getEnumerator("navigator:browser");
@@ -41,7 +52,7 @@ window.UCL = {
 	},
 	get prefs() {
 		delete this.prefs;
-		return this.prefs = Services.prefs.getBranch("UserCSSLoader.")
+		return this.prefs = Services.prefs.getBranch("UserCSSLoader.");
 	},
 	get styleSheetServices(){
 		delete this.styleSheetServices;
@@ -70,8 +81,8 @@ window.UCL = {
 		return win;
 	},
 	init: function() {
-		var opt = document.getElementById("urlbar-icons"); 
-		//status-bar  urlbar-icons addon-bar alltabs-button TabsToolbar go-button
+		var opt = document.getElementById("nav-bar"); 
+		//status-bar  urlbar-icons addon-bar alltabs-button TabsToolbar go-button nav-bar
 	    var menubtn = document.createElement("toolbarbutton");
 		menubtn.setAttribute("id", "usercssloader-menu");
 		menubtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
@@ -79,7 +90,8 @@ window.UCL = {
         //menubtn.setAttribute("tooltiptext", "用户样式管理器");
         menubtn.setAttribute("type", "menu");
         menubtn.setAttribute("removable", "true");
-		menubtn.style.listStyleImage = 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANfSURBVDhPbZN/TNRlHMe/CqcX5wFy3HFwnYrA/fYOOXYQIIEcmijtZAlFHGmdAYKAkMmCpQWbK6HC0AIlmRNwbjaMY5WDmkbyo9zEtkpqg6y19WujsvWD5NWXL9Bfvrdn3+3Z83193u/3s0eQB8mIs6gxbdBgtGmINYeTmLoG9w4T23Zaycgxog4OIl0ThiNUiVkZhC1YgVncky1bhhBrCedUXwE9Q17OXS7inTEfzV05FJVb8Xhjyd61jlWCwNEYLX0PWHk33YE/zc7FFBvqlTIEozi5Z9BL/7iPgetPk/uYkfgEK7uf2MOB6oNU7j9AkddLanIyVrWKU04Do1lO3hNBEfIVCAabmq6BQi5/VsbOYhOP5Hn5deY37qWSmlpKIpR8usUludDMOzDbI7g04uPix8U4XRb++vNv6fDk5CStx1tpbj5G19mz3PrmNodeeJFSzSqub00SAYsOdGuDaWjdgu+Qk8LHH2Vubk5aSa5k9EaBrDw9CrGDYpuRREMsx2zrGMlKZGDTIiBEISdro4F0WzS5O7ZL02dnZ/H7/RQU7MJiNbP6PjkepYxOezQj7kQGH4yXypQACXE6Jk4f5PsLR3A7jQxdvSZBlnTnzh/cmJigpuF5dKtDOemI4ZpY4sAm+wLAvj6SK69W8PmZOoZfqyAtwUJj03FGR79mZubuImZBPX2XMMgD+WhzAv1LJTpiohhu3c/Nzmfpb3qKFKMe326BxiMhlJc5qX+ukunp21KseSU77PiTTHwi3oR2pehgHjDSVs1oWyVWw3r0a6N5yC3wVrvA+V4Bp12gvr7p/3JTXC48YUHsWaNBEbB8ATD+Ri3vH30Sb36emPl32tu7yc8vITt7O6WlFUxNTUnTf/n5Jwy2eKo73qb89V6UKvVCB2Mnaxh6eS+Z6WnSwXvp7r+zFBcW4NlXR//0P3SNTRMepV+KUMUXXXXU5meSk51JVVU1J9o66T3vp7u7j5aWV8h52EOur4ZzN37gzPi3tF+9hSryfoQNooMPW/aJMWr47sJhtm00UbZX4HSHwEuNAg3PCCjFzIe7P6B74kfevPIlHcNf0TZ4kzCtDkEWGIA2TEmUKphI8auQyzHEycjIWIF7s4z01EBCxGesizYQqtZKU8PFpRJ/Xh4QwH84nEX73key6wAAAABJRU5ErkJggg==)';
+		menubtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMLSURBVDhPbZJ7SFRpGId1dCLNohrD7FimZW07pTM15tGmqehiZqVrdNndiFVL08zQijDa/qrcMp2u2qQVmtmSY2vt1tpl3EiltpFI/0uEI4IIov6hg+L1ac6JtNsHD3xwvvf53u93XheVSlXj7TtJ8hW8vov8zdPdTZrloZaEz5g50V1SubrWuMgHThdEc826QyH/3nZO5UeTdnwl8elh7IjXoxOmcnpJIIWGH7gjahUu6BcgS1zkW+TC+3UJ3LXtYW+GiDZkDmK4gejNUU42YYwIZ/nCIFb5+XBr+SJsq/WKRO5kTFBRG0/KsRUYQnWUl5fT3t5OX18f/f39dHV10dzcTE52NueWLvy+4HbVbsKMQVitVkZHR3E4erHb/8dme0Z9vZ2Ojg4e3K8gZ9lXHUzXeEoHT5hI/91EqBhMS0sL8iostLAxVk9U3BIMC/w5GLmWA9tiKQj98UuBh9pdEhf7YwwOxKAPprW1VRE8evQPJpOR2XMEhCle/OI/E7MuiCerdF8KBM00qfJUInWXD5GwZSUPKiuVJ4yMjNDZ2UljY6OSSXJSEsb5AVxd9lUGft7TpMd/JPGu8Ch/n9nHrzHrKSsrpa2tjYGBAaUbecl7OZ+d2iD+NYV8K3hrOcLt47vZumIRxzK9uHIhhIvmXZSUmMdycTgc7HfmcC9i8beCF+Y0wrSB+DvfHLVBjfmsG8XX3fh5u5q0tFSGhoYYHBwkNf43dgX6sTPAj8nOCR0T2HJTWW8Mpaqqiry8XOLiYlizOpzIyHVKBnIuvb29pBzOIj2niMSTuUzVzBgXVOcdYKMpjKamJuWwPEDd3d309PQogQ4PD/PkuY2sK6XceCVx7q9aZghzxwX2a5lkJ8eSmZJASfEl6mqf0thgp6Ghnur/XlBU+icnC8qwvHzPzdct44JPv/FNfgavr2aQEiNy+fwEqh9P4elDH86f8UEnimRZyjlb8VIplMmyWNH4Cs5BmqCuidAGSGuXzleYJ2ikCNFV+mnzR+S9h6eH5C3MluQbPyEXq1Tqmg/D8jwymc9TUgAAAABJRU5ErkJggg==");
+		
         opt.appendChild(menubtn);
         //opt.insertBefore(menubtn,opt.childNodes[3
     
@@ -88,35 +100,28 @@ window.UCL = {
 					<menu label="新建|编辑样式">\
 						<menupopup id="usercssloader-submenupopup">\
 							<menuitem label="当前站点样式"\
-							          oncommand="UCL.create();" />\
-							<menuitem label="浏览器样式(Chrome)"\
+							          oncommand="UCL.styleTest(\'\',\'\');" />\
+							<menuitem label="浏览器界面样式"\
 							          id="usercssloader-test-chrome"\
 							          oncommand="UCL.styleTest(window,\'\');" />\
-							<menuitem label="站点样式(Web)"\
+							<menuitem label="当前站点[编辑器]"\
 							          id="usercssloader-test-content"\
-							          oncommand="UCL.styleTest(\'\',\'\');" />\
+									  oncommand="UCL.create();" />\
 							<menuitem label="为本站搜索样式"\
 							          oncommand="UCL.searchStyle();" />\
-							<menuseparator id="ucl-sepalator"/>\
-						    <menuitem label="编辑userChrome"\
-							          hidden="false"\
-							          oncommand="UCL.editUserCSS(\'userChrome.css\')" />\
-					        <menuitem label="编辑userContent"\
-							          hidden="false"\
-							          oncommand="UCL.editUserCSS(\'userContent.css\')" />\
 						</menupopup>\
 					</menu>\
 					<menuitem label="打开CSS文件夹"\
 							  oncommand="UCL.openFolder();" />\
 					<menuitem label="重新加载样式"\
 							  oncommand="UCL.rebuild();" />\
-					<menu label="(UC扩展).uc.css" hidden="'+ !UCL.USE_UC +'">\
-						<menupopup id="usercssloader-ucmenupopup">\
-							<menuitem label="Rebuild(.uc.js)"\
-							          oncommand="UCL.UCrebuild();" />\
-							<menuseparator id="usercssloader-ucsepalator"/>\
-						</menupopup>\
-					</menu>\
+					<menuseparator id="ucl-sepalator"/>\
+						    <menuitem label="userChrome.css"\
+							          hidden="false"\
+							          oncommand="UCL.editUserCSS(\'userChrome.css\')" />\
+					        <menuitem label="userContent.css"\
+							          hidden="false"\
+							          oncommand="UCL.editUserCSS(\'userContent.css\')" />\
 					<menuseparator/>\
 				</menupopup>\
 		';
@@ -224,13 +229,14 @@ window.UCL = {
 	},
 	itemClick: function(event) {
 		if (event.button == 0) return;
-
+		
 		event.preventDefault();
 		event.stopPropagation();
 		let label = event.currentTarget.getAttribute("label");
 
 		if (event.button == 1) {
-			this.toggle(label);
+			closeMenus(event.target);
+			this.edit(this.getFileFromLeafName(label));
 		}
 		else if (event.button == 2) {
 			closeMenus(event.target);
@@ -298,67 +304,10 @@ window.UCL = {
     if (!aLeafName || !/\S/.test(aLeafName)) return;
     if (!/\.css$/.test(aLeafName)) aLeafName += ".css";
     let file = this.getFileFromLeafName(aLeafName);
-    //this.edit(file);
-    this.styleTest('',file);
+    this.edit(file);
+    //this.styleTest('',file);
 	},
-	UCrebuild: function() {
-		let re = /^file:.*\.uc\.css(?:\?\d+)?$/i;
-		let query = "?" + new Date().getTime();
-		Array.slice(document.styleSheets).forEach(function(css){
-			if (!re.test(css.href)) return;
-			if (css.ownerNode) {
-				css.ownerNode.parentNode.removeChild(css.ownerNode);
-			}
-			let pi = document.createProcessingInstruction('xml-stylesheet','type="text/css" href="'+ css.href.replace(/\?.*/, '') + query +'"');
-			document.insertBefore(pi, document.documentElement);
-		});
-		UCL.UCcreateMenuitem();
-	},
-	UCcreateMenuitem: function() {
-		let sep = $("usercssloader-ucsepalator");
-		let popup = sep.parentNode;
-		if (sep.nextSibling) {
-			let range = document.createRange();
-			range.setStartAfter(sep);
-			range.setEndAfter(popup.lastChild);
-			range.deleteContents();
-			range.detach();
-		}
 
-		let re = /^file:.*\.uc\.css(?:\?\d+)?$/i;
-		Array.slice(document.styleSheets).forEach(function(css) {
-			if (!re.test(css.href)) return;
-			let fileURL = decodeURIComponent(css.href).split("?")[0];
-			let aLeafName = fileURL.split("/").pop();
-			let m = document.createElement("menuitem");
-			m.setAttribute("label", aLeafName);
-			m.setAttribute("tooltiptext", fileURL);
-			m.setAttribute("id", "usercssloader-" + aLeafName);
-			m.setAttribute("type", "checkbox");
-			m.setAttribute("autocheck", "false");
-			m.setAttribute("checked", "true");
-			m.setAttribute("oncommand", "this.setAttribute('checked', !(this.css.disabled = !this.css.disabled));");
-			m.setAttribute("onclick", "UCL.UCItemClick(event);");
-			m.css = css;
-			popup.appendChild(m);
-		});
-	},
-	UCItemClick: function(event) {
-		if (event.button == 0) return;
-		event.preventDefault();
-		event.stopPropagation();
-
-		if (event.button == 1) {
-			event.target.doCommand();
-		}
-		else if (event.button == 2) {
-			closeMenus(event.target);
-			let fileURL = event.currentTarget.getAttribute("tooltiptext");
-			let file = Services.io.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler).getFileFromURLSpec(fileURL);
-			this.styleTest('',file);
-			//this.edit(file);
-		}
-	},
 };
 
 function CSSEntry(aFile) {
@@ -869,4 +818,3 @@ function writetext(textarea,pretext) {
 }
 
 })();
-
