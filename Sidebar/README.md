@@ -1,4 +1,7 @@
 ###侧边栏按钮以及功能增强
+
+这里的两个脚本侧栏功能完全相同，不同的是一个新建了侧栏按钮，一个把激活侧栏的功能挂在了主页按钮上，这年头按钮太多，要精简啊
+
 ![ExternalFuncBtn](https://github.com/defpt/userChromeJs/blob/master/Sidebar/sidebar.png?raw=true)
 
 [浮动侧边栏，自动隐藏](https://github.com/defpt/userChromeJs/blob/master/Sidebar/Sidebar_autohide.css)
