@@ -12,7 +12,8 @@
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
-* [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签
+* [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
+* [InFormEnterLite.uc.js](https://github.com/defpt/userChromeJs/blob/master/InFormEnterLite.uc.js) 填表脚本，被我搞成快速回复了，貌似这个比论坛灌水脚本支持范围更广
 * [JsTranslator.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsTranslator.uc.js) 翻译按钮合集，包括尚译、谷歌、有道、Dict、Bing、QQ云等划词以及网页翻译
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动
 * [Sidebar](https://github.com/defpt/userChromeJs/blob/master/Sidebar)   从lastdream2013版的SidebarMod.uc.js修改而来，去除了某些我用不到的站点以及Splitter，改为工具栏按钮，左键：侧栏历史 中键：侧栏书签 右键：附加组件。此外配合这个 [侧栏样式](http://userstyles.org/styles/48731/add-ons-manager-in-the-sidebar) 简直绝了，建议把默认的窗口模式删除，只在侧栏起效
