@@ -5,19 +5,20 @@
 // @charset         UTF-8
 // @author          defpt
 // @note            感谢Sidebar脚本的原作者以及lastdream2013，此脚本从lastdream2013的SidebarMod.uc.js修改而来
-                    //去除了某些我用不到的站点以及Splitter，添加到主页按钮，左键主页，右键附加组件
+                    //去除了某些我用不到的站点以及Splitter，添加到主页按钮，左键主页，右键侧栏历史（可选组件栏）
 // ==/UserScript==
 (function() {
 //给主页按钮添加右键打开附加组件栏
     var HomeBtn = document.getElementById("home-button");
 	if(HomeBtn) {
-		HomeBtn.setAttribute("tooltiptext","左键：我的主页\n右键：附加组件");
+		HomeBtn.setAttribute("tooltiptext","左键：我的主页\n右键：侧栏历史");
 		HomeBtn.addEventListener("click",
 			function(e) {
 				if (e.button == 2 && !e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
 					e.preventDefault();
 					e.stopPropagation();
-					BrowserOpenAddonsMgr();
+					//openWebPanel('附加组件', 'chrome://mozapps/content/extensions/extensions.xul'); //附加组件
+					toggleSidebar('viewHistorySidebar'); //侧栏历史
 				} 
 			},
 			false);
