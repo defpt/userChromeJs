@@ -7,7 +7,6 @@
 // @author         slimx
 // @version        2.0.0.2
 // @updateURL     https://j.mozest.com/ucscript/script/7.meta.js
-// @note          追随L大，改成了图标版 by defpt
 // @note          2013/07/12 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
 // @note          2013/07/11 稍做修正，增加右键点击菜单项设置所有页面默认的缩放率
 // ==/UserScript==
@@ -755,7 +754,7 @@ var fullZoomBtn = {
 	},
 
 	//show Zoom Level In Statusbar
-	/* showZoomLevelInStatusbar : function () {
+	showZoomLevelInStatusbar : function () {
 		var statusbarZoomLevel = document.getElementById("statusbarZoomLevel");
 		if (!statusbarZoomLevel)
 			return;
@@ -765,25 +764,7 @@ var fullZoomBtn = {
 		else
 			label = "T" + label + "%";
 		statusbarZoomLevel.setAttribute("label", label);
-	}, */
-	//缩放模式
-	showZoomLevelInStatusbar : function () {
-        var statusbarZoomLevel = document.getElementById("statusbarZoomLevel");
-        var FullZoomsrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK0SURBVDhPjZBtSFNRGICnpfRlEPSvX0EFSr8aQQTmj8CcpGhsQiVKDJZKYg4Ky9lNWeWWWuo0bs50uQn5tekM082vZpnLzTRt03TqtDXbTJ350dzu27neK2IJ+cDhHu45z8M5h7EB3tvr16DRn27sMGLKVn1VpfptTZG8/hH2WHouPh7bQ2/bHqmqK6BJ1yfQdJtszd1mQtMzCo06M8jq3xEivNqZklmYc5nHP0xv3wqO434NbYZ0jd60bBh2wKjNDeMzXhj97oGB8WWo0ppA8OSVO1mQl3+Rx9tHa5solG1MdXvft08jTpj4AWB1AkzPAkyh76QD4It1DcrUQ5Amfjl3LSWDRWublNVp0xs7+4kph2ddJiPjaJDyegTNu4aWILu0GW6ki/GQkJDdtEqRX65StH4wg2MBYHYRwOkCsM+jk6DAmB3AMgPQP+EFqdIINzMl7WcjIwNolULwVFb5RjcA80sArmVqkHMyZvsJ6C0APk8SoGgahFvZeGdY2NWDtErBFxZj5bVawrXkgRU3wMpvgF+rVMSJIuRJBq1ekL82wL3ckrKgoCB/WqVIvpt7Jksitw9bpsHjBVjzAKyi0OIKFSDfRG+ahxd1HYu3s/LYSPGhTBoOhvmjuwklMuWqxWpDAS+4UYQM2OcIGBhbgFqtEQplyq64uNQjSNkaILmSmHYo5X6h6GGRYlbV8p4wDlnAaJqCNv0IVLd8dGXllxtERRV2Li+xJjo6+hRS/o2w2ey9SXdE5zNySwtySqo0z+TqVkmFSvqgoOQSNzXtWEHxc931hAQiPDxcHxUVxUTKvxESDoezKzY2dj+Hk3SAyWT6oV8+GIb58vn8C2Kx+CuXy/1/ZDv+joSGhnYHBwcfpZd3xkZEKBSaIyIiegIDA4/TSzuHjMTExJxksVgnGAyG7x+race/tXwt/gAAAABJRU5ErkJggg==";
-        var TextZoomsrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALTSURBVDhPjZNbSNNRHMdnpliUTxFBL734YA+9GCQ95ONMpig6JApXIsMuktPWxU2Xw4m6vKymm7VoqVPahOkYptOhrrzMy7ylKdM5EzWv817a/v9vf/UvIkn4gcPh8Duf7zn8DoexT3FXl1dVo/Wq0dIj0Js7ysoMX0oVGqNALFMHcLnFXvS2oymtafetaxkQNliHp+pav5Om9lEYmofwsforkanUTfHS5cLbCSJfevthtFqtt9FiS2voGN60jczDPr0Nx0+Cmt3oHVuH5vMABPmazYTU/DQ2W+RNaweUGy3XDM09M332RUzMYXeUm1dRYV6Gc47EgHMLb/W9eJ6lnrmbILpOaweo9eb0Gks/OblAYGIesM+QeKachPCdE85ZAuOzJJr6VpGhNJAPU3IklHJiz6R5XVKta+q0Y3YZ0DatQqyeQlRKP8L5ViTn9eBdlQO2MTcU2jYkvpTpg4KCfGh1D5GstLKhdRCuderq9Yt4oXAgNKkNNx81Ij6jBQXlw+gbJ6A22MCXFBkCAwNP0eoeTyTKzLKqRnJtk8DGbxKuNTcSpZ1Izu3A1KKbaiiJfqcbH6raSEG2Ip/BZnvS6h4PBNIbEnnF/KhzGgQBbG2TeK8f3h1zKyTVA6Dt2wJUOvNiUmoWk9YO4HBEPjyxXCovMWyNT87gj5vAry0SKxskppcI9Npd0Jk6UaDS1kbciT9Pa4e5xU06x0t/k5elqFiqrm8luwcd6Br6gQbrCD7VtrtSX6m6c4o00/fi4jTR0dH+tHYYFpd7Ov5pBjM1VyXPVelM8lJDvUxdqUiXFobefyz0lxUqumNjYwkWi9UYFRV1mdb+hXqmk2w2+0xYWNjZgICAnT/gQa09+Xx+eHZ29kRMTAwREhLS9N+Qo9gJ4fF4ETshHA6HYDKZJuqwC3T5eOyHiMVie3BwsMnPz+8iXTo+OyGRkZFXqBtcYjAYHn8BZDKwohMN2+cAAAAASUVORK5CYII=";
-        if (!statusbarZoomLevel) return;
-        var label = Math.floor(ZoomManager.zoom * 100 + 0.5);
-        if (ZoomManager.useFullZoom) {
-            src = FullZoomsrc;
-            tooltiptext = "FullZoom: " + label + "%";
-        } else {
-            src = TextZoomsrc;
-            tooltiptext = "TextZoom: " + label + "%";
-        }
-        statusbarZoomLevel.setAttribute("tooltiptext", tooltiptext);
-        statusbarZoomLevel.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
-        statusbarZoomLevel.setAttribute("image", src);
-    },
+	},
 
 	clickStatusLabel : function (evt) {
 		if (evt.type == "DOMMouseScroll") {
@@ -1057,7 +1038,7 @@ var fullZoomBtn = {
 			menuitem.setAttribute('type', 'radio');
 			//menuitem.setAttribute('oncommand', 'fullZoomBtn.doFullZoomBy(' + arr[i] / 100 + ', ' + useFullZoom + ');');
 			menuitem.setAttribute('onclick', 'fullZoomBtn.SetFullZoom(event, ' + arr[i] / 100 + ', ' + useFullZoom + ');');
-			menuitem.setAttribute('tooltiptext',"左键点击：设置当前页面缩放率\n右键点击：设置所有页面的默认缩放率");
+			menuitem.setAttribute('tooltiptext',"左键点击为设置当前页面缩放率，右键点击设置为所有页面的默认缩放率");
 			if (!ZoomManager.useFullZoom == !useFullZoom && arr[i] == Math.floor(ZoomManager.zoom * 100 + 0.5)) {
 				menuitem.setAttribute('checked', true);
 			}
@@ -1296,14 +1277,16 @@ var ZoomManager = {
 	}
 }
 
-//UI
+//ui
 function fullZoomUI() {
 	var statusbar = document.getElementById("urlbar-icons"); //status-bar navigator-toolbox urlbar-icons  TabsToolbar
-	var button = document.createElement("toolbarbutton");
+	var button = document.createElement("statusbarpanel");
 	button.setAttribute("id", "statusbarZoomLevel");
 	button.setAttribute("onmousedown", "fullZoomBtn.clickStatusLabel(event);");
 	button.setAttribute("onclick", "event.preventDefault();");
 	button.setAttribute("onDOMMouseScroll", "fullZoomBtn.clickStatusLabel(event);");
+	//button.setAttribute("tooltiptext", "左键单击图标切换缩放页面或仅缩放文字模式，右键单击图标为缩放菜单");
+	button.style.margin = "0 0 -1px 0";
 	statusbar.appendChild(button);
 	//statusbar.insertBefore(button, statusbar.childNodes[1]);
 
