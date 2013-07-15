@@ -8,6 +8,7 @@
                     //去除了某些我用不到的站点以及Splitter，开关设置在了主页按钮右键
 // ==/UserScript==
 (function() {
+
     if (!document.getElementById('sidebar-box')) return;
 	if (!window.SidebarMod) {
 		window.SidebarMod = {
@@ -140,7 +141,7 @@
 				sidebar = document.getElementById("sidebar"),
 				sidebarTitle = document.getElementById("sidebar-title"),
 				sidebarBoxArrow = document.getElementById('sidebar-box-arrow'),
-				lastcommand = commandID || sidebarBox.getAttribute('sidebarcommand') || sidebarBox.getAttribute('sidebarlastcommand') || 'viewBookmarksSidebar';
+				lastcommand = commandID || sidebarBox.getAttribute('sidebarcommand') || sidebarBox.getAttribute('sidebarlastcommand') || 'viewHistorySidebar';
 				
 				if (!commandID && sidebarBox.hidden) {
 					if (sidebarBox.getAttribute('sidebarcommand') === '') {
