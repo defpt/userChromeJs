@@ -7,16 +7,18 @@
 // @author         slimx
 // @version        2.0.0.2
 // @updateURL     https://j.mozest.com/ucscript/script/7.meta.js
-// @note          追随L大，改成了图标版 by defpt
-// @note          2013/07/12 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
+// @note          2013/07/16 追L大更新，可设置显示按钮或者文字 by defpt
+// @note          2013/07/15 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
 // @note          2013/07/11 稍做修正，增加右键点击菜单项设置所有页面默认的缩放率
 // ==/UserScript==
 
 //@11/22 第一版
 //@1/2/13 第二版
 var FullZoomConfig = new function () {
+	//按钮为图标或者文字：true 为图标， false 为文字
+	this.showIconBtn = true;
 	//默认的缩放级别
-	this.defaultLv = 105;
+	this.defaultLv = 110;
 	//只缩放文字
 	this.Textmode = true;
 	//是否应用于本地文件?
@@ -37,10 +39,10 @@ var FullZoomConfig = new function () {
 	this.ignoreImageDocument = true;
 
 	//快捷菜单的缩放项目,需要注意的是最大值和最小值不能超过zoom.minPercent和zoom.maxPercent
-	this.zoomValues = "0.5,0.67,0.8,0.9,1,1.05,1.1,1.2,1.25,1.33,1.5,1.7,2";
+	this.zoomValues = "0.8,0.85,0.9,0.95,1,1.05,1.1,1.15,1.2,1.25,1.30,1.35";
 	//label
     this.fitToWindow = "适合窗口宽度";
-    this.reset = "默认值";
+    this.reset = " 默认值";
 }
 var FullZoom = {
 
@@ -739,12 +741,12 @@ var fullZoomBtn = {
 		case 'resize':
 			this.windowResized(event);
 			break;
-		case 'DOMContentLoaded':
+		/*case 'DOMContentLoaded':
 			setTimeout(function(){
 				this.init(event);
 				}, 1000);
 			
-			break;
+			break;*/
 		case 'unload':
 			this.uninit(event);
 		}
@@ -755,35 +757,32 @@ var fullZoomBtn = {
 	},
 
 	//show Zoom Level In Statusbar
-	/* showZoomLevelInStatusbar : function () {
+	showZoomLevelInStatusbar : function () {
 		var statusbarZoomLevel = document.getElementById("statusbarZoomLevel");
 		if (!statusbarZoomLevel)
 			return;
 		var label = Math.floor(ZoomManager.zoom * 100 + 0.5);
-		if (ZoomManager.useFullZoom)
-			label = "F" + label + "%";
-		else
-			label = "T" + label + "%";
-		statusbarZoomLevel.setAttribute("label", label);
-	}, */
-	//缩放模式
-	showZoomLevelInStatusbar : function () {
-        var statusbarZoomLevel = document.getElementById("statusbarZoomLevel");
-        var FullZoomsrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK0SURBVDhPjZBtSFNRGICnpfRlEPSvX0EFSr8aQQTmj8CcpGhsQiVKDJZKYg4Ky9lNWeWWWuo0bs50uQn5tekM082vZpnLzTRt03TqtDXbTJ350dzu27neK2IJ+cDhHu45z8M5h7EB3tvr16DRn27sMGLKVn1VpfptTZG8/hH2WHouPh7bQ2/bHqmqK6BJ1yfQdJtszd1mQtMzCo06M8jq3xEivNqZklmYc5nHP0xv3wqO434NbYZ0jd60bBh2wKjNDeMzXhj97oGB8WWo0ppA8OSVO1mQl3+Rx9tHa5solG1MdXvft08jTpj4AWB1AkzPAkyh76QD4It1DcrUQ5Amfjl3LSWDRWublNVp0xs7+4kph2ddJiPjaJDyegTNu4aWILu0GW6ki/GQkJDdtEqRX65StH4wg2MBYHYRwOkCsM+jk6DAmB3AMgPQP+EFqdIINzMl7WcjIwNolULwVFb5RjcA80sArmVqkHMyZvsJ6C0APk8SoGgahFvZeGdY2NWDtErBFxZj5bVawrXkgRU3wMpvgF+rVMSJIuRJBq1ekL82wL3ckrKgoCB/WqVIvpt7Jksitw9bpsHjBVjzAKyi0OIKFSDfRG+ahxd1HYu3s/LYSPGhTBoOhvmjuwklMuWqxWpDAS+4UYQM2OcIGBhbgFqtEQplyq64uNQjSNkaILmSmHYo5X6h6GGRYlbV8p4wDlnAaJqCNv0IVLd8dGXllxtERRV2Li+xJjo6+hRS/o2w2ey9SXdE5zNySwtySqo0z+TqVkmFSvqgoOQSNzXtWEHxc931hAQiPDxcHxUVxUTKvxESDoezKzY2dj+Hk3SAyWT6oV8+GIb58vn8C2Kx+CuXy/1/ZDv+joSGhnYHBwcfpZd3xkZEKBSaIyIiegIDA4/TSzuHjMTExJxksVgnGAyG7x+race/tXwt/gAAAABJRU5ErkJggg==";
-        var TextZoomsrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALTSURBVDhPjZNbSNNRHMdnpliUTxFBL734YA+9GCQ95ONMpig6JApXIsMuktPWxU2Xw4m6vKymm7VoqVPahOkYptOhrrzMy7ylKdM5EzWv817a/v9vf/UvIkn4gcPh8Duf7zn8DoexT3FXl1dVo/Wq0dIj0Js7ysoMX0oVGqNALFMHcLnFXvS2oymtafetaxkQNliHp+pav5Om9lEYmofwsforkanUTfHS5cLbCSJfevthtFqtt9FiS2voGN60jczDPr0Nx0+Cmt3oHVuH5vMABPmazYTU/DQ2W+RNaweUGy3XDM09M332RUzMYXeUm1dRYV6Gc47EgHMLb/W9eJ6lnrmbILpOaweo9eb0Gks/OblAYGIesM+QeKachPCdE85ZAuOzJJr6VpGhNJAPU3IklHJiz6R5XVKta+q0Y3YZ0DatQqyeQlRKP8L5ViTn9eBdlQO2MTcU2jYkvpTpg4KCfGh1D5GstLKhdRCuderq9Yt4oXAgNKkNNx81Ij6jBQXlw+gbJ6A22MCXFBkCAwNP0eoeTyTKzLKqRnJtk8DGbxKuNTcSpZ1Izu3A1KKbaiiJfqcbH6raSEG2Ip/BZnvS6h4PBNIbEnnF/KhzGgQBbG2TeK8f3h1zKyTVA6Dt2wJUOvNiUmoWk9YO4HBEPjyxXCovMWyNT87gj5vAry0SKxskppcI9Npd0Jk6UaDS1kbciT9Pa4e5xU06x0t/k5elqFiqrm8luwcd6Br6gQbrCD7VtrtSX6m6c4o00/fi4jTR0dH+tHYYFpd7Ov5pBjM1VyXPVelM8lJDvUxdqUiXFobefyz0lxUqumNjYwkWi9UYFRV1mdb+hXqmk2w2+0xYWNjZgICAnT/gQa09+Xx+eHZ29kRMTAwREhLS9N+Qo9gJ4fF4ETshHA6HYDKZJuqwC3T5eOyHiMVie3BwsMnPz+8iXTo+OyGRkZFXqBtcYjAYHn8BZDKwohMN2+cAAAAASUVORK5CYII=";
-        if (!statusbarZoomLevel) return;
-        var label = Math.floor(ZoomManager.zoom * 100 + 0.5);
-        if (ZoomManager.useFullZoom) {
-            src = FullZoomsrc;
-            tooltiptext = "FullZoom: " + label + "%";
-        } else {
-            src = TextZoomsrc;
-            tooltiptext = "TextZoom: " + label + "%";
-        }
-        statusbarZoomLevel.setAttribute("tooltiptext", tooltiptext);
-        statusbarZoomLevel.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
-        statusbarZoomLevel.setAttribute("image", src);
-    },
+		
+		if (FullZoomConfig.showIconBtn){
+			if (ZoomManager.useFullZoom) {
+				src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAItSURBVDhPlZBPTJJhHMffOQ+tQ4cOXW2NteahjXHzwuaJA6fWBgdWJ6st45A6VhAuy4wGCQN0lthQlEkmhGERjEwCnJo2Xhy4JeLMaUj+iRoyfPn2Ml73+qpz+dl+e/Y8z+/zPXyJ/fS/811wf/qqGvk8M2gfDQ2ael0qRXP7eeb7eN4HZ1X+SCL/IRyHJxjHsD+KnuEgnpgG8vVKnYpeqShvHoF7bFrtm4hjZj6D5BqFVLqIBfqMpXbQNxrDfZ0NNxVtamadywu756JzbLYQS27RIrCcAZbWmaHviR+76HgTRaPGUrhyvf4So7FYnYFHnvEoVjbK0sIaG7AXNh7LoaXTjRtNbRpGYzH1e94GJhJIb7Piwfm2WITRHoL8QbuX0VgeGgZGPn6JYuvP0XJpyCXA4pxCU6vJRyvcMhsed2hsrgD+7gC5PFfM/KZPuoe55SJ6nBEoWo1mRmO5Jm++fO+5lVpNb4CigMIuNyD5E5hMbOPlaz8lq7tTw2hc5Gq9Qds9hPVfmygWgXwByOaA1U0gtpiFwzuFp+Y+D71aWTYOIBQKK28rtWalvpdy+cKYJr9jkkzBR5fr8IapxhYj2Wl1Fa5KJE6ZTHaO0Q5RIam7W6N81tWl6x4KGW3uiN7isNxqUNYSVVWnLK+sK1KpFGKxmDwuZI9S05y2aanWYDBkTxJyiP0hIpGIFAgEp5mv/6cUotVqs3Rvczwe7wzzfDL4fD6vurr6LEEQxD/MoaXb0IcUsQAAAABJRU5ErkJggg==";
+				tooltiptext = "FullZoom: " + label + "%";
+			} else {
+				src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJzSURBVDhPlZBdTJJRHMaZ86J10UUX3doaa82LNsedNzAvmmtubbUmF6xusloZLT+yCeHUzChAiw/DxEIxFU0UQzOITERJTYuPQZuKZs5CEokKGb48vejbkGwuf9vZ2Tnn/3vevQ9tKy3PjYf0r9/xe99Mtrf1WdtlTd38krKag9TzzvRbpvimt57IixE3DBY3ukx2NHZZcFvRFsnnifnkSMrm5D/QD04IjDY3Jj/6MfuFwJwvhhlyd86tobnPiVKxBhdKqgXUeDL1rYbDPYNTUefsKikCC35AYwyixRTAPHn2fF6H4pkd14Wq6Mmz+UcoLYFaZ640DNmxuALML4P8MlCk+IRSpXcjLH435Ayjok6P88XVQkpLIGsx9JhtHviCQJs5iMonizh14wNOFNpwTTyJ+q4ZvPfGIG21giuoGaC0BOUPnva+HLZj9Qeg7vejWDaN41dHcOzSK5wrt+BekwuOeUClG0dxldxIKsllFt5SCDXdZvxcA8IR4Be5uMIxFIhs8H8nf4HswbUQQ6NuFCVVUjmlJTjDLTvKk6iJJd8KCAKIrgMPtS4oO1wbAbNfgTFPEI86TAQn70ompSXDFdTeFzV0YvlbALEYEIkCoTCwFACc3hC0A+O4I282kKOpm8ZfMJnM1Ms8kfxmbRPRbRzBhGMaY445GMlytQM2oqhC6qhr1kdP57J1HA7nAKVtIyU3ryCTd1epFDd0WmUa/WitSqu6WMjLoqWl7VE9Vi+y2Wzk5OQ4dgr5Q7zppLZJKUsqlYZ2E7KNrSHZ2dkOBoOxl3r6f+IhEokkxGKxXHQ6fR91vTsyMjLo6enp+2k0Gu03BsOUvNQISWAAAAAASUVORK5CYII=";
+				tooltiptext = "TextZoom: " + label + "%";
+			}
+			statusbarZoomLevel.setAttribute("tooltiptext", tooltiptext);
+			statusbarZoomLevel.setAttribute("class", "statusbarpanel-iconic");
+			statusbarZoomLevel.setAttribute("image", src);
+		} else {
+			if (ZoomManager.useFullZoom)
+				label = "F" + label + "%";
+			else
+				label = "T" + label + "%";
+			statusbarZoomLevel.setAttribute("label", label);
+			statusbarZoomLevel.setAttribute("tooltiptext", "左键：切换缩放模式\n右键：设置缩放倍数");
+		}
+	},
 
 	clickStatusLabel : function (evt) {
 		if (evt.type == "DOMMouseScroll") {
@@ -1057,7 +1056,7 @@ var fullZoomBtn = {
 			menuitem.setAttribute('type', 'radio');
 			//menuitem.setAttribute('oncommand', 'fullZoomBtn.doFullZoomBy(' + arr[i] / 100 + ', ' + useFullZoom + ');');
 			menuitem.setAttribute('onclick', 'fullZoomBtn.SetFullZoom(event, ' + arr[i] / 100 + ', ' + useFullZoom + ');');
-			menuitem.setAttribute('tooltiptext',"左键点击：设置当前页面缩放率\n右键点击：设置所有页面的默认缩放率");
+			menuitem.setAttribute('tooltiptext',"左键点击为设置当前页面缩放率，右键点击设置为所有页面的默认缩放率");
 			if (!ZoomManager.useFullZoom == !useFullZoom && arr[i] == Math.floor(ZoomManager.zoom * 100 + 0.5)) {
 				menuitem.setAttribute('checked', true);
 			}
@@ -1296,10 +1295,11 @@ var ZoomManager = {
 	}
 }
 
-//UI
+//ui
 function fullZoomUI() {
-	var statusbar = document.getElementById("urlbar-icons"); //status-bar navigator-toolbox urlbar-icons  TabsToolbar
-	var button = document.createElement("toolbarbutton");
+	var statusbar = document.getElementById("urlbar"); 
+	//status-bar navigator-toolbox urlbar-icons  TabsToolbar
+	var button = document.createElement("statusbarpanel");
 	button.setAttribute("id", "statusbarZoomLevel");
 	button.setAttribute("onmousedown", "fullZoomBtn.clickStatusLabel(event);");
 	button.setAttribute("onclick", "event.preventDefault();");
@@ -1321,5 +1321,14 @@ function fullZoomUI() {
 }
 fullZoomUI();
 
-FullZoom.init();
-fullZoomBtn.init();
+var delayloadFullZoom = function (aEvent) {
+	setTimeout(function () {
+		FullZoom.init();
+		fullZoomBtn.init();
+	}, 1000);
+};
+var loadFullZoom = function () {
+	gBrowser.addEventListener("DOMContentLoaded", delayloadFullZoom, true);
+};
+window.addEventListener("pageshow", loadFullZoom, false);
+
