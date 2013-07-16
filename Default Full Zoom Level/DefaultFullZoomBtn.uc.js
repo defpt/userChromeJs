@@ -7,7 +7,7 @@
 // @author         slimx
 // @version        2.0.0.2
 // @updateURL     https://j.mozest.com/ucscript/script/7.meta.js
-// @note          2013/07/16 追L大更新，可设置显示按钮或者文字 by defpt
+// @note          2013/07/16追随L大更新，可设置显示按钮或者文字 by defpt
 // @note          2013/07/15 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
 // @note          2013/07/11 稍做修正，增加右键点击菜单项设置所有页面默认的缩放率
 // ==/UserScript==
@@ -1297,15 +1297,16 @@ var ZoomManager = {
 
 //ui
 function fullZoomUI() {
-	var statusbar = document.getElementById("urlbar"); 
+	var statusbar = document.getElementById("urlbar-icons"); 
 	//status-bar navigator-toolbox urlbar-icons  TabsToolbar
 	var button = document.createElement("statusbarpanel");
 	button.setAttribute("id", "statusbarZoomLevel");
 	button.setAttribute("onmousedown", "fullZoomBtn.clickStatusLabel(event);");
 	button.setAttribute("onclick", "event.preventDefault();");
 	button.setAttribute("onDOMMouseScroll", "fullZoomBtn.clickStatusLabel(event);");
-	statusbar.appendChild(button);
+	//statusbar.appendChild(button);
 	//statusbar.insertBefore(button, statusbar.childNodes[1]);
+	statusbar.insertBefore(button, document.getElementById("star-button"));
 
 	var popupSet = document.getElementById("mainPopupSet");
 	var popup = document.createElement("menupopup");
