@@ -7,7 +7,7 @@
 // @author         slimx
 // @version        2.0.0.2
 // @updateURL     https://j.mozest.com/ucscript/script/7.meta.js
-// @note          2013/07/12 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
+// @note          2013/07/15 modified by lastdream2013 修正恢复上次关闭网页时有可能在第一个页面失效的问题
 // @note          2013/07/11 稍做修正，增加右键点击菜单项设置所有页面默认的缩放率
 // ==/UserScript==
 
@@ -15,7 +15,7 @@
 //@1/2/13 第二版
 var FullZoomConfig = new function () {
 	//默认的缩放级别
-	this.defaultLv = 105;
+	this.defaultLv = 110;
 	//只缩放文字
 	this.Textmode = true;
 	//是否应用于本地文件?
@@ -36,10 +36,10 @@ var FullZoomConfig = new function () {
 	this.ignoreImageDocument = true;
 
 	//快捷菜单的缩放项目,需要注意的是最大值和最小值不能超过zoom.minPercent和zoom.maxPercent
-	this.zoomValues = "0.5,0.67,0.8,0.9,1,1.05,1.1,1.2,1.25,1.33,1.5,1.7,2";
+	this.zoomValues = "0.8,0.85,0.9,0.95,1,1.05,1.1,1.15,1.2,1.25,1.30,1.35";
 	//label
     this.fitToWindow = "适合窗口宽度";
-    this.reset = "默认值";
+    this.reset = " 默认值";
 }
 var FullZoom = {
 
@@ -738,12 +738,12 @@ var fullZoomBtn = {
 		case 'resize':
 			this.windowResized(event);
 			break;
-		case 'DOMContentLoaded':
+		/*case 'DOMContentLoaded':
 			setTimeout(function(){
 				this.init(event);
 				}, 1000);
 			
-			break;
+			break;*/
 		case 'unload':
 			this.uninit(event);
 		}
@@ -1285,10 +1285,10 @@ function fullZoomUI() {
 	button.setAttribute("onmousedown", "fullZoomBtn.clickStatusLabel(event);");
 	button.setAttribute("onclick", "event.preventDefault();");
 	button.setAttribute("onDOMMouseScroll", "fullZoomBtn.clickStatusLabel(event);");
-	//button.setAttribute("tooltiptext", "左键单击图标切换缩放页面或仅缩放文字模式，右键单击图标为缩放菜单");
+	button.setAttribute("tooltiptext", "左键：切换缩放模式\n右键：设置缩放倍数");
 	button.style.margin = "0 0 -1px 0";
-	statusbar.appendChild(button);
-	//statusbar.insertBefore(button, statusbar.childNodes[1]);
+	//statusbar.appendChild(button);
+	statusbar.insertBefore(button, statusbar.childNodes[1]);
 
 	var popupSet = document.getElementById("mainPopupSet");
 	var popup = document.createElement("menupopup");
@@ -1304,5 +1304,15 @@ function fullZoomUI() {
 }
 fullZoomUI();
 
-FullZoom.init();
-fullZoomBtn.init();
+
+var delayloadFullZoom = function (aEvent) {
+	setTimeout(function () {
+		FullZoom.init();
+		fullZoomBtn.init();
+	}, 1000);
+};
+var loadFullZoom = function () {
+	gBrowser.addEventListener("DOMContentLoaded", delayloadFullZoom, true);
+};
+window.addEventListener("pageshow", loadFullZoom, false);
+

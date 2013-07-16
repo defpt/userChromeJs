@@ -16,7 +16,7 @@
 //@1/2/13 第二版
 var FullZoomConfig = new function () {
 	//按钮为图标或者文字：true 为图标， false 为文字
-	this.showIconBtn = true;
+	this.showIconBtn = false;
 	//默认的缩放级别
 	this.defaultLv = 110;
 	//只缩放文字
@@ -1004,7 +1004,7 @@ var fullZoomBtn = {
 	SetFullZoom : function (event, zoom, useFullZoom) {
 		if (event.button == 0)
 			fullZoomBtn.doFullZoomBy(zoom, useFullZoom);
-		else if (event.button == 2) {
+		else if (event.button == 2 ) {
 			FullZoom._prefBranch.setCharPref("browser.zoom.defaultZoomValue", zoom);
 			var alertsService = Components.classes["@mozilla.org/alerts-service;1"].getService(Components.interfaces.nsIAlertsService);
 			alertsService.showAlertNotification("chrome://global/skin/icons/information-32.png", "DefaultFullZoomLevel", "已设置所有页面默认值缩放值为" + zoom * 100 + "%", false, "", null, "");
@@ -1056,7 +1056,7 @@ var fullZoomBtn = {
 			menuitem.setAttribute('type', 'radio');
 			//menuitem.setAttribute('oncommand', 'fullZoomBtn.doFullZoomBy(' + arr[i] / 100 + ', ' + useFullZoom + ');');
 			menuitem.setAttribute('onclick', 'fullZoomBtn.SetFullZoom(event, ' + arr[i] / 100 + ', ' + useFullZoom + ');');
-			menuitem.setAttribute('tooltiptext',"左键点击为设置当前页面缩放率，右键点击设置为所有页面的默认缩放率");
+			menuitem.setAttribute('tooltiptext',"左键：设置当前页面缩放率\m右键：设置全局默认缩放率");
 			if (!ZoomManager.useFullZoom == !useFullZoom && arr[i] == Math.floor(ZoomManager.zoom * 100 + 0.5)) {
 				menuitem.setAttribute('checked', true);
 			}
