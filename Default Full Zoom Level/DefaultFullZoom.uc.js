@@ -7,8 +7,8 @@
 // @author         slimx
 // @version        2.0.0.2
 // @updateURL     https://j.mozest.com/ucscript/script/7.meta.js
-// @note          2013/07/16 添加文字样式 by defpt
-// @note          2013/07/16 modified by lastdream2013 
+// @note          2013/07/16 自用美化版 by defpt
+// @note          2013/07/16 modified by lastdream2013
 // @note          2013/07/12 修正恢复上次关闭网页时有可能在第一个页面失效的问题
 // @note          2013/07/11 稍做修正，增加右键点击菜单项设置所有页面默认的缩放率
 // ==/UserScript==
@@ -1301,22 +1301,20 @@ function fullZoomUI() {
 		        if (event.target == this)\
 			    fullZoomBtn.onPopupShowing(event)");
 	popupSet.appendChild(popup);
-
 	document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
-	#statusbarZoomLevel {\
-		padding-top:1px !important;\
-		padding-bottom:1px !important;\
-		padding-left:0 !important;\
-		margin-left:-6px !important;}\
-	#statusbarZoomLevel {\
-		background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAWCAYAAABg3tToAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJoSURBVFhH3Vg9SHJRGNYxnMLI8g9CLBwiURGE6+Ag5aBO4WKBQ7S6iUOLi5Bra6tDDo4OQgQuLlKY/6iR9oO/ZJaWaM93z/ny47MPbPmG7n3gcN733nPhPO977jnvcwTD4RC9Xg+tVgt3d3eoVqvI5/O4vLxEMpnExcUFYrEYotEowuEwTk9PcXJyglAohEAgAL/fD6/Xi8PDQ+zt7WF3dxd2ux1WqxUMw8BgMGBzcxNqtRpra2tQKBSQSqVYWVmBRCKhvkqlou+n/d82GScUChGJRCBg8fHxcUT6uWAHYTKZYDweYzQa4f39Hc/Pz+j3+3h9faWEn56e0Ol00Gg0aHt4eMDj4yNub2+pTYJRq9Wof3NzQwNTLpdRKpVQLBZpkHK5HLLZLDKZDNLpNA1aKpXC1dUV9a+vr//0X+1gMEgIwefzUWK8wsLCAg4ODkjgzz8fcRPsCppZbmKxGG63m/vEvmJxcREOh4N/S1Gj0cBkMvGPmF6vh1ar5R8xs9kMkrVP959/kLPY2dnB6uoqPzI2zQo5Z202G+RyOb+IVSoVLC8v82PzAMCwmTqv1+uQyWQwGo38IEV6UnMuLS0hHo9Tn9N4e3s72t/fp4QSiQT3CXW7XcbpdEKpVJLCmB+ELBYL1tfXUSgUuE/o/v6e2dragk6nI3KH+4RYPcaQ82h7exsvLy/crB6mu9sURC27XC4MBgN+lEMikQgej4co9PmE5sl5NhokxdQmkr7dbtPWbDZpIxL+f8p59oefscm3xD4+PiYHKr0P+T3rb/CTLl42NjZmbFJ9kzHsNHF2dkYJfX/xIhD8Ajpsi2bdV4uYAAAAAElFTkSuQmCC");\
-		background-repeat:no-repeat;\
-		background-size:100% 100%;}\
-	#statusbarZoomLevel:hover {\
-		background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAWCAYAAABg3tToAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHgSURBVFhH1Zg7awJBFIXXQkGsRPGBj0YUrBQFQYiFldrYiY0IFtZpAmKRWvCn6E8Q0tga3WggplBZC0MS8yIiKOKJs1gYGc1uinhz4OOy4j3sYZaZvSvwFIvFsCl/ik6ng81mg9VqhcvlgsfjgdfrlX/TaDSo1+vsf8J6vb5kVbUGgwF6vR4Jut0uKpWKHLxUKsnBfqWO9AaK6PV6FItFLBaLq+2tKhfP8FSI0ru0e20ymZDL5dQH2zWhiNFoRDqdVvco8oyo4ff7EY1GlQfjmVAkHA4jGAwqC8YzoAo7ftiqbW9dWK1W/C2f10yZZDIJu91+fMV4jRTpjl8eWb2ffCCVSsHpdB4Ott9MmevR2+emTm5HD7BYLIc3j/1GyrSH00FnPF3cSU9wOByIRCL/P5S4WaWWNB1mMhmYzWY0Go2zbYzv4jVT5WbzxpHP5+VAzWaTH4iJ10wR9uidX5TgdrshiuLhQEw8A2q0hq+zeDwOn8+Hfr9/PBATz4QWr5NAIIBQKARJkn4OxMQ3okF79Nxk51EikcBsNlM+MPLMToW8Ze9cs8k4m81iPp+rm4B3TShhMBhQKBSwXC7Vj/TUxvlqtcoOVJTL5ePvd8d0ig8vh9BqtXKt1WqsKvjwIghfSNJpn4aiYlUAAAAASUVORK5CYII=");\
-		background-repeat:no-repeat;\
-		background-size:100% 100%;}\
-	') + '"'), document.documentElement);
+		#statusbarZoomLevel {\
+			padding-top:1px !important;\
+			padding-left:0 !important;\
+			margin-left:-6px !important;}\
+		#statusbarZoomLevel{\
+			background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAASCAYAAAAZk42HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGSSURBVEhL7ZetiwJRFMXnT9imCIZBRAzCBqPVaDSaTYLVsMGphi1TrdaJxjVaRPFbEUURxS9Qxw9G1LNzr+uyCk7aMANz4PDOZd7A/O574Y5wPB6x2WywWCwwHo/R7/fRarVQLpdRLBZRKBSQz+ehKApyuRyy2SxkWUYmk4EkSUilUkgmk4jH44jFYohGo4hEIgiHwwiFQggGgwgEAvB6vRBFEW63Gy6XC06nEw6Hg2uPx8PP7+vfTPsEQSC/6X6t6/WKy+WC8/mM0+kETdOw3W6hqir2+z1DrtdrrFYrzGYz9mQywXQ6xXA45EwNGI1GXA8GA25Gr9dDt9tFp9PhxjSbTTQaDdTrdVSrVW5UqVRCpVLhular/a7POZFIEMiXbmMYi+hdt3Vh9Jvy8RNJ1oZ5kg1jVtkwZhXBKLdobdFpfN6idUUQdLXoVCwrG8IssiHMImMIozH+cDhgt9txplF+uVyy5/M5m0b3/xzj2+32Q6Z3KafT6fsY//okzPRj5fP5HrLf7+c9+meSDa6TIHwDgAr8ySwodQYAAAAASUVORK5CYII=");\
+			background-repeat:no-repeat;\
+			background-size:100% 100%;}\
+		#statusbarZoomLevel:hover {\
+			background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAASCAYAAAAZk42HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVEhLzZexDYMwEEVpYAXTUCH6LOCRGIIJMkpGyAiJoKZggmSDyz8IEiIH2E34X3rCQj7rfUEBiRXvveDyV7IskzzPxTknRVFIWZZSVdV477snPn3fS9d1FLRtK3Vda5H7ZBeRx/ASNqB1AXFlrIPO4jm8h3kNtbgyy4PYgF54GesAJqAYVsYaZgOax2WsQUagul/GGmIFulrmNoqvYw0wA+XrZL6KtZkV6OqrpU/lN9YAI1DdLqGxhtiA5n4JjTXIBBSPS2isYRagF1ZCYx3AANTCS2jYPuObpokvoTnjx2qLNE3n9U6JJPkAOhld5XWpwMsAAAAASUVORK5CYII=");\
+			background-repeat:no-repeat;\
+			background-size:100% 100%;}\
+		') + '"'), document.documentElement);
 
 }
 fullZoomUI();
