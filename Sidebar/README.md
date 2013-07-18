@@ -13,5 +13,5 @@
 ###配合效果图
 
 ![ExternalFuncBtn](https://github.com/defpt/userChromeJs/blob/master/Sidebar/sidebar.png?raw=true)
-
-
+![sidebar]
+(https://github.com/defpt/userChromeJs/blob/master/Sidebar/sidebar.gif?raw=true)
