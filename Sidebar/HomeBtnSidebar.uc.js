@@ -4,9 +4,13 @@
 // @include         chrome://browser/content/browser.xul
 // @charset         UTF-8
 // @author          defpt
-// @note            感谢Sidebar脚本的原作者以及lastdream2013，此脚本从lastdream2013的SidebarMod.uc.js修改而来
-                    //去除了某些我用不到的站点以及Splitter，开关设置在了主页按钮右键
+// @version         LastMod 2013.07.26
 // ==/UserScript==
+/* *********************使用说明*********************
+	此脚本从lastdream2013的SidebarMod.uc.js修改而来
+	去除了某些我用不到的站点以及Splitter，开关设置在了主页按钮右键
+	添加侧栏前进、后退以及刷新的3合1按钮
+*/
 (function() {
 
     if (!document.getElementById('sidebar-box')) return;
@@ -119,6 +123,35 @@
 				insertpoint.parentNode.insertBefore(frag, insertpoint);
 			},
 
+			//添加侧栏前进、后退、刷新
+			addControlBtn: function(){
+				var SHBtn = document.getElementById("sidebar-header");
+				if(SHBtn) {
+					var _sidebarBtn = document.createElement('toolbarbutton');
+					_sidebarBtn.setAttribute('type', 'button');
+					_sidebarBtn.setAttribute("tooltiptext","左键：后退\n中键：刷新\n右键：前进");
+					_sidebarBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
+					_sidebarBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABaSURBVDhPzYzJEcAwCAPpJ62kaHfmHCMzJEbi4Y/3BSuNbE/OdnScTuZSniIbKEdGSQ1k2UtZuKEdFijnfhIgepWtD6QCKPf3PAiUHVVQ2YdqAK+GDeDcCrMLOe2fMX6PACcAAAAASUVORK5CYII=");
+					_sidebarBtn.addEventListener("click",
+					function(event) {
+						var webPanel = document.getElementById('sidebar').contentDocument.getElementById("web-panels-browser");
+						if (webPanel) {
+							if (event.button == 2) {
+								event.preventDefault();
+								event.stopPropagation();
+								webPanel.contentWindow.history.forward();
+							} else if (event.button == 1){
+								webPanel.contentWindow.location.reload();
+							} else {
+								webPanel.contentWindow.history.back();
+							}
+						}
+					},
+					false);
+					SHBtn.insertBefore(_sidebarBtn, SHBtn.childNodes[2]);
+				}
+			},
+
 			//给主页按钮添加右键打开附加组件栏
 			addtoHomeBtn: function () {
 				var HomeBtn = document.getElementById("home-button");
@@ -227,6 +260,7 @@
 			init: function() {
 				window.toggleSidebar = this.toggleSidebar;
 				this.makeButton(this.sitelist);
+				this.addControlBtn();
 				this.addtoHomeBtn();
 				this.modifySidebarClickBehaviour();
 			}
