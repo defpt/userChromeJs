@@ -7,7 +7,7 @@
       top: 70px !important;/*调节侧栏高度*/
       height: 25px !important;/*触发区域高度*/
       left: -250px !important;/*触发区域宽度=width-left*/
-      width: 260px !important; /*设置侧栏宽度*/
+      width: 300px !important; /*设置侧栏宽度*/
       overflow:hidden!important;
       border: 1px solid rgba(151,151,151,.4) !important;
       border-left: 0 !important;
