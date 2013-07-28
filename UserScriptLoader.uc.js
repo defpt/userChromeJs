@@ -1084,7 +1084,7 @@ USL.saveFile = function (aFile, data) {
 USL.loadSetting = function() {
 	try {
 		var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-		aFile.appendRelativePath("Local\\UserScriptLoader.json");
+		aFile.appendRelativePath("UserScriptLoader.json");
 		var data = USL.loadText(aFile);
 		data = JSON.parse(data);
 		USL.database.pref = data.pref;
@@ -1106,7 +1106,7 @@ USL.saveSetting = function() {
 	USL.pref.setValue('DEBUG', USL.DEBUG);
 
 	var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-	aFile.appendRelativePath("Local\\UserScriptLoader.json");
+	aFile.appendRelativePath("UserScriptLoader.json");
 	USL.saveText(aFile, JSON.stringify(USL.database));
 };
 
