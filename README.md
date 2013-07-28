@@ -20,6 +20,7 @@
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
+* [YoukuAntiADsLocal.uc.js](https://github.com/defpt/userChromeJs/blob/master/YoukuAntiADsLocal.uc.js)  自用视频去广告本地版，[本地播放器下载](http://pan.baidu.com/share/link?shareid=557590&uk=1426575002)，其中swf.7z文件即是，里面包括wget.exe 以及 更新批处理，由于我这些文件都是放chrome路径下，所以如果放其它路径，请在批处理自己修改路径
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
 * [论坛灌水.uc.xul](https://github.com/defpt/userChromeJs/blob/master/%E8%AE%BA%E5%9D%9B%E7%81%8C%E6%B0%B4.uc.xul) 自用版，添加了一些颜文字，右键菜单改为快速回复
