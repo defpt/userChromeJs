@@ -3,11 +3,13 @@
 // @description     侧边栏按钮以及功能增强
 // @include         chrome://browser/content/browser.xul
 // @charset         UTF-8
-// @author          defpt
-// @version         LastMod 2013.07.26
+// @author          defpt 
+// @version         LastMod 2013.07.30 添加几个小书签脚本
+// @note            v2013.07.26 添加侧栏前进、后退、刷新按钮
+// @note            v2013.07.15 侧栏激活挂在主页按钮
 // ==/UserScript==
 /* *********************使用说明*********************
-	此脚本从lastdream2013的SidebarMod.uc.js修改而来
+	此脚本从lastdream2013的SidebarMod.uc.js修改而来，原作者是NightsoN，感谢他们
 	去除了某些我用不到的站点以及Splitter，开关设置在了主页按钮右键
 	添加侧栏前进、后退以及刷新的3合1按钮
 */
@@ -41,6 +43,22 @@
 				name: '侧栏站点',
 				favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVDhPhZJdSJNRGMdXCQVFH0QGUURg1kWQNxFGF3VVVARRRnVRkJQxdTan++qdQ9MlxsCkbei2nHNbzNTmx2uzNd61MdP5tensY27vnKum7f3aNIlsvp2JmVTSH87NOf/nd57znD/jf6Jpeh3lNaZhA8oSvFfai1uKB0j45rsYwnfPRDxlS7a/BQrXzPidqZhHL8T6ZAjWr6zD3for08O6DGysOZtqz/LGXdXji2YEQVL8fn8qKEqhafHaBffDo3Tw+QlyrFUXHVCrp98jp6cCgZ2LZqAkPGpm3acsd9Bk8SaFQlEpk8k6DAbDrgXTqQMJ/f6xBHzePTvZkz001H8DnHe3tbU99vl8638BcAu7gkIEKEMikWwvKChws9lsv9FoTPvR/+BaQrs7nmg9Hlr4CKfr9fpCFotFNzQ0IJFIZGMSQJLBrdQrNkK46/uXARwOJ/DW2cQk3na4Yn0PmwhnFZ8MBrc2NjYuArRabZ/Vaj0Mw3B62GO6RL3MDZITzoplQMk97myoRzXcpK/DhEJhpLy83A2K0n4BxGLxNz6f/xmsT7D8NjZhFtriZPjSbwCfNedzdZSDtz7l8XgU2IvU1NQcTALy8/NpkQiiamtr+55Ul1AGYSZddV8wPv7By1k5AxTcuM9ut+8QCASOlYBkBxqNxj49bj8dtfLQxuqimby8vITD8drFsLTWpXOL7qLJIYKf2AMgG0EHtj8BxqcNPtwGIVGbSKnRqJtzc5k0DHegjLBDViXhZc+zCwtXBbBZTNosz/lOOiVvPgdcR6RSaQuTyUwgiKWX8ckm8VeKOTSXy412dXUdXwmQy+WH2puelKmFp2iT9HLUajYp6+vrlWCQsxAEEaOjg2UMrJsVUClqvhYXF//Q6XRSANlcWlqKiCCIfOcwSAOm3EkldGH+noA7B8AJDqcwIRKJpkDoBDgePsug2i94R3vhShCUWyCVGaFQaNugo7PC21k5+cXCiU0gjzR6rfq62Wy+qFKpbiV9IA/HgHcDSYZPMmIt50Yoc84I6dGWYS5FCYHwjcQL5hRpKbDhI8+yCCKwJZm+f2kREB/RCmbar/jjLWfQWOdVlLKJ3YTHABHo4N4l36rC8Y+ZPwEZMzc3tRZqkgAAAABJRU5ErkJggg==',
 				childs: [
+					{
+						name: '屏幕取词',
+						url: "javascript:(function(){script=document.createElement('script');script.src='http://dict.bing.com.cn/cloudwidget/Scripts/Generated/BingTranslate_Hover_Phrase_Selection_ShowIcon.js';script.onload=INIT;document.body.appendChild(script);})();function%20INIT(){BingCW.Init({MachineTranslation:true,WebDefinition:true});}",
+						favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIgSURBVDhPfZM7aBRRFIb/+CiMxBc+CgVBBUlhJVgYsBEFQUs7jaax8QGieew8MrVIipQRXEXQQuwEV1AJaCG+WNRCCxESze7MzrgbfKBIkvG7d2eiq1kP/Mydc///P+eeO6O/I03VUR/UytjXztjVydhTseboTCp1ZJR/Iw20KCxoA6K9iathcL3m6ooRJo52YbK9EWiV4ZkCmex3TDraWPN0C+EYOFbx1D0VqNPsmcrxBXVFvnro6DxFBuZGtMwK84hcbY0cPUXclwRakd7U4kpB6+hiD8Z+5OkBXYQ8Z8AT000mbYY18DQZO/qC4B6VLrN+Tm6avTnEaY7/G/xBbIfcYDrQmuo5LbcGFVebaf8+hHemKl3MgJAhfudos+TqFJmiq2/kXnG0w3CP2Fl8DrQ28XQW0jPIb2m/zHocHEdwG+IlMAqngMlpjF8nvk5VA6231UnuZ7KHEH8wLRpQpcGzSKVhDO9iZDppYNpL/kbLDOykfR1g82NuYIaJ8CjVHvP+HpRBCfSb7loMzH3zEe1DVLViA1c/6KwP8iDrh+SK9uNqGpY+8U1EgbalY1pqTcIhbUEwMW/QhKk8gsEoz0fga5Z/GXraEfery4pNtDFohxfmCjNpM5IBbcLgzQLkeTDYWY5Q5zauVS9m95/HeKAlzOAEpLhF5OlnNtyS+QcosntiSKszWWuYgSA4CPkOKLO+SrVe0M1f2Lnw7yz9AiGQnSrJ4PUtAAAAAElFTkSuQmCC'
+					},
+					{
+						name: '自动刷新',
+						url: "javascript:(function(p){open('','',p).document.write('%3Cbody%20id=1%3E%3Cnobr%20id=2%3E%3C/nobr%3E%3Chr%3E%3Cnobr%20id=3%3E%3C/nobr%3E%3Chr%3E%3Ca%20href=%22#%22onclick=%22return!(c=t)%22%3EForce%3C/a%3E%3Cscript%3Efunction%20i(n){return%20d.getElementById(n)}function%20z(){c+=0.2;if(c%3E=t){c=0;e.location=u;r++}x()}function%20x(){s=t-Math.floor(c);m=Math.floor(s/60);s-=m*60;i(1).style.backgroundColor=(r==0||c/t%3E2/3?%22fcc%22:c/t%3C1/3?%22cfc%22:%22ffc%22);i(2).innerHTML=%22Reloads:%20%22+r;i(3).innerHTML=%22Time:%20%22+m+%22:%22+(s%3C10?%220%22+s:s)}c=r=0;d=document;e=opener.top;u=prompt(%22URL%22,e.location.href);t=u?prompt(%22Seconds%22,60):0;setInterval(%22z()%22,200);if(!t){window.close()}%3C/script%3E%3C/body%3E')})('status=0,scrollbars=0,width=100,height=115,left=1,top=1')",
+						favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALUSURBVDhPfVNJTFNRFAWNJsa4EqMxoII4hEGgtDKkEw0tnX4HPhR+S/s70Q+lUOgkImlLrSERAhpYGhMWXZi40ZV7FyQoIUaBDUk1sDHRje1CaeD63muLJkRvcv7Lu/fcc+/9770SbABw6vDw8PJ/cI4Q/2WYVNfSuXClphWqG4RQ3ZhH+W0B4JjKxNJFMVTsdCHtjxU6aNL0OVaVNAsak5NAINMRgYr65h+Vd4TfagXSpc3NzavId76QmjdMEil7J2U6MzDucRjgggRSiiEC/HYqK6PMwJdq4QZP/P7x4nIjKlpWTD4TiSVba0Sqfb3FA4xnAkwuP/S5/SDR5gXCsdmkjhn6omXcIFL3wi2edGNv73sFEikl1fkSakVB28CMko02dy46uzjnDcdTLXKaCCDc3Envqg1236dumxeEyl4QKekQ6QITBHLd53zVCeBC08+RrxahaYALpHAcd4rJz1ZeOA1WLxitwyCQ6NdJDH+kGibHjkwCZRmGj9vb7Yh8EoH8WLySWZGh/XUNPZgdGIrAXZnp55GA2GjPOsamobPf8wvtywt8XBULXSqsJ96urVXJDNYDp38aJBrm4EiAsnAbWEDLcODyhpTIdwEL4Fhju+IhXjHEalNMbx0BdyAGapPzK/aR2UYj8UdmLgz9ngDwO6itwllfxITK5o4MT6xeUhjMg0KVYd/muw92VKzHMfqmKFCayWTqafv4Fjv2ALQWDhpE6h253mzHhDYtnZXTdujsZoHhQsBFktDDjuRSL1/j23m2OGvZ6voHXb8rmLb6psDI+qBBrCFHqKa5rCc0A1w4Ab6pWXCMR+FeYv4pyrlGkouGyen0rgqRXzHuQE5qsBEBnW0oOxFfgGDiCfij82j++Dvkr0MCx98EbgmBjy5N98zcchILKIzurDMwA65gAlh/FLpMHmjropdwrJB23LA6QhUmIcgR8Mn8DV6+g5KS30xbDS0pNUvaAAAAAElFTkSuQmCC'
+					},
+					{
+						name: '高亮关键词',
+						url: "javascript:%20(%20function%20()%7B%20var%20count=0,%20text,%20dv;text=prompt%20(%20%22%E8%AF%B7%E8%BE%93%E5%85%A5%E9%AB%98%E4%BA%AE%E5%85%B3%E9%94%AE%E8%AF%8D:%22,%20%22%22%20)%20;if%20(%20text==null%20%20%7C%7C%20%20text.length==0%20)%20return;dv=document.defaultView;function%20searchWithinNode%20(%20node,%20te,%20len%20)%7B%20var%20pos,%20skip,%20spannode,%20middlebit,%20endbit,%20middleclone;skip=0;if%20(%20%20node.nodeType==3%20%20)%7B%20pos=node.data.toUpperCase%20()%20.indexOf%20(%20te%20)%20;if%20(%20pos%3E=0%20)%7B%20spannode=document.createElement%20(%20%22SPAN%22%20)%20;spannode.style.backgroundColor=%22yellow%22;middlebit=node.splitText%20(%20pos%20)%20;endbit=middlebit.splitText%20(%20len%20)%20;middleclone=middlebit.cloneNode%20(%20true%20)%20;spannode.appendChild%20(%20middleclone%20)%20;middlebit.parentNode.replaceChild%20(%20spannode,middlebit%20)%20;++count;skip=1;%20%7D%7D%20else%20if%20(%20%20node.nodeType==1&&%20node.childNodes%20&&%20node.tagName.toUpperCase%20()%20!=%22SCRIPT%22%20&&%20node.tagName.toUpperCase!=%22STYLE%22%20)%7B%20for%20%20(%20var%20child=0;%20child%20%3C%20%20node.childNodes.length;%20++child%20)%7B%20child=child+searchWithinNode%20(%20node.childNodes%5Bchild%5D,%20te,%20len%20)%20;%20%7D%7D%20return%20skip;%20%7D%20window.status=%22Searching%20for%20'%22+text+%22'...%22;searchWithinNode%20(%20document.body,%20text.toUpperCase%20()%20,%20text.length%20)%20;window.status=%22Found%20%22+count+%22%20occurrence%22+%20(%20count==1?%22%22:%22s%22%20)%20+%22%20of%20'%22+text+%22'.%22;%20%7D)()%20;",
+						favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABDSURBVDhPY2CY/f8/RRhCkAmQDfj/ieE/MRisEQYGlwFkAdoZsOjFf6LwIDaAWEBVA7Y+k/1PDAZrhIFBZADZ+P9/AL7ukYxer5jbAAAAAElFTkSuQmCC'
+					},
+					{name: 'separator'},
 					{
 						name: '豆瓣电台',
 						url: 'http://douban.fm/partner/sidebar',
@@ -90,7 +108,7 @@
 							menupopup = btn.appendChild(document.createElement('menupopup'));
 							SidebarMod.makeButton(item.childs, menupopup);
 						} else {
-							if (item === 'sep') {
+							if (item.name == 'separator') {
 								parent.appendChild(document.createElement('menuseparator'));
 							} else {
 								menu = parent.appendChild(document.createElement('menu'));
@@ -102,7 +120,7 @@
 							}
 						}
 					} else if (parent) {
-						if (item === 'sep') {
+						if (item.name == 'separator') {
 							parent.appendChild(document.createElement('menuseparator'));
 						} else {
 							menuitem = parent.appendChild(document.createElement('menuitem'));
