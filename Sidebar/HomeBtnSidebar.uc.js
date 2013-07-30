@@ -86,7 +86,7 @@
 						if (!parent) {
 							btn = frag.appendChild(document.createElement('toolbarbutton'));
 							btn.setAttribute('tooltiptext', item.name);
-							btn.setAttribute('type', 'button');
+							btn.setAttribute('type', 'menu');
 							btn.setAttribute('style', 'list-style-image: url("' + item.favicon + '")');
 							menupopup = btn.appendChild(document.createElement('menupopup'));
 							SidebarMod.makeButton(item.childs, menupopup);
