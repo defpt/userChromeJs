@@ -4,8 +4,7 @@
 // @include         chrome://browser/content/browser.xul
 // @charset         UTF-8
 // @author          defpt
-// @version         LastMod 2013.07.30
-// @note            2013.07.30 修正原版的一个小问题
+// @version         LastMod 2013.07.26
 // ==/UserScript==
 /* *********************使用说明*********************
 	此脚本从lastdream2013的SidebarMod.uc.js修改而来
