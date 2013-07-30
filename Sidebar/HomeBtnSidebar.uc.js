@@ -4,7 +4,8 @@
 // @include         chrome://browser/content/browser.xul
 // @charset         UTF-8
 // @author          defpt
-// @version         LastMod 2013.07.26
+// @version         LastMod 2013.07.30
+// @note            2013.07.30 修正原版的一个小问题
 // ==/UserScript==
 /* *********************使用说明*********************
 	此脚本从lastdream2013的SidebarMod.uc.js修改而来
@@ -27,7 +28,7 @@
 				url: 'chrome://browser/content/history/history-panel.xul',
 				favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH7SURBVDhPhVI9a9tQFBUeO4YOwZTSH+Ch1I2esIdi10jvPYsMmTLkH5Sm9lI8FIsOHUsU+gOMKSGEBNwiB5K9xJbdQJYQYtWIYEonL82HBhNe7316LnbT2AcOsu5759xzr6zdB+FoibPlTPL6OJMUQkuo8nwEtvGsx/TtgOuXASci6hripkMuoy7ZufaXnqtr/0eP69UeI7coDBjpH7JseLKXDW+6RhgbGbdg9F5dj3FeNAryyck7KeR6GHCDYs2y6JZpss/4O+rq5oRRFWsS0PEXRD4G4QjFOLc6mjJAXPlLi2iCSa78zFNZhK6tuDMRMELwo0hWcYF49q8BIvINiimAcR2EW2MDxcO+nX5sWdYT06TnlsXOKKWP5GWFeBQylC89Tj6gEEa5gD2syCIAujdALJCQ4hRYi8lp1CENTPH7e/ohGqyhyU87/UBpJUC4O2mA4yAhDc81aSPfhPqBuaCu3wXGHu+Ac76oyhJ5j4U5j8UjIF59+pYsua2N8uaR/Hyz8HKf2dg936R1VdK0dbeTeuO2R6WN1uD1ZntqYZMofCkkofsAOHrhFVOqHKPktt8CBZqsu77tOOLv/99xnETOo1yKoTvsoKKOpgFjVGQSZQT0QPAVBBcyNnS+VzwGjgNGdTAaopHsCAsD1u7Enofyx6OFmZ9K07Q/7iAmIuxhVMIAAAAASUVORK5CYII='
 			},
-			{
+ 			{
 				name: '附加组件',
 				url: 'chrome://mozapps/content/extensions/extensions.xul',
 				favicon: "chrome://mozapps/skin/extensions/extensionGeneric-16.png#-moz-resolution=16,16"
@@ -85,7 +86,7 @@
 						if (!parent) {
 							btn = frag.appendChild(document.createElement('toolbarbutton'));
 							btn.setAttribute('tooltiptext', item.name);
-							btn.setAttribute('type', 'menu');
+							btn.setAttribute('type', 'button');
 							btn.setAttribute('style', 'list-style-image: url("' + item.favicon + '")');
 							menupopup = btn.appendChild(document.createElement('menupopup'));
 							SidebarMod.makeButton(item.childs, menupopup);
