@@ -17,7 +17,7 @@
 //@1/2/13 第二版
 var FullZoomConfig = new function () {
 	//默认的缩放级别
-	this.defaultLv = 110;
+	this.defaultLv = 100;
 	//只缩放文字
 	this.Textmode = true;
 	//是否应用于本地文件?
@@ -1303,6 +1303,12 @@ function fullZoomUI() {
 	popupSet.appendChild(popup);
 	document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 		#statusbarZoomLevel {\
+			-moz-appearance: none !important;\
+			border: none !important;\
+			box-shadow: none !important;\
+			-moz-box-align: center !important;\
+			-moz-box-pack: center !important;\
+			min-height: 18px !important;\
 			padding-top:1px !important;\
 			padding-left:0 !important;\
 			margin-left:-6px !important;}\
