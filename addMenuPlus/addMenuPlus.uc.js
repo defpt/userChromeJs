@@ -8,62 +8,115 @@
 // @compatibility  Firefox 21
 // @charset        UTF-8
 // @version        0.0.7
+// @note           0.0.7 Firefox 21 の Favicon 周りの変更に対応
+// @note           0.0.6 Firefox 19 に合わせて修正
+// @note           0.0.5 Remove E4X
+// @note           0.0.4 设定ファイルから CSS を追加できるようにした
+// @note           0.0.4 label の无い menu を splitmenu 风の动作にした
+// @note           0.0.4 Vista でアイコンがズレる问题を修正…したかも
+// @note           0.0.4 %SEL% の改行が消えてしまうのを修正
+// @note           0.0.3 keyword の新しい书式で古い书式が动かない场合があったのを修正
+// @note           %URL_HTMLIFIED%, %EOL_ENCODE% が変换できなかったミスを修正
+// @note           %LINK_OR_URL% 変数を作成（リンク URL がなければページの URL を返す）
+// @note           タブの右クリックメニューでは %URL% や %SEL% はそのタブのものを返すようにした
+// @note           keyword で "g %URL%" のような记述を可能にした
+// @note           ツールの再読み込みメニューの右クリックで设定ファイルを开くようにした
 // ==/UserScript==
+
+
 /***** 説明 *****
-可添加的范围
-		page: 页面右键菜单
-		tab: 标签右键
-		app: 左上角橙色菜单
-		too: 工具菜单
-二级子菜单 PageMenu, TabMenu, ToolMenu, AppMenu
-标签的介绍
-		label       标签的名字
-		accesskey   快捷键
-		exec        启动外部应用程序。（\\ 代表当前配置的路径，例：\\Chrome 配置下的Chrome文件夹）
-		keyword     指定了关键字的书签和搜索引擎
-		text        复制你想要的字符串到剪贴板，可与 keyword, exec 一起使用
-		url         打开你想要的网址
-		where       打开的位置 (current, tab, tabshifted, window)
-		condition   菜单出现的条件 (select, link, mailto, image, media, input, noselect, nolink, nomailto, noimage, nomedia, noinput)
-		oncommand/command  自定义命令
-		image       添加图标 （对应 图标 url 或 base64）
-		style       添加样式
-		id          标签的ID（我新增的，修改原菜单用）
-        position/insertBefore/insertAfter:position: 1,  insertBefore: "id",  insertAfter: "id"
-可利用的变量
-		%EOL%            改行(\r\n)
-		%TITLE%          标题
-		%TITLES%         简化标题（我新增的，来自faviconContextMenu.uc.xul.css）
-		%URL%            地址
-		%SEL%            选取范围内的文字
-		%RLINK%          链接的地址
-		%IMAGE_URL%      图片的 URL
-		%IMAGE_BASE64%   图片的 Base64（我新增的）
-		%IMAGE_ALT%      图片的 alt 属性
-		%IMAGE_TITLE%    图片的 title 属性
-		%LINK%           链接的地址
-		%LINK_TEXT%      链接的文本
-		%RLINK_TEXT%     链接的文本
-		%MEDIA_URL%      媒体 URL
-		%CLIPBOARD%      剪贴板的内容
-		%FAVICON%        Favicon（站点图标） 的 URL
-		%FAVICON_BASE64% Favicon 的 Base64（我新增的）
-		%EMAIL%          E-mail 链接
-		%HOST%           当前网页(域名)
-		%LINK_HOST%      当前网页(域名)
-		%RLINK_HOST%     当前网页(域名)
-		%XXX_HTMLIFIED%  转义后的变量 （XXX 为 上面的 TITLE 等）
-		%XXX_HTML%       转义后的变量
-		%XXX_ENCODE%     encodeURIComponent 后的变量
-简易的变量
-		%h               当前网页(域名)
-		%i               图片的 URL
-		%l               链接的 URL
-		%m               媒体的 URL
-		%p               剪贴板的内容
-		%s               选取的文字列
-		%t               标题
-		%u               URL
+
+◆ 脚本说明 ◆
+通过配置文件自定义菜单
+在编写的时候，参考了 Copy URL Lite+，得到作者允许。
+・http://www.code-404.net/articles/browsers/copy-url-lite
+
+
+◆ 如何使用？ ◆
+配置（_addmenu.js） 文件，请放在Chrome目录下。
+后缀名 .uc.js 可选。
+
+启动后，在浏览器中加载配置文件，并添加菜单。
+可以从“工具”菜单重新读取配置文件。
+
+
+◆ 格式 ◆
+page, tab, too, app 関数にメニューの素となるオブジェクトを渡す。
+オブジェクトのプロパティがそのまま menuitem の属性になります。
+
+○exec
+  启动外部应用程序。
+  パラメータは text プロパティを利用します。
+  自动显示该应用程序的图标。
+
+○keyword
+  指定了关键字的书签和搜索引擎。
+  text プロパティがあればそれを利用して検索などをします。
+  自动显示搜索引擎的图标。
+
+○text（変数が利用可能）
+  复制你想要的字符串到剪贴板。（Copy URL Lite+ 互换）
+  keyword, exec があればそれらの补助に使われます。
+
+○url（可用的变量）
+  打开你想要的网址。
+  内容によっては自动的にアイコンが付きます。
+
+○where
+  keyword, url でのページの开き方を指定できます（current, tab, tabshifted, window）
+  省略するとブックマークのように左クリックと中クリックを使い分けられます。
+
+○condition
+  メニューを表示する条件を指定します。（Copy URL Lite+ 互换）
+  省略すると url や text プロパティから自动的に表示/非表示が决まります。
+  select, link, mailto, image, media, input, noselect, nolink, nomailto, noimage, nomedia, noinput から组み合わせて使います。
+
+○oncommand, command
+  これらがある时は condition 以外の特殊なプロパティは无视されます。
+
+
+◆ サブメニュー ◆
+PageMenu, TabMenu, ToolMenu, AppMenu 関数を使って自由に追加できます。
+
+
+◆ 利用可能な変数 ◆
+%EOL%            改行(\r\n)
+%TITLE%          ページタイトル
+%URL%            URI
+%SEL%            选択范囲の文字列
+%RLINK%          リンクアンカー先の URL
+%IMAGE_URL%      画像の URL
+%IMAGE_ALT%      画像の alt 属性
+%IMAGE_TITLE%    画像の title 属性
+%LINK%           リンクアンカー先の URL
+%LINK_TEXT%      リンクのテキスト
+%RLINK_TEXT%     リンクのテキスト
+%MEDIA_URL%      メディアの URL
+%CLIPBOARD%      クリップボードの内容
+%FAVICON%        Favicon の URL
+%EMAIL%          リンク先の E-mail アドレス
+%HOST%           ページのホスト(ドメイン)
+%LINK_HOST%      リンクのホスト(ドメイン)
+%RLINK_HOST%     リンクのホスト(ドメイン)
+%LINK_OR_URL%    リンクの URL が取れなければページの URL
+%RLINK_OR_URL%   リンクの URL が取れなければページの URL
+
+%XXX_HTMLIFIED%  HTML エンコードされた上记変数（XXX → TITLE などに読み替える）
+%XXX_HTML%       HTML エンコードされた上记変数
+%XXX_ENCODE%     URI  エンコードされた上记変数
+
+◇ 简易的な変数 ◇
+%h               ページのホスト(ドメイン)
+%i               画像の URL
+%l               リンクの URL
+%m               メディアの URL
+%p               クリップボードの内容
+%s               选択文字列
+%t               ページのタイトル
+%u               ページの URL
+
+基本的に Copy URL Lite+ の変数はそのまま使えます。
+大文字・小文字は区别しません。
 
 */
 
@@ -225,8 +278,6 @@ window.addMenu = {
 		else openUILink(uri.spec, event);
 	},
 	exec: function(path, arg){
-        path = this.handleRelativePath(path);
-
 		var file    = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsILocalFile);
 		var process = Cc['@mozilla.org/process/util;1'].createInstance(Ci.nsIProcess);
 		try {
@@ -347,7 +398,7 @@ window.addMenu = {
 		cls.add("addMenu");
 		cls.add("menu-iconic");
 
-		// 表示 / 非表示の設定
+		// 表示 / 非表示の设定
 		if (menuObj.condition)
 			this.setCondition(menu, menuObj.condition);
 
@@ -355,7 +406,7 @@ window.addMenu = {
 			popup.appendChild(this.newMenuitem(obj));
 		}, this);
 
-		// menu に label が無い場合、最初の menuitem の label 等を持ってくる
+		// menu に label が无い场合、最初の menuitem の label 等を持ってくる
 		// menu 部分をクリックで実行できるようにする(splitmenu みたいな感じ)
 		if (!menu.hasAttribute('label')) {
 			let firstItem = menu.querySelector('menuitem');
@@ -384,7 +435,7 @@ window.addMenu = {
 	},
 	newMenuitem: function(obj) {
 		var menuitem;
-		// label == separator か必要なプロパティが足りない場合は区切りとみなす
+		// label == separator か必要なプロパティが足りない场合は区切りとみなす
 		if (obj.label === "separator" ||
 		    (!obj.label && !obj.text && !obj.keyword && !obj.url && !obj.oncommand && !obj.command)) {
 			menuitem = document.createElement("menuseparator");
@@ -420,7 +471,7 @@ window.addMenu = {
 				obj.acceltext = obj.where;
 
 			if (!obj.condition && (obj.url || obj.text)) {
-				// 表示 / 非表示の自動設定
+				// 表示 / 非表示の自动设定
 				let condition = "";
 				if (this.rSEL.test(obj.url || obj.text))   condition += " select";
 				if (this.rLINK.test(obj.url || obj.text))  condition += " link";
@@ -430,6 +481,10 @@ window.addMenu = {
 				if (condition)
 					obj.condition = condition;
 			}
+
+            if(obj.exec){
+                obj.exec = this.handleRelativePath(obj.exec);
+            }
 		}
 
 		// obj を属性にする
@@ -443,18 +498,18 @@ window.addMenu = {
 		cls.add("addMenu");
 		cls.add("menuitem-iconic");
 
-		// 表示 / 非表示の設定
+		// 表示 / 非表示の设定
 		if (obj.condition)
 			this.setCondition(menuitem, obj.condition);
 
-		// separator はここで終了
+		// separator はここで终了
 		if (menuitem.localName == "menuseparator")
 			return menuitem;
 
 		if (!obj.onclick)
 			menuitem.setAttribute("onclick", "checkForMiddleClick(this, event)");
 
-		// oncommand, command はここで終了
+		// oncommand, command はここで终了
 		if (obj.oncommand || obj.command)
 			return menuitem;
 
@@ -539,7 +594,8 @@ window.addMenu = {
 			} catch (e) {
 				return;
 			}
-			if (!aFile.exists() || !aFile.isExecutable()) {
+			// if (!aFile.exists() || !aFile.isExecutable()) {
+            if (!aFile.exists()) {
 				menu.setAttribute("disabled", "true");
 			} else {
 				let fileURL = Services.io.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler).getURLSpecFromFile(aFile);
