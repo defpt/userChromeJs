@@ -69,12 +69,18 @@ var MyContext = {
 		
         this.mItem1.setAttribute("oncommand", "MyContext.link();");
         this.mItem1.hidden = !gContextMenu.onLink;
+		this.mItem1.setAttribute("class", "menuitem-iconic");
+		this.mItem1.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB/SURBVDhPjY7RDYAgEENvRRdwAff/1qB9sSAn95ImUNqGaGz7cWa6AytmRZdiOQRHyiM+4KVRin8hsBpoUqWHRx8YwW9S7cVLfnbwkaoPmB4cwXepng9w5g54qtd+4JBRvfaDma/6O+D6g4zq+cDKV73HgxmlgYpU6ZkFM0VEXGM87FJCmlCsAAAAAElFTkSuQmCC");
 		
         this.mItem2.setAttribute("oncommand", "MyContext.page();");
         this.mItem2.hidden = gContextMenu.onLink;
+		this.mItem2.setAttribute("class", "menuitem-iconic");
+		this.mItem2.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB/SURBVDhPjY7RDYAgEENvRRdwAff/1qB9sSAn95ImUNqGaGz7cWa6AytmRZdiOQRHyiM+4KVRin8hsBpoUqWHRx8YwW9S7cVLfnbwkaoPmB4cwXepng9w5g54qtd+4JBRvfaDma/6O+D6g4zq+cDKV73HgxmlgYpU6ZkFM0VEXGM87FJCmlCsAAAAAElFTkSuQmCC");
 		
 		this.mItem3.setAttribute("oncommand", "openWebPanel(content.document.title, content.location);");
         this.mItem3.hidden = gContextMenu.onLink;
+		this.mItem3.setAttribute("class", "menuitem-iconic");
+		this.mItem3.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACSSURBVDhPrZPbDYAgDEUhuhcr6Ad/4gAyg6u5mqa1RZ5KhJM0sbdw0wKKbkzGHhCUlpCz2fZ5tSflDgkiFeQtBaDGaxIDpdTIBa31QDKTbIbACvNiEGzmMWsNsm1/GsA3ydmZ4xzxDUh62l7czQQdocJUGiDxOqTrCM2H2PMamaQTCKx4tD1lgNujtETxZ/qJEBdk+r9go7hxIgAAAABJRU5ErkJggg==");
 		
 		/* this.mItem4.setAttribute("oncommand", "MyContext.translator();");
 		this.mItem4.setAttribute("class", "menuitem-iconic");

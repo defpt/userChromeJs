@@ -13,7 +13,7 @@
 
 var gTranslator = {
 	_prefs : null,
-	_targetlang : null,
+	_targetlang : "zh-CN",
 	_showpopuptext : true,
 	_showoritext : false,
 	_timer : null,
@@ -43,9 +43,8 @@ var gTranslator = {
 		var overlay = '\
 		<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" \
 				xmlns:html="http://www.w3.org/1999/xhtml"> \
-			<toolbarpalette id="urlbar-icons">\
+			<toolbar id="urlbar-icons">\
 				<toolbarbutton id="statusbar-translator" label="翻译器" \
-					    class="toolbarbutton-1 chromeclass-toolbar-additional"\
 						context="statusbar-translator-contextmenu"\
 					    onclick="if(event.button === 0) gTranslator.ToolBarTranslatorClick(event);" >\
 					<menupopup id="statusbar-translator-contextmenu" \
@@ -86,7 +85,7 @@ var gTranslator = {
 							onclick = "gTranslator.setoridisplay(event);"/> \
 					</menupopup>\
 				</toolbarbutton>\
-			</toolbarpalette>\
+			</toolbar>\
 			<popup id="contentAreaContextMenu">\
 				<menuitem id="context-translator" label="Google 翻译选中文本" \
 					insertAfter="context-searchselect" \
@@ -103,22 +102,10 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		overlay = "data:application/vnd.mozilla.xul+xml;charset=utf-8," + encodeURI(overlay);
 		window.userChrome_js.loadOverlay(overlay, gTranslator);
 		var css = '\
-			    #statusbar-translator {\
-list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPnZExSwNBEEZPESStP8PKP2Fnr1hYiI2dkEoQJKWCnVXEIpDGQsRGJGKhFsKBHpEIFokJ4VQkpFMLm5E3OsvcmRBx4XG3e/u9md2LGB9vPfH0e+3A6/OD6KZhIx+u1Y5kb383I3h5uh8uIURgfaOoLC0vKjaHtNv4m8AHvWikAK7jCw0kjVgDq6UtWYslMH8pMnf2LjMnIlMHn4oK/IVZRTravumPFKjEC7hAaz0fPm+mCpKBgsfWbebshAy6sb/Bu4UL5VQiPnDuiWJT74EumFvLQGXbR6FfAsIGFwicFRBQ+TBOtDoC1girwIcNAiYghHDzNNEgAmRBwPBh5mMLx6FN+60EDdamKx2Z3Kl/C8ZXrjTMExCArzhbvVPoBAHPjCAfNhAQtJaBy4YgYAySsAF82NaMn/h/RxR9Ab4TXij6pKP0AAAAAElFTkSuQmCC");\
-				-moz-appearance: none !important;\
-				border-style: none !important;\
-				border-radius: 0 !important;\
-				padding: 0 2px !important;\
-				margin: 0 !important;\
-				background: transparent !important;\
-				box-shadow: none !important;\
-				-moz-box-align: center !important;\
-				-moz-box-pack: center !important;\
-				min-width: 18px !important;\
-				min-height: 18px !important;\
+			#statusbar-translator {\
+				list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPnZExSwNBEEZPESStP8PKP2Fnr1hYiI2dkEoQJKWCnVXEIpDGQsRGJGKhFsKBHpEIFokJ4VQkpFMLm5E3OsvcmRBx4XG3e/u9md2LGB9vPfH0e+3A6/OD6KZhIx+u1Y5kb383I3h5uh8uIURgfaOoLC0vKjaHtNv4m8AHvWikAK7jCw0kjVgDq6UtWYslMH8pMnf2LjMnIlMHn4oK/IVZRTravumPFKjEC7hAaz0fPm+mCpKBgsfWbebshAy6sb/Bu4UL5VQiPnDuiWJT74EumFvLQGXbR6FfAsIGFwicFRBQ+TBOtDoC1girwIcNAiYghHDzNNEgAmRBwPBh5mMLx6FN+60EDdamKx2Z3Kl/C8ZXrjTMExCArzhbvVPoBAHPjCAfNhAQtJaBy4YgYAySsAF82NaMn/h/RxR9Ab4TXij6pKP0AAAAAElFTkSuQmCC");\
 			}\
-			#statusbar-translator dropmarker{display: none !important;}\
-			         '.replace(/[\r\n\t]/g, '');
+		'.replace(/[\r\n\t]/g, '');
         function addStyle(css) {
         	var pi = document.createProcessingInstruction(
         			'xml-stylesheet',

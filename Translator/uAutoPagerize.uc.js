@@ -1,73 +1,33 @@
 // ==UserScript==
-// @name           uAutoPagerize
-// @namespace      http://d.hatena.ne.jp/Griever/
-// @description    loading next page and inserting into current page.
-// @include        main
-// @modified       ywzhaiqi
-// @update         2013-7-26
-// @compatibility  Firefox 17
-// @charset        UTF-8
-// @version        0.3.0
-// @note           添加最大加载页数，参考 卡饭论坛 lastdream2013
-// @note           添加 Super_preloader 的数据库支持及更新 By ywzhaiqi。
-// @note           0.3.0 本家に倣って Cookie の処理を変更した
-// @note           0.2.9 remove E4X
-// @note           0.2.8 履歴に入れる机能を廃止
-// @note           0.2.7 Firefox 14 でとりあえず动くように修正
-// @note           0.2.6 组み込みの SITEINFO を修正
-// @note           0.2.5 MICROFORMAT も设定ファイルから追加・无効化できるようにした
-// @note           0.2.5 スペースアルクで动かなくなってたのを修正
-// @note           0.2.4 SITEINFO のソートをやめてチェックの仕方を変えた（一度SITEINFOを更新した方がいいかも）
-// @note           0.2.4 naver まとめ、kakaku.com 修正
-// @note           0.2.3 kakaku.com のスペック検索に対応
-// @note           0.2.3 Fx7 くらいから xml で动かなくなってたのを修正
-// @note           0.2.3 ver 0.2.2 で nextLink に form 要素が指定されている场合などに动かなくなってたのを修正
-// @note           0.2.2 コンテキストメニューが意外と邪魔だったので葬った
-// @note           0.2.1 コンテキストメニューに次のページを开くメニューを追加
-// @note           0.2.1 区切りのアイコンをクリックしても色が変わらなかったのを修正
-// @note           0.2.0 INCLUDE を设定できるようにした
-// @note           0.2.0 INCLUDE, EXCLUDE をワイルドカード式にした
-// @note           0.2.0 アイコンに右クリックメニューを付けた
-// @note           0.2.0 スクロールするまでは次を読み込まないオプションをつけた
+// @name uAutoPagerize.uc.js
+// @namespace http://d.hatena.ne.jp/Griever/
+// @description loading next page and inserting into current page.
+// @include main
+// @compatibility Firefox 17
+// @charset UTF-8
+// @version 0.3.0
+// @note 添加预读，强制拼接等 By ywzhaiqi
+// @note 添加最大加载页数，参考 卡饭论坛 lastdream2013
+// @note 添加 Super_preloader 的数据库支持及更新 By ywzhaiqi。
 // ==/UserScript==
-
-// this script based on
-// AutoPagerize version: 0.0.41 2009-09-05T16:02:17+09:00 (http://autopagerize.net/)
-// oAutoPagerize (http://d.hatena.ne.jp/os0x/searchdiary?word=%2a%5boAutoPagerize%5d)
-//
-// Released under the GPL license
-// http://www.gnu.org/copyleft/gpl.html
-
-
 (function(css) {
-// 原版规则是否启用？略大，但很多站点都可以翻页
-var ORIGINAL_SITEINFO = false;
-var SIMPLE_SEPARATOR = false;  // true 原版的分隔条，false 多功能分隔条
+// 放置的位置，true为地址栏，false为附加组件栏（可移动按钮）
+var isUrlbar = true;
+var ORIGINAL_SITEINFO = false; // 原版规则是否启用？
+var DB_FILENAME_CN =  "uSuper_preloader.db.js";   //中文数据库
+var DB_FILENAME_JSON = "uAutoPagerize.json";      //原版数据库
 
-var DB_FILENAME_CN =  "uSuper_preloader.db.js";   // 中文数据库的位置
-var DB_FILENAME_JSON = "uAutoPagerize.json";      // 原版数据库位置
-
-
-var FORCE_TARGET_WINDOW = true;
 var BASE_REMAIN_HEIGHT = 600;
 var DEBUG = true;
 var AUTO_START = true;
-var SCROLL_ONLY = false;
 var CACHE_EXPIRE = 24 * 60 * 60 * 1000;
 var XHR_TIMEOUT = 30 * 1000;
-
-// 新增的
 var MAX_PAGER_NUM = -1;           // 默认最大翻页数， -1表示无限制
-var IMMEDIATELY_PAGER_NUM = 3;    // 立即加载的初始页数
-var USE_IFRAME = true;            // 是否启用 iframe 加载下一页（浏览器级，默认只允许JavaScript，在 createIframe 中可设置其它允许）
+var USE_IFRAME = true;            // 是否启用 iframe 加载下一页
 var USE_FORCE_NEXT_PAGE = true;   // 是否启用强制拼接？
-var PRE_REQUEST_NEXT_PAGE = true; // 提前预读下一页..就是翻完第1页,立马预读第2页,翻完第2页,立马预读第3页..(大幅加快翻页快感-_-!!)
+var PRE_REQUEST_NEXT_PAGE = true; // 提前预读下一页
 var PRE_REQUEST_NEXT_PAGE_FIRST_TIME = true;   // 页面一载入是否预读下一页，否则加载第1页后才开始预读下一页
 var SEPARATOR_RELATIVELY = true;  //分隔符.在使用上滚一页或下滚一页的时候是否保持相对位置..
-
-// 出在自动翻页信息附加显示真实相对页面信息，一般能智能识别出来。如果还有站点不能识别，可以把地址的特征字符串加到下面
-// 最好不要乱加，一些不规律的站点显示出来的数字也没有意义
-//var REALPAGE_SITE_PATTERN = ['search?', 'search_', 'forum', 'thread'];
 
 var SITEINFO_CN_IMPORT_URLS = [
     //Super_preloader 的翻页规则更新地址
@@ -81,7 +41,7 @@ var SITEINFO_IMPORT_URLS = ORIGINAL_SITEINFO ? [
         'http://wedata.net/databases/AutoPagerize/items.json',
     ] : [];
 
-// ワイルドカード(*)で记述する
+// ワイルドカード(*)で記述する
 var INCLUDE = [
     "*"
 ];
@@ -119,10 +79,10 @@ var FORCE_SITEINFO = {
 };
 
 var nextPageKey = [  //下一页关键字
-    '下一页', '下一页', '下1页', '下1页', '下页', '下页',
-    '翻页', '翻页', '翻下页', '翻下页',
-    '下一张', '下一张', '下一幅', '下一章', '下一节', '下一节', '下一篇',
-    '后一页', '后一页',
+    '下一页', '下一頁', '下1页', '下1頁', '下页', '下頁',
+    '翻页', '翻頁', '翻下頁', '翻下页',
+    '下一张', '下一張', '下一幅', '下一章', '下一节', '下一節', '下一篇',
+    '后一页', '後一頁',
     '前进', '下篇', '后页', '往后', 'Next', 'Next Page', '次へ'
 ];
 var autoMatch = {
@@ -132,14 +92,14 @@ var autoMatch = {
         next:{    //下一页关键字前面的字符
             enable:true,
             maxPrefix:2,
-            character:[' ','　','[','［','‘','“','【','(']
+            character:[' ','　','[','［','『','「','【','(']
         }
     },
     sfwordl:{//关键字后面的字符限定.
         next:{//下一页关键字后面的字符
             enable:true,
             maxSubfix: 3,
-            character:[' ','　',']','］','>','﹥','›','»','>>','’','”','】',')','→']
+            character:[' ','　',']','］','>','﹥','›','»','>>','』','」','】',')','→']
         }
     }
 };
@@ -154,41 +114,18 @@ var COLOR = {
     terminated: '#00f',
     error: '#f0f'
 };
+
 // 分页导航的样式
 var sep_style = [
 	'.autopagerize_page_info {',
 		'clear: both;',
-		'background: none repeat scroll 0% 0% rgb(218, 218, 218);',
-		'margin: 8px 0;',
-		'padding-top: 2px;',
-		'padding-bottom: 3px;',
+		'background-image: linear-gradient(#DDD, #CCC);',
+		'margin: 8px 0px;',
+		'padding-top: 2px 0px 3px 0px;',
 		'text-align: center;',
 	'}',
-    '.autopagerize_icon {',
-        'background: ', COLOR['enable'], ';',
-        'width: 10px;',
-        'height: 10px;',
-        'padding: 0px;',
-        'margin: 0px;',
-        'display: inline-block;',
-		'vertical-align: middle;',
-    '}',
 	'.autopagerize_link {',
-		'margin: 0 10px;',
-		'vertical-align: middle;',
-	'}',
-	'.autopagerize_link1 {',
-		'margin-left: 4px;',
-		'margin-right: 1px;',
-		'vertical-align: middle;',
-	'}',
-	'.ap-sp-end-span {',
-		'margin-left: 1px;',
-		'vertical-align: middle;',
-	'}',
-	'.autopagerize_page_info input {',
-		'padding: 0px;',
-		'text-align: center;',
+		'margin-right: 10px;',
 		'vertical-align: middle;',
 	'}',
 ].join('\n');
@@ -270,30 +207,10 @@ var ns = window.uAutoPagerize = {
         if (m) m.setAttribute("tooltiptext", MAX_PAGER_NUM = num);
         return num;
     },
-    get IMMEDIATELY_PAGER_NUM() IMMEDIATELY_PAGER_NUM,
-    set IMMEDIATELY_PAGER_NUM(num){
-        num = parseInt(num, 10);
-        if (!num && (num != 0)) return num;
-        let m = $("uAutoPagerize-immedialate-pages");
-        if (m) m.value = num;
-        return num;
-    },
     get DEBUG() DEBUG,
     set DEBUG(bool) {
         let m = $("uAutoPagerize-DEBUG");
         if (m) m.setAttribute("checked", DEBUG = !!bool);
-        return bool;
-    },
-    get FORCE_TARGET_WINDOW() FORCE_TARGET_WINDOW,
-    set FORCE_TARGET_WINDOW(bool) {
-        let m = $("uAutoPagerize-FORCE_TARGET_WINDOW");
-        if (m) m.setAttribute("checked", FORCE_TARGET_WINDOW = !!bool);
-        return bool;
-    },
-    get SCROLL_ONLY() SCROLL_ONLY,
-    set SCROLL_ONLY(bool) {
-        let m = $("uAutoPagerize-SCROLL_ONLY");
-        if (m) m.setAttribute("checked", SCROLL_ONLY = !!bool);
         return bool;
     },
     get PRE_REQUEST_NEXT_PAGE() PRE_REQUEST_NEXT_PAGE,
@@ -305,24 +222,17 @@ var ns = window.uAutoPagerize = {
 
     init: function() {
         ns.style = addStyle(css);
-        ns.icon = $('urlbar-icons').appendChild($C("image", {
-                id: "uAutoPagerize-icon",
-                state: "disable",
-                tooltiptext: "disable",
-                onclick: "if (event.button != 2) uAutoPagerize.iconClick(event);",
-                context: "uAutoPagerize-popup",
-                style: "padding: 0px 2px;",
-            }));
+        ns.icon = ns.addButton();
         ns.popupMenu = ns.addPopupMenu();
         if(USE_FORCE_NEXT_PAGE)
             ns.popupMenu.addEventListener("popupshowing", this.showForcePageMenu, false);
 
-        ["DEBUG", "AUTO_START", "FORCE_TARGET_WINDOW", "SCROLL_ONLY", "PRE_REQUEST_NEXT_PAGE"].forEach(function(name) {
+        ["DEBUG", "AUTO_START", "PRE_REQUEST_NEXT_PAGE"].forEach(function(name) {
             try {
                 ns[name] = ns.prefs.getBoolPref(name);
             } catch (e) {}
         }, ns);
-        ["BASE_REMAIN_HEIGHT","MAX_PAGER_NUM", "IMMEDIATELY_PAGER_NUM"].forEach(function(name) {
+        ["BASE_REMAIN_HEIGHT","MAX_PAGER_NUM"].forEach(function(name) {
             try {
                 ns[name] = ns.prefs.getIntPref(name);
             } catch (e) {}
@@ -343,21 +253,19 @@ var ns = window.uAutoPagerize = {
     uninit: function() {
         ns.removeListener();
 
-        ["DEBUG", "AUTO_START", "FORCE_TARGET_WINDOW", "SCROLL_ONLY", "PRE_REQUEST_NEXT_PAGE"].forEach(function(name) {
+        ["DEBUG", "AUTO_START", "PRE_REQUEST_NEXT_PAGE"].forEach(function(name) {
             try {
                 ns.prefs.setBoolPref(name, ns[name]);
             } catch (e) {}
         }, ns);
 
-        ["BASE_REMAIN_HEIGHT", "MAX_PAGER_NUM", "IMMEDIATELY_PAGER_NUM"].forEach(function(name) {
+        ["BASE_REMAIN_HEIGHT", "MAX_PAGER_NUM"].forEach(function(name) {
             try {
                 ns.prefs.setIntPref(name, ns[name]);
             } catch (e) {}
         }, ns);
     },
     theEnd: function() {
-        ns.IMMEDIATELY_PAGER_NUM = $("uAutoPagerize-immedialate-pages").value;
-
         var ids = ["uAutoPagerize-icon", "uAutoPagerize-popup"];
         for (let [, id] in Iterator(ids)) {
             let e = document.getElementById(id);
@@ -412,6 +320,51 @@ var ns = window.uAutoPagerize = {
                 break;
         }
     },
+	
+    addButton: function(){
+        var icon;
+        if(isUrlbar){
+            icon = $('urlbar-icons').appendChild($C("image", {
+                id: "uAutoPagerize-icon",
+                state: "disable",
+                tooltiptext: "disable",
+                onclick: "if (event.button != 2) uAutoPagerize.iconClick(event);",
+                context: "uAutoPagerize-popup",
+                style: "padding: 0px 1px;",
+            }));
+        }else{
+            icon = $('addon-bar').appendChild($C("toolbarbutton", {
+                id: "uAutoPagerize-icon",
+                class: "toolbarbutton-1",
+                type: "context",
+                removable: "true",
+                state: "disable",
+                tooltiptext: "disable",
+                onclick: "if (event.button != 2) uAutoPagerize.iconClick(event);",
+                context: "uAutoPagerize-popup",
+                image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAQElEQVR42mNgoAbg/sb9HxmDxNTuq/1HxiAx64PW/5HxcDKAYkCsbbaLbf8j4+FkAMWAWNuMe4z/I+PhZAAlAADWnzKwMlmELQAAAABJRU5ErkJggg=="
+            }));
+            setTimeout(function(icon){
+                icon.removeAttribute("image");
+            }, 200, icon);
+            var updateToolbar = {
+                runOnce: function(){
+                    var toolbars = document.querySelectorAll("toolbar");
+                    Array.slice(toolbars).forEach(function(toolbar) {
+                        var currentset = toolbar.getAttribute("currentset");
+                        if (currentset.split(",").indexOf("uAutoPagerize-icon") < 0) return;
+                        toolbar.currentSet = currentset;
+                        try {
+                            BrowserToolboxCustomizeDone(true);
+                        } catch (ex) {}
+                    });
+                }
+            };
+            updateToolbar.runOnce();
+        }
+        return icon;
+    },
+
     addPopupMenu: function(){
         var xml = '\
             <menupopup id="uAutoPagerize-popup"\
@@ -432,29 +385,6 @@ var ns = window.uAutoPagerize = {
                 <menuitem label="更新原版规则" hidden="' + !ORIGINAL_SITEINFO + '" \
                           oncommand="uAutoPagerize.resetSITEINFO();"/>\
                 <menuseparator/>\
-                <hbox style="padding-left:32px;">\
-                    立即翻<textbox type="number" value="' + IMMEDIATELY_PAGER_NUM + '" tooltiptext="连续翻页的数量" \
-                        id="uAutoPagerize-immedialate-pages" style="width:35px" />页\
-                    <toolbarbutton label="开始" tooltiptext="现在立即开始连续翻页" \
-                        id="uAutoPagerize-immedialate-start" oncommand="uAutoPagerize.immediatelyStart();"/>\
-                </hbox>\
-                <menuitem label="强制拼接" type="checkbox" disabled="true" \
-                          id="uAutoPagerize-force_nextpage" hidden="' + !USE_FORCE_NEXT_PAGE + '" \
-                          oncommand="uAutoPagerize.forcePageToggle();" />\
-                <menuseparator/>\
-                <menuitem label="提前预读下一页"\
-                          tooltiptext="翻完第1页,立马预读第2页,翻完第2页,立马预读第3页..(大幅加快翻页快感-_-!!)"\
-                          id="uAutoPagerize-PRE_REQUEST_NEXT_PAGE"\
-                          type="checkbox"\
-                          autoCheck="false"\
-                          checked="'+ PRE_REQUEST_NEXT_PAGE +'"\
-                          oncommand="uAutoPagerize.PRE_REQUEST_NEXT_PAGE = !uAutoPagerize.PRE_REQUEST_NEXT_PAGE;"/>\
-                <menuitem label="新标签打开链接"\
-                          id="uAutoPagerize-FORCE_TARGET_WINDOW"\
-                          type="checkbox"\
-                          autoCheck="false"\
-                          checked="'+ FORCE_TARGET_WINDOW +'"\
-                          oncommand="uAutoPagerize.FORCE_TARGET_WINDOW = !uAutoPagerize.FORCE_TARGET_WINDOW;"/>\
                 <menuitem label="设置翻页高度"\
                           id="uAutoPagerize-BASE_REMAIN_HEIGHT"\
                           tooltiptext="'+ BASE_REMAIN_HEIGHT +'"\
@@ -463,12 +393,17 @@ var ns = window.uAutoPagerize = {
                           id="uAutoPagerize-MAX_PAGER_NUM"\
                           tooltiptext="'+ MAX_PAGER_NUM +'"\
                           oncommand="uAutoPagerize.MAX_PAGER_NUM = prompt(\'\', uAutoPagerize.MAX_PAGER_NUM);"/>\
-                <menuitem label="滚动时才翻页"\
-                          id="uAutoPagerize-SCROLL_ONLY"\
+                <menuseparator/>\
+                <menuitem label="强制拼接" type="checkbox" disabled="true" \
+                          id="uAutoPagerize-force_nextpage" hidden="' + !USE_FORCE_NEXT_PAGE + '" \
+                          oncommand="uAutoPagerize.forcePageToggle();" />\
+                <menuitem label="提前预读下一页"\
+                          tooltiptext="翻页后马上预读"\
+                          id="uAutoPagerize-PRE_REQUEST_NEXT_PAGE"\
                           type="checkbox"\
                           autoCheck="false"\
-                          checked="'+ SCROLL_ONLY +'"\
-                          oncommand="uAutoPagerize.SCROLL_ONLY = !uAutoPagerize.SCROLL_ONLY;"/>\
+                          checked="'+ PRE_REQUEST_NEXT_PAGE +'"\
+                          oncommand="uAutoPagerize.PRE_REQUEST_NEXT_PAGE = !uAutoPagerize.PRE_REQUEST_NEXT_PAGE;"/>\
                 <menuitem label="调试模式"\
                           id="uAutoPagerize-DEBUG"\
                           type="checkbox"\
@@ -513,6 +448,7 @@ var ns = window.uAutoPagerize = {
         if (sandbox.EXCLUDE)
             ns.EXCLUDE = sandbox.EXCLUDE;
 
+
         ns.MY_SITEINFO.forEach(function(i){
             i.type = 'my';
         });
@@ -556,15 +492,6 @@ var ns = window.uAutoPagerize = {
         doc.dispatchEvent(ev);
 
         var miscellaneous = [];
-        // 新标签打开链接。
-        win.fragmentFilters.push(function(df){
-            if (!ns.FORCE_TARGET_WINDOW) return;
-            var arr = Array.slice(df.querySelectorAll('a[href]:not([href^="mailto:"]):not([href^="javascript:"]):not([href^="#"])'));
-            arr.forEach(function (elem){
-                elem.setAttribute('target', '_blank');
-            });
-        });
-
         // 还得加上nextLink，不加上的话会查找下一页链接 2 次，特别是加了自动查找功能后
         var index = -1, info, nextLink;
         var hashchange = false;
@@ -628,8 +555,10 @@ var ns = window.uAutoPagerize = {
 
             if (!info) [, info, nextLink] = ns.getInfo(ns.MY_SITEINFO, win);
 
+
             // 第二检测 Super_preloader.db 的数据库
             if(!info) [index, info, nextLink] = ns.getInfo(ns.SITEINFO_CN, win);
+
 
             if (info) {
                 if (info.requestFilter)
@@ -764,15 +693,6 @@ var ns = window.uAutoPagerize = {
 
         return false;
     },
-    immediatelyStart: function(){
-        var pages = $("uAutoPagerize-immedialate-pages").value;
-
-        pages = pages || ns.IMMEDIATELY_PAGER_NUM;
-
-        if(content.ap){
-            content.ap.loadImmediately(pages);
-        }
-    },
     showForcePageMenu: function(event){
         var menu = $("uAutoPagerize-force_nextpage");
         var reset = function(){
@@ -884,7 +804,7 @@ var ns = window.uAutoPagerize = {
 
         var separators = doc.querySelectorAll(separatorSelector);
         var insData = insertPoint.getBoundingClientRect();
-		var viewportHeight = win.innerHeight; 
+        var viewportHeight = win.innerHeight;
 
         // 得到一个数组
         var heightArr = [insData.top];
@@ -892,9 +812,10 @@ var ns = window.uAutoPagerize = {
             heightArr.push(separators[i].getBoundingClientRect().top);
         }
         if(insData.bottom > viewportHeight)
-			heightArr.push(insData.bottom);
-		else
-			heightArr.push(viewportHeight + 1); 
+            heightArr.push(insData.bottom);
+        else
+            heightArr.push(viewportHeight + 1);
+
         // 查找
         for (var i = 0; i < heightArr.length; i++) {
             if(heightArr[i] > viewportHeight){
@@ -980,10 +901,6 @@ AutoPager.prototype = {
         this.win.addEventListener("pagehide", this, false);
         this.addListener();
 
-        if (!ns.SCROLL_ONLY){
-            this.loadedOnce = this.scroll();
-        }
-
         if (this.getScrollHeight() == this.win.innerHeight)
             this.body.style.minHeight = (this.win.innerHeight + 1) + 'px';
 
@@ -1016,7 +933,6 @@ AutoPager.prototype = {
         }
 
         this.tmpDoc = null;
-
         this.win.ap = null;
         updateIcon();
     },
@@ -1149,6 +1065,7 @@ AutoPager.prototype = {
         debug("iframe Request: " + this.requestURL);
         this.state = 'loading';
 
+
         var browser = gBrowser.getBrowserForDocument(this.doc);
         var iframe = browser.uAutoPagerizeIframe;
         if(!iframe){
@@ -1194,6 +1111,7 @@ AutoPager.prototype = {
             htmlDoc = res.response;
         }
         this.win.documentFilters.forEach(function(i) { i(htmlDoc, this.requestURL, this.info) }, this);
+
 
         this.beforeLoaded(htmlDoc);
     },
@@ -1260,8 +1178,6 @@ AutoPager.prototype = {
         this.win.filters.forEach(function(i) { i(page) });
         this.requestURL = url;
         this.state = 'enable';
-        // if (!ns.SCROLL_ONLY)
-        //  this.scroll();
         if (!url) {
             debug('  nextLink not found.', this.info.nextLink);
             this.state = 'terminated';
@@ -1290,6 +1206,7 @@ AutoPager.prototype = {
         var fragment = this.doc.createDocumentFragment();
         page.forEach(function(i) { fragment.appendChild(i); });
         this.win.fragmentFilters.forEach(function(i) { i(fragment, htmlDoc, page) }, this);
+
 
         //收集所有图片
         var imgs;
@@ -1350,76 +1267,34 @@ AutoPager.prototype = {
     },
     createSeparator: function(separatorHTML){
         var self = this;
-
         // 添加分割条样式
         if(!this.separatorStyle){
             this.separatorStyle = this.addStyle(sep_style);
         }
-        var sNextLink = separatorHTML ? separatorHTML : '自动翻页——第 <font color="red">'+ (++this.pageNum) + '</font> 页';
+
+        var sNextLink = separatorHTML ? separatorHTML : '自动翻页 —— 第 <font color="red">'+ (++this.pageNum) + '</font> 页 ';
         var p  = this.doc.createElement('div');
         p.setAttribute('class', 'autopagerize_page_info');
         p.innerHTML = '<a class="autopagerize_link" href="' + this.requestURL.replace(/&/g, '&amp;') +
-             '">' + sNextLink + '</a>';
+             '">' + sNextLink + ' </a> ';
 
         if (!this.isFrame) {
             var o = p.insertBefore(this.doc.createElement('div'), p.firstChild);
             o.setAttribute('class', 'autopagerize_icon');
             o.setAttribute('state', 'enable');
             o.setAttribute('title', "点击启用禁用");
+            o.style.cssText = [
+                'background: ', COLOR['enable'], ';'
+                ,'width: .8em;'
+                ,'height: .8em;'
+                ,'padding: 0px;'
+                ,'margin: 0px .4em 0px 0px;'
+                ,'display: inline-block;'
+                ,'vertical-align: middle;'
+            ].join('');
             o.addEventListener('click', function(){
                 self.stateToggle();
             }, false);
-
-            if(separatorHTML){
-                return p;
-            }
-			
-			p.appendChild(this.doc.createTextNode("||    "));
-			
-            // 立即加载
-            var slink = p.appendChild($C("a", {
-				class: "autopagerize_link1",
-                title: "点击后立即翻指定的页数",
-                href: "javascript:void(0)"
-            }, this.doc));
-            slink.innerHTML = "点击翻页——翻";
-            // 输入框
-            var input = p.appendChild($C("input",{
-                type: "number",
-                title: "连续翻页的数量",
-                value: IMMEDIATELY_PAGER_NUM,
-                min: "1",
-                size: "1"
-            }, this.doc));
-
-            function getInputValue() {
-                var value = Number(input.value);
-                if (isNaN(value) || value < 1) {
-                    value = 1;
-                    input.value = 1;
-                }
-                return value;
-            }
-
-            function spage(){
-                var value = getInputValue();
-                ns.IMMEDIATELY_PAGER_NUM = value;
-                self.loadImmediately(value);
-            }
-
-            slink.addEventListener("click", function(event){
-                spage();
-            }, false);
-
-            input.addEventListener("keyup", function(event){
-                if(event.keyCode == 13)
-                    spage();
-            }, false);
-
-            var span = p.appendChild($C("span", {
-                class: "ap-sp-end-span"
-            }, this.doc));
-            span.innerHTML = "页";
         }
 
         return p;
@@ -1435,21 +1310,10 @@ AutoPager.prototype = {
 
         this.state = 'terminated';
     },
+
     ipagesMode: false,
     ipaged: 0,
     ipagesNumber: 0,
-    loadImmediately: function(num){
-        num = parseInt(num, 10);
-        if(num <= 0) return;
-
-        debug("准备立即载入" + num + "页");
-
-        this.ipagesMode = true;
-        this.ipaged = 0;
-        this.ipagesNumber = num;
-
-        this.scroll();
-    },
     getNextURL : function(doc) {
         var nextLink = doc instanceof HTMLElement ?
             doc :
