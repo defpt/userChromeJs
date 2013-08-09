@@ -19,7 +19,7 @@ var FullZoomConfig = new function () {
 	//默认的缩放级别
 	this.defaultLv = 100;
 	//只缩放文字
-	this.Textmode = true;
+	this.Textmode = false;
 	//是否应用于本地文件?
 	this.localFolderSpecific = true;
 	//自动适应窗口
@@ -1306,14 +1306,11 @@ function fullZoomUI() {
 			-moz-appearance: none !important;\
 			border: none !important;\
 			box-shadow: none !important;\
-			-moz-box-align: center !important;\
-			-moz-box-pack: center !important;\
-			min-height: 18px !important;\
 			padding-left:0 !important;\
 			padding-right:1px !important;\
 			margin-left:-6px !important;}\
 		#statusbarZoomLevel{\
-			background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAASCAYAAAAZk42HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGMSURBVEhL7VYtiwJRFPUnbFMEg4iIQdhgnGo0Gs02sRoWwWrYYp1qnWjUaBHFb0UUB1H8gtEZBUU5++51XVZB3LBhZtcDh3cu8wbuufeFY/szWK/XWCwWGI/HGAwGaLfbqFQqKJVKKBaLyOfzUBQFuVwOsiwjm80ik8kgnU4jmUwikUggFoshGo0iEokgHA4jFApBkiQEg0EEAgF4vV643W64XC44nU44HA7Y7XauPR4Pf7+c3zXdEy0SC4Iv1O9dnE4nHI9HHA4H7Pd7bDYb6LqO7XYLMqlpGlarFWazGXMymWA6nWI0GrGmAaiqyvVwOORh9Pt99Ho9dLtdHkyr1UKz2USj0UCtVuNBlctlVKtVruv1+td5q+PxuCTafBV8bMasEAN++5QEa5u5wdOMWfE0Y1aQGeUsrQ3axvtZWhdkgp4WbcWyeJowC/6BiXuhcbfbwTAM1hQcl8slcz6fMyko/mZo7HQ6V5r+JZ1KpSg0Pt6EWWK8z+e70n6/n++IFi8x3tLP6Yew2T4Ag+jrRiro9voAAAAASUVORK5CYII=");\
+			background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAUCAYAAADPym6aAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADCSURBVFhH7ZehDoMwEIZ5hLkSkgpCGoIgmUBikUhkNRaLRYKoqa3FVtYi+1b/RsfE5FxL+qm73on78qsmt8Zai+M4YIyB1hr7vkMpBSkltm3DsiyY5xnTNGEcR3DOMQwD+r5H13Vo2xZN06CuazDGkOc5KKXIsgxpmoIQ4vqiKNy8LMufuqoqt/M+xe0JIR6fywJmXddnlPGRKOMrUcZXbilzteFyphG8yFfiTOV6Co8o4QtRwheihG8fq6CT+I8keQHeK9fz88++swAAAABJRU5ErkJggg==");\
 			background-repeat:no-repeat;\
 			background-size:100% 100%;}\
 		') + '"'), document.documentElement);
