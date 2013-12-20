@@ -6,6 +6,7 @@
 // @include        chrome://browser/content/places/places.xul
 // @include        chrome://mozapps/content/downloads/unknownContentType.xul
 // @include        chrome://mozapps/content/downloads/downloads.xul
+// @charset        UTF-8
 // ==/UserScript==
 
 (function() {
