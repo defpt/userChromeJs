@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name           downloadPlus.uc.js
 // @description    新建下载，下载重命名 + 双击复制链接、另存为...，完成下载提示音，自动关闭下载产生的空白标签
 // @note           微改自用 ywzhaiqi 整合版
@@ -25,84 +25,87 @@
 
     function download_sound_play() {
         var downloadPlaySound = {
-            DL_START: "",
-            DL_DONE: "file:///C:/WINDOWS/Media/chimes.wav", //设置响铃
-            DL_CANCEL: "",
-            DL_FAILED: "",
+		  // -- config --
+		  DL_START : null,
+		  DL_DONE  : "file:///C:/WINDOWS/Media/chimes.wav",
+		  DL_CANCEL: null,
+		  DL_FAILED: null,
+		  // -- config --
 
-            observerService: null,
-            init: function sampleDownload_init() {
-                window.addEventListener("unload", this, false);
-                this.observerService = Components.classes["@mozilla.org/observer-service;1"]
-                    .getService(Components.interfaces.nsIObserverService);
-                this.observerService.addObserver(this, "dl-start", false);
-                this.observerService.addObserver(this, "dl-done", false);
-                this.observerService.addObserver(this, "dl-cancel", false);
-                this.observerService.addObserver(this, "dl-failed", false);
-            },
+		  _list: null,
+		  init: function sampleDownload_init() {
+			XPCOMUtils.defineLazyModuleGetter(window, "Downloads",
+					  "resource://gre/modules/Downloads.jsm");
 
-            uninit: function() {
-                window.removeEventListener("unload", this, false);
-                this.observerService.removeObserver(this, "dl-start");
-                this.observerService.removeObserver(this, "dl-done");
-                this.observerService.removeObserver(this, "dl-cancel");
-                this.observerService.removeObserver(this, "dl-failed");
-            },
+			//window.removeEventListener("load", this, false);
+			window.addEventListener("unload", this, false);
 
-            observe: function(subject, topic, state) {
-                var oDownload = subject.QueryInterface(Components.interfaces.nsIDownload);
-                var oFile = null;
-                try {
-                    oFile = oDownload.targetFile;
-                } catch (e) {
-                    oFile = oDownload.target;
-                }
+			//**** ダウンロード監視の追加
+			if (!this._list) {
+			  Downloads.getList(Downloads.ALL).then(list => {
+				this._list = list;
+				return this._list.addView(this);
+			  }).then(null, Cu.reportError);
+			}
+		  },
 
-                if (topic == "dl-start") {
-                    if (this.DL_START)
-                        this.playSoundFile(this.DL_START);
-                }
+		  uninit: function() {
+			window.removeEventListener("unload", this, false);
+			if (this._list) {
+			  this._list.removeView(this);
+			}
+		  },
 
-                if (topic == "dl-cancel") {
-                    if (this.DL_CANCEL) this.playSoundFile(this.DL_CANCEL);
-                } else if (topic == "dl-failed") {
-                    if (this.DL_FAILED) this.playSoundFile(this.DL_FAILED);
-                } else if (topic == "dl-done") {
-                    if (this.DL_DONE) this.playSoundFile(this.DL_DONE);
-                }
-            },
+		  onDownloadAdded: function (aDownload) {
+			//**** ダウンロード開始イベント
+			if (this.DL_START);
+			  this.playSoundFile(this.DL_START);
+		  },
 
-            playSoundFile: function(aFilePath) {
-                var ios = Components.classes["@mozilla.org/network/io-service;1"]
-                    .createInstance(Components.interfaces["nsIIOService"]);
-                try {
-                    var uri = ios.newURI(aFilePath, "UTF-8", null);
-                } catch (e) {
-                    return;
-                }
-                var file = uri.QueryInterface(Components.interfaces.nsIFileURL).file;
-                if (!file.exists()) return;
-                this.play(uri);
-            },
+		  onDownloadChanged: function (aDownload) {
+			//**** ダウンロードキャンセル
+			if (aDownload.canceled && this.DL_CANCEL)
+			  this.playSoundFile(this.DL_CANCEL)
+			//**** ダウンロード失敗
+			if (aDownload.error && this.DL_FAILED)
+			  this.playSoundFile(this.DL_FAILED)
+			//**** ダウンロード完了
+			if (aDownload.succeeded && this.DL_DONE)
+			  this.playSoundFile(this.DL_DONE)
+		  },
 
-            play: function(aUri) {
-                var sound = Components.classes["@mozilla.org/sound;1"]
-                    .createInstance(Components.interfaces["nsISound"]);
-                sound.play(aUri);
-            },
+		  playSoundFile: function(aFilePath) {
+			if (!aFilePath)
+			  return;
+			var ios = Components.classes["@mozilla.org/network/io-service;1"]
+					  .createInstance(Components.interfaces["nsIIOService"]);
+			try {
+			  var uri = ios.newURI(aFilePath, "UTF-8", null);
+			} catch(e) {
+			  return;
+			}
+			var file = uri.QueryInterface(Components.interfaces.nsIFileURL).file;
+			if (!file.exists())
+			  return;
 
-            handleEvent: function(event) {
-                switch (event.type) {
-                    case "load":
-                        this.init();
-                        break;
-                    case "unload":
-                        this.uninit();
-                        break;
-                }
-            }
-        };
-        downloadPlaySound.init();
+			this.play(uri);
+		   },
+
+		  play: function(aUri) {
+			var sound = Components.classes["@mozilla.org/sound;1"]
+					  .createInstance(Components.interfaces["nsISound"]);
+			sound.play(aUri);
+		  },
+
+		  handleEvent: function(event) {
+			switch (event.type) {
+			  case "unload":
+				this.uninit();
+				break;
+			}
+		  }
+		}
+		downloadPlaySound.init();
     }
 
     function newDownload_button() {
