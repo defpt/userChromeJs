@@ -31,7 +31,7 @@
 			},
  			{
 				name: '附加组件',
-				url: 'chrome://mozapps/content/extensions/extensions.xul',
+				url: 'about:addons',
 				favicon: "chrome://mozapps/skin/extensions/extensionGeneric-16.png#-moz-resolution=16,16"
 			},
 			{
