@@ -5,9 +5,7 @@
 
 **下面是一些自用（包括自写、修改、整理的）UC脚本** [此处是一些按钮图样](https://github.com/defpt/userChromeJs/blob/master/Picture/README.md)
 
-+ [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus)  使用外挂式配置方便的定制 Firefox 的各种菜单，比如：橙色菜单、链接右键菜单、页面右键菜单、标签右键菜单、甚至工具菜单（我没定制工具菜单）
-* [Copylink.uc.js](https://github.com/defpt/userChromeJs/blob/master/Copylink.uc.js)  右键菜单, 复制链接文本、链接文本+地址、网页标题+地址
-* [ContextConfig.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextConfig.uc.js) 右键菜单，添加了几个右键菜单，用谷歌网页快照打开链接、复制链接文本+地址、复制网页标题+链接地址、尚译划词翻译，简化隐私窗口打开链接的右键菜单
+* [ContextMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextMenu.uc.js) 右键菜单，添加了几个右键菜单，用谷歌网页快照打开链接、复制链接文本+地址、复制网页标题+链接地址、尚译划词翻译，简化隐私窗口打开链接的右键菜单
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js)
@@ -20,7 +18,6 @@
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
-* [YoukuAntiADsLocal.uc.js](https://github.com/defpt/userChromeJs/blob/master/YoukuAntiADsLocal.uc.js)  自用视频去广告本地版，[本地播放器下载](http://pan.baidu.com/share/link?shareid=557590&uk=1426575002)，其中swf.7z文件即是，里面包括wget.exe 以及 更新批处理，由于我这些文件都是放chrome路径下，所以如果放其它路径，请在批处理自己修改路径
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
 * [论坛灌水.uc.xul](https://github.com/defpt/userChromeJs/blob/master/%E8%AE%BA%E5%9D%9B%E7%81%8C%E6%B0%B4.uc.xul) 自用版，添加了一些颜文字，右键菜单改为快速回复
