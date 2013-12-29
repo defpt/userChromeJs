@@ -96,7 +96,7 @@ location == "chrome://browser/content/browser.xul" && (function () {
 			},
 			//站内搜索
 			"LU": {
-				name: "清爽阅读",
+				name: "站内搜索",
 				cmd: function() {
 					var s = prompt('站内搜索——请输入待搜索字符串', '');
 					if (s.length > 0)
