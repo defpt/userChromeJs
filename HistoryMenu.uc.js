@@ -13,8 +13,8 @@ location == "chrome://browser/content/browser.xul" && (function() {
         if (!navigator || navigator.palette.id !== "BrowserToolbarPalette") return;
         var Historymenu = document.createElementNS(XULNS, 'toolbarbutton');
         Historymenu.id = "Historymenu";
-        Historymenu.setAttribute("label", "Historymenu");
-        Historymenu.setAttribute("tooltiptext", "Historymenu");
+        Historymenu.setAttribute("label", "历史菜单");
+        Historymenu.setAttribute("tooltiptext", "历史菜单");
         Historymenu.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
         Historymenu.setAttribute("type", "menu");
         Historymenu.setAttribute("removable", "true");
@@ -23,17 +23,18 @@ location == "chrome://browser/content/browser.xul" && (function() {
             if (event.button == 2) {
                 event.preventDefault();
                 event.stopPropagation();
-                undoCloseTab();
+                //undoCloseTab(); //最近关闭的标签页
+                toggleSidebar('viewHistorySidebar');
             }
         },
         false);
-        Historymenu.style.listStyleImage = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL9SURBVDhPdZJfSFNxFMcVSauHoPAhLfujmDozzS1zm9O5uV33361tun/OP3MztZYWrSSUQHNIuGKwxEoktRIUxAchqKeKHuwPiX8oMwoGK+YwTH1Q8nR+61oUeeB77/2d8znfc8/lRvwbALBzY2MjfgvF0Nj/g0CtbV3ZKcz8/oQ07tekTC4QHWZw/AwW39c/NJqCTByN/wmcGkmauZS6PvE4f+kEXwE8iR74ciPKALxiHWQXyCA5kxMQqw0mwtKtv4IkWHxpyzEuBTypHgzVjeO+uwPnvwSDyvfzn055untd6vK653kSHaSfLAKRwljx24Ts7HC6+Ok8yZpQZYamKx0eLOYEl5ZSMziC2ax82RM8H0Gxbc7mQYHKBAwO9c3b3ZuBvdvC03MKVQPCEgtorA1P8XwUC1HDw2OpLFyFyZd+JwyBV1ZWmAqjfYasxRFp3JiPCxuwRapAsa4abvfdN+N5FzEYHR9nCFUW4Kksy4Sh3za25ZrHRWmrgU1pXobz09PTB/lKMxTrrOsIJNJg2ECkqQCxsmrVHwolkDdARfc9HM4nw9hU6WLY4NnERBKlrYIitfUHDUYSEywmSHX2KTHWckUl1wmMinHf9OVKSmugQGEOhQ3wsl9usAXkBgeYbI1qNNhNG+wJLi4KyutdIwyebK2ivkmEtVh5WfVZwqpM9rebBvFljsaREusZyBVrX5AzKvzH4X0HNjF7B4caCpVGt98fSuCKSyeVlgaodF72Ym0v2Xf72KPHEmm5Y5XC3VgCpY+AZBoqmpjh/dC7+fmcHJF6SFJWA1KrfWFyZo6N+SgyiJgcaOn0tmsqz5FvARl51BtKY7F0enqyLra6c4tKjDUsnvxDsd4GamvduvfOoBON94WbNwMTae03etrUVQ3LMmMtcCWlkE3+g0Il8GQGkJtOg87WtHCr78EFZJPptr+DmLyemtU6mzvumWovTZIGvc0ZMNe6XrmudnXPffys3LJ5MxAgHy4LlYfPQpQAxUWlYy6axuiIiPgJAMruhpF4ADUAAAAASUVORK5CYII=)";
+		//Historymenu.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAC+SURBVDhPY7D3OPOfEjyIDWDZ8v//hQcL/r//ev//91/vwWyQGLo6uAEwAGKDFII0wcDz9+ehrP8YhmAYgKz5woP5cA0rj/mDxUAA2RAMA5A1w+Rg+MDVerDcg1f74WIYBoAAyN/oTgVhkBgMwMSwGoAMYPIgDDMA5EqYGEkGgJwOAsjegxtACMP8DwJYAxEfBtkIAxtPx6PIETTgxtP1UK3//++4kI8hT9AAkHNBCQndZhgmOgxwYQoNOPMfAE+4s7Tq+nfIAAAAAElFTkSuQmCC");
+		Historymenu.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL9SURBVDhPdZJfSFNxFMcVSauHoPAhLfujmDozzS1zm9O5uV33361tun/OP3MztZYWrSSUQHNIuGKwxEoktRIUxAchqKeKHuwPiX8oMwoGK+YwTH1Q8nR+61oUeeB77/2d8znfc8/lRvwbALBzY2MjfgvF0Nj/g0CtbV3ZKcz8/oQ07tekTC4QHWZw/AwW39c/NJqCTByN/wmcGkmauZS6PvE4f+kEXwE8iR74ciPKALxiHWQXyCA5kxMQqw0mwtKtv4IkWHxpyzEuBTypHgzVjeO+uwPnvwSDyvfzn055untd6vK653kSHaSfLAKRwljx24Ts7HC6+Ok8yZpQZYamKx0eLOYEl5ZSMziC2ax82RM8H0Gxbc7mQYHKBAwO9c3b3ZuBvdvC03MKVQPCEgtorA1P8XwUC1HDw2OpLFyFyZd+JwyBV1ZWmAqjfYasxRFp3JiPCxuwRapAsa4abvfdN+N5FzEYHR9nCFUW4Kksy4Sh3za25ZrHRWmrgU1pXobz09PTB/lKMxTrrOsIJNJg2ECkqQCxsmrVHwolkDdARfc9HM4nw9hU6WLY4NnERBKlrYIitfUHDUYSEywmSHX2KTHWckUl1wmMinHf9OVKSmugQGEOhQ3wsl9usAXkBgeYbI1qNNhNG+wJLi4KyutdIwyebK2ivkmEtVh5WfVZwqpM9rebBvFljsaREusZyBVrX5AzKvzH4X0HNjF7B4caCpVGt98fSuCKSyeVlgaodF72Ym0v2Xf72KPHEmm5Y5XC3VgCpY+AZBoqmpjh/dC7+fmcHJF6SFJWA1KrfWFyZo6N+SgyiJgcaOn0tmsqz5FvARl51BtKY7F0enqyLra6c4tKjDUsnvxDsd4GamvduvfOoBON94WbNwMTae03etrUVQ3LMmMtcCWlkE3+g0Il8GQGkJtOg87WtHCr78EFZJPptr+DmLyemtU6mzvumWovTZIGvc0ZMNe6XrmudnXPffys3LJ5MxAgHy4LlYfPQpQAxUWlYy6axuiIiPgJAMruhpF4ADUAAAAASUVORK5CYII=");//原版历史图标
         navigator.palette.appendChild(Historymenu);
-        //status-bar  urlbar-icons addon-bar alltabs-button TabsToolbar go-button
-        //document.getElementById("urlbar-icons").appendChild(Historymenu);
         //历史菜单
         var popup = document.createElementNS(XULNS, 'menupopup');
         popup.setAttribute('placespopup', 'true');
+		//popup.setAttribute('position','after_end');//适合按钮放右边
         popup.setAttribute('oncommand', 'this.parentNode._placesView._onCommand(event);');
         popup.setAttribute('onclick', 'checkForMiddleClick(this, event);');
         popup.setAttribute('onpopupshowing', 'if (!this.parentNode._placesView) new HistoryMenu(event);');
@@ -53,11 +54,11 @@ location == "chrome://browser/content/browser.xul" && (function() {
             popup.appendChild(item);
         }
         //查看所有历史记录
-        item = document.createElement('menuitem');
+        /* item = document.createElement('menuitem');
         item.setAttribute('id', 'Historymenu_allhistory');
         item.setAttribute("label", '\u67E5\u770B\u6240\u6709\u5386\u53F2\u8BB0\u5F55');
         item.setAttribute('oncommand', "toggleSidebar('viewHistorySidebar');");
-        popup.appendChild(item);
+        popup.appendChild(item); */
         //分割线
         item = document.getElementById('startHistorySeparator');
         if (item) {
@@ -68,8 +69,9 @@ location == "chrome://browser/content/browser.xul" && (function() {
         Historymenu.appendChild(popup); //显示历史记录
         document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 #Historymenu menuitem {\
-		max-width: 200px !important;\
+		max-width: 200px !important;/*此数值是为了使宽度与书签最小宽度一样*/\
 	}\
+#Historymenu dropmarker{display: none !important;}\
 ') + '"'), document.documentElement);
     }
     function updateToolbar() {

@@ -20,4 +20,3 @@
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
-* [论坛灌水.uc.xul](https://github.com/defpt/userChromeJs/blob/master/%E8%AE%BA%E5%9D%9B%E7%81%8C%E6%B0%B4.uc.xul) 自用版，添加了一些颜文字，右键菜单改为快速回复
