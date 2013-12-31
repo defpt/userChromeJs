@@ -1,113 +1,168 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <overlay id="rebuildAppmenu"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <!--
 // ==UserScript==
 // @name           rebuildAppmenu
 // @namespace     rebuildAppmenu.uc.xul@gmail.com
-// @description    自用Appmenu
-// @compatibility         Firefox 20
-// @Author               defpt
+// @description    自用Appmenu，采用百度某达人的图标以及菜单分类，添加了一些改版FF后一些splitmenu菜单的图标
+// @compatibility  Firefox 20+
+// @version        1.0.5     2013.12.31
+// @Author         defpt
 // ==/UserScript==
 -->
     <vbox id="appmenuPrimaryPane">
-          <menuitem id="appmenu-restart" 
-                label="重启浏览器" 
-                class="menuitem-iconic"
-                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKlSURBVDhPdZNLTBNhFIVngTuVmAgbF67cqLsmmPhqYkTRGImhhQCKtBKr8rJgabXSDoW2zLRT2tLH0DLAQLEQglJJfCQYYqIEiQutcUECCAt3rgppeCi/c8osLMGbnOTmnvPNvTNNqb1KcVGdW3ijSnW98m4ThB4z2f5/nS1S5ZVqGsMPjPaNViZEaA+f6vAJf1rZMMGsTPuQR0aOZ9flkqoTumZ6xRkQCReJk65I/Ovs5y8XHD5hiQ3FNrt6Rwk8ZJCVsZ1SXis/fN9gW3H3PCNeYZQwwb6Z7e3tfHjpdPro8vLPMwMjCYEJDa4jg2zWJbdrTSIbGiJeaQs24WS1psGvUCj2FVfci11RVVdMT0/nTLx5p5GuWEcWTAbGdqPdu+WJxsm/orkeUqN/+qGVDf5+7PCTUm3DuFJpzfFGY11uPkbAgKW09aZbDn8f4aTTdgub3Pxwpre6eKKurtdOTc0cobnoJhiwlO4RbZbejXR2iylPREw6A0LaJW3YLTY8ROpM7c9xtZnp/gEGLFXbYjMzQZE8cfgXUqlUHu0KTrGSuZeMNu4VHmC0cgtgwFLNls47dp9AWmyejYKiyoMWxt9s9/VJv4SYJczgKZXq/ciCAUsND08eM3cGttqkj1Zeozckk8lDTl90tsPbS5zd/RllemkGr7ym0UC7eQIGLC6iOjx8AqE6ky1dWHLz1Orqar44OsF4ePETNDDygsXskqqqABlk27nwywyMGp98e9LCBH7ZpCt0Tda1q2qN/rh0KiEkF0KPmU5vWUMGWTAyvlNjidfFMNo4nhja3KS61rRepqn/BqHHDB4yyMpYdn2cmzvtDgrvzU7/ltUVIlZWltRjBg8ZOb53Sf+BA/OLi+f64+PtkcGxQQj99/ml8/DkmFwU9RcBXOUTTWNTuwAAAABJRU5ErkJggg==" 
-                insertbefore="appmenu_newTab"
-                oncommand="Services.appinfo.invalidateCachesOnRestart() || Application.restart();" />
-          <menuitem id="appmenu_newPrivateWindow" 
-                label="新建隐私窗口" 
-                class="menuitem-iconic menuitem-iconic-tooltip" 
-                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIrSURBVDhP7ZDLTxNRGMUnJCZG1ya6c60L/xmXKDEaFsZIQBNAoLevoUMf03mVwrTzno7T0lLoYHBBCSomRhYkrowbY0xYsgIRaecwHUcT49qdv+Qk93z3Ozc3h/onjI4uXxh+Yl6ObOA7lwazyP4JWVhMR0dq5Gnj6iRj7tOS6TMlC0zJ7Gcko0cLlk+LtV6mtLrPLu1dG+wSgqEkZ+9RCUFHslQ/TRSNk3SwmJddcOoK2GodRaUByfbAa63AN5CtNJHi7H6Ss45I0fyREQ1QSV7rZ9U1FPU1cGYHnLUBee0NKs0unM13aO18AKusYL7sIiG5yOke8sYGBHcLtGD4VIrXzwbhlGgiVlB78aJ6NJtb9uclM/wBW3GDRQ2T84v+NCMfTiSkszlWBV/vgub1HjW7oB2IzktMZ/WDsIgAQshQLFf9rm68B29vYoaRT6KrkFhBO85p65jJal/DQVZZRaLcACN7n1mt64nGtpPkrWNp5RUKahsJoXaUFj1njm17E7nal7jkICbWwEj67fABkiuDVVvILDqB7Egm8vLzQG7o6eAuXnJAllpBDx2MJyuHYfgXhLO+Ce42yo2tQF1kyg6UzltU13fBaB6k5g6K1gswShtjtHw6/Ei5FUV/Un/96QrJt3fjBdWnJRtpwRiU1A9K7qcEE3TJxrNs1R+Pyx9HxrTrUexvaH7rxmSqOTVB3AeEaBdHAt0bV+7febw8dfehfDNa+89vKOocv0Vm+0fY7LgAAAAASUVORK5CYII=" />
-          <menuitem id="appmenu_sanitize" 
-                label="清理浏览痕迹" 
-                class="menuitem-iconic" 
-                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB2SURBVDhP1ZDRDYAgDES7fgdwAaeAiTqGWtJikRNjDB9ecumVvJYATRUv66a29r1+uMAHnmx4LwQjGz5B6DZkw1vlnCGMnFLqlzAzhKEP1sZO+YKSDUQ51ioRqdu1H2WvOqO5KL5f+1H22vyDQxG4y9ezjyLaAWyfFc3OVpTLAAAAAElFTkSuQmCC" 
-                 insertbefore="appmenu_offlineModeRecovery"
-                oncommand="Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);" />
-          <menuitem id="appmenu-option" 
-                label="设置选项" 
-                insertbefore="appmenu_find"
-                class="menuitem-iconic" 
-                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI/SURBVDhPhVDda1JxGP7BuokYXXTZVXfd1u5GEEVQrBQWySKpLVltMafN1LJyfiybHj1D5/Fsx50znelxs5BidNFV3fgfRN3sSgTrSkYSw8i385wdMWjVCw8+7/Nxfi+yf83ImG0CMNb/z9AFy9HRmzOiaWzyCnbPQvInAA4NHjLYDxy7N3Q5yGfpvp/7enXinimynCMAHFowIZHjUXjEiPdneNg8ePaS5Uy9Xj8cy+Q/JySVEF5a29QBDo0T85+QQRYdo86Ydcolufwc2RyPa0+j4l5S3qKDAA8ZZK3TbsmoMyYoxbmooOxyKy+Iz6raq2XtxRItCvk9ABwaPGSQFRR1zqgzVqlUBkRFnYllCsRrp8ZXipRcK71ut9unWq3WaXBo8JBJy+osOnrZZJ0etzmfkCsQp5hYoPhqkQK82G40Gsf0gDbg0OAhgyw66LIH/qg9xEv0fHld+5MKOnzh1HeLxbL/gjbg0Ho+suigy7rd7mCn0xnKlaqeSErRTtzQzCxdu+3gtS4+MgAODR4yivrKiw66+gsXR2+Z77rmv8BcTOd0+CIpGp/1fgPAezoyU1oWHb2MsT8MFwOcqJ0m74T41R84EUAY6O37nryDLDpGnbH3tdrJcvWtUzvpuC+S/PgsKdPCUpbw+zuHh0y5uu1Ex6j3x3zjzjlPMEH+qLCrvtwOzccyBIBDg2e6PnneiP85W2/eneDS8ofMetGN3R2IdwFwaPCQwf7XaTabR4joELi0sSkA4NDggfeHsV+P37vG6ED+0QAAAABJRU5ErkJggg==" 
-                oncommand="openPreferences();" />
-          <menuitem id="appmenu-Addon" 
-                 label="附加组件" 
-                 insertbefore="appmenu_find"
-                 class="menuitem-iconic" 
-                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ0SURBVDhPjVFLbBJRFB23ummauHBhYjTRtRKNmpoajS2aRtpC1NCWWoKgdLDUUhlKy8Aw/JlCKZ+ZQikw1Eqpn5LoxpV7E+PCuNGVMSZuaGLS4obre5NpICSanuRkXs5958657xKduNin6R64Z5i8dUdv7u1VdcnywTHxeO49E8sB5n3S8VKWDw53NPNxKV+F+OomMFF+S5YPjlR+425UWIdQWoRcsXJJlv8NpXrsrHrMLAyPkxGNjmQfzno+Rfl1iPBlMM24v2jGSQ7VgmodKSjV+j7Z1oJphjZ74znwL69JxMbF7IZEfA7IOhPLwhOXf0S2tWC2e+cjmTJwwrP/0reUBzsduSbbWrDM+R3hjCj9LZQuwf65k75EHiYslPXGoO4mGuuNatRUUAwMHCYyWfGqh+N/LvKlD5uv31IJQawFkwUI42ZtDKWKQLFxmPVwwKKRF0Ip0BqsRgIADjWbzVM7OzvdOJEnkjrvjgqSoZPSeyTWIJgsSl+zzUMRV/qHjg2Omt6ptCbxcv/tM9oH0w4PJ0iX2+lbWoWYUCqUK9usl0t/Zzj+W2HzlYIYNdlsLhQHRyIpFmZcYfBy/A86kvmFo/rR7JiucBroYLwHJ0Y8sbu7e1x6RLRGF4tW5EOXMV3B5Oe9vb2TjUbjNB1Kfd3Xnf4EkE/pC5KpHY9stI1BkXETTKvT/7tHqTnaPzRybno+9Gdfnw8sg9FCKWVbCxY7o6dRPO/iCuBGlDcGxinHsNHqmHQGEpKGawvBJBim5nSyrYV0tqDIFCq1nFitrZSqpXK1ZkNbOVKv17vK1W17trRVyYkvUK3yPJrMXZdtMgjiL/o0qQAqtCMRAAAAAElFTkSuQmCC" 
-                 oncommand="BrowserOpenAddonsMgr();" />
-          <menuitem id="appmenu-Bookmark" 
-                  label="书签管理" 
-                  insertbefore="appmenu_find"
-                  class="menuitem-iconic" 
-                  image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHoSURBVDhPY8AHnAMiLZ0C4sygXNKAh4cHe25l69PsipbHWlqhbFBh4kF0emlWx9RF/0E4Or0kHSpMHDA2NmYtqOl8OGHuyv8gXFDded/e3p4FKk0YRKWXpLZNmv9/whygAUDcCmRHphUnQqVRgZWVH697UHxCYFxmT3hKwfa43PIHFa0T//fOWva/b/ZyMAaxy1sm/E/IrrwfnpK/HaTWFahHyz6UhyE6raiosnXS/9aJ8/53TFn4v3v6kv+9M5dhxSA5kBqQWpCe6PSifIZTpy7Ltk+ed61r+uL/3TOWEIVBatsnzr1y/vx5abA3jp89q9k2ac6dzqkL/3dNW4QXg9S0TZxz6+SFC2pgzTBw+PAJ/Za+2Q9BTgQpwoZBci39sx4cPXVBB6oNFTT3Tk1u7p/9v33yfKwYJNfWNyMeqhwTpBZUlzT3zfrfNmkeVgySS82rLIQqxwRpRbUzWoC2tE6YA8YtUAznA+XSimomQ5VjguyypiMgRc39s/7Xdk392zN13rGeafNP1HZO+QcSA8kB1RyAKscEeZWtT+o6pwKjaNbFjdv3JPz//58fiAU2bNud1Dph1qW6rqn/cyuaH0KVY4Jp85a1rNy4NefTp0+iUCE4+Pfvn+iq9dtyZ8xb1ggVAgIGBgDd8HTEqKvnWQAAAABJRU5ErkJggg==" 
-                  oncommand="PlacesCommandHook.showPlacesOrganizer('AllBookmarks');" />
-          <menuitem id="appmenu-chromefolder" 
-                  label="脚本管理" 
-                  class="menuitem-iconic" 
-                  insertbefore="appmenu_find"
-                  image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABTSURBVDhPzYzBCcAwDMS8fgbIAJ00hXAFw1kP0zwiuI+QHUcY81nfpDbkDQrJGxSSNygkb1BI3shhZzq/4QHRiivuelBNGVMd5SljqqM8ZX+IeAGxoR/+53UAlAAAAABJRU5ErkJggg=="
-                  oncommand="Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('UChrm', Components.interfaces.nsILocalFile).launch();" />
-          <menuitem id="appmenu-userchromecss" 
-                  label="userChrome.css" 
-                  class="menuitem-iconic" 
-                  insertbefore="appmenu_print"
-                  image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKjSURBVDhPjVJLaxNRFB4QV90KLly46MKFC7dKLUGlSFEXUopShagIKkJBpBRKrdamryRN2jzbvGaSSZNMk3TymiSTNpmaaVPbxr4LahcRBLPwJ2RxnHOdIkWRfnCY4d7zffec7xzqf1g5+HG+UNnVpIprXfLml0vq8b9R2frWIso72mBcfBniC2k7w0kjRvvG+JSrNmx2/kwUKmk19W846EiH3uI97B0YhSGDDfp1RtAZ7WCwecFBc+CLpCFRWOVz8tZFlXIcT1+8ksYmXSphDmguA3OZJRCkKhRWdqH48QAW1vZreXmHVSnHcbfzoWRy0A2Lm23giygQThaBFyuQXfpEhPC7uLoPuVL1pkr7g7b2O5LSq0KONGzeMLiDPASiWZjlCxDiFyCek0ExEjLSBiTFFUkUt5tU6m+0XmuThicchGByMGD1hMDJRMEbSgIbzxMRvIsKHyCWLUMsv3xPpVJUtVo9fflKq/RubArm88vENKPNB5MzLPl3sXHwzCbAF04RkeC8CEFerC/vfW0mAjjfq63X997oJiCSKpIkg9UDE3YaTE4/EbK4gmD3RYgQVoUtKrmK3XCKypY3NTfab9Ve971XnJeIcUgcNc+QwOnoLW4S5ukAEUNR8wxb93C5CxSXKmlud9yvPX7WDQwnkD6x78HxKcC2MN6OmEng2ZGwYjowUYGmQskFbeeDJ7XOrkekRJw/GoVJuFgYfYPjMDBsgiG9lbQ27Y8pniRkP5fVUEJpvfS8u6eBAlgmly4RM3GM+Dq2gKU7aa6h+PM9XVx3E/OOIFU/n5l0s1qlvEMsE43EUHYf/HOCslCL9ahQpmNCuYUJZ5u3t+vHd+AIhkCgqadf18tEM4dsLC8brD6tO5Q8q16fHOnFyjkynhOBon4BGyz36HJLvuYAAAAASUVORK5CYII=" 
-                oncommand="edituserchromecss()" />                
-          <menuitem id="appmenu-about:config"
-                 label="about:config"
-                 insertbefore="appmenu_print"
-                 class="menuitem-iconic" 
-                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVDhPjZK/S8NAFMcjiOIigl0ErYM4OTooDm4uTk4urv4JglvdrElr2pomubY2ufyy9kdaiCUiinXWRaQ4iIM4iQhuilUb79KrbTXQfuDBvXvv+73H46h2RMmYZkVtlU0aa5H0wVw2mx0ipd7gpMzGThx+o3BoXnpjgZ42LMtHyt2RS6WRXaCWsUEzGAE+AM0cIy3dcRynL5YyAkFOrjdNWKAdkfJ/KpVKPzl2EOLV+9Ykcl0zj72niCQ00bbtQZK6KDnLj0RfLQPoRIC+SMqdoGINvXalF8qTOMdmYVE9aRfjEOTDeVfwF4ZXnnEDWtZLWFC3GEG5+SvGAWBunUg6iSZ14CXwCrTMiyTMzxBpg4SS8zM8vPYSeAUdlz8jST2q2fYwsaAow7B8yL2At91qhB9sQj9rF7v3vOJ+NPTokwBzs8SigWaa49GUscxJ2SX8qfBdbF/f/DUQlMdi8XQ0oRZWcI4+3aUr7AZqdE1CgnJXrVYHpEx+AefBOHwlLd0R5Pw2FtFodHpPecfnMFDPSbk3uHQmgHZTc8WidgtgcYqUegdvn5cyE42Mon4AKKVSBCWmd9wAAAAASUVORK5CYII=" 
-              oncommand="gBrowser.selectedTab = gBrowser.addTab('about:config');" />
-          <menuitem id="appmenu-Scratchpad"
-                 label="代码片段速记器"
-                 insertbefore="appmenu_print"
-                 class="menuitem-iconic" 
-                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHdSURBVDhPjY7PS9twGMYrDHH05sFj8eBtt+0oHtfhVRRkpG5QSivbWtOMRaMxrDUmja01if21NtZflRY8CbsNIgiih6mH6cEd+hcI66XzoO3ydF/IJq36gRdenufzfhNHJ8bGhO6Rt+9eYbCT+LE0uyY+TLvDvPITgx0ZKR+GCjB99HxsT05tNjDYkZH6Qbr8jDDKK+mrlXz5RyJXvuCVzBUydH+Ve6AoxknPK0ZkxfiVSG8Gl9JFRkwWasjQEa0zXloY4Bb186haqAfnpO8hPnYiqoXfnKSde+npAaK1xz3q7fVN8fLnZL4ez5aacmqjNdiRoYND9P95SVHOiUk2wopaTclstY7+HWTo4MAlZzaeIOsKC/FLeXWjJbcbdHDgkjObECv1z8b0asz65fsGDlxyZtN6QNarsl5siqpxI2rGdTSZb1j7raitXSNDB6ftA35W6OcWtGok8eVG0Yv7ufWyoq9t76wWS6WMtSNDBwcuObMJsoLLKk9k1TDLu18Hfe+5YR89M27Na1+IG0aGDg5ccmZTOTx8+m3/aOjg4PiZaZpPAlOzHs/kp+03gY872JGhgwOXnHVmYTn7PDwnnTK8fCbF0y9I/HisL/ZkjQqVXa9QplntIfEdHI4/Azg0LrM9+vsAAAAASUVORK5CYII=" 
-              oncommand="Scratchpad.openScratchpad();" />                    
-         <menuitem id="appmenu-Backupfolder" 
-                  label="Firefox备份文件夹" 
-                  class="menuitem-iconic" 
-                  insertbefore="appmenu_print"
-                  image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVDhPYxg8IDc3l71jyvy8numLyiB4SUJ9fT0bVBo/ACnsmLLgKhD/65y68D8Id01b9Kdt8oISqBLcoL5rvgRQwzSYRmQMNORf97TFS/pmLZuKjHtmLu1v75+vADagecoc+fbJ8/ZhMwAf7pi6cBlFBrRNmbd41IBBY0D9lPkS7ZPnr2ifsuAhKbh18ryJYAMGGDAwAABwCaOsaCZu9QAAAABJRU5ErkJggg=="
-                  oncommand="Backupfolder();" />
-
+        <menuitem id="appmenu-restart" 
+        label="重启浏览器" 
+        class="menuitem-iconic"
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA1klEQVR42mNgoCZwcnJiAuIIIN4IxK+A+D+U3gTEUSB5JLX16JpVgfgsVBMuDJJXA2kG8ZE1KwHxS6iih0CcCcSKQMwFxApQ/kOo/DeYgcjOPg0V3AHEfDi8xwvEt5FdBJOIhArcB2J+POFTj+4lmMQmqEAaKZqRDXgOFZAlN+r+QA1gIdeAt5S6YDPUgFRyDYhCigU+ItQfBmH05HseKR3w4kkH26HqrgIxK7KkClLaJ5QSQWGmgs0GZSC+SCAvXALlGUK5MQaItwLxC6imD1Cnx2CLagCrE7TimOQIRAAAAABJRU5ErkJggg=="
+		insertbefore="appmenu_newTab"
+        oncommand="Services.appinfo.invalidateCachesOnRestart() || Application.restart();" />
+        <menuitem id="appmenu_newPrivateWindow" 
+        label="新建隐私窗口"
+		acceltext=" "
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42mNgoBQ4OTkdBmEkPi8Q5wJxhxMCdEDFeLEZ8B+KWYE4C4hfI4mh49dQNSC13EDci2zAFzwa0TFI7W8QmwFN4gMQXwbi71g0fYfKfUAS+41sQBHIaVBvmQDxXyQ5ENsEKscKVQsSf4RswFwgZkQKmzNIcmeQxBmhakHiC9G9AHLiaiBeBcTPkMSfQcVAcleQxM0ZSAg4dLwQPRqPk6D5HBDzoxsAitd2IH4D5d8B4nQovgMVewNVw42RkJD4TEAshCXBCYHkcKZESvLCwBsAyo1HyNUPAFr59v1e4pXxAAAAAElFTkSuQmCC"/>
+        <menuitem id="appmenu_safemode" 
+        label="安全模式"
+		insertafter="appmenu_newPrivateWindow"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0klEQVR42mNgAAInJydPIH4GxP+JxCC1ngwwQKJmuCHIBsAEbRgIAJAamHoMA6DsUiCeiQOXoqvHZsBMfHi4GwDEskDchceATqgaDANg6aAXiPXxGGAAVQNS+xTZgAKo4B8gdgHiOCyaY4DYGaoGpDYP2QBmIN4OlfgAxHpA7A7EM6DYDSr2AapmI0gPegrjB+KjUAWvgNgE6l9ZKPsVVO4wSC2uZMqD5JLPQBwP9c5nqNgWIOYilNZB3mkD4r9IsQNit2A4m4BBdkB8DoptcakDAFBrDWQKt8OGAAAAAElFTkSuQmCC"
+		oncommand="safeModeRestart();"/>
+        <menuitem id="appmenu-option" 
+        label="打开选项" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR42q2TSwrCQAyGu1OK9gGioO68hd31CO1x3Ai60o24E3ceQtwo9Q4K2ku4UAQfpf6BDIShrQ8c+GDon6RJJjGMnOP7fh3cwRN0jHcHRiVQ5bsNBiBlJqDBmgdM3dkEW7AHM3AWzgrKZs0ZRaAsA3gspB9CP7L0LFbCIAYhl2LzPRb6Qnd2wJXFI3AzeuSKIGRbU0IbDEX0oKDRodbYNn1MtPqsggCWZpv8JUAL9H4oYQyaSqiAEwsHamqGs8MNJpubGixpMNWeMeCULb7LZ9xk1bb7YpBo6LoyQJlHmYSlmAnJBcx5CqO8ffDEMvWF80j1hRaOFu+T7aR1fvAz567zC1y88fHJYEJlAAAAAElFTkSuQmCC" 
+        oncommand="openPreferences();"/>
+        <menuitem id="appmenu-Addon" 
+        label="附加组件" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZElEQVR42mNgQAJOTk6tQPwZRDOQA4AavwHxf5AhDHQDQNsOQ20lBmN6DyjwkwQDML0HDbivJBhwllyvwg0hS9EQNABdAxY+8VGKwwDioxSHAV9IyjNEhQEBA35SlNGg3sNwNgBH7bnMGdLHkAAAAABJRU5ErkJggg==" 
+        oncommand="BrowserOpenAddonsMgr();"/>
+        <menuitem id="appmenu-history" 
+        label="历史记录" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABOUlEQVR42pWTu0oEQRBFx0TZH9Af0EB0cQPByGQiFTYRxEA0MnAj8UOUFWZ9hoZmxoLmgolvEYyMTIRFYX2fwtvYFjMDNpygu2/dqeqpShK30jQdgS24g3d4gRvYgVpStLjsgQw+4KsAu9swrQ/uhkOJOtCEURiEaViCPXiT5shiYoOWLh6gGp2fwAXUxQI8SrsZREOq1dzHXGYh9XpEAz5VzrCJ1iTazXmXPAPjQOdNE51pk/7DYEXn5yZ60qavxCAQ3mNe+3Zs0OuCu+DUGVw6g05cwrgz6IeJnPSNZcVcmXBVm5YLnioINvbjRwy/0RqoBgMwWRK8KP3Pb9QXMznew0xJ8Kya7beRclq5Desw5zow02CZ5vhPK8ukoimMh8nKenXDZJpK2VRWLT24Va3PcA3bNupe/w25ShMkCh869AAAAABJRU5ErkJggg==" 
+        oncommand="PlacesCommandHook.showPlacesOrganizer('History');"/>
+        <menuitem id="appmenu-Bookmark" 
+        label="书签管理" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAb0lEQVR42mNwcnLyBOJnQPyfRAzS48lApma4IQxIHBsGEgBQ/RGwHpgBDCQCuB5sLkDz1jOiXIDsEmLE4HKjBtDOgFdAHAbFL8kxQB2IV0KxBkkGAHEIyFYkPogdis8ASjLTc5ABXiAGGZqfgPQCAKZ5ZToRpqI8AAAAAElFTkSuQmCC" 
+        oncommand="PlacesCommandHook.showPlacesOrganizer('AllBookmarks');"/>
+        <menuitem id="appmenu-Downloads" 
+        label="下载管理" 
+        insertbefore="appmenu_find"
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAa0lEQVR42mNgwAGcnJyOAPF/KD7MQCpA0gzGowYQaQAotNE1YsGHKTXgCCFXNODR3ECsVxqI1gx19mEChjTgSKmHGfCFMtSQBnyxxEBuPGMYAMQ2JGi2RjbgGRFRhws/BxngBWKQofkJSC8A7kTAGZ4aXdgAAAAASUVORK5CYII=" 
+        oncommand="BrowserDownloadsUI();"/>
+        <menuitem id="appmenu_savePage" 
+		label="页面另存为..."
+        class="menuitem-iconic"
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mNwcnLyBOJnQPyfRAzS48mApvkdERqR1TxjQOIYMgABugYGKEDmA2l9OB+XQnwGoPBpbgBBA7FIHMFjwBGCBhALaGcAkG0NxL44sDUxBvjiw7R3AdlhAMRWJGi2RDaAnJwIw89BBniBGGRofgLSCwDDQxufnOjqdgAAAABJRU5ErkJggg=="/>
+        <menuseparator class="appmenu-menuseparator" insertbefore="appmenu_print"/>
+		<splitmenu id="appmenu_catalogue"
+		label="Firefox目录"
+		iconic="true"
+		insertbefore="appmenu_print"
+		class="splitmenu-iconic">
+			<menupopup>
+				<menuitem id="appmenu-profilefolder" 
+				label="Profile" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAV0lEQVR42mNgQANOTk6eQPwMiP8TwCA1ngxYDCBGM9wQBnIBzBCynYxsAFlORjYAwoAKEnQyXQxAd/pIdAE9DXhOiQFPgNiL1JT4HJvJXiAJIjRDbEQDAH8sAWPC8aQTAAAAAElFTkSuQmCC" 
+				oncommand="Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('ProfD', Components.interfaces.nsILocalFile).launch();" />
+				<menuitem id="appmenu-chromefolder" 
+				label="Chrome" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAApklEQVR42mNggAInJydPIH4GxP+JxCC1ngxIBpCiGW4ISOMRNEFrBgIAqCYEpp4BTEAE/8PYBDSLALEPsgEoLoAqeojH2S+B2BfDQkIuAMqxOkGAL4oB2FyARTMjEFsiafbFGwY4vPAKlwF4XQAUU0DT6Et0GCCFOG4DiIiFV4QMwBYG6CFOvAtwhDjxYQDEcURoLsNmADmZ6TmyAV4gARI0PwHpAQDbYi/L6+zZOgAAAABJRU5ErkJggg==" 
+				oncommand="Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get('UChrm', Components.interfaces.nsILocalFile).launch();" />
+				<menuitem label="CSS" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAoklEQVR42mNgoCZwcnLyBOJnUOxJSBybASAF/6H4GSFxbAbAFFUBMQ+SOA9UDCxPjAFsWOR48BoAlJAgZAOSBRLYJPuhkpfwGHAdqmYCukQxEP8D4qdArIPHAB2oGpDaEmSJUqjJxBjwBKq2FF1yNlTiBh4DbkDVTMMmKU1CIErjVUDIAGITEjeSODexCQk5yT4nJI7NAC+QAmhIexESpwoAAPYSkppAIzNUAAAAAElFTkSuQmCC"
+				oncommand="openUChrmfile('CSS')"/>
+				<menuitem label="SubScript" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYUlEQVR42mNgoAZwcnJqBeLPWMQ/g+SIMeAPEP/HIv4fiH8SY8B/PAb8H0IGALE1kpg1KQY8QzKEGPwTJXaAHC8gfk6iIZ/J8hqpCYy4MKC5AZR44RmlgYgrdn4RlcmIAQDDGYaJrtr5ZAAAAABJRU5ErkJggg=="
+				oncommand="openUChrmfile('SubScript')"/>
+				<menuitem label="UserScriptLoader" 
+				class="menuitem-iconic" 
+				image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAd0lEQVR42mNgGFTAyclJDoh3AfFnIP6PB3+GqpNDN2A3AY3oeD+6ATCbbaCuAbF/YnGpDVY5mMlQdgU5LkA2oBiPxi9Q78rjNABHIOOVR3cBiq0kG0C0PLa4J8kF2OKeVBfAbNYl0oCfVE99clBDvhDQiD3uKQUAMzDR0XUWC64AAAAASUVORK5CYII="
+				oncommand="openUChrmfile('UserScriptLoader')"/>
+			</menupopup>
+		</splitmenu>
+		<splitmenu id="appmenu_list"
+		label="Firefox配置文件"
+		iconic="true"
+		insertbefore="appmenu_print"
+		class="splitmenu-iconic">
+			<menupopup>
+				<menuitem label="userChrome.css" 
+				class="menuitem-iconic"
+				oncommand="openUChrmfile('userChrome.css');"/>
+				<menuitem label="userContent.css" 
+				class="menuitem-iconic" 
+				oncommand="openUChrmfile('userContent.css');"/>
+				<menuitem label="prefs.js" 
+				class="menuitem-iconic"
+				oncommand="openProfDfile('prefs.js');"/>
+				<menuitem label="user.js" 
+				class="menuitem-iconic"
+				oncommand="openProfDfile('user.js');"/>
+			</menupopup>
+		</splitmenu>
+		<menuitem id="appmenu_webDeveloper"
+        iconic="true" />
+        <menuitem id="appmenu-sanitizeHistory"
+        label="清理浏览痕迹" 
+        class="menuitem-iconic" 
+        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdUlEQVR42mNgwAOcnJyOAPFhBnIBUPN/EB7aBoDC4AjJNhLCtDOAYgA0fT8xGJfmOGK9AMQJ2AyYT4IB87EZcB8q+RNJITY2iL6PrlkBSeEbAmwYrYBsQDySwvsE2PcxwgHN/5cIsGH0Amz+B+GjBNgwGhwOAAxv3WzpCH5wAAAAAElFTkSuQmCC" 
+        oncommand="Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);" />
     </vbox>
     <script type="application/x-javascript">
-<![CDATA[
-
-document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
+		<![CDATA[
+		document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 /*=====橙色菜单定制=========*/\
 #appmenu-button{max-height: 19px !important;}\
 #appmenu_newTab,\
 #appmenuPrimaryPane > hbox,\
 #appmenu_find,\
-#appmenu_savePage,\
 #appmenu_sendLink,\
 #appmenu_print,\
-#appmenu_print+menuseparator,\
-#appmenu_webDeveloper,\
 #appmenu_webDeveloper+menuseparator,\
 #appmenu_fullScreen,\
 #sync-setup-appmenu,\
 #sync-syncnowitem-appmenu,\
 #appmenu-quit,\
 #appmenuSecondaryPane{display: none !important;}\
+/*火狐目录*/\
+#appmenu_catalogue{\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAVUlEQVR42mNgoAZwcnLyBOJnQPwfCYP4nsQagK4Zbggxmv9TgqlnABnhRiMDiDWQKAOw+pnmXqCqAfT1AhBbk6DZGtmAZxSkxOcgA7xADDI0PwHpBQCQg+DlDp6WXQAAAABJRU5ErkJggg==") !important;\
+	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;\
+}\
+/*配置文件*/\
+#appmenu_list{\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAd0lEQVR42mNwcnLyBOJnQPyfSAxS68kAAyRqhhuCbABM0JqBHAAzAI/8YRDGyUY2AEg/RHLRQ3QLsLKJcAEdDUDywkMsgYwVExuIuAw4QtAAgjFGyAskGUCxC4gw4DDY39gMoCQpk5OZniMb4AUSIEHzE5AemH4AN/3vjZmMc+wAAAAASUVORK5CYII=") !important;\
+	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;\
+}\
+/*WEB开发者*/\
+#appmenu_webDeveloper{\
+	 list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42o2SAQ3FIAxEkYAEpDQoQAISJmEOJmESkIAEJEzCl7BfkiPpOmCQXLLdeg/oaoxY3nvL2lmkfIJvzWxxQWHdA0D1yyzsUFSVxfPjffUEI5UvgPsA2F7ogiIAeRDOaHJgJdZP7npWA6ADRSQU4F+AJd3o9gvvBbnR/alTHDsejQCvYvgaEHRwE3dbAbSGhgZIaJBbBNDjL8wGqQOYjvJqD+IsvMlTKEDB9zcEPYhiHpICpDbG2Oxo2T+ftQU9dzSi3AAAAABJRU5ErkJggg==") !important;\
+	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;\
+}\
 ') + '"'), document.documentElement);
 
-function edituserchromecss() {
-    var file = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get("UChrm", Components.interfaces.nsILocalFile);
-    file.append("userChrome.css");file.launch();
-}
-
-function Backupfolder() {
-    var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-    file.initWithPath("D:\\SkyDrive\\Firefox");file.launch();
-}
-]]>
+		function openProfDfile(p) {
+			var file = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsILocalFile);
+			file.append(p);file.launch();
+		}
+		function openUChrmfile(p) {
+			var file = Components.classes['@mozilla.org/file/directory_service;1'].getService(Components.interfaces.nsIProperties).get("UChrm", Components.interfaces.nsILocalFile);
+			file.append(p);file.launch();
+		}
+		]]>
     </script>
 </overlay>

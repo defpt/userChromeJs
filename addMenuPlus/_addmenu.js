@@ -4,7 +4,6 @@ css('/*=====橙色菜单定制=========*/\
 	#appmenuPrimaryPane > hbox,\
 	#appmenu_find,\
 	#appmenu_print+menuseparator,\
-	#appmenu_webDeveloper,\
 	#sync-setup-appmenu,\
 	#sync-syncnowitem-appmenu,\
 	#appmenu-quit{display: none !important;}\
@@ -13,6 +12,9 @@ css('/*=====橙色菜单定制=========*/\
 	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;}\
 	#appmenu_bookmarks{\
 	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD6SURBVDhPtY+rCgJRGIQPIiIGhTXtBRc2yeJDmEwmk8lk8DVMWsUgm0wmMfkEYjIZfArDYloWk86P47LsxQvowIQz55s5HPVXGYbRN01zwOP3wsAaA1sev5Ou6xWUA4yEmqZVGX8ulHvwTSxfYfyZ8HoDpVVsYCMZr9MCMIUPCYexgWviTjxlXSnHcWoI/GfhncFe4DrrD+HCQrhLwhnev/pOAcA4UYiMByZgig80R1jvZJXFGOgSyxcgL6tML4nlqgjoLDCGQnhkWdYQ54CZ77puiWxagNoETyi2GMu3msiPcidfZJwWgDm8sG27zCiSZBiewR6jX0ipO9EQbm5/SoIkAAAAAElFTkSuQmCC") !important;\
+	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;}\
+	#appmenu_webDeveloper{\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHUSURBVDhPfZE9SAJhGMfP8/D78zwPv79Q8RtRbIrcIhoi4ghpaA4Hh4YGaY/GaAyHhga5MRoiQpqjqSGkwclJIpqc5O1/+p5dav3hx/M+/+f/PrzHMYuq1Wq+crncpu1clUplv1qtrtN2tUqlklgoFIbFYrFHrbmwtIn5BOxRa1n5fL6BBQR1lMvluqhj2r+AJ+UMZBpfVjqdFjKZzBCQP5hks9ldGl+tZDIppVIpsgrMujT2I5ihSCTyFY/HL5QXoK6BXiKR+ASEMo5Go6+orXq9zmEuoX+IxWKt6RI05XA43MGiEbhGfwAyfr9foEQw38TsLBgMDjB7x/kkFArx0wWqAoFAAwHyH1h2hyg7u7EgURSPfD4f0dADx1rP6/U+0viSWEEQzhFQQlM8Ho+MKmk9ZJ6R5WZXIHyPyeVytd1u98DpdI5RiQp8med5SeuBicPhGGJ2arPZBAZN0m63yzB2cN4CREXxEZK0HriCv416i3pI3zETTN5qtRIVi8UyXaD1zGbzEY0viTUYDB2TyURUjEajjAvSgteHF6B35mL1en0H9DmO2wAfgAAZnkTPCk01hzu/log6nU75PapZQH8PbnCWUN9Q1e9l0V+iHjAMw3wDN02oE/QNPbMAAAAASUVORK5CYII=") !important;\
 	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;}');
 app([{
 		label:"重启浏览器",
@@ -26,16 +28,12 @@ app([{
 		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEpSURBVDhPtdO/KwdxHMfx86v8zI9kEVEGxWawWUgmyqRE2SwWgzKIEYOyGZlkxEJSZJHyI5H4azyf1903d/e57+ZVj/p+r3u/7z6f9+ei/0oDhjCDpcQ0BlGPqunDBs5wj9fEHU6xhm4EM4BzvOO7xBv2UMgwrvCDUKG+cI0p1KCSduzjE6FCWXyJWTQjkwncIFSotHgOrcikFqv4QKhYLs0nF4qNF3dQtnavH6ENwXRiF/kGvraje4RT2UYX0nhGRv3hhmwhX+ya57GAB7xgEz2owxMOEP9ZgTf8LU43rAnLuMUzbNIL3+4EccZwARs45/yGdcDjbBMfdAwP1CHitGAddvXMF+ZMbLKIdNye2ElU4gaNwLGWpRF+ZOPoR+HDyhzPKknui6Jfpl5bjkWeBlIAAAAASUVORK5CYII=",
 		clone:false
 	},{
-		label:"网购专用版",
+		label:"测试专用版",
 		exec:'D:\\Program Files\\MyFirefox\\Debug.lnk',
 		insertBefore:"appmenu_newPrivateWindow",
 		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHWSURBVDhPndLRS1NhGMfxM5QUYgg7JynCm23ECIltoOFICGTQCGxzjC7m4sDyxl0I2yLcRYuuI4Td1EUsVjeRUnlhqReCStFFpeWF9s+s7++4Mw5TvPCBD8973vOe533f875GT/g6+VwxGQgEZjrta5jFqPN0HBdwByM4MZFefsATTOITXtVqtatkJ9rtti8UCk3TXMJ1p9MTEzjEd2xjDw8xiG5Uq9XLpJd4h371ufEM/3DkoYK/MA43TMuy5sh/YDs9hJavir0FdkzTfJrL5YZou5FEHT/wFn4YJj7CW2Afz+v1upbcjUKhECOt4i++IgJDP+oz3I9V6HUwGLxFDiKPuxgoFoth8ho0Zisej98kG8PQCtwC8htv8B7fsABt5TZ+QgU2Y7HYDbLzpzXYuwX9QBXZYND9RqOhbV6CjlrvNXYZlnO+fr//QeeF1xZ0L+7hEXbgTnLIpbP1LW02mc9fIX2BdxWiZ5e3fyWTyWjrx6FKiURCM2nW3sG91lOpVLI7uxscWb9t22M0X0C3UZdIx3UA/Y9dLJVKpbjG0j4ZXJq+crlsZbPZKY5oLhKJPMZiNBqdT6fTqUqlMqwxneFnRl84HB5otVoXpdls6qRO+dAw/gM4QpQy8D2BYAAAAABJRU5ErkJggg=="
 	},{
 		id:"charsetMenu",
-		insertBefore:"appmenu_find",
-		clone:false
-	},{
-		id:"abp-menuitem",
 		insertBefore:"appmenu_find",
 		clone:false
 	},{
@@ -52,6 +50,10 @@ app([{
 		id:"appmenu_addons",
 		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE/SURBVDhPtZK7SsRAGIWNN1QQbARBIWgTkkwukGa7VOITxMpHsdHX8A20sbCwULHyAiqi2NkJ7lpoo+J99ZvJ7DrEGILggW/n8p/zM5PZnn+V53mDvu8vCyEOYRPmdameCMzCp8FLo9EY1uVasuSPDn+onSolSTKA8RKuoSnhCo+M6gTM76CluYFVHc0l74zxuROowbaO5tINngqmKnZUMMuyPtd1/T834C5LLNpBEEwxfyuYirTDMJxmvIe1ToMzw1AJ3isVQlEUjakJhYui8Td0AytN035OPKMasLkI77ZtDzG+lgVN8MxJP6yrBsjiOJPyY7LZfXeDW/jxcfFu6Xyusga8zAQliz/ZCOsFs4Z3N09+q5fNB9MEzTiOx8ueGO+eznVlsbkP5xhO4YT5huM4o7LI+oD1MRxJhBArX1je5uPCzzEkAAAAAElFTkSuQmCC",
 		clone:false
+	},{
+		id:"appmenu_webDeveloper",
+		iconic:"true",
+		clone:false
 	}
 ]);
 //===================== 标签右键菜单 ======================
@@ -66,6 +68,7 @@ tab([{
 	}
 ]);
 // ===================== 页面右键菜单 ======================
+
 page([{
 		label:"复制链接文本",
 		text:"%LINK_TEXT%",
@@ -87,7 +90,7 @@ page([{
 	}, {
 		label:"发送到 OneNote",
 		condition: "nolink nomailto noimage nomedia",
-		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI6SURBVDhPrZJLT1NRFIX7C5yriYkzojHEAXGkAyYyceLAMMYBERVHRARKMGKiJhITiUpACSCKCBFEU8IbebT2SqU8+oJeKBcoLX1Cgbbc8lmOTMhlYNSVrME5Z69v750c3X+Rsc3MaIeZAf1XjIVdf+yDuE7X/26UwQcG5j9YiSxECMlh/DN+/NM+gs4wAVuQVcnLsnEZZWwJz9DiYUDnrVbmWqxsemM4miVs9SZ8k2siID3/hunlKAvpkDKisNgnI3fLhwH7h/B8iDXLKl8uP6PpVBHT9UaWTApVGaXcP1OM3WDDJ/mQe2XchiMAAWcQr7RCT24tb07fozmnirASoudpD8WZJZjf/sDV5sJaaxXWANYdARSjwqcr1TRmP+ZRpp7x2iHMXRYKMor43j6B/bOTwcph+or6jgDY11kxrvD60hM67jTRUvqR8qwKGvSt5J8vwWmR2Zd3zseswaEF+GfXsXc6eHi2jPeFjfiXA9xOj37txE3ys/Q4JDd7qT0B2ZcGsDDgwfRKQn+ujBd5NaKooaKdi7pcblwoxz2zJO5240nUXVULcHW4GK4e5/rJQu5mV5JKd3NPebh6vICcY3nYzfMiuLMVT7+ltABz3QSW9in6m0cY75TSvfaIb8fFD+2q6yca3GBnc5tYZEtMogFYmiaZ6rURi/4uUFVVdFKTuyS2E+zE4iTjCVJqimhgQwsYrhnD/dMjxkyk99wMxYTVpCr2DnsjRPxRAf9U060F/I0P4v8ine4X5rNxj9X2cqcAAAAASUVORK5CYII=",
+		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMlSURBVDhPTZPvb1NlFMebaDDsla/IMKKRxWgQE98oMYbwH/jCFwSNcSQGNDAnZoOM8WKOzc0NNeAW5qQO04mKgCtzhdXZdRuspba97frrlq6/7mWlW+1dSexcXZt9vL13Q77Juc+53+c533POc881bOCJw7v2t021j6YkU6giXvAgDUeIGf2IgwLRb32I3/jwf+3Cd87F3QshnE3T1BhqarXgy/UDsw8Sy+TEHNlAFiWskBUWyfx5nyXPEkvuHBlHRl+dGRS/QsDoqwpsN3y4+502JZbnnkvC3TaGu/0mSiCPPCNxueFHhg6bmLfGiVsTJFSTbBKyXSZsDKIm32643WlJFdNFcqqyZe8Zft7TidA/jfibSO8bXTS92IrvagBpXCJ5I6lZZjKDf2Cjgnmjr7IYWCQ+HuWX17sZVgWMe7soFVa5PTzL0bpmhEtzeM8LePu8+PvnCA4Ecfe49QpSpiAFsYBsS/Hdq52Y64f44uVTTPTeIDIp0vB8C3O2MIHRCBPtU9hO2vF0e3F2OHWBmHoZSkAh9GuQnt2tTH9p5eJ7g7S81IJtaJqDz3yMLN5nEwtqtU6jwPhxu95CYiiI7JDxXhQ4+cIJzB0jSD6ZozubaXrtU95+upF0JMPa2tqGhI58vKALiAMCMXMM62eTNNQd51rnqHbg7EEj9c81c2DHMWK+pMY9Cst5O08+XrvPIJxx4Bh0YemdoP7ZY/zUcV07IIezvFV7RLNMbEnjyuUy6+vrmv/Bnla2bdnxpirgJHQpRHJW5txH33NrxKMdKP1Twtz3B32NJrLJHKUH/1IsrGh7WXXgPnnlNFsNW58yuD+fZeLsDN7R8MM+tVVNlF9YplKuPOQ3s9/8agrzIYt+B57uO8RsCf5WdPUqiqq/GVRcXkG5t0wxr++vrpQ4UNeI6d0ruoCz6xbzM2kWwnqflYqacbXMXymFtZWyJlTtfROusTkO7TrF5IkpXcB+5Hfi6leIjUSJXhORLBLpsTTiFZHID1Fc/R6iV++SuK7+BxYZR88d7Grw+PtWXUB91FadGnWqNKI6XRum8/+bzj/6bnjsP4D/2SwfIsl8AAAAAElFTkSuQmCC",
 		insertBefore:"idmmzcc-dwnl1",
 		oncommand: function(){
 			var onenotePath = "D:\\Program Files\\Microsoft Office\\Office15\\Onenote.exe";
@@ -163,7 +166,7 @@ openlinksub([{
 //当前页面
 var openpageinsub = PageMenu({
 	label:"当前页面...",
-	condition:"nolink noimage nomedia noinput",
+	condition:"nolink noselect nomailto noimage nomedia noinput",
 	insertBefore:"context-savelink"
 });
 openpageinsub([{
@@ -183,16 +186,13 @@ openpageinsub([{
 var Quickpostsub = PageMenu({
 	label:"Quick Reply With...",
 	condition:"input",
+	image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIfSURBVDhPY0AHoaGhzFAmQ2FhISeUSRRgrK+vZwIxrly5whYdHe0tLS3d8vz5c26wLD6AbOuUKVNUFBQUeuXk5D4EBQVt/vTpkyiyPE4wceJE9rq6unheXt7Ttra2Xz08PF7ExsYePHHihCJIHq8hfX19thoaGnOVlZXf+vr6vg0PD38M9MJLFxeXJ87Ozss7OzudQer+///PCNaADED+Njc3n2RkZPQ/MjLyCVDj85iYmFdA9suwsLCXNjY230RFRe8HBgZmYzUAJAgMqPBly5bti4qKegPSGB8f/wro/JdA/isgfhocHPxaSUnpA9Cwqv3797NAtSLAv3//ZIA44syZM6tzcnKeAL0AMujVggULrhUUFDwF8l8C+S+0tLQ+AA1MBelBcQ2I8+HDB0Eg7fDkyZM+oJ+veXp6fjx06NCCt2/fTgIG7h2Qd4D4NTCcbhw9etQUqhUVAF3BDsQ6v379yp82bdpOoHMTgXxDoBebsrOzH4K84+rq+s3JyWkiUBx7+gC6ggkoKQvEZkC2AhCzgQzds2fPAh8fn/dxcXHPgIH+8OLFi0ZQLZgA5KVt27axA8OEFcQHGsD++PHj2Pz8/OugsABG7+fm5uZ0sGJiAMjA79+/qyxevHg50BWfgCn0NdAl86HSxAGQK7Zs2dLq5+f3Hhgrr4DpZR9Uinhw7NixUmBKfQ/0xgdgWjkHFSYegLwCSrkwzMDAwAAAD5gf8cxqIuYAAAAASUVORK5CYII=",
 	insertBefore:"context-undo",
-	oncommand: function(){
-		var input_text = gContextMenu.target;
-		if (input_text!="undefined") goDoCommand("cmd_paste");
-	}
+	oncommand: "goDoCommand('cmd_paste');"
 });
 Quickpostsub([
 	{label:"Outlook~~~",text: "xxxxxx@outlook.com",image:" "},
 	{label:"Gmail~~~",text: "xxxxxx@gmail.com",image:" "},
-	{label:"SSY~~~",text: "xxxxxx",image:" "},
 	{},
 	{label:"谢谢你的解答~~~", text: "非常感谢你的解答！！！",image:" "},
 	{label:"要的就是这个~~~", text: "亲，要的就是这个，非常感谢！！！",image:" "},
