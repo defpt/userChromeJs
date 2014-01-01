@@ -5,7 +5,7 @@
 // ==UserScript==
 // @name           rebuildAppmenu
 // @namespace     rebuildAppmenu.uc.xul@gmail.com
-// @description    自用Appmenu，采用百度某达人的图标以及菜单分类，添加了一些改版FF后一些splitmenu菜单的图标
+// @description    自用Appmenu，采用zhulinxizi的图标以及菜单分类，添加了一些改版FF后一些splitmenu菜单的图标
 // @compatibility  Firefox 20+
 // @version        1.0.5     2013.12.31
 // @Author         defpt
@@ -20,7 +20,7 @@
         oncommand="Services.appinfo.invalidateCachesOnRestart() || Application.restart();" />
         <menuitem id="appmenu_newPrivateWindow" 
         label="新建隐私窗口"
-		acceltext=" "
+		    acceltext=" "
         class="menuitem-iconic" 
         image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA20lEQVR42mNgoBQ4OTkdBmEkPi8Q5wJxhxMCdEDFeLEZ8B+KWYE4C4hfI4mh49dQNSC13EDci2zAFzwa0TFI7W8QmwFN4gMQXwbi71g0fYfKfUAS+41sQBHIaVBvmQDxXyQ5ENsEKscKVQsSf4RswFwgZkQKmzNIcmeQxBmhakHiC9G9AHLiaiBeBcTPkMSfQcVAcleQxM0ZSAg4dLwQPRqPk6D5HBDzoxsAitd2IH4D5d8B4nQovgMVewNVw42RkJD4TEAshCXBCYHkcKZESvLCwBsAyo1HyNUPAFr59v1e4pXxAAAAAElFTkSuQmCC"/>
         <menuitem id="appmenu_safemode" 
@@ -62,6 +62,7 @@
         <menuitem id="appmenu_savePage" 
 		label="页面另存为..."
         class="menuitem-iconic"
+        acceltext=" "
         image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mNwcnLyBOJnQPyfRAzS48mApvkdERqR1TxjQOIYMgABugYGKEDmA2l9OB+XQnwGoPBpbgBBA7FIHMFjwBGCBhALaGcAkG0NxL44sDUxBvjiw7R3AdlhAMRWJGi2RDaAnJwIw89BBniBGGRofgLSCwDDQxufnOjqdgAAAABJRU5ErkJggg=="/>
         <menuseparator class="appmenu-menuseparator" insertbefore="appmenu_print"/>
 		<splitmenu id="appmenu_catalogue"

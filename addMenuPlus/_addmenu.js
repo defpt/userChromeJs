@@ -16,6 +16,28 @@ css('/*=====橙色菜单定制=========*/\
 	#appmenu_webDeveloper{\
 	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHUSURBVDhPfZE9SAJhGMfP8/D78zwPv79Q8RtRbIrcIhoi4ghpaA4Hh4YGaY/GaAyHhga5MRoiQpqjqSGkwclJIpqc5O1/+p5dav3hx/M+/+f/PrzHMYuq1Wq+crncpu1clUplv1qtrtN2tUqlklgoFIbFYrFHrbmwtIn5BOxRa1n5fL6BBQR1lMvluqhj2r+AJ+UMZBpfVjqdFjKZzBCQP5hks9ldGl+tZDIppVIpsgrMujT2I5ihSCTyFY/HL5QXoK6BXiKR+ASEMo5Go6+orXq9zmEuoX+IxWKt6RI05XA43MGiEbhGfwAyfr9foEQw38TsLBgMDjB7x/kkFArx0wWqAoFAAwHyH1h2hyg7u7EgURSPfD4f0dADx1rP6/U+0viSWEEQzhFQQlM8Ho+MKmk9ZJ6R5WZXIHyPyeVytd1u98DpdI5RiQp8med5SeuBicPhGGJ2arPZBAZN0m63yzB2cN4CREXxEZK0HriCv416i3pI3zETTN5qtRIVi8UyXaD1zGbzEY0viTUYDB2TyURUjEajjAvSgteHF6B35mL1en0H9DmO2wAfgAAZnkTPCk01hzu/log6nU75PapZQH8PbnCWUN9Q1e9l0V+iHjAMw3wDN02oE/QNPbMAAAAASUVORK5CYII=") !important;\
 	-moz-image-region: rect(0px, 16px, 16px, 0px) !important;}');
+
+css('/*=====右键菜单定制=========*/\
+	#context-openlink,\
+	#context-openlinkprivate,\
+	#context-forward, /*前进*/\
+	#context-back, /*后退*/\
+	#context-reload, /*刷新*/\
+	#context-stop, /*停止*/\
+	#context-sep-paste,/*粘贴下分割线*/\
+	#context-sep-stop,/*停止下分割线*/\
+	#context-selectall,/*全选*/\
+	#context-sendimage,/*发送图片…*/\
+	#context-setDesktopBackground,/*设为桌面背景…*/\
+	#context-viewpartialsource-selection,/*查看选中部分源代码*/\
+	#context-inspect,/*查看元素*/\
+	#spell-separator,\
+	#spell-check-enabled,/*拼写检查*/\
+	#spell-add-dictionaries-main,/*添加字典*/\
+	#spell-dictionaries,/*语言*/\
+	#inspect-separator{display: none !important;}');
+
+//橙色菜单定制
 app([{
 		label:"重启浏览器",
 		oncommand:"Services.appinfo.invalidateCachesOnRestart() || Application.restart();",
@@ -56,130 +78,255 @@ app([{
 		clone:false
 	}
 ]);
-//===================== 标签右键菜单 ======================
+//以下为其它右键菜单定制：网页、链接、图片、标签
+function syncHidden(event) {
+	Array.slice(event.target.children).forEach(function(elem){
+		var command = elem.getAttribute('command');
+		if (!command) return;
+		var original = document.getElementById(command);
+		if (!original) {
+				elem.hidden = true;
+				return;
+		};
+		elem.hidden = original.hidden;
+		elem.collapsed = original.collapsed;
+		elem.disabled = original.disabled;
+	});
+};
+//打开链接的各种方法
+new function () {
+	var items = [
+	{ command: 'context-openlinkintab' }
+	,{ command: 'context-copyemail' }
+	,{
+		label:"在隐私窗口打开",
+		oncommand:"gContextMenu.openLinkInPrivateWindow();",
+		accesskey: 'P'
+	}
+	,{
+		label:"在侧边栏中打开",
+		oncommand:"openWebPanel(gContextMenu.linkText(), gContextMenu.linkURL);",
+		accesskey: 'S'
+	}
+	,{ command: 'context-sep-open' }
+	,{ command: 'context-bookmarklink' }
+	,{ command: 'context-savelink' }
+	,{}
+	,{
+		label:"在 IE 中打开",
+		text:"%l",
+		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe",
+		accesskey: 'I',
+		image:" "
+	}
+	,{
+		label:"在 Chrome 中打开",
+		text:"%l",
+		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
+		accesskey: 'C',
+		image:" "
+	}
+	,{
+		label:"用谷歌快照打开",
+		url:"http://webcache.googleusercontent.com/search?q=cache:%l",
+		accesskey: 'G',
+		image:" "
+	}];
+	var menu = PageMenu({ condition: 'link', insertBefore:'context-copylink', onpopupshowing: syncHidden});
+	menu(items);
+	items.forEach(function(it){
+		if (it.command)
+			css('#contentAreaContextMenu[addMenu~="link"] #' + it.command + '{ display: none !important; }')
+	});
+};
+//复制链接文本地址
+new function () {
+	var items = [
+	{ command: 'context-copylink' }
+	,{
+		label:"复制链接文本",
+		text:"%LINK_TEXT%",
+		image:" ",
+		accesskey: 'S'
+	}
+	,{
+		label:"复制链接文本地址",
+		text:"%LINK_TEXT%\n%l",
+		image:" ",
+		accesskey: 'D'
+	}];
+	
+	var menu = PageMenu({ condition:'link', insertBefore:'context-sep-copylink', onpopupshowing: syncHidden });
+	menu(items);
+	page({ condition:'link', insertBefore:'context-sep-copylink' });
+	items.forEach(function(it){
+		if (it.command)
+			css('#contentAreaContextMenu[addMenu~="link"] #' + it.command + '{ display: none !important; }')
+	});
+};
+//图片
+new function () {
+	var items = [
+	{command: 'context-viewimage'},
+	{command: 'context-reloadimage'},
+	{command: 'context-copyimage-contents'},
+	{command: 'context-copyimage'},
+	{command: 'context-sep-copyimage'},
+	{command: 'context-saveimage'},
+	{command: 'context-viewimageinfo'},
+	{command: 'context-sep-viewbgimage'},
+	{ // 替换 openImgRar.uc.js
+		label: "打开图像RAR",
+		accesskey:'R',
+		image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMQSURBVDhPxZPrT5NnGMbf1RJlA5UOyqGTiROHzBiKWJo5WtTapFthTgQcHoYtyiF2JOjCwdK3dHKq2FLSlMoKAzxENpaoUbNkmW9j1A/GOIFQ2SkjZskW2LJlyz7/Vgp/wb7sSn6581zJdedOnvsW/n9duuhzjgfc4qi/R7wa9IjXQv0x7k72iddHHMv+kCdWlxgb9DpXosvqOfdx+D1NLnWGAgbaN3FiXw6Hd6qxFr6G70QuTaZ0DuRvobwgh7Idr7M/fxNtddbwSlwQvptfEJubmqKhbNp3m7g8UEfLXjPNmndpLdzFLVGH++CrnMzTU6/eja3AQK2miJaTK01u37gtRX78i86OboJvtXJVN8CI1s3YrgtcLupntLSBx4PlnH9bxXBxDyNvurmi9+HX23FYasOCx90rTU5MMD23SKjVI/3y1bfMj80wc+Ypz07PELbcYfj4Njoqsvji0EVmrWEiNfeYsUqc1lUhzP/8p9jabGdyYpJarRlXlZnuD8poyN8TG9eSr6OvrYFPh0b5qMzAqai35DdqjJSpdyDcuH5T+iayiL3FjirLSLLCgEJRjHyNNkZqjpaqIzVRyjGUHGPVam2UQmRxOykq/VAS3F2d0pWxcaaeLdDVG5KCXy/SOP6cPQ7Is/3DRt1zbPUWNNFfMJW0oz76O3l1f5N7fIH04gmEuR9+ddjbRD6/9hnqvDMcKj1HZYkLeUKAeMUw8qQumsoz6Xw/g9SNJhKSL7A2xcuLCjdxqhYEl9PF08hvdLS72KBOJ74gE9l2FWu2rUa2RYY8R05NRTbB6lRe2JxI3Nb1yLITETYnYKw2S8Ls1JTO5/Ey+/0f2M6/ge+ns1TOVZL6wIDqsYmUL5OpqH+Fs+/IUXySQlJYyTopmZfvp5F5Ko3YLkSmn+h9Xh/bD2RhtCVhbkxCeewl0i2JKKviKTLGc7BwFcoj68mwrCXDuo606gQ27FMuN1jSo4cP9V5ftzMQ8oj+KB5/lxiI3kR/9E6G+h1iyO8SAyPL74Fgn+gd7HU+mX6kX4n/VwnCvy+JquIx63JOAAAAAElFTkSuQmCC",
+		oncommand: function(){
+			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+			try {
+				var path = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getCharPref("browser.cache.disk.parent_directory") + "\\Cache\\" + new Date().getTime() + ".rar";
+				file.initWithPath(path);
+			} catch (e) {
+				var path = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfLD", Components.interfaces.nsILocalFile).path + "\\Cache\\" + new Date().getTime() + ".rar";
+			}
+			file.initWithPath(path);
+			Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"].createInstance(Components.interfaces.nsIWebBrowserPersist).saveURI(Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI((gContextMenu.mediaURL || gContextMenu.imageURL), null, null), null, null, null, null, file, null);
+			setTimeout(function () {
+				file.launch();
+			}, 100);
+		}
+	},
+	{
+		label: 'Google以图搜图',
+		url : 'http://www.google.com/searchbyimage?image_url=%IMAGE_URL%',
+		accesskey:'G',
+		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFhSURBVDhP1ZA/a8JgEMbfdum36N4vZqJiSCgmQVtFIx0Et2gNKELAChWHLmIgOiShNBnyFbp1apdiURzy9i59DWn9Q5cOPXjgcu9zv7sc+as4oZQeFPMcj06nc5vJZGhapVKpa9v25XQ6PWO2/dFqta5+Nm8Fb0+yLF9Uq9VzZidkn7HZbNLZbHbPLMSyrOvBYPDNw56+ACwl+Xz+vVKpRJ7nzQEwB9AHTFsOh8NNGIYLwzCibDZ7GIC5pmkO5gCiHMfF5kKhQEej0SvWBUFY7wDSgoldrEuSlNR4nqeNRuMZ68VicYk1zOPAD5yEplwuR2u12sNkMpHg6gkAfo32er27fr9/AxusdgBp1ev1je/7m/F4vIBtIlVVI13X50EQRKZpruEG0VEATmu329R13TcAnKLHcZxH2IrC+okvbsZIN2+FEJi8UhTFBznlcvlFFMXkqCjWvh/wG7H2/x2EfAJaqUmJ7NaKCAAAAABJRU5ErkJggg=="
+	}];
+	
+	var menu = PageMenu({ condition:'image', insertBefore:'context-viewimage', icon:'image', onpopupshowing: syncHidden});
+	menu(items);
+	items.forEach(function(it){
+		if (it.command)
+			css('#contentAreaContextMenu[addMenu~="image"] #' + it.command + '{ display: none !important; }')
+	});
+};
+// 页面右键菜单移到2级目录菜单
+new function () {
+	var items = [
+	{ command: 'context-bookmarkpage' }
+	,{ command: 'context-savepage' }
+	,{ command: 'context-sep-viewsource' }
+	,{ command: 'context-viewsource' }
+	,{ command: 'context-viewinfo' }
+	,{ command: 'context-viewbgimage' }];
+	var menu = PageMenu({condition: 'normal', insertBefore: 'context-bookmarkpage', onpopupshowing: syncHidden });
+	menu(items);
+	items.forEach(function(it){
+			if (it.command)
+					css('#contentAreaContextMenu #' + it.command + '{ display: none !important; }')
+	});
+};
+//关闭标签菜单，如果需要请取消注释
+/* new function () {
+	var items = [
+	{ command: 'context_closeTab' }
+	,{
+		label: "关闭左侧标签",
+		accesskey: "L",
+		oncommand: "gBrowser.visibleTabs.indexOf(gBrowser.mCurrentTab) == 0 || gBrowser.removeTab(gBrowser.visibleTabs[gBrowser.visibleTabs.indexOf(gBrowser.mCurrentTab) - 1]);"
+	}
+	,{ command: "context_closeTabsToTheEnd"}
+	,{}
+	,{ command: 'context_closeOtherTabs' }
+	,{
+		label: "关闭所有标签",
+		oncommand: "gBrowser.removeAllTabsBut(gBrowser.addTab('about:newtab'));",
+		accesskey: "A"
+	}];
+	
+	var menu = TabMenu({condition: 'normal', insertBefore: 'context_closeTab', onpopupshowing: syncHidden });
+	menu(items);
+	items.forEach(function(it){
+		if (it.command)
+			css('#tabContextMenu #' + it.command + '{ display: none !important; }')
+	});
+}; */
+//添加标签右键菜单项
 tab([{
 		label:"复制 Favicon 的 URL",
 		text:"%FAVICON%",
 		image:" "
 	}, {
-		label:"复制 Favicon 的 base64",
+		label:"复制 Favicon 的 Base64",
 		text:"%FAVICON_BASE64%",
 		image:" "
 	}
 ]);
-// ===================== 页面右键菜单 ======================
 
+//添加页面右键菜单项
 page([{
-		label:"复制链接文本",
-		text:"%LINK_TEXT%",
-		condition:"link noimage nomedia",
-		insertBefore:"context-copylink",
-		image:" "
-	}, {
-		label:"复制链接文本+URL",
-		text:"%LINK_TEXT%\n%l",
-		condition:"link noimage nomedia",
-		insertAfter:"context-copylink",
-		image:" "
-	}, {
-		label:"复制网页标题+URL",
-		condition: "noselect nolink nomailto noimage nomedia",
-		text:"%TITLES%\n%URL%",
-		image:" ",
-		insertAfter:"context-inspect"
-	}, {
-		label:"发送到 OneNote",
-		condition: "nolink nomailto noimage nomedia",
-		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMlSURBVDhPTZPvb1NlFMebaDDsla/IMKKRxWgQE98oMYbwH/jCFwSNcSQGNDAnZoOM8WKOzc0NNeAW5qQO04mKgCtzhdXZdRuspba97frrlq6/7mWlW+1dSexcXZt9vL13Q77Juc+53+c533POc881bOCJw7v2t021j6YkU6giXvAgDUeIGf2IgwLRb32I3/jwf+3Cd87F3QshnE3T1BhqarXgy/UDsw8Sy+TEHNlAFiWskBUWyfx5nyXPEkvuHBlHRl+dGRS/QsDoqwpsN3y4+502JZbnnkvC3TaGu/0mSiCPPCNxueFHhg6bmLfGiVsTJFSTbBKyXSZsDKIm32643WlJFdNFcqqyZe8Zft7TidA/jfibSO8bXTS92IrvagBpXCJ5I6lZZjKDf2Cjgnmjr7IYWCQ+HuWX17sZVgWMe7soFVa5PTzL0bpmhEtzeM8LePu8+PvnCA4Ecfe49QpSpiAFsYBsS/Hdq52Y64f44uVTTPTeIDIp0vB8C3O2MIHRCBPtU9hO2vF0e3F2OHWBmHoZSkAh9GuQnt2tTH9p5eJ7g7S81IJtaJqDz3yMLN5nEwtqtU6jwPhxu95CYiiI7JDxXhQ4+cIJzB0jSD6ZozubaXrtU95+upF0JMPa2tqGhI58vKALiAMCMXMM62eTNNQd51rnqHbg7EEj9c81c2DHMWK+pMY9Cst5O08+XrvPIJxx4Bh0YemdoP7ZY/zUcV07IIezvFV7RLNMbEnjyuUy6+vrmv/Bnla2bdnxpirgJHQpRHJW5txH33NrxKMdKP1Twtz3B32NJrLJHKUH/1IsrGh7WXXgPnnlNFsNW58yuD+fZeLsDN7R8MM+tVVNlF9YplKuPOQ3s9/8agrzIYt+B57uO8RsCf5WdPUqiqq/GVRcXkG5t0wxr++vrpQ4UNeI6d0ruoCz6xbzM2kWwnqflYqacbXMXymFtZWyJlTtfROusTkO7TrF5IkpXcB+5Hfi6leIjUSJXhORLBLpsTTiFZHID1Fc/R6iV++SuK7+BxYZR88d7Grw+PtWXUB91FadGnWqNKI6XRum8/+bzj/6bnjsP4D/2SwfIsl8AAAAAElFTkSuQmCC",
-		insertBefore:"idmmzcc-dwnl1",
-		oncommand: function(){
-			var onenotePath = "D:\\Program Files\\Microsoft Office\\Office15\\Onenote.exe";
-			var focusedWindow = document.commandDispatcher.focusedWindow;
-			var selection = new String(focusedWindow.getSelection());
-			if (selection.length == 0) {
-				 goDoCommand('cmd_selectAll');
-				 var allSelection = new String(focusedWindow.getSelection());
-				 if (allSelection.length == 0)return;
-				 goDoCommand('cmd_copy');
-				 goDoCommand('cmd_selectNone');
-			}
-			else
-			{
-				 goDoCommand('cmd_copy');
-			}
-			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-			file.initWithPath(onenotePath);
-			var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
-			process.init(file);
-			var args = ["/sidenote", "/paste"];
-			process.run(false, args, args.length);
-		}
-	}, { // 替换 openImgRar.uc.js
-	label: "打开图像RAR",
-	condition: 'image',
-	insertBefore: "context-copyimage-contents",
-	image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMQSURBVDhPxZPrT5NnGMbf1RJlA5UOyqGTiROHzBiKWJo5WtTapFthTgQcHoYtyiF2JOjCwdK3dHKq2FLSlMoKAzxENpaoUbNkmW9j1A/GOIFQ2SkjZskW2LJlyz7/Vgp/wb7sSn6581zJdedOnvsW/n9duuhzjgfc4qi/R7wa9IjXQv0x7k72iddHHMv+kCdWlxgb9DpXosvqOfdx+D1NLnWGAgbaN3FiXw6Hd6qxFr6G70QuTaZ0DuRvobwgh7Idr7M/fxNtddbwSlwQvptfEJubmqKhbNp3m7g8UEfLXjPNmndpLdzFLVGH++CrnMzTU6/eja3AQK2miJaTK01u37gtRX78i86OboJvtXJVN8CI1s3YrgtcLupntLSBx4PlnH9bxXBxDyNvurmi9+HX23FYasOCx90rTU5MMD23SKjVI/3y1bfMj80wc+Ypz07PELbcYfj4Njoqsvji0EVmrWEiNfeYsUqc1lUhzP/8p9jabGdyYpJarRlXlZnuD8poyN8TG9eSr6OvrYFPh0b5qMzAqai35DdqjJSpdyDcuH5T+iayiL3FjirLSLLCgEJRjHyNNkZqjpaqIzVRyjGUHGPVam2UQmRxOykq/VAS3F2d0pWxcaaeLdDVG5KCXy/SOP6cPQ7Is/3DRt1zbPUWNNFfMJW0oz76O3l1f5N7fIH04gmEuR9+ddjbRD6/9hnqvDMcKj1HZYkLeUKAeMUw8qQumsoz6Xw/g9SNJhKSL7A2xcuLCjdxqhYEl9PF08hvdLS72KBOJ74gE9l2FWu2rUa2RYY8R05NRTbB6lRe2JxI3Nb1yLITETYnYKw2S8Ls1JTO5/Ey+/0f2M6/ge+ns1TOVZL6wIDqsYmUL5OpqH+Fs+/IUXySQlJYyTopmZfvp5F5Ko3YLkSmn+h9Xh/bD2RhtCVhbkxCeewl0i2JKKviKTLGc7BwFcoj68mwrCXDuo606gQ27FMuN1jSo4cP9V5ftzMQ8oj+KB5/lxiI3kR/9E6G+h1iyO8SAyPL74Fgn+gd7HU+mX6kX4n/VwnCvy+JquIx63JOAAAAAElFTkSuQmCC",
+	label:"发送到 OneNote",
+	condition: "nolink nomailto noimage nomedia",
+	image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMlSURBVDhPTZPvb1NlFMebaDDsla/IMKKRxWgQE98oMYbwH/jCFwSNcSQGNDAnZoOM8WKOzc0NNeAW5qQO04mKgCtzhdXZdRuspba97frrlq6/7mWlW+1dSexcXZt9vL13Q77Juc+53+c533POc881bOCJw7v2t021j6YkU6giXvAgDUeIGf2IgwLRb32I3/jwf+3Cd87F3QshnE3T1BhqarXgy/UDsw8Sy+TEHNlAFiWskBUWyfx5nyXPEkvuHBlHRl+dGRS/QsDoqwpsN3y4+502JZbnnkvC3TaGu/0mSiCPPCNxueFHhg6bmLfGiVsTJFSTbBKyXSZsDKIm32643WlJFdNFcqqyZe8Zft7TidA/jfibSO8bXTS92IrvagBpXCJ5I6lZZjKDf2Cjgnmjr7IYWCQ+HuWX17sZVgWMe7soFVa5PTzL0bpmhEtzeM8LePu8+PvnCA4Ecfe49QpSpiAFsYBsS/Hdq52Y64f44uVTTPTeIDIp0vB8C3O2MIHRCBPtU9hO2vF0e3F2OHWBmHoZSkAh9GuQnt2tTH9p5eJ7g7S81IJtaJqDz3yMLN5nEwtqtU6jwPhxu95CYiiI7JDxXhQ4+cIJzB0jSD6ZozubaXrtU95+upF0JMPa2tqGhI58vKALiAMCMXMM62eTNNQd51rnqHbg7EEj9c81c2DHMWK+pMY9Cst5O08+XrvPIJxx4Bh0YemdoP7ZY/zUcV07IIezvFV7RLNMbEnjyuUy6+vrmv/Bnla2bdnxpirgJHQpRHJW5txH33NrxKMdKP1Twtz3B32NJrLJHKUH/1IsrGh7WXXgPnnlNFsNW58yuD+fZeLsDN7R8MM+tVVNlF9YplKuPOQ3s9/8agrzIYt+B57uO8RsCf5WdPUqiqq/GVRcXkG5t0wxr++vrpQ4UNeI6d0ruoCz6xbzM2kWwnqflYqacbXMXymFtZWyJlTtfROusTkO7TrF5IkpXcB+5Hfi6leIjUSJXhORLBLpsTTiFZHID1Fc/R6iV++SuK7+BxYZR88d7Grw+PtWXUB91FadGnWqNKI6XRum8/+bzj/6bnjsP4D/2SwfIsl8AAAAAElFTkSuQmCC",
+	insertBefore:"idmmzcc-dwnl1",
 	oncommand: function(){
-		var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-		try {
-			var path = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getCharPref("browser.cache.disk.parent_directory") + "\\Cache\\" + new Date().getTime() + ".rar";
-			file.initWithPath(path);
-		} catch (e) {
-			var path = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("ProfLD", Components.interfaces.nsILocalFile).path + "\\Cache\\" + new Date().getTime() + ".rar";
+		var onenotePath = "D:\\Program Files\\Microsoft Office\\Office15\\Onenote.exe";
+		var focusedWindow = document.commandDispatcher.focusedWindow;
+		var selection = new String(focusedWindow.getSelection());
+		if (selection.length == 0) {
+			 goDoCommand('cmd_selectAll');
+			 var allSelection = new String(focusedWindow.getSelection());
+			 if (allSelection.length == 0)return;
+			 goDoCommand('cmd_copy');
+			 goDoCommand('cmd_selectNone');
 		}
-		file.initWithPath(path);
-		Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"].createInstance(Components.interfaces.nsIWebBrowserPersist).saveURI(Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI((gContextMenu.mediaURL || gContextMenu.imageURL), null, null), null, null, null, null, file, null);
-		setTimeout(function () {
-			file.launch();
-		}, 100);
+		else
+		{
+			 goDoCommand('cmd_copy');
+		}
+		var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+		file.initWithPath(onenotePath);
+		var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
+		process.init(file);
+		var args = ["/sidenote", "/paste"];
+		process.run(false, args, args.length);
 	}
 }]);
-//打开链接
-var openlinksub = PageMenu({
-	label:"此链接...",
-	condition:"link noimage nomedia noinput",
-	insertBefore:"context-savelink"
-});
-openlinksub([{
-		label:"在新标签页打开",
-		oncommand:"gContextMenu.openLinkInTab();"
-	}, {
-		label:"在隐私窗口打开",
-		oncommand:"gContextMenu.openLinkInPrivateWindow();"
-	}, {
-		label:"在侧边栏中打开",
-		oncommand:"openWebPanel(gContextMenu.linkText(), gContextMenu.linkURL);"
-	},{
-		label:"在 IE 中打开",
-		text:"%l",
-		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe"
-	}, {
-		label:"在 Chrome 中打开",
-		text:"%l",
-		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe"
-	}, {
-		label:"用谷歌快照打开",
-		url:"http://webcache.googleusercontent.com/search?q=cache:%l",
-		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJySURBVDhPtZFPSJNhHMddhA63RihUBHUYnXJ/k6Fp5liErtlw893/Oeb27t1my2Ztoyhd2xI8dghjh45C4GmX8NKlswQGQaAdPORRamDI/PPt9zzvSxJCnfrCh433+X1+z/N7nrb/kUtESqVSLRFvFZbYN2Xtr3FrNJoVp9P5eXp6eqdUKu4Xi4V9URR3BgcHP3V2dq6wGrn0ZMa7u7tX5+bmfpKAoaEb6O3tRX9/P0ZGRhCPxzE1Ff/e1dW1ympl5TiXaedGpVLZc7lc8IdFPHvxCtK9AsbGxuDz+fhvKBRCLDb5g07SYI6syrk/Ojq6IYpJGAwGPHn+EmtfgdnHizCbzaA1pNNp+P1+JBJTsNlsX5gjqxS6pOVsNtMcGLiOvr4+jAuTSD8oY+iWG9ozZ9FjMPLd8/k8IpEIAoFgkzmKzhu8L5VKB0ajEXa7HXq9HlctdvikOsdsuw2PxwO6H95AFKUD5ig6b/ChUHh0aLFY+Kwmkwl3hFks1tc47mAJwWAQtVqN7iBGY0iHzFF03qBBs+0OD9/kO7GZne4okvnXSD2sIziZQy6XQ7lcppdIQBBCu8xRdJ6n9Fzb0WgEDocDkiTxmVmzQCCAN8vvsLCwgEwmg1QqSxd7bZs5sirnilqtXqfj7Xm9Xj7GzMwMn7larWJ+fp6/QjIp0e6RvY4O9TpzZPU4ok6n2wqHwy16a7BGDDZ7LBani8tgYiLc0mp1W6xWVk5GopNsWq3WpiAILVFMHSUS6SOv198ymazN9nb1JquRS//MaeI80UPcJerER+KbAvvPvrE1I3GBYM7vnCK0xDni4j9gG7FactrafgFMwhaUbUncRwAAAABJRU5ErkJggg=="
-	}
-]);
+
 //当前页面
 var openpageinsub = PageMenu({
 	label:"当前页面...",
-	condition:"nolink noselect nomailto noimage nomedia noinput",
-	insertBefore:"context-savelink"
+	condition:"normal",
+	text:"%TITLES%\n%URL%",
+	insertBefore:"context-savelink",
+    accesskey: 'D',
+	image:" "
 });
-openpageinsub([{
+openpageinsub([
+	{
+		label:"复制其标题链接",
+		condition:"normal",
+		text:"%TITLES%\n%URL%",
+        accesskey:'F',
+		image:" "
+	}
+	,{
 		label:"在侧栏中打开",
-		oncommand:"openWebPanel(content.document.title, content.location);"
-	},{
+		oncommand:"openWebPanel(content.document.title, content.location);",
+        accesskey: 'S'
+	}
+	,{}
+	,{
 		label:"在 IE 中打开",
 		text:"%u",
-		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe"
-	}, {
+		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe",
+        accesskey: 'E',
+		image:" "
+	}
+	,{
 		label:"在 Chrome 中打开",
 		text:"%u",
-		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe"
+		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
+        accesskey: 'C',
+		image:" "
 	}
 ]);
 //快捷回复

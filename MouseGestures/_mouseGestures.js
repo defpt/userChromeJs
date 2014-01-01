@@ -117,4 +117,18 @@ GESTURES = {
 			else content.scrollByPages(1);
 		}
 	},
+	//清理浏览痕迹
+	"LDR": {
+		name: "清理浏览痕迹",
+		cmd: function(){
+			Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);
+		}
+	},
+	//添加到收藏夹
+	"RULD": {
+		name: "添加到收藏夹",
+		cmd: function(){
+			PlacesCommandHook.bookmarkCurrentPage(true, PlacesUtils.bookmarksMenuFolderId);
+		}
+	},
 }
