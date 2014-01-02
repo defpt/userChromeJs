@@ -4,6 +4,7 @@ css('/*=====橙色菜单定制=========*/\
 	#appmenuPrimaryPane > hbox,\
 	#appmenu_find,\
 	#appmenu_print+menuseparator,\
+	#appmenu_sendLink,\
 	#sync-setup-appmenu,\
 	#sync-syncnowitem-appmenu,\
 	#appmenu-quit{display: none !important;}\
@@ -73,6 +74,10 @@ app([{
 		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE/SURBVDhPtZK7SsRAGIWNN1QQbARBIWgTkkwukGa7VOITxMpHsdHX8A20sbCwULHyAiqi2NkJ7lpoo+J99ZvJ7DrEGILggW/n8p/zM5PZnn+V53mDvu8vCyEOYRPmdameCMzCp8FLo9EY1uVasuSPDn+onSolSTKA8RKuoSnhCo+M6gTM76CluYFVHc0l74zxuROowbaO5tINngqmKnZUMMuyPtd1/T834C5LLNpBEEwxfyuYirTDMJxmvIe1ToMzw1AJ3isVQlEUjakJhYui8Td0AytN035OPKMasLkI77ZtDzG+lgVN8MxJP6yrBsjiOJPyY7LZfXeDW/jxcfFu6Xyusga8zAQliz/ZCOsFs4Z3N09+q5fNB9MEzTiOx8ueGO+eznVlsbkP5xhO4YT5huM4o7LI+oD1MRxJhBArX1je5uPCzzEkAAAAAElFTkSuQmCC",
 		clone:false
 	},{
+		id:"appmenu_savePage",
+		acceltext:" ",
+		clone:false
+	},{
 		id:"appmenu_webDeveloper",
 		iconic:"true",
 		clone:false
@@ -127,7 +132,7 @@ new function () {
 		image:" "
 	}
 	,{
-		label:"用谷歌快照打开",
+		label:"用 Google 快照打开",
 		url:"http://webcache.googleusercontent.com/search?q=cache:%l",
 		accesskey: 'G',
 		image:" "
@@ -208,11 +213,46 @@ new function () {
 			css('#contentAreaContextMenu[addMenu~="image"] #' + it.command + '{ display: none !important; }')
 	});
 };
+//当前页面
+new function () {
+	var items = [
+	{
+		label:"复制页面标题链接",
+		condition:"normal",
+		text:"%TITLES%\n%URL%",
+		insertBefore:"context-savelink",
+		accesskey: 'D',
+		image:" "
+	}
+	,{
+		label:"在侧栏中打开",
+		oncommand:"openWebPanel(content.document.title, content.location);",
+        accesskey: 'S'
+	}
+	,{}
+	,{
+		label:"在 IE 中打开",
+		text:"%u",
+		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe",
+        accesskey: 'E',
+		image:" "
+	}
+	,{
+		label:"在 Chrome 中打开",
+		text:"%u",
+		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
+        accesskey: 'C',
+		image:" "
+	}];
+	
+	var menu = PageMenu({condition: 'normal', insertBefore: 'context-bookmarkpage', onpopupshowing: syncHidden });
+	menu(items);
+};
 // 页面右键菜单移到2级目录菜单
 new function () {
 	var items = [
-	{ command: 'context-bookmarkpage' }
-	,{ command: 'context-savepage' }
+	{ command: 'context-savepage' }
+	,{ command: 'context-bookmarkpage' }
 	,{ command: 'context-sep-viewsource' }
 	,{ command: 'context-viewsource' }
 	,{ command: 'context-viewinfo' }
@@ -220,8 +260,8 @@ new function () {
 	var menu = PageMenu({condition: 'normal', insertBefore: 'context-bookmarkpage', onpopupshowing: syncHidden });
 	menu(items);
 	items.forEach(function(it){
-			if (it.command)
-					css('#contentAreaContextMenu #' + it.command + '{ display: none !important; }')
+		if (it.command)
+			css('#contentAreaContextMenu #' + it.command + '{ display: none !important; }')
 	});
 };
 //关闭标签菜单，如果需要请取消注释
@@ -229,7 +269,7 @@ new function () {
 	var items = [
 	{ command: 'context_closeTab' }
 	,{
-		label: "关闭左侧标签",
+		label: "关闭左侧标签页",
 		accesskey: "L",
 		oncommand: "gBrowser.visibleTabs.indexOf(gBrowser.mCurrentTab) == 0 || gBrowser.removeTab(gBrowser.visibleTabs[gBrowser.visibleTabs.indexOf(gBrowser.mCurrentTab) - 1]);"
 	}
@@ -237,7 +277,7 @@ new function () {
 	,{}
 	,{ command: 'context_closeOtherTabs' }
 	,{
-		label: "关闭所有标签",
+		label: "关闭所有标签页",
 		oncommand: "gBrowser.removeAllTabsBut(gBrowser.addTab('about:newtab'));",
 		accesskey: "A"
 	}];
@@ -291,44 +331,6 @@ page([{
 	}
 }]);
 
-//当前页面
-var openpageinsub = PageMenu({
-	label:"当前页面...",
-	condition:"normal",
-	text:"%TITLES%\n%URL%",
-	insertBefore:"context-savelink",
-    accesskey: 'D',
-	image:" "
-});
-openpageinsub([
-	{
-		label:"复制其标题链接",
-		condition:"normal",
-		text:"%TITLES%\n%URL%",
-        accesskey:'F',
-		image:" "
-	}
-	,{
-		label:"在侧栏中打开",
-		oncommand:"openWebPanel(content.document.title, content.location);",
-        accesskey: 'S'
-	}
-	,{}
-	,{
-		label:"在 IE 中打开",
-		text:"%u",
-		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe",
-        accesskey: 'E',
-		image:" "
-	}
-	,{
-		label:"在 Chrome 中打开",
-		text:"%u",
-		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
-        accesskey: 'C',
-		image:" "
-	}
-]);
 //快捷回复
 var Quickpostsub = PageMenu({
 	label:"Quick Reply With...",
