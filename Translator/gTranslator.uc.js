@@ -24,6 +24,7 @@ var gTranslator = {
 			.getBranch("uc.gTranslator.");
 		this._prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		
+		this._targetlang = navigator.language;
 		if (!this._prefs.prefHasUserValue("targetlang")) {
 			this._prefs.setCharPref("targetlang", this._targetlang);
 		} else {
@@ -43,15 +44,15 @@ var gTranslator = {
 		<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" \
 				xmlns:html="http://www.w3.org/1999/xhtml"> \
 			<toolbar id="urlbar-icons">\
-				<toolbarbutton id="statusbar-translator" label="翻译器" \
-						context="statusbar-translator-contextmenu"\
+				<toolbarbutton id="gTranslator" label="翻译器" \
+						context="gTranslator-contextmenu"\
 					    onclick="if(event.button === 0) gTranslator.ToolBarTranslatorClick(event);" >\
-					<menupopup id="statusbar-translator-contextmenu" \
+					<menupopup id="gTranslator-contextmenu" \
                             onpopupshowing="gTranslator.showStatbarContextMenu(event);">\
-						<menuitem id="translateselected-statusbar-translator" \
+						<menuitem id="translateselected-gTranslator" \
 							label="翻译选定文本" \
 							onclick="gTranslator.selectionTranslation(event);"/> \
-						<menuitem id="translatepage-statusbar-translator" \
+						<menuitem id="translatepage-gTranslator" \
 							label="翻译整个页面" \
 							onclick="gTranslator.pageTranslation(event);"/> \
 						<menuseparator/> \
@@ -101,26 +102,17 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		overlay = "data:application/vnd.mozilla.xul+xml;charset=utf-8," + encodeURI(overlay);
 		window.userChrome_js.loadOverlay(overlay, gTranslator);
 		var css = '\
-			#statusbar-translator {\
+			#gTranslator {\
 				list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPnZExSwNBEEZPESStP8PKP2Fnr1hYiI2dkEoQJKWCnVXEIpDGQsRGJGKhFsKBHpEIFokJ4VQkpFMLm5E3OsvcmRBx4XG3e/u9md2LGB9vPfH0e+3A6/OD6KZhIx+u1Y5kb383I3h5uh8uIURgfaOoLC0vKjaHtNv4m8AHvWikAK7jCw0kjVgDq6UtWYslMH8pMnf2LjMnIlMHn4oK/IVZRTravumPFKjEC7hAaz0fPm+mCpKBgsfWbebshAy6sb/Bu4UL5VQiPnDuiWJT74EumFvLQGXbR6FfAsIGFwicFRBQ+TBOtDoC1girwIcNAiYghHDzNNEgAmRBwPBh5mMLx6FN+60EDdamKx2Z3Kl/C8ZXrjTMExCArzhbvVPoBAHPjCAfNhAQtJaBy4YgYAySsAF82NaMn/h/RxR9Ab4TXij6pKP0AAAAAElFTkSuQmCC");\
 				-moz-appearance: none !important;\
-				border-style: none !important;\
-				border-radius: 0 !important;\
-				padding: 0 2px !important;\
-				margin: 0 !important;\
-				background: transparent !important;\
 				box-shadow: none !important;\
-				-moz-box-align: center !important;\
-				-moz-box-pack: center !important;\
+				border: none !important;\
 				min-width: 18px !important;\
 				min-height: 18px !important;\
+				margin-right: -5px !important;\
+				-moz-box-align: center !important;\
+				-moz-box-pack: center !important;\
 			}\
-				#statusbar-translator > .toolbarbutton-icon {\
-				max-width: 18px !important;\
-				padding: 0 !important;\
-				margin: 0 !important;\
-			}\
-			#statusbar-translator dropmarker{display: none !important;}\
 		'.replace(/[\r\n\t]/g, '');
         function addStyle(css) {
         	var pi = document.createProcessingInstruction(
@@ -156,10 +148,10 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	uninit : function () {
 		if (this._timer)
 			clearTimeout(this._timer);
-		var i = document.getElementById("statusbar-translator");
+		var i = document.getElementById("gTranslator");
 		if (i)
 			i.parentNode.removeChild(i);
-		var i = document.getElementById("statusbar-translator-contextmenu");
+		var i = document.getElementById("gTranslator-contextmenu");
 		if (i)
 			i.parentNode.removeChild(i);
 		document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing", this.showContextMenu, false);
@@ -186,7 +178,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	settargetlang : function (event) {
 		if (event.button != 0)
 			return;
-		this._targetlang = !this._targetlang;
+		this._targetlang = event.target.value;
 		this._prefs.setCharPref("targetlang", this._targetlang);
 		this.settargetlangshow();
 	},
@@ -223,8 +215,8 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	},
 
 	showStatbarContextMenu : function () {
-		if (document.getElementById("translateselected-statusbar-translator")) {
-			document.getElementById("translateselected-statusbar-translator").disabled = !(this.isValidTextLength(this.getSelectedText()));
+		if (document.getElementById("translateselected-gTranslator")) {
+			document.getElementById("translateselected-gTranslator").disabled = !(this.isValidTextLength(this.getSelectedText()));
 		}
 		this.settargetlangshow();
 		this.showmodeshow();
@@ -245,7 +237,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	},
 
 	ToolBarTranslatorClick : function (e) {
-		var tbt = document.getElementById("statusbar-translator");
+		var tbt = document.getElementById("gTranslator");
 		if (e.target != tbt)
 			return;
 		var selectedText = this.getSelectedText();
@@ -273,7 +265,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var cel = this._targetlang;
 			var httpRequest = null;
 
-			var baseUrl = "http://translate.google.de/translate_t";
+			var baseUrl = "http://translate.google.hu/translate_t";
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {
