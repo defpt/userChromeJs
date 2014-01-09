@@ -9,11 +9,6 @@
 
 **其实我就是想在线备份一下我自己的脚本，为了避免有人不幸在这里下了脚本出错，只能说明一下了，真是尴尬的事情……**
 
-
-**火狐橙菜单**
-
-![页面右键菜单](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/Appmenu.png?raw=true)
-
 **页面右键菜单**
 
 ![页面右键菜单](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/page.png?raw=true)
@@ -30,3 +25,7 @@
 **输入框右键菜单**
 
 ![页面右键菜单](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/input.png?raw=true)
+
+**选中内容复制**
+
+![页面右键菜单](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/SEL.png?raw=true)
