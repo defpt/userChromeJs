@@ -8,7 +8,7 @@
 // @compatibility  Firefox 4
 // @charset        UTF-8
 // @version        2.2 2013/04/09 02:00 REMOVE E4X
-// @note           修改自用版 by defpt at 2013.07.30
+// @note           修改自用版 by defpt at 2014.01.09
 // ==/UserScript==
 
 var gTranslator = {
@@ -24,7 +24,7 @@ var gTranslator = {
 			.getBranch("uc.gTranslator.");
 		this._prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		
-		this._targetlang = navigator.language;
+		//this._targetlang = navigator.language;
 		if (!this._prefs.prefHasUserValue("targetlang")) {
 			this._prefs.setCharPref("targetlang", this._targetlang);
 		} else {
@@ -80,6 +80,7 @@ var gTranslator = {
 							onclick = "gTranslator.setshowmode(event);"/> \
 						<menuitem id="showoritext" \
 							label="对比显示翻译结果" \
+							tooltiptext = "选中同时显示译文和原文，否则只显示译文" \
 							value="' + this._showoritext + '" \
 							type="checkbox" \
 							onclick = "gTranslator.setoridisplay(event);"/> \
@@ -265,7 +266,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var cel = this._targetlang;
 			var httpRequest = null;
 
-			var baseUrl = "http://translate.google.hu/translate_t";
+			var baseUrl = "http://translate.google.de/translate_t";
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {
