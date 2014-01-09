@@ -78,6 +78,13 @@ GESTURES = {
 			setTimeout("minimize()", 10);
 		}
 	},
+	//打开新标签
+			"LR": {
+				name: "\u6253\u5f00\u65b0\u6807\u7b7e",
+				cmd: function() {
+					BrowserOpenTab();
+				}
+			},
 	//站内搜索
 	"LU": {
 		name: "站内搜索",
@@ -97,24 +104,27 @@ GESTURES = {
 	//uAutoPagerize2自动翻页上一页
 	"RU": {
 		name: "自动翻页上一页",
-		cmd: function(){
-			if (content.ap)
-				return uAutoPagerize.gotoprev();
-			else if (uAutoPagerize && content.document.body.getAttribute("name") == "MyNovelReader")
-				uAutoPagerize.gotoprev(content, ".title");
-			else
-				content.scrollByPages(-1);
+		cmd: function(gestures, event){
+		    var doc = event.target.ownerDocument;
+			var win = doc.defaultView;
+			if (win.ap)
+				uAutoPagerize.gotoprev(win);
+			else if (uAutoPagerize && doc.body && doc.body.getAttribute("name") == "MyNovelReader")
+				uAutoPagerize.gotoprev(win, ".title");
+			else win.scrollByPages(-1);
 		}
 	},
 	//uAutoPagerize2自动翻页下一页
 	"RD": {
 		name: "自动翻页下一页",
-		cmd: function(){
-			if(content.ap)
-				return uAutoPagerize.gotonext();
-			else if (uAutoPagerize && content.document.body.getAttribute("name") == "MyNovelReader")
-				uAutoPagerize.gotonext(content, ".title");
-			else content.scrollByPages(1);
+		cmd: function(gestures, event){
+			var doc = event.target.ownerDocument;
+			var win = doc.defaultView;
+			if (win.ap)
+				uAutoPagerize.gotonext(win);
+			else if (uAutoPagerize && doc.body && doc.body.getAttribute("name") == "MyNovelReader")
+				uAutoPagerize.gotonext(win, ".title");
+			else win.scrollByPages(1);
 		}
 	},
 	//清理浏览痕迹
@@ -129,6 +139,25 @@ GESTURES = {
 		name: "添加到收藏夹",
 		cmd: function(){
 			PlacesCommandHook.bookmarkCurrentPage(true, PlacesUtils.bookmarksMenuFolderId);
+		}
+	},
+	//页面所有区域截图
+	"DRULD": {
+		name: "\u9875\u9762\u6240\u6709\u533a\u57df\u622a\u56fe",
+		cmd: function() {
+			var canvas = document.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
+			canvas.width = content.document.documentElement.scrollWidth;
+			canvas.height = content.document.documentElement.scrollHeight;
+			var ctx = canvas.getContext("2d");
+			ctx.drawWindow(content, 0, 0, canvas.width, canvas.height, "rgb(255,255,255)");
+			saveImageURL(canvas.toDataURL(), content.document.title + ".png",null,null,null,null,document);
+		}
+	},
+	//noscript临时允许全部
+	"LDRUL": {
+		name: "noscript临时允许全部",
+		cmd: function(){
+			noscriptOverlay.allowPage();
 		}
 	},
 }
