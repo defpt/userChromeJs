@@ -24,7 +24,6 @@ var gTranslator = {
 			.getBranch("uc.gTranslator.");
 		this._prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		
-		this._targetlang = navigator.language;
 		if (!this._prefs.prefHasUserValue("targetlang")) {
 			this._prefs.setCharPref("targetlang", this._targetlang);
 		} else {
@@ -187,7 +186,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	settargetlang : function (event) {
 		if (event.button != 0)
 			return;
-		this._targetlang = event.target.value;
+		this._targetlang = !this._targetlang;
 		this._prefs.setCharPref("targetlang", this._targetlang);
 		this.settargetlangshow();
 	},
@@ -274,7 +273,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var cel = this._targetlang;
 			var httpRequest = null;
 
-			var baseUrl = "http://translate.google.hu/translate_t";
+			var baseUrl = "http://translate.google.de/translate_t";
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {
