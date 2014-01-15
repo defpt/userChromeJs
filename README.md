@@ -20,3 +20,6 @@
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)，**以后不再维护和更新**，FF29开始，火狐橙就要成为过去了
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
+
+
+* [Example](https://github.com/defpt/userChromeJs/blob/master/Example) 学习UC脚本笔记以及范例收藏

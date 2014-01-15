@@ -1,0 +1,50 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+/*=====右键菜单定制=========*/
+/*纯CSS修改菜单名*/
+#idmmzcc-dwnlall > label{font-size:0 !important;}
+#idmmzcc-dwnlall > hbox > image{margin-left: 2px !important;}
+#idmmzcc-dwnlall>.menu-iconic-left:after{
+    content:"IDM 下载全部连接" !important;
+    margin-left:12px !important;
+    font-size:12px !important;
+    display:-moz-box !important;
+}
+/*==Page==*/
+#context-back,
+#context-forward,
+#context-reload,
+#context-stop,
+#context-bookmarkpage,
+#context-savepage,
+#context-viewbgimage,
+#context-selectall,
+#context-viewsource,
+#context-searchselect,
+#inspect-separator,
+/*==Link==*/
+#context-openlink,
+#context-copylink,
+#context-openlinkprivate,
+#context-bookmarklink,
+#context-viewpartialsource-selection,
+/*==input==*/
+#spell-separator,
+#spell-check-enabled,
+#spell-add-dictionaries-main,
+#spell-dictionaries,
+#context-sep-paste,
+/*image*/
+#context-sendimage,
+#context-setDesktopBackground,
+#contentAreaContextMenu>menuitem[id^="abp-"],
+#contentAreaContextMenu > .abp-contextmenuitem,
+/*addons*/
+#readable_by_evernote__context_menu,
+#lpt_lpcontentareacontextmenuseparator,
+#lpt_lplogintolastpass,
+#lpt_lpcontentareacontextmenu,
+#lpt_lpfillformsmenu4
+{display: none !important;}
+
+
+

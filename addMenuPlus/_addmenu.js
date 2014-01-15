@@ -315,7 +315,7 @@ page([{
 	}
 ]);
 
-//快捷回复
+//快捷回复, 如果觉得这个失效时候挺多，可以去卡饭论坛帖子，使用我新写的方法
 var Quickpostsub = PageMenu({
 	label:"快速回复...",
 	condition:"input",
