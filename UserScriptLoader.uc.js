@@ -1,16 +1,12 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name           UserScriptLoader.uc.js
 // @description    Greasemonkey っぽいもの
 // @namespace      http://d.hatena.ne.jp/Griever/
 // @include        main
 // @compatibility  Firefox 5.0
 // @charset        UTF-8
-// @license        MIT License  
-// @note           modified by lastdream2013: add switch: reload page on disable/enable script 2013.05.12
-// @note           modified by lastdream2013: add GM_notification API 2013.05.05 
-// @note           modified by lastdream2013: fix compatibility for firefox23a1 2013.04.23  
-// @note           by dannylee edited 2013.4.9
-// @note           0.1.8.2 
+// @license        MIT License
+// @version        0.1.8.2
 // ==/UserScript==
 
 (function (css) {
@@ -69,7 +65,7 @@ USL.PrefManager.prototype = {
 			this.pref.deleteBranch(name);
 		} catch(e) { }
 	},
-	listValues: function() {this.pref.getChildList("", {});}
+	listValues: function() this.pref.getChildList("", {}),
 };
 
 USL.ScriptEntry = function (aFile) {
@@ -88,7 +84,10 @@ USL.ScriptEntry.prototype = {
 		this.disabled = false;
 		this.requireSrc = "";
 		this.resources = {};
-
+    //add by dannylee
+    this.version = "version" in this.metadata ? this.metadata["version"][0] : "未定义";
+    this.downloadURL = "downloadurl" in this.metadata ? this.metadata["downloadurl"][0] : null;
+    //end by dannylee
 		this.run_at = "run-at" in this.metadata ? this.metadata["run-at"][0] : "document-end";
 		this.name = "name" in this.metadata ? this.metadata.name[0] : this.leafName;
 		if (this.metadata.delay) {
@@ -97,6 +96,7 @@ USL.ScriptEntry.prototype = {
 		} else if (this.run_at === "document-idle") {
 			this.delay = 0;
 		}
+
 		if (this.metadata.match) {
 			this.includeRegExp = this.createRegExp(this.metadata.match, true);
 			this.includeTLD = this.isTLD(this.metadata.match);
@@ -180,6 +180,7 @@ USL.ScriptEntry.prototype = {
 		return "";
 	},
 	isURLMatching: function(url) {
+		//if (this.disabled) return false;
 		if (this.excludeRegExp.test(url)) return false;
 		
 		var tldurl = this.excludeTLD || this.includeTLD ? this.makeTLDURL(url) : "";
@@ -270,24 +271,6 @@ USL.API = function(script, sandbox, win, doc) {
 		Services.console.logStringMessage("["+ script.name +"] " + Array.slice(arguments).join(", "));
 	};
 
-	this.GM_notification = function (aMsg, aTitle, aIconURL, aCallback) {
-	if  (!USL.ALLOW_NOTIFY)  return;
-		if (aCallback)
-			var callback = {
-				observe : function (subject, topic, data) {
-					if ("alertclickcallback" != topic)
-						return;
-					aCallback.call(null);
-				}
-			}
-		else
-			callback = null;
-		var alertsService = Components.classes["@mozilla.org/alerts-service;1"]
-			.getService(Components.interfaces.nsIAlertsService);
-		alertsService.showAlertNotification(
-			aIconURL || "chrome://global/skin/icons/information-32.png", aTitle || "UserScriptLoader-notification", aMsg + "", !!callback, "", callback);
-	};
-	
 	this.GM_xmlhttpRequest = function(obj) {
 		if(typeof(obj) != 'object' || (typeof(obj.url) != 'string' && !(obj.url instanceof String))) return;
 
@@ -524,24 +507,6 @@ USL.__defineSetter__("HIDE_EXCLUDE", function(bool){
 	return bool;
 });
 
-var ALLOW_NOTIFY = USL.pref.getValue('ALLOW_NOTIFY', true);
-USL.__defineGetter__("ALLOW_NOTIFY", function() ALLOW_NOTIFY);
-USL.__defineSetter__("ALLOW_NOTIFY", function(bool){
-	ALLOW_NOTIFY = !!bool;
-	let elem = $("UserScriptLoader-allow-notify");
-	if (elem) elem.setAttribute("checked", ALLOW_NOTIFY);
-	return bool;
-});
-
-var AUTO_RELOAD_PAGE = USL.pref.getValue('AUTO_RELOAD_PAGE', true);
-USL.__defineGetter__("AUTO_RELOAD_PAGE", function() AUTO_RELOAD_PAGE);
-USL.__defineSetter__("AUTO_RELOAD_PAGE", function(bool){
-	AUTO_RELOAD_PAGE = !!bool;
-	let elem = $("UserScriptLoader-auto-reload-page");
-	if (elem) elem.setAttribute("checked", AUTO_RELOAD_PAGE);
-	return bool;
-});
-
 var CACHE_SCRIPT = USL.pref.getValue('CACHE_SCRIPT', true);
 USL.__defineGetter__("CACHE_SCRIPT", function() CACHE_SCRIPT);
 USL.__defineSetter__("CACHE_SCRIPT", function(bool){
@@ -555,13 +520,13 @@ USL.getFocusedWindow = function () {
 	var win = document.commandDispatcher.focusedWindow;
 	return (!win || win == window) ? content : win;
 };
-//urlbar-icons  TabsToolbar  addon-bar PlacesToolbar nav-bar
+
 USL.init = function(){
-	  USL.isready = false;
+	  USL.isready = false; //addon-bar urlbar-icons
 	   var overlay = '\
 		<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" \
 			xmlns:html="http://www.w3.org/1999/xhtml"> \
-		 <toolbarpalette id="nav-bar">\
+		 <toolbarpalette id="urlbar-icons">\
 			<toolbarbutton id="UserScriptLoader-icon" \
 			        label="UserScriptLoader" \
 					class="toolbarbutton-1 chromeclass-toolbar-additional" \
@@ -640,6 +605,7 @@ USL.loadconfig = function () {
 
 	USL.rebuild();
 	USL.disabled = USL.pref.getValue('disabled', false);
+	//USL.icon.setAttribute("state", USL.disabled);
 	window.addEventListener('unload', USL, false);
 	Services.obs.addObserver(USL, "content-document-global-created", false);
 	USL.debug('observer start');
@@ -662,9 +628,7 @@ USL.destroy = function () {
 	USL.pref.setValue('script.disabled', disabledScripts.join('|'));
 	USL.pref.setValue('disabled', USL.disabled);
 	USL.pref.setValue('HIDE_EXCLUDE', USL.HIDE_EXCLUDE);
-	USL.pref.setValue('ALLOW_NOTIFY', USL.ALLOW_NOTIFY);
-	USL.pref.setValue('AUTO_RELOAD_PAGE', USL.AUTO_RELOAD_PAGE);
-	
+
 	var e = document.getElementById("UserScriptLoader-icon");
 	if (e) e.parentNode.removeChild(e);
 	var e = document.getElementById("UserScriptLoader-popup");
@@ -691,17 +655,18 @@ USL.handleEvent = function (event) {
 };
 
 USL.observe = function (subject, topic, data) {
+	if (topic == "xul-overlay-merged") {
+		if (!USL.isready) {
+		  USL.isready = true;
+		  USL.loadconfig();
+		  Application.console.log("UserScriptLoader界面加载完毕！");
+		}
+	}
 	if (topic === "content-document-global-created") {
 		var doc = subject.document;
 		var evt = doc.createEvent("Events");
 		evt.initEvent(USL.eventName, true, false);
 		doc.dispatchEvent(evt);
-	}
-	if (topic == "xul-overlay-merged") {
-		if (!USL.isready) {
-		  USL.isready = true;
-		  USL.loadconfig();
-		}
 	}
 };
 
@@ -715,11 +680,12 @@ USL.createMenuitem = function () {
 	}
 	USL.readScripts.forEach(function(script){
 		let m = document.createElement('menuitem');
-		m.setAttribute('label', script.name);
+		m.setAttribute('label', script.name + '(' + script.version + ')');
+		m.setAttribute('tooltiptext', '左键启用/禁用，中键下载链接，右键编辑');
 		m.setAttribute("class", "UserScriptLoader-item");
 		m.setAttribute('checked', !script.disabled);
 		m.setAttribute('type', 'checkbox');
-		m.setAttribute('oncommand', 'this.script.disabled = !this.script.disabled;if(USL.AUTO_RELOAD_PAGE)BrowserReload();');
+		m.setAttribute('oncommand', 'this.script.disabled = !this.script.disabled;');
 		m.script = script;
 		USL.popup.insertBefore(m, USL.menuseparator);
 	});
@@ -846,6 +812,7 @@ USL.onPopupShowing = function(event) {
 				menuitem.style.fontWeight = index_run !== -1 ? "bold" : "";
 				menuitem.hidden = USL.HIDE_EXCLUDE && index_match === -1;
 			});
+			//USL.saveMenu.hidden = win.document.contentType.indexOf("javascript") === -1;
 			USL.saveMenu.hidden = !(/\.user\.js$/.test(win.document.location.href) && /javascript|plain/.test(win.document.contentType));
 			b:if (win.USL_registerCommands) {
 				for (let n in win.USL_registerCommands) {
@@ -894,13 +861,15 @@ USL.menuClick = function(event){
 	var menuitem = event.target;
 	if (event.button == 0 || menuitem.getAttribute('type') != 'checkbox')
 		return;
-
-	event.preventDefault();
-	event.stopPropagation();
-	if (event.button == 1) {
-		menuitem.doCommand();
-		menuitem.setAttribute('checked', menuitem.getAttribute('checked') == 'true'? 'false' : 'true');
+	if (event.button == 1) {//edited by dannylee
+		//menuitem.doCommand();
+		//menuitem.setAttribute('checked', menuitem.getAttribute('checked') == 'true'? 'false' : 'true');
+		//Application.console.log("downloadURL:" + menuitem.script.downloadURL);
+		if (menuitem.script && menuitem.script.downloadURL != null)
+		  openLinkIn(menuitem.script.downloadURL,  "tab", {});	
 	} else if (event.button == 2 && USL.EDITOR && menuitem.script) {
+		event.preventDefault();
+	  event.stopPropagation();
 		USL.edit(menuitem.script.path);
 	}
 };
@@ -925,6 +894,7 @@ USL.iconClick = function(event){
 		event.preventDefault();
 		USL.disabled = !USL.disabled;
 		USL.pref.setValue('disabled', USL.disabled);
+		//USL.icon.setAttribute("state", USL.disabled);
 	} else if (event.button == 1) {
 		USL.rebuild();
 	}
@@ -979,7 +949,7 @@ USL.injectScripts = function(safeWindow, rsflag) {
 		}
 	});
 	if (documentEnds.length) {
-		aDocument.addEventListener("DOMContentLoaded", function(event){
+		safeWindow.addEventListener("DOMContentLoaded", function(event){
 			event.currentTarget.removeEventListener(event.type, arguments.callee, false);
 			documentEnds.forEach(function(s) "delay" in s ? 
 				safeWindow.setTimeout(run, s.delay, s) : run(s));
@@ -1084,7 +1054,7 @@ USL.saveFile = function (aFile, data) {
 USL.loadSetting = function() {
 	try {
 		var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-		aFile.appendRelativePath("UserScriptLoader.json");
+		aFile.appendRelativePath("Local\\UserScriptLoader.json");
 		var data = USL.loadText(aFile);
 		data = JSON.parse(data);
 		USL.database.pref = data.pref;
@@ -1100,13 +1070,11 @@ USL.saveSetting = function() {
 	USL.pref.setValue('script.disabled', disabledScripts.join('|'));
 	USL.pref.setValue('disabled', USL.disabled);
 	USL.pref.setValue('HIDE_EXCLUDE', USL.HIDE_EXCLUDE);
-	USL.pref.setValue('ALLOW_NOTIFY', USL.ALLOW_NOTIFY);
-	USL.pref.setValue('AUTO_RELOAD_PAGE', USL.AUTO_RELOAD_PAGE);
 	USL.pref.setValue('CACHE_SCRIPT', USL.CACHE_SCRIPT);
 	USL.pref.setValue('DEBUG', USL.DEBUG);
 
 	var aFile = Services.dirsvc.get('UChrm', Ci.nsILocalFile);
-	aFile.appendRelativePath("UserScriptLoader.json");
+	aFile.appendRelativePath("Local\\UserScriptLoader.json");
 	USL.saveText(aFile, JSON.stringify(USL.database));
 };
 
@@ -1226,12 +1194,16 @@ function addStyle(css) {
 	);
 	return document.insertBefore(pi, document.documentElement);
 }
+
+
 })('\
 /* http://www.famfamfam.com/lab/icons/silk/preview.php */\
 #UserScriptLoader-icon {\
-	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALtSURBVDhPjdN7SFNRHAfwYyUkvUDNJAqCiBKCoCglLM25xNxSsxBnKmYvKF2upXOZGptztpfTq6ZOzXJhUGlmuagZrSwzTVdb4TPSYpgPMDDNzG93g2aWQn/84N5zf7/POb9zzyFKtuP0/4aatQh/j9kA0zvT1FxBBZJjOQGkWuxH+oU7yXiGDyn68/u8QCFdSLHIS7k/GUv3IRB4E1iBbCa5IWUQymg2/pwXoIKIpiCIjKoDCdJ96cJdBBLmQtvSFQEO4xf3EOp37j8Atc+hrCLCZfI2dwOuRLuCClqA0vBlaJD6oqkgGDdPbfqpZjnq0nYT7nlvkmQHhN4kQeJPlGVxq0ffVsWir0GIzjvxqEvegsY8NiwvMjHQlImeeh6uJWyckoSsmJBHrpmwAbQIFcf9u5S1dPKxIgCW5yIMtsgx0paLz4ZMWJrk+NSswGCrEgMvs9BYdAg54atQLdkLa60NqM5kQh3uhteVsfjy6hJa9OmgSo7A/EwBwyMxki4dhL4m2YaYarjIOuAG6vSWGeDymW0Q7XdGi/YYnaSC5mo89hz3gUwVi8KKROzgbEdqegiG2yn06i9AGbUegtDVM0DK/rVTaWxXvLkdj+E2NWTySKzc6gyROAYazVms2+EOqYiDEWMh3UY29LmhOO3n9NW+idGei815JzymPzakYqBZifaHEkgyOGh5qMaAuQp3tanoeJqDfoMMbdd56LyXCGnYyj47wPUiKdpzXt+7dQI8yI5B130xvXn5GHpdiqG2cvQ/pdCqFaLiFAs6WRQ6aEAW4m6xA9aTVRzn8a2rno9aCQd5h32RH8UAFemP4qP76Hf6OYaBW6IIdNQL0ECFge/n1DULEDKWfHigCkbPoxQYa5LwvDIRT8q5aKzkofVmMrr1GeilWzQUR0AU6jJmNLXPvkxWRMBcbinle04bSiJhqk7A+zo+zLU8NGuPQ6cKQfHJzT9S6ImsxbOO8p9hvbLWPzNX/J2rZDtO/wLIbGc98IvR+AAAAABJRU5ErkJggg==");\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN8SURBVDhPfZJ7TJNnFMZPYWxzwC5F0bEsLlsWR0xGotIigRQotaEUpWOGWG5hE6ZD+o2W0Qtg2VoKpdBS+ABFnLJQg0YBnROMlsUyHDCwukkWRCGTLQ3zkrjEeefZR2VLlmX7/XXevM95nnPevPR/gIjXmkqvNG0iQU0yaT5PJKcxmSKWrv+bI1spkGt8k02lgkYp9ZqTaK4ynu5ViWivWUqvGkUUsiT9N83pFNaWQgUtchp1SOkuJ4YujrBoYJXQ4Voxsdwka5fk/8T+NLWDS7/jTCEYEwiGeIJFEghnWtBCg5R377NEYq2xFGo0UsBS21MWk1kZ74vO7LCHPczbOJi7HGxqAPZnhmKwNgEjrVtwVPXOE6c8aGB3AjHlcVSm2Uir6dNYWmOII5UlmeydH0bc+bE7H9cHDbhyvBgntVEYbk6D77tqzI9U41q/GodUax5b01+678hefb9M9GwlaRODWhzK1x7Y0kIeftMghe+8CTfG63Hb24RfPdXwjdTjl7EG3JiwY360BsN7t6IxcyV6LZugk/FPUaWcf663WgJnZjgudOXjt+/rMO42gt33ASa/bYDnrBllde/D3af1m1zuY1DzXjjYXVEolYUPkUYa1r/nk/UwbeZj3FXAiRzo+LIYiYUi2Bz5aOssgUAZjQpjOm5dZDHjroQ95y3oFBHIjwtxUZ5gWa1e8frj3WnL8UNPMW55nbDVZ2HFOj5M5jx0dGjwhmAVak1K3L7Uxq1hhbtJASYp+HfF2oBc2hxJwlzh85OtH0Uu/DxYgfkxOy6escBSpcT4GSfmJ7vxlasCU0ONmPPY4D2kxpWvS1CXseL6LgFFkUhEzzAxpO/WxTy4OqDDaWsepk+Zucdrwc0L+3HTewBzQywmXAZ0FskxYMvBFGdgy1jl0whJ6P8D6lja3l4Y+cd0fylOWJRozk5AS44YbFYy2rfLuDNX54lxzLQNU/06DLIZ0Cctm2aEFOk3YGJpo0EcPHvasQXXzupxqa8M57tKcO4Ag+EuNSaOanHVXYUZbkVP+zaYFOF3izbwagrX0wt+g8Xi42jS6CQv+g6WChc8+7JwuVeFn06WYvKEGmOuQgw40tFeFPVILwmd3bmBZ1IJaaW/+S+y36XgHetIXiQM3KMRBY/qpC/PlMv4sxUp/BmtONTLxD/XszOayncIKObvZCL6ExyPyhVXqCmlAAAAAElFTkSuQmCC");\
+	-moz-image-region: rect(0px 16px 16px 0px) !important;\
 }\
 #UserScriptLoader-icon[state="disable"] {\
-	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJdSURBVDhPlZPLS6JhFMbnn2nXv+DCVWZ2w7xhGxOJbjO50BTMaBOSIGGCF0Zb1CIhGS+EoqCJhJe8UDZuZjEws2jdQGM15TPvOcNYxriYxeF87/u95/c973PO906r1fb+I/B2jwHX19dP/wqVSmWam5v7NDk5+X1sbKwrl8uDr98PBYg9k4iqUqm8m5iYgCim6M7Ozkanp6d97Xb7eShArD+KuFWr1aBimUwGUcjSBbAr1PhenR0EiOfI4uLio91ux9LSEhXBaDRib28P4XAYVqv1WaPRZMbHxz8IRdY+QCzez8zMeFZWVm5jsRiKxSJOT0+xvb2NUCiEarWKWq2GbDZLkCedTne/sLBw/xcAsXgQkh99Ph8qlQqazSYuLy9xfn7OhRcXF2i1WpwjkQgMBgPcbjcrZMDu7i5vRqNRNBoN/pLX60WpVEI6nYbT6QQpI0gqlYJer4fZbH4BWCwWiLsxgA6RbDLR5XIhEAiwmTabDVdXVygUCjCZTPy+DxAL6jkSiQRL39nZwcjICLa2tuD3+zE6OsrPon18DdoTvv0QtX9MlEgkn9fW1npkXr1eRy6Xw+bmJudOp4OjoyO+DnlycnKCTCaD+fn5b32AVCq1OxyOByqgu1OmL5Eakl0ul7lwY2MD+/v7DBA+3PQBNFmrq6s/yTyPx8MzsLy8zJnMoixazGbTmWAwCDHWXwYACoXiK7Uxn8+z08fHxzg8POQcj8fZvLOzM26jmIM7oWzwZyLI1NTUjZjC3sHBAZLJJLeQBoq6Q/D19fVf9CEqHhjlN8HtGRJvzmp7vwFji4ZDlVnnwQAAAABJRU5ErkJggg==");\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALiSURBVDhPhVNZSJRhFP1bnloeooeolyCQiMQEIQvcFddx37dgtAHXchBHxxhFAhsUBtMJZyTHBw0c0HLBZlBQh0HGcRtU8iVQqAefDcwl83bubQoiogvff7/tnHvvud+v/MfOFBUVXcnJybmfnp5en5qa+jItLe2G/+zflpubew7AWwUFBRqA3wH4OTEx8SA5OdmamZl5HeeX/Ff/ttLS0qsMxPBmZ2fvp6SkUEJCAjEBwHZkYgbhXf/1Py0rK4ujvsbYy8vLIwYDSABSYWHhKQgPADajjMutra1n/bCf5o9sq6ioONbr9VRZWUlYU3l5OXV1dVF/fz81NjZ+z8/Pd4L4KbLSRUdH31QwuY3xJCMjw1RTU7M3OjpKLpeLpqamqK2tjfr6+sjr9dLS0hJNT0+TTqc7QTaHZWVlh0lJSQYFn1dYHCHlY7PZTIuLi7S2tkbr6+u0sLAgwOXlZfL5fOJtNhup1Wrq7Ozk0t4rUNnV0dEhm3a7nVZXVyVSd3c3ud1ucjgc1NLSQpwZk0xOTlJxcTFptVqCoG4FgjgaGhoItQkBX+K0WUSj0UgWi0XEbGpqoo2NDZqbmyONRiPnUVFRb5Tw8HAjFifoLY2Pj0vq7e3tFBAQQFCaent7KTAwUOabm5tSBu+hO1+Cg4MfKUFBQaEg+VBbW3vK4q2srNDMzAwZDAbxW1tbNDQ0JOWwJiMjI+R0OqmkpOQTunBPiYyMPI+JHoAjBnDt7DkSZ8NpezweAaKN1NPTIwTQYRclhMobiIuLe4wMvrJ4JpNJ3kBVVZV4Fot9dXU1sdh8x2q1si4fIyIi7ghBbGzsQ5VKtcNtnJ2dFaWHh4dpcHBQ/NjYmIg3Pz8vbcQ72Af4RUhIyAUh4Ak26tGR3ebm5tOBgQGamJiQFvKD4u4weV1d3TcOhLvPY2Jirgn4l0HMi2FhYSpoYoHCXvR4G//GDh7LNkC++Pj4twA+w/mD35EVRfkBPozlCcODwJ8AAAAASUVORK5CYII=");\
+	-moz-image-region: rect(0px 16px 16px 0px) !important;\
 }\
 ');

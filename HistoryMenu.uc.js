@@ -33,6 +33,7 @@ location == "chrome://browser/content/browser.xul" && (function() {
         navigator.palette.appendChild(Historymenu);
         //历史菜单
         var popup = document.createElementNS(XULNS, 'menupopup');
+		popup.setAttribute('id', 'HistorymenuPop');
         popup.setAttribute('placespopup', 'true');
 		//popup.setAttribute('position','after_end');//适合按钮放右边
         popup.setAttribute('oncommand', 'this.parentNode._placesView._onCommand(event);');

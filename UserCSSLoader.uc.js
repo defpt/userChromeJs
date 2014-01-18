@@ -81,7 +81,7 @@ window.UCL = {
 		return win;
 	},
 	init: function() {
-		var opt = document.getElementById("nav-bar"); 
+		var opt = document.getElementById("urlbar-icons"); 
 		//status-bar  urlbar-icons addon-bar alltabs-button TabsToolbar go-button nav-bar
 	    var menubtn = document.createElement("toolbarbutton");
 		menubtn.setAttribute("id", "usercssloader-menu");
@@ -93,7 +93,7 @@ window.UCL = {
 		menubtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMLSURBVDhPbZJ7SFRpGId1dCLNohrD7FimZW07pTM15tGmqehiZqVrdNndiFVL08zQijDa/qrcMp2u2qQVmtmSY2vt1tpl3EiltpFI/0uEI4IIov6hg+L1ac6JtNsHD3xwvvf53u93XheVSlXj7TtJ8hW8vov8zdPdTZrloZaEz5g50V1SubrWuMgHThdEc826QyH/3nZO5UeTdnwl8elh7IjXoxOmcnpJIIWGH7gjahUu6BcgS1zkW+TC+3UJ3LXtYW+GiDZkDmK4gejNUU42YYwIZ/nCIFb5+XBr+SJsq/WKRO5kTFBRG0/KsRUYQnWUl5fT3t5OX18f/f39dHV10dzcTE52NueWLvy+4HbVbsKMQVitVkZHR3E4erHb/8dme0Z9vZ2Ojg4e3K8gZ9lXHUzXeEoHT5hI/91EqBhMS0sL8iostLAxVk9U3BIMC/w5GLmWA9tiKQj98UuBh9pdEhf7YwwOxKAPprW1VRE8evQPJpOR2XMEhCle/OI/E7MuiCerdF8KBM00qfJUInWXD5GwZSUPKiuVJ4yMjNDZ2UljY6OSSXJSEsb5AVxd9lUGft7TpMd/JPGu8Ch/n9nHrzHrKSsrpa2tjYGBAaUbecl7OZ+d2iD+NYV8K3hrOcLt47vZumIRxzK9uHIhhIvmXZSUmMdycTgc7HfmcC9i8beCF+Y0wrSB+DvfHLVBjfmsG8XX3fh5u5q0tFSGhoYYHBwkNf43dgX6sTPAj8nOCR0T2HJTWW8Mpaqqiry8XOLiYlizOpzIyHVKBnIuvb29pBzOIj2niMSTuUzVzBgXVOcdYKMpjKamJuWwPEDd3d309PQogQ4PD/PkuY2sK6XceCVx7q9aZghzxwX2a5lkJ8eSmZJASfEl6mqf0thgp6Ghnur/XlBU+icnC8qwvHzPzdct44JPv/FNfgavr2aQEiNy+fwEqh9P4elDH86f8UEnimRZyjlb8VIplMmyWNH4Cs5BmqCuidAGSGuXzleYJ2ikCNFV+mnzR+S9h6eH5C3MluQbPyEXq1Tqmg/D8jwymc9TUgAAAABJRU5ErkJggg==");
 		
         opt.appendChild(menubtn);
-        //opt.insertBefore(menubtn,opt.childNodes[3
+        //opt.insertBefore(menubtn,document.getElementById("abp-toolbarbutton"));
     
 		var xml = '\
 		<menupopup id="usercssloader-menupopup" position="after_end" >\
