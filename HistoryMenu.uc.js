@@ -70,9 +70,8 @@ location == "chrome://browser/content/browser.xul" && (function() {
         Historymenu.appendChild(popup); //显示历史记录
         document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 #Historymenu menuitem {\
-		max-width: 200px !important;/*此数值是为了使宽度与书签最小宽度一样*/\
+		max-width: 240px !important;/*此数值是为了使宽度与书签最小宽度一样*/\
 	}\
-#Historymenu dropmarker{display: none !important;}\
 ') + '"'), document.documentElement);
     }
     function updateToolbar() {
