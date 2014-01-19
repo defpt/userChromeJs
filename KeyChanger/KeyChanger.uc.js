@@ -164,7 +164,8 @@ var KeyChanger = {
 	createMenuitem : function(){
 		var menuitem = document.createElement('menuitem');
 		menuitem.setAttribute('id', 'toolsbar_KeyChanger_rebuild');
-		menuitem.setAttribute('label', 'KeyChanger重载/配置');
+		menuitem.setAttribute('label', 'KeyChanger');
+		menuitem.setAttribute('tooltiptext', '左键：重载配置\n右键：编辑配置');
 		menuitem.setAttribute('oncommand', 'KeyChanger.makeKeyset(true);');
 		menuitem.setAttribute('onclick', 'if (event.button == 2) { event.preventDefault(); KeyChanger.edit(KeyChanger.file); }');
 		var insPos = document.getElementById('devToolsSeparator');

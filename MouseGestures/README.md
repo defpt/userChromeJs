@@ -8,5 +8,5 @@
 
 **[_mouseGestures.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/_mouseGestures.js)** 是 ***MouseGestures2.uc.js*** 的配置文件，放chrome\Local路径下即可
 
-**其实我就是想在线备份一下我自己的脚本，为了避免有人不幸在这里下了脚本出错，只能说明一下了，真是尴尬的事情……**
+**其实我就是想在线备份一下我自己的脚本**
 

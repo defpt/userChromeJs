@@ -90,8 +90,8 @@ window.addMenu = {
         ins = $("devToolsSeparator");
         ins.parentNode.insertBefore($C("menuitem", {
             id: "addMenu-rebuild",
-            label: "AddMenu 重载/配置",
-            //tooltiptext: "左键重新载入配置，右键打开文件编辑",
+            label: "AddMenuPlus",
+            tooltiptext: "左键：重载配置\n右键：编辑配置",
             oncommand: "setTimeout(function(){ addMenu.rebuild(true); }, 10);",
             onclick: "if (event.button == 2) { event.preventDefault(); addMenu.edit(addMenu.FILE); }",
         }), ins);

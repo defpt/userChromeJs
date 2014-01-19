@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name                 Mousegestures.uc.js
 // @namespace            Mousegestures@gmail.com
-// @description          自定义鼠标手势，搜集修改自网络各种代码
+// @description          自定义鼠标手势，搜集修改自网络各种代码，配置外放，自用 DIY版
 // @charset              UTF-8
 location == "chrome://browser/content/browser.xul" && (function () {
 	ucjsMouseGestures = {
@@ -17,7 +17,8 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		createMenuitem: function() {
 			var menuitem = document.createElement('menuitem');
 			menuitem.setAttribute('id', 'ucjsMouseGestures');
-			menuitem.setAttribute('label', 'Gestures 重载/编辑');
+			menuitem.setAttribute('label', 'MouseGestures');
+			menuitem.setAttribute('tooltiptext', '左键：重载配置\n右键：编辑配置');
 			menuitem.setAttribute('oncommand', 'ucjsMouseGestures.reload(true);');
 			menuitem.setAttribute('onclick', 'if (event.button == 2) { event.preventDefault(); closeMenus(event.currentTarget); ucjsMouseGestures.edit(ucjsMouseGestures.file); }');
 			var insPos = document.getElementById('devToolsSeparator');
@@ -51,8 +52,7 @@ location == "chrome://browser/content/browser.xul" && (function () {
 		},
 		getMouseGesturesFile: function() {
 			var aFile = Services.dirsvc.get("UChrm", Ci.nsILocalFile);
-			aFile.appendRelativePath("Local");
-			aFile.appendRelativePath("_mouseGestures.js");
+			aFile.appendRelativePath("Local\\_mouseGestures.js");
 			if (!aFile.exists() || !aFile.isFile()) return null;
 			delete this.file;
 			return this.file = aFile;
