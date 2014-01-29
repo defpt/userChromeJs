@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!--
+// ==UserScript==
+// @name           rebuild_userChrome_Alice0775_UC脚本管理器.uc.xul
+// @namespace      http://space.geocities.yahoo.co.jp/gl/alice0775
+// @description		Clear the cache of scripts for userChrome.js, Open a new window
+// @include        main
+// @charset			UTF-8
+// @compatibility  Firefox21+
+// @author         Alice0775
+// ==/UserScript==
+ -->
+
+<script type="application/javascript" xmlns="http://www.w3.org/1999/xhtml"><![CDATA[
+(function(){
+  "use strict";
+  // 要移动的菜单列表，按找到的顺序排序
+   var movedMenus = [
+	"addMenu-rebuild",
+	"toolsbar_KeyChanger_rebuild",
+	"ucjsMouseGestures",
+	"organizeBookmarksSeparator",
+	"charsetMenu",
+	"webDeveloperMenu",
+	"aboutSeparator",
+	"mason-show",
+	"UpdateLocal",
+	"BackupProfiles",
+	"refererChangerToggle",
+	"wordhighlight-toolbar-menuitem"
+  ];
+if (window.userChromejs) {
+	window.userChromejs.uninit();
+	delete window.userChromejs;
+}
+ window.userChromejs = {
+	editor: "",
+
+    handleEvent: function(event) {
+      switch(event.type) {
+        case 'unload':
+          this.uninit();
+          break;
+      }
+    },
+
+    init: function(){
+      window.addEventListener("unload",this , false);
+      this.addPrefListener(userChromejs.readLaterPrefListener); // 登録処理
+	  
+	  var navBar = document.getElementById("nav-bar"); //urlbar-icons addon-bar TabsToolbar alltabs-button 
+	  if (!navBar) return;
+	  
+	  this.menuBtn = document.createElement("toolbarbutton");
+	  this.menuBtn.setAttribute("id", "userChromeJsManagerMenuBtn");
+	  this.menuBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
+	  this.menuBtn.setAttribute("label", "userChromeJs管理器");
+	  this.menuBtn.setAttribute("tooltiptext", "userChromeJS管理器");
+	  this.menuBtn.setAttribute("type", "menu");	  //this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACSSURBVDhPYxAUFPyvoKDwX09P7//Tp0//37t37//FixfBfJA4SP73fQacmD4GPHr0CAMPVwPMzMz+W1pa/re3t6eOAcYMDP9dgTgEiOOBuBqIJ3Fz/18MxLuB+AwQU24AzCl79uz5v27dOjANwyQbgI6RDQAFMDZMtAGg2MGGiTYAFLXYMNEGEAwDbJgOBnD/BwADYmWxGb6FigAAAABJRU5ErkJggg==");//原图
+      this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABeSURBVDhPY6AKSCms+x+SkPMfREOFwACXOAYYNQBVITrGJQ7CUO0IA0jFUO0QA3BhkEJs4iAM1Y4bgBTBDIAKkQYGlwHYMFQZbgBSBDIAF4Yqww3QbUTHUGWUAAYGAEyi7ERKirMnAAAAAElFTkSuQmCC");//自用
+	  //navBar.appendChild(this.menuBtn);
+	  navBar.insertBefore(this.menuBtn,document.getElementById('PanelUI-button'));  
+
+  		var xml_menuBtn = '\
+			<menupopup id="userChromejs_options"\
+				  onpopupshowing="userChromejs.onpopup();"\
+				  position="after_end">\
+				<menuitem label="重新启动浏览器"\
+						  id="userChromejs_restartApp"\
+						  oncommand="userChromejs.restartApp();"/>\
+				<menuitem label="打开 Chrome 文件夹"\
+						  id="userChromejs_openChromeFolder"\
+						  oncommand=\'new Components.Constructor("@mozilla.org/file/local;1","nsILocalFile", "initWithPath")(Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("UChrm", Components.interfaces.nsIFile).path).reveal();\'/>\
+				<menuitem label="新建窗口并重置脚本"\
+						  id="userChromejs_rebuild"\
+						  oncommand="userChromejs.rebuild();"/>\
+				<menuseparator />\
+				<menu label="用户脚本命令..."\
+					  id="userChromejs_script_options_Menu"\
+					  class="menu-iconic">\
+					<menupopup id="userChromejs_script_options" position="start_before"/>\
+				</menu>\
+			</menupopup>\
+		';
+
+	  var range_menuBtn = document.createRange();
+	  var referenceNode = document.getElementById("userChromeJsManagerMenuBtn");
+	  
+	  range_menuBtn.selectNodeContents(referenceNode);
+	  range_menuBtn.collapse(false);
+	  range_menuBtn.insertNode(range_menuBtn.createContextualFragment(xml_menuBtn.replace(/\n|\t/g, '')));
+	  range_menuBtn.detach();
+    },
+	
+    uninit: function(){
+      this.removePrefListener(userChromejs.readLaterPrefListener); // 登録解除
+    },
+
+    rebuild: function(){
+      setTimeout(function(){OpenBrowserWindow();},  0);
+    },
+
+    onpopup: function(){
+      var menu;
+      var menuitem = document.getElementById('userChrome_setting');
+	  
+      var menupopup = document.getElementById("userChromejs_options");
+      for(var i = 5, len = menupopup.childNodes.length; i < len; i++){
+        menupopup.removeChild(menupopup.lastChild);
+      }
+	  
+      var menuseparator = document.createElement('menuseparator');
+      menupopup.appendChild(menuseparator);
+	  
+      for(var j = 0, lenj = userChrome_js.arrSubdir.length; j < lenj; j++){
+        var dirName = userChrome_js.arrSubdir[j] == "" ? "root" : userChrome_js.arrSubdir[j];
+        var flg = false;
+        for(var i = 0, len = userChrome_js.scripts.length; i < len; i++){
+          var script = userChrome_js.scripts[i];
+          if(script.dir != dirName) continue;
+          flg = true;
+          break;
+        }
+        if(!flg){
+          for(var i = 0, len = userChrome_js.overlays.length; i < len; i++){
+            var script = userChrome_js.overlays[i];
+            if(script.dir != dirName) continue;
+            flg = true;
+            break;
+          }
+        }
+        if(!flg) continue;
+		
+        menu = document.createElement('menu');
+        menu.setAttribute('label','chrome/' + (dirName=="root"?"":dirName) );
+        menu.setAttribute('onclick','if(event.button != 0) {event.stopPropagation();event.preventDefault();userChromejs.clickDirMenu(event);}');
+        if(userChrome_js.dirDisable[dirName])
+          menu.setAttribute('style', 'font-style:italic;');
+        menu.dirName = dirName;
+		
+        menupopup = document.createElement('menupopup');
+        menupopup.setAttribute('onpopupshowing','event.stopPropagation();');
+		menupopup.setAttribute('position','start_before');
+		
+        menuitem = document.createElement('menuitem');
+        menuitem.setAttribute('label','是否启用 /' + (dirName=="root"?"":dirName) + ' 路径下脚本');
+        menuitem.setAttribute('oncommand', 'userChromejs.chgDirStat(this.dirName);');
+        menuitem.setAttribute('onclick','if(event.button != 0) {event.stopPropagation();event.preventDefault();userChromejs.clickDirMenuitem(event);}');
+        menuitem.setAttribute('type', 'checkbox');
+        menuitem.setAttribute('checked', !userChrome_js.dirDisable[dirName]);
+        menuitem.dirName = dirName;
+        menupopup.appendChild(menuitem);
+		
+        menuseparator = document.createElement('menuseparator');//子文件夹名分割线
+        menupopup.appendChild(menuseparator);
+		
+        var flg = false;
+        for(var i = 0, len = userChrome_js.scripts.length; i < len; i++){
+          var script = userChrome_js.scripts[i];
+          if(script.dir != dirName) continue;
+            flg = true;
+            menuitem = document.createElement('menuitem');
+            menuitem.setAttribute('label',script.filename);
+            menuitem.setAttribute('oncommand','userChromejs.chgScriptStat(this.script.filename);');
+            menuitem.setAttribute('onclick','if(event.button != 0) {event.stopPropagation();event.preventDefault();userChromejs.clickScriptMenu(event);}');
+            menuitem.setAttribute('type','checkbox');
+            menuitem.setAttribute('autocheck','false');
+            menuitem.setAttribute('checked',!userChrome_js.scriptDisable[script.filename] );
+            if(script.description)
+              menuitem.setAttribute('tooltiptext',script.description);
+            menuitem.script = script;
+            menupopup.appendChild(menuitem);
+        }
+        for(var i = 0, len = userChrome_js.overlays.length; i < len; i++){
+          var script = userChrome_js.overlays[i];
+          if(script.dir != dirName) continue;
+            if(flg){
+              menuseparator = document.createElement('menuseparator');
+              menupopup.appendChild(menuseparator);
+            }
+            flg = false;
+            menuitem = document.createElement('menuitem');
+            menuitem.setAttribute('label',script.filename);
+            menuitem.setAttribute('oncommand','userChromejs.chgScriptStat(this.script.filename);');
+            menuitem.setAttribute('onclick','if(event.button != 0) {event.stopPropagation();event.preventDefault();userChromejs.clickScriptMenu(event);}');
+            menuitem.setAttribute('type','checkbox');
+            menuitem.setAttribute('autocheck','false');
+            menuitem.setAttribute('checked',!userChrome_js.scriptDisable[script.filename] );
+            if(script.description)
+              menuitem.setAttribute('tooltiptext',script.description);
+            menuitem.script = script;
+            menupopup.appendChild(menuitem);
+        }
+        menu.appendChild(menupopup);
+        menupopup = document.getElementById("userChromejs_options");
+        menupopup.appendChild(menu);
+      }
+    },
+
+    clickDirMenu: function(event){
+      if(event.button == 1 || event.button == 2){
+        userChromejs.chgDirStat(event.target.dirName);
+        if(event.target.firstChild && event.target.firstChild.firstChild)
+          event.target.firstChild.firstChild.setAttribute('checked',!userChrome_js.dirDisable[event.target.dirName] );
+        if(!!userChrome_js.dirDisable[event.target.dirName])
+          event.target.setAttribute('style', 'font-style:italic;');
+        else
+          event.target.removeAttribute('style');
+      }
+    },
+
+    clickDirMenuitem: function(event,stop){
+      if(event.button == 1 || event.button == 2){
+        userChromejs.chgDirStat(event.target.dirName);
+        event.target.setAttribute('checked',!userChrome_js.dirDisable[event.target.dirName] );
+        if(!stop && !!userChrome_js.dirDisable[event.target.dirName])
+          event.target.parentNode.parentNode.setAttribute('style', 'font-style:italic;');
+        else
+          event.target.parentNode.parentNode.removeAttribute('style');
+      }
+    },
+
+    clickScriptMenu: function(event){
+      if(event.button==1){
+        userChromejs.chgScriptStat(event.target.script.filename);
+        event.target.setAttribute('checked',!userChrome_js.scriptDisable[event.target.script.filename] );
+      }else if(event.button==2){
+        this.launchEditor(event.target.script);
+      }
+    },
+
+    launchEditor: function(aScript){
+      var editor = this.editor || Services.prefs.getCharPref("view_source.editor.path");
+      var UI = Components.classes['@mozilla.org/intl/scriptableunicodeconverter'].createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+      var platform = window.navigator.platform.toLowerCase();
+      if(platform.indexOf('win') > -1){
+        UI.charset = 'GB2312';//Shift_JIS
+      }else{
+        UI.charset =  'UTF-8';
+      }
+      var path = Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService).getProtocolHandler('file').QueryInterface(Components.interfaces.nsIFileProtocolHandler).getFileFromURLSpec(aScript.url).path
+      path = UI.ConvertFromUnicode(path);
+      var appfile = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+      appfile.initWithPath(editor);
+      var process = Components.classes['@mozilla.org/process/util;1'].createInstance(Components.interfaces.nsIProcess);
+      process.init(appfile);
+      process.run(false, [path], 1, {});
+    },
+
+    chgDirStat: function(adirName){
+      var s = userChromejs.getPref("userChrome.disable.directory", "str", "");
+      if(!userChrome_js.dirDisable[adirName]){
+        s = (s+',').replace(adirName+',','') + adirName+',';
+      }else{
+        s = (s+',').replace(adirName+',','');
+      }
+      s = s.replace(/,,/g,',').replace(/^,/,'');
+      userChromejs.setPref("userChrome.disable.directory", "str", s);
+      userChrome_js.dirDisable = this.restoreState(s.split(','));
+    },
+
+    chgScriptStat: function(afilename){
+      var s = userChromejs.getPref("userChrome.disable.script", "str", "");
+      if(!userChrome_js.scriptDisable[afilename]){
+        s = (s+',').replace(afilename+',','') + afilename+',';
+      }else{
+        s = (s+',').replace(afilename+',','');
+      }
+      s = s.replace(/,,/g,',').replace(/^,/,'');
+      userChromejs.setPref("userChrome.disable.script", "str", s);
+      userChrome_js.scriptDisable = this.restoreState(s.split(','));
+    },
+
+    restoreState: function (arr){
+      var disable = [];
+      for(var i = 0,len = arr.length; i < len; i++)
+        disable[arr[i]] = true;
+      return disable;
+    },
+
+    getPref: function(aPrefString, aPrefType, aDefault){
+      var xpPref = Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch2);
+      try{
+        switch (aPrefType){
+          case 'complex':
+            return xpPref.getComplexValue(aPrefString, Components.interfaces.nsILocalFile); break;
+          case 'str':
+            return unescape(xpPref.getCharPref(aPrefString).toString()); break;
+          case 'int':
+            return xpPref.getIntPref(aPrefString); break;
+          case 'bool':
+          default:
+            return xpPref.getBoolPref(aPrefString); break;
+        }
+      }catch(e){
+      }
+      return aDefault;
+    },
+
+    setPref: function(aPrefString, aPrefType, aValue){
+      var xpPref = Components.classes['@mozilla.org/preferences-service;1']
+                    .getService(Components.interfaces.nsIPrefBranch2);
+      try{
+        switch (aPrefType){
+          case 'complex':
+            return xpPref.setComplexValue(aPrefString, Components.interfaces.nsILocalFile, aValue); break;
+          case 'str':
+            return xpPref.setCharPref(aPrefString, escape(aValue)); break;
+          case 'int':
+            aValue = parseInt(aValue);
+            return xpPref.setIntPref(aPrefString, aValue);  break;
+          case 'bool':
+          default:
+            return xpPref.setBoolPref(aPrefString, aValue); break;
+        }
+      }catch(e){
+      }
+      return null;
+    },
+
+    addPrefListener: function(aObserver) {
+        try {
+            var pbi = Components.classes['@mozilla.org/preferences;1']
+                      .getService(Components.interfaces.nsIPrefBranch2);
+            pbi.addObserver(aObserver.domain, aObserver, false);
+        } catch(e) {}
+    },
+
+    removePrefListener: function(aObserver) {
+        try {
+            var pbi = Components.classes['@mozilla.org/preferences;1']
+                      .getService(Components.interfaces.nsIPrefBranch2);
+            pbi.removeObserver(aObserver.domain, aObserver);
+        } catch(e) {}
+    },
+
+    readLaterPrefListener:{
+        domain  : 'userChrome.disable',
+            //"userChrome.disable"という名前の設定が変更された場合全てで処理を行う
+        observe : function(aSubject, aTopic, aPrefstring) {
+            if (aTopic == 'nsPref:changed') {
+                // 設定が変更された時の処理
+                setTimeout(function(){
+                  var s = userChromejs.getPref("userChrome.disable.directory", "str", "");
+                  userChrome_js.dirDisable = userChromejs.restoreState(s.split(','));
+                  s = userChromejs.getPref("userChrome.disable.script", "str", "");
+                  userChrome_js.scriptDisable = userChromejs.restoreState(s.split(','));
+                }, 0);
+            }
+        }
+    },
+
+    restartApp: function() {
+	Services.appinfo.invalidateCachesOnRestart() || Application.restart();
+    }
+  }
+  window.userChromejs.init();
+
+  window.userChromejsScriptOptionsMenu = {
+    //あまり使わないメニューのリスト
+    menues: movedMenus,
+
+    interval: 500, //0.5秒間隔
+    maxcount: 50,   //最大50回までトライ
+    count: 0,
+    timer: null,
+
+    run: function() {
+      //DOMの構築が完了するのを待ってからメニューを移動させる(5秒間隔で最大50回までトライ)
+      this.timer = setInterval(function(self){
+        if (++self.count > self.maxcount || self.moveMenu())
+          clearInterval(self.timer);
+      }, this.interval, this);
+    },
+
+    moveMenu: function(){
+      var menupopup = document.getElementById('userChromejs_script_options');
+      if (!menupopup)
+        return false;
+      var i = 0;
+      while (i < this.menues.length) {
+        var menu = document.getElementById(this.menues[i])
+        if (menu) {
+          setTimeout(function(menupopup, menu){menupopup.appendChild(menu);}, 100, menupopup, menu);
+          this.menues.splice(i, 1);
+          continue;
+        }
+        i++;
+      }
+      return this.menues.length == 0 ? true : false;
+    },
+  }
+  window.userChromejsScriptOptionsMenu.run();
+})();
+  ]]></script>
+</overlay>
