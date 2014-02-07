@@ -498,7 +498,7 @@ USL.__defineSetter__("DEBUG", function(bool) {
 	return bool;
 });
 
-var HIDE_EXCLUDE = USL.pref.getValue('HIDE_EXCLUDE', false);
+var HIDE_EXCLUDE = USL.pref.getValue('HIDE_EXCLUDE', true);
 USL.__defineGetter__("HIDE_EXCLUDE", function() HIDE_EXCLUDE);
 USL.__defineSetter__("HIDE_EXCLUDE", function(bool){
 	HIDE_EXCLUDE = !!bool;
@@ -532,7 +532,7 @@ USL.init = function(){
 					class="toolbarbutton-1 chromeclass-toolbar-additional" \
 					type="menu" \
 					onclick="USL.iconClick(event);" \
-					tooltiptext="油猴脚本管理器（鼠标右键开 | 关)" >\
+					tooltiptext="油猴脚本管理器" >\
 		<menupopup id="UserScriptLoader-popup" \
 		           position="after_end"\
 		           onpopupshowing="USL.onPopupShowing(event);"\
@@ -544,43 +544,34 @@ USL.init = function(){
 			<menuitem label="打开脚本目录"\
 					  id="UserScriptLoader-openFolderMenu"\
 					  oncommand="USL.openFolder();" />\
+			<menuseparator/>\
 			<menu label="用户脚本命令"\
 			      id="UserScriptLoader-register-menu">\
 				<menupopup id="UserScriptLoader-register-popup"/>\
 			</menu>\
 			<menu label="其它选项设置" id="UserScriptLoader-submenu">\
 				<menupopup id="UserScriptLoader-submenu-popup">\
-					<menuitem label="删除系统pref预加载"\
-					          oncommand="USL.deleteStorage(\'pref\');" />\
 					<menuitem label="为本站搜索脚本"\
 		                 id="UserScriptLoader-find-script"\
 				         oncommand="USL.findscripts();" />\
-					<menuitem label="隐藏未触发脚本"\
-					          id="UserScriptLoader-hide-exclude"\
-					          type="checkbox"\
-					          checked="' + USL.HIDE_EXCLUDE + '"\
-					          oncommand="USL.HIDE_EXCLUDE = !USL.HIDE_EXCLUDE;" />\
+					<menuitem label="删除系统pref预加载"\
+					          oncommand="USL.deleteStorage(\'pref\');" />\
 					<menuseparator/>\
-					<menuitem label="缓存脚本"\
-					          id="UserScriptLoader-cache-script"\
-					          type="checkbox"\
-					          checked="' + USL.CACHE_SCRIPT + '"\
-					          oncommand="USL.CACHE_SCRIPT = !USL.CACHE_SCRIPT;" />\
 					<menuitem label="切换到调试模式"\
 					          id="UserScriptLoader-debug-mode"\
 					          type="checkbox"\
 					          checked="' + USL.DEBUG + '"\
 					          oncommand="USL.DEBUG = !USL.DEBUG;" />\
-					<menuitem label="允许脚本弹窗通知"\
-					          id="UserScriptLoader-allow-notify"\
+					<menuitem label="隐藏未触发脚本"\
+					          id="UserScriptLoader-hide-exclude"\
 					          type="checkbox"\
-					          checked="' + USL.ALLOW_NOTIFY + '"\
-					          oncommand="USL.ALLOW_NOTIFY = !USL.ALLOW_NOTIFY;" />\
-					<menuitem label="启动/禁用脚本时自动刷新页面"\
-					          id="UserScriptLoader-auto-reload-page"\
+					          checked="' + USL.HIDE_EXCLUDE + '"\
+					          oncommand="USL.HIDE_EXCLUDE = !USL.HIDE_EXCLUDE;" />\
+					<menuitem label="缓存脚本"\
+					          id="UserScriptLoader-cache-script"\
 					          type="checkbox"\
-					          checked="' + USL.AUTO_RELOAD_PAGE + '"\
-					          oncommand="USL.AUTO_RELOAD_PAGE = !USL.AUTO_RELOAD_PAGE;" />\
+					          checked="' + USL.CACHE_SCRIPT + '"\
+					          oncommand="USL.CACHE_SCRIPT = !USL.CACHE_SCRIPT;" />\
 				</menupopup>\
 			</menu>\
 			<menuitem label="保存当前页面的脚本"\

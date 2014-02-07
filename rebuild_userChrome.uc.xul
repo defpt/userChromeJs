@@ -56,7 +56,7 @@ if (window.userChromejs) {
 	  this.menuBtn.setAttribute("id", "userChromeJsManagerMenuBtn");
 	  this.menuBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
 	  this.menuBtn.setAttribute("label", "userChromeJs管理器");
-	  this.menuBtn.setAttribute("tooltiptext", "userChromeJS管理器");
+	  this.menuBtn.setAttribute("tooltiptext", "UC 脚本管理器");
 	  this.menuBtn.setAttribute("type", "menu");	  //this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACSSURBVDhPYxAUFPyvoKDwX09P7//Tp0//37t37//FixfBfJA4SP73fQacmD4GPHr0CAMPVwPMzMz+W1pa/re3t6eOAcYMDP9dgTgEiOOBuBqIJ3Fz/18MxLuB+AwQU24AzCl79uz5v27dOjANwyQbgI6RDQAFMDZMtAGg2MGGiTYAFLXYMNEGEAwDbJgOBnD/BwADYmWxGb6FigAAAABJRU5ErkJggg==");//原图
       this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABeSURBVDhPY6AKSCms+x+SkPMfREOFwACXOAYYNQBVITrGJQ7CUO0IA0jFUO0QA3BhkEJs4iAM1Y4bgBTBDIAKkQYGlwHYMFQZbgBSBDIAF4Yqww3QbUTHUGWUAAYGAEyi7ERKirMnAAAAAElFTkSuQmCC");//自用
 	  //navBar.appendChild(this.menuBtn);
