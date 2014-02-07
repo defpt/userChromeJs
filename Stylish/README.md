@@ -8,5 +8,5 @@
 
 **stylish编辑器效果图**
 
-![stylish](https://github.com/defpt/userChromeJs/blob/master/Stylish/stylish.png?raw=true)
+![stylish编辑器效果图](https://github.com/defpt/userChromeJs/blob/master/Stylish/Stylish.png?raw=true)
 
