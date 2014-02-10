@@ -1,20 +1,19 @@
 // ==UserScript==
 // @name           MemoryMonitorMod.uc.js
-// @description    简单的FF内存监视器
+// @description    简单的FF内存监视器，正常显示为黑色，超过预警值的0.8倍为蓝色，超出预警值显示为红色
 // @include        main
 // @charset        UTF-8
-// @note           基于原 MemoryMonitorMod.uc.js 修复后兼容FF28+
+// @note           基于原MemoryMonitorMod.uc.js修改，兼容FF28+
 // ==/UserScript==
 var ucjsMM = {
 	_interval : 5000,
 	//内存刷新周期, 单位 ms
-	_maxMemory : 1000,
-	//内存预警上限, 单位 MB
+	_Warningvalue : 1000,
+	//内存预警值, 单位 MB
 	_MemoryValue : 0,
 	//内存初始值
 	_prefix : 'MB',
 	//内存单位
-	_autoRestart : false,
 
 	interval : null,
 	init : function () {
@@ -33,21 +32,18 @@ var ucjsMM = {
 			var MemReporters = Cc['@mozilla.org/memory-reporter-manager;1'].getService(Ci.nsIMemoryReporterManager);
 			var workingSet = MemReporters.resident;
 			ucjsMM._MemoryValue = Math.round(workingSet / (1024 * 1024));
-			var restartMemory = ucjsMM._MaxMemory * 1024 * 1024;
+			var displayValue = ucjsMM.addFigure(ucjsMM._MemoryValue);
 			var memoryPanel = document.getElementById('MemoryDisplay');
-			memoryPanel.setAttribute('label', ucjsMM.addFigure(ucjsMM._MemoryValue) + ucjsMM._prefix);
+			memoryPanel.setAttribute('label', displayValue + ucjsMM._prefix);
 			memoryPanel.setAttribute('onclick', "openUILinkIn('about:memory','tab')");
-			if (workingSet > restartMemory) {
-				if (memoryPanel.style.backgroundColor == 'red' && ucjsMM._autoRestart)
-					ucjsMM.restart();
-				else
-					memoryPanel.style.backgroundColor = 'red';
-			} else if (workingSet > restartMemory * 0.8)
-				memoryPanel.style.backgroundColor = '#FF99FF';
-			else if (workingSet > restartMemory * 0.6)
-				memoryPanel.style.backgroundColor = '#FFFF99';
-			else
-				memoryPanel.style.backgroundColor = 'transparent';
+			if (displayValue > ucjsMM._Warningvalue) {
+				memoryPanel.style.color = 'red';
+			} else {
+				if (displayValue > ucjsMM._Warningvalue * 0.8)
+					memoryPanel.style.color = 'blue';
+				else 
+					memoryPanel.style.color = 'black';
+			}
 		} catch (ex) {
 			clearInterval(ucjsMM.interval);
 		}
@@ -56,10 +52,6 @@ var ucjsMM = {
 		var num = new String(str).replace(/,/g, '');
 		while (num != (num = num.replace(/^(-?\d+)(\d{3})/, '$1,$2')));
 		return num;
-	},
-	restart : function () {
-		var appStartup = Components.interfaces.nsIAppStartup;
-		Components.classes['@mozilla.org/toolkit/app-startup;1'].getService(appStartup).quit(appStartup.eRestart | appStartup.eAttemptQuit);
-	},
+	}
 }
 ucjsMM.init();
