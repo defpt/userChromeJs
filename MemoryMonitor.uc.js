@@ -17,11 +17,12 @@ var ucjsMM = {
 
 	interval : null,
 	init : function () {
+		var toolbar = document.getElementById('urlbar-icons');
 		var memoryPanel = document.createElement('statusbarpanel');
 		memoryPanel.id = 'MemoryDisplay';
 		memoryPanel.setAttribute('label', ucjsMM._MemoryValue + ucjsMM._prefix);
 		memoryPanel.setAttribute('tooltiptext', '内存监视器，点击打开about:memory');
-		document.getElementById('urlbar-icons').insertBefore(memoryPanel, document.getElementById('uAutoPagerize-icon'));
+		toolbar.insertBefore(memoryPanel, toolbar.firstChild);
 		this.start();
 		this.interval = setInterval(this.start, this._interval);
 	},
@@ -39,7 +40,7 @@ var ucjsMM = {
 			if (displayValue > ucjsMM._Warningvalue) {
 				memoryPanel.style.color = 'red';
 			} else {
-				if (displayValue > ucjsMM._Warningvalue * 0.8)
+				if (displayValue > ucjsMM._Warningvalue * 0.6)
 					memoryPanel.style.color = 'blue';
 				else 
 					memoryPanel.style.color = 'black';
