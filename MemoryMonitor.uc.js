@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name           MemoryMonitorMod.uc.js
-// @description    简单的FF内存监视器，正常显示为黑色，超过预警值的0.8倍为蓝色，超出预警值显示为红色
+// @description    简单的FF内存监视器
 // @include        main
 // @charset        UTF-8
-// @note           基于原MemoryMonitorMod.uc.js修改，兼容FF28+
+// @note           2014.02.10 删除自动重启功能，修复分级颜色显示：正常显示为黑色，超过预警值的0.6倍为蓝色，超出预警值显示为红色
+// @note           2014.02.08 基于原MemoryMonitorMod.uc.js修改，兼容FF28+
 // ==/UserScript==
 var ucjsMM = {
 	_interval : 5000,
