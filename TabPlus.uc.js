@@ -1,6 +1,5 @@
-(function() {
 // ==UserScript==
-// @name				NewTabPlus_mod
+// @name			NewTabPlus_mod
 // @description	    整合版标签增强
 // @include			chrome://browser/content/browser.xul
 // @include			chrome://browser/content/bookmarks/bookmarksPanel.xul
@@ -8,6 +7,7 @@
 // @include			chrome://browser/content/places/places.xul
 // ==/UserScript==
 
+(function() {
 	// 新标签打开:书签、历史、搜索栏
 	try {
 		eval('openLinkIn=' + openLinkIn.toString().
