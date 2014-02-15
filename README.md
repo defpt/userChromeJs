@@ -15,6 +15,7 @@
 * [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus) 神器，菜单设置脚本，我的必备脚本之一
 * [ContextMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextMenu.uc.js) *右键菜单，添加了几个右键菜单，现在我已经弃用，比起addmenuplus脚本差多了*
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音，**以后不再维护这个脚本**
+* [EasyDrag.uc.js](https://github.com/defpt/userChromeJs/blob/master/EasyDrag.uc.js) 从紫大博客定制的自用拖拽脚本，修复一个拖拽链接bug以及添加一些自用功能
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js) 
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
