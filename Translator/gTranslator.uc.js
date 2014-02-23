@@ -8,7 +8,7 @@
 // @compatibility  Firefox 4
 // @charset        UTF-8
 // @version        2.2 2013/04/09 02:00 REMOVE E4X
-// @note           修改自用版 by defpt at 2014.01.09
+// @note           修改自用版 by defpt at 2014.02.22
 // ==/UserScript==
 
 var gTranslator = {
@@ -24,7 +24,6 @@ var gTranslator = {
 			.getBranch("uc.gTranslator.");
 		this._prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		
-		//this._targetlang = navigator.language;
 		if (!this._prefs.prefHasUserValue("targetlang")) {
 			this._prefs.setCharPref("targetlang", this._targetlang);
 		} else {
@@ -46,6 +45,7 @@ var gTranslator = {
 			<toolbar id="urlbar-icons">\
 				<toolbarbutton id="gTranslator" label="翻译器" \
 						context="gTranslator-contextmenu"\
+						tooltiptext = "左键翻译|右键菜单" \
 					    onclick="if(event.button === 0) gTranslator.ToolBarTranslatorClick(event);" >\
 					<menupopup id="gTranslator-contextmenu" \
                             onpopupshowing="gTranslator.showStatbarContextMenu(event);">\
@@ -270,16 +270,18 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {
-				//var strTagStrippedText = mitkell.replace(/<\/?[^>]+(>|$)/g, "");
 				if (gTranslator._showoritext == false) {
-					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n').replace(/(<(.+?)fff\'\">)/ig, "").replace(/<\/[^>]+>/ig, "");
+					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n')
+						.replace(/<span title=[^>]+fff\'\">/ig, "")
+						.replace(/<\/[^>]+>/ig, "")
+						.replace(/\n\n+/ig, "");
 				} else {
-					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n\n')
+					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n')
 						.replace(/<span title=\"/ig, "")
-						.replace(/\"\sonmouseover[^>]+>/ig, '\n')
-						.replace(/<\/[^>]+>/ig, "");
+						.replace(/\"\sonmouseover[^>]+fff\'\">/ig, "\n")
+						.replace(/<\/[^>]+>/ig, "")
+						.replace(/\n\n+/ig, "\n");
 				}
-
 				return strTagStrippedText;
 			}
 
@@ -295,7 +297,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 				} else {
 					var vegespace = "";
 				}
-				if (output.length) { //kimeneti string felepitese
+				if (output.length) {
 					output = output.replace(/&quot;/gi, '"');
 					output = output.replace(/&lt;/gi, '<');
 					output = output.replace(/&gt;/gi, '>');
@@ -359,7 +361,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		}, 0);
 		this._timer = setTimeout(function () {
 				popup.hidePopup();
-			}, 15000); //最大30秒で消す
+			}, 15000); //显示时间15秒
 	},
 
 	setValue : function (val) {
