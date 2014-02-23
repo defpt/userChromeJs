@@ -8,7 +8,7 @@
 // @compatibility  Firefox 4
 // @charset        UTF-8
 // @version        2.2 2013/04/09 02:00 REMOVE E4X
-// @note           修改自用版 by defpt at 2014.02.22
+// @note           修改自用版 by defpt at 2014.02.23
 // ==/UserScript==
 
 var gTranslator = {
@@ -270,17 +270,13 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {
+				var strTagStrippedText = mitkell.replace(/<br>/ig, '\n').replace(/<\/span>/ig, "");
 				if (gTranslator._showoritext == false) {
-					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n')
-						.replace(/<span title=[^>]+fff\'\">/ig, "")
-						.replace(/<\/[^>]+>/ig, "")
-						.replace(/\n\n+/ig, "");
+					strTagStrippedText = strTagStrippedText.replace(/<span title=[^>]+fff\'\">/ig, "").replace(/\s*\n+/ig, "\n");
 				} else {
-					var strTagStrippedText = mitkell.replace(/<br>/ig, '\n')
-						.replace(/<span title=\"/ig, "")
-						.replace(/\"\sonmouseover[^>]+fff\'\">/ig, "\n")
-						.replace(/<\/[^>]+>/ig, "")
-						.replace(/\n\n+/ig, "\n");
+					strTagStrippedText = strTagStrippedText.replace(/<span title=\"/ig, "")
+						.replace(/\"\sonmouseover[^>]+fff\'\">/ig, "\n  ")
+						.replace(/\s*\n+/ig, "\n");
 				}
 				return strTagStrippedText;
 			}
