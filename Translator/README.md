@@ -12,3 +12,4 @@
 
 ###效果图：
 ![gTranslator.png](https://github.com/defpt/userChromeJs/blob/master/Translator/gTranslator.png?raw=true)
+![gTranslator2.png](https://github.com/defpt/userChromeJs/blob/master/Translator/gTranslator2.png?raw=true)
