@@ -27,6 +27,7 @@
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
 * [openImgRar.uc.js](https://github.com/defpt/userChromeJs/blob/master/openImgRar.uc.js) 解密图片链接
+* [quickProxyModokiMod.uc.js](https://github.com/defpt/userChromeJs/blob/master/quickProxyModokiMod.uc.js) 简单的快速代理切换
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)，**以后不再维护和更新**，FF29开始，火狐橙就要成为过去了
 * [rebuild_userChrome.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuild_userChrome.uc.xul) 自用 UC 管理器，工具栏固定图标，精简了菜单
 * [speedStartFF.uc.js](https://github.com/defpt/userChromeJs/blob/master/speedStartFF.uc.js) 加速启动火狐

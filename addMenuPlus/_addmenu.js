@@ -5,13 +5,11 @@ new function () {
 	{
 		label:"用 Web Cache 打开",
 		url:"http://webcache.googleusercontent.com/search?q=cache:%l",
-		accesskey: 'W',
 		image:" "
 	},
 	{
 		label: "用 Google Docs 打开",
 		url : "http://docs.google.com/viewer?url=%l",
-		accesskey: "D",
 		image:" "
     },
 	{},
@@ -19,26 +17,22 @@ new function () {
 	{
 		label:"在隐私窗口打开",
 		oncommand:"gContextMenu.openLinkInPrivateWindow();",
-		accesskey: 'P'
 	},
 	{
 		label:"在侧边栏中打开",
 		oncommand:"openWebPanel(gContextMenu.linkText(), gContextMenu.linkURL);",
-		accesskey: 'S'
 	},
 	{},
 	{
 		label:"在 IE 中打开",
 		text:"%l",
 		exec:"C:\\Program Files\\Internet Explorer\\iexplore.exe",
-		accesskey: 'I',
 		image:" "
 	},
 	{
 		label:"在 Chrome 中打开",
 		text:"%l",
-		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
-		accesskey: 'C',
+		exec:"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
 		image:" "
 	}
 	];
@@ -109,7 +103,6 @@ new function () {
 	{command: 'context-reloadimage'},
 	{ // 替换 openImgRar.uc.js
 		label: "打开图像RAR",
-		accesskey:'R',
 		oncommand: function(){
 			var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
 			try {
@@ -126,8 +119,7 @@ new function () {
 		}
 	},
 	{
-		label: '谷歌以图搜图', 
-		accesskey:'G', 
+		label: '谷歌以图搜图',
 		url : 'http://www.google.com/searchbyimage?image_url=%IMAGE_URL%',
 		image:" "
 	},
@@ -136,8 +128,7 @@ new function () {
 	{
 		label:"复制图片 Base64",
 		text:"%IMAGE_BASE64%",
-		image:" ",
-		accesskey: 'B'
+		image:" "
 	}];
 	
 	var menu = PageMenu({ condition:'image', insertBefore:'context-saveimage', icon:'image', onpopupshowing: syncHidden});
@@ -188,11 +179,11 @@ new function () {
 	{
 		label:"在 Chrome 中打开此页",
 		text:"%u",
-		exec:"D:\\Program Files\\MyChrome\\chrome\\chrome.exe",
+		exec:"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
 		image:" "
 	}];
 	
-	var menu = PageMenu({condition: 'normal', insertBefore: 'context-bookmarkpage', onpopupshowing: syncHidden });
+	var menu = PageMenu({condition: 'normal', insertBefore: 'context-reload', onpopupshowing: syncHidden });
 	menu(items);
 };
 
@@ -203,13 +194,13 @@ new function () {
 	{
 		label:"页面自动刷新",
         accesskey: 'R',
-		url: "javascript:(function(p)%7Bopen('','',p).document.write('%3Cbody%20id=1%3E%3Cnobr%20id=2%3E%3C/nobr%3E%3Chr%3E%3Cnobr%20id=3%3E%3C/nobr%3E%3Chr%3E%3Ca%20href=%22#%22onclick=%22return!(c=t)%22%3E%E7%82%B9%E5%87%BB%E5%BC%BA%E5%88%B6%E5%88%B7%E6%96%B0%3C/a%3E%3Cscript%3Efunction%20i(n)%7Breturn%20d.getElementById(n)%7Dfunction%20z()%7Bc+=0.2;if(c%3E=t)%7Bc=0;e.location=u;r++%7Dx()%7Dfunction%20x()%7Bs=t-Math.floor(c);m=Math.floor(s/60);s-=m*60;i(1).style.backgroundColor=(r==0%7C%7Cc/t%3E2/3?%22fcc%22:c/t%3C1/3?%22cfc%22:%22ffc%22);i(2).innerHTML=%22%E5%88%B7%E6%96%B0%E8%AE%A1%E6%95%B0:%20%22+r;i(3).innerHTML=%22%E5%88%B7%E6%96%B0%E5%80%92%E8%AE%A1%E6%97%B6:%20%22+m+%22:%22+(s%3C10?%220%22+s:s)%7Dc=r=0;d=document;e=opener.top;u=prompt(%22%E9%93%BE%E6%8E%A5%E5%9C%B0%E5%9D%80%22,e.location.href);t=u?prompt(%22%E5%88%B7%E6%96%B0%E9%97%B4%E9%9A%94/%E7%A7%92%EF%BC%9A%22,300):0;setInterval(%22z()%22,200);if(!t)%7Bwindow.close()%7D%3C/script%3E%3C/body%3E')%7D)('status=0,scrollbars=0,width=240,height=130,left=1,top=1')",
+		url: "javascript:(function(p)%7Bopen('','',p).document.write('%3Cbody%20id=1%3E%3Cnobr%20id=2%3E%3C/nobr%3E%3Chr%3E%3Cnobr%20id=3%3E%3C/nobr%3E%3Chr%3E%3Ca%20href=%22#%22onclick=%22return!(c=t)%22%3E%E7%82%B9%E5%87%BB%E5%BC%BA%E5%88%B6%E5%88%B7%E6%96%B0%3C/a%3E%3Cscript%3Efunction%20i(n)%7Breturn%20d.getElementById(n)%7Dfunction%20z()%7Bc+=0.2;if(c%3E=t)%7Bc=0;e.location=u;r++%7Dx()%7Dfunction%20x()%7Bs=t-Math.floor(c);m=Math.floor(s/60);s-=m*60;i(1).style.backgroundColor=(r==0%7C%7Cc/t%3E2/3?%22fcc%22:c/t%3C1/3?%22cfc%22:%22ffc%22);i(2).innerHTML=%22%E5%88%B7%E6%96%B0%E8%AE%A1%E6%95%B0:%20%22+r;i(3).innerHTML=%22%E5%88%B7%E6%96%B0%E5%80%92%E8%AE%A1%E6%97%B6:%20%22+m+%22:%22+(s%3C10?%220%22+s:s)%7Dc=r=0;d=document;e=opener.top;u=prompt(%22%E9%93%BE%E6%8E%A5%E5%9C%B0%E5%9D%80%22,e.location.href);t=u?prompt(%22%E5%88%B7%E6%96%B0%E9%97%B4%E9%9A%94/%E7%A7%92%EF%BC%9A%22,300):0;setInterval(%22z()%22,200);if(!t)%7Bwindow.close()%7D%3C/script%3E%3C/body%3E')%7D)('status=0,scrollbars=0,width=240,height=160,left=1,top=1')",
 		image:" "
 	},
 	{ command: 'context-sep-viewsource' },
 	{ command: 'context-viewsource' },
 	{ command: 'context-viewinfo' }];
-	var menu = PageMenu({condition: 'normal', insertBefore: 'context-bookmarkpage', onpopupshowing: syncHidden });
+	var menu = PageMenu({condition: 'normal', insertBefore: 'context-reload', onpopupshowing: syncHidden });
 	menu(items);
 	items.forEach(function(it){
 		if (it.command)
@@ -220,8 +211,8 @@ new function () {
 //快捷回复
 new function(){
 	var items = [
-		{label:"Outlook~~~",input_text: "zzzzzz@outlook.com",accesskey: "1",image:" "},
-		{label:"Gmail~~~",input_text: "zzzzzz@gmail.com",accesskey: "2",image:" "},
+		{label:"Gmail~~~",input_text: "xxxxxx@gmail.com",accesskey: "2",image:" "},
+		{label:"xxxxxx",input_text: "xxxxxx@outlook.com",accesskey: "3",image:" "},
 		{},
 		{label:"谢谢你的解答~~~", input_text: "非常感谢你的解答！！！",image:" "},
 		{label:"要的就是这个~~~", input_text: "亲，要的就是这个，非常感谢！！！",image:" "},
@@ -258,8 +249,10 @@ new function(){
 new function () {
 	var items = [
 	{label:"搜索此链接文本",url:"https://www.google.de/search?q=%LINK_TEXT%",image:"https://www.google.de/favicon.ico"},
+	{label:"搜索此小说",url:"https://www.google.de/search?q=site:booklink.me%20%LINK_TEXT%%20_%E6%9C%80%E6%96%B0%E7%AB%A0%E8%8A%82",image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFh0lEQVRYhb1XW0wTaRQ+aRqChhREJIYYH0zfmhBD9oEQHjaGF7Ntp8UuLJXWhkUWpEJFW7AbVxYRASWliIvQoiCl03JxZV3BWzItUC5VwAKF1G5FV9G4xiXGGGJMc/ahLXIZLlrXk5xM8mf++b7zncv/D8DGjAEAIXFxcWylUikjW1pOA0CYf/2rWKh7cICavlA7P5SdhfdVxzAjI0MBAMyvRWDzzNXOWYuAhxYBDymCi3bS6Nm0adNO+EoqhLo62mYCBCwCHg7lZuPRI0dOAUDIWhsjIyNZcrmcDwChwZANmepod1MEFxer8MBw5WV+fr5cLBYncTicneBLSQCEIZFI9kx23xhzlJZ4G2tr6yGIumG6/uhyLiZgEfDQKhLiYNaPOFKoxOn6unf2jnabUqnM5HA47Osmk26i4sx7KpAyRR7qamp0n0OCeUKtlk3V171ZTmC5UwQXh+Q56G66PN8nTkXLMsWcxta56OjohE8hEHrNbNaOqou864Gv58OHc7FAoWgGgF0bJcDsNBo1w/IcpIIAXlDAYHAzmcw9QFO0DAAIi4iIiNi2bVsYAGwGgBC1Wp0+duJnb9DABBcnNFXvExISVAAQRRc9c5yi7rhbDa897eaXj652PnV1tHsmf7vwNljZAwQG2sxPAOAbWunZbPYOl77h7ZJN/o3BggfcUVLsTUpKktISOHTokMiuOPzFwCiCizaZZOm6kI/66uouAGCtIKDVaAocp371rlZotgMSfNhwEWdMRpwxGbEvLWVNAtbvk/Fp17UVpOxXmp+u1gGhBEFIrSQ5cU95dIX0Y+oinL3ZgxYBDz3NTWjPy0VKwMPR4yocyspESsDD3pR96Cj+BfvSUnDop4Po1tWjRchHe5584TvTuob5LVu2JNKmAXwjdLtMJiuwk+RM76Io7xco0N2owyed7fhqcAAtQj669Q04WXEGn/15HS3JBM72dOOYuhAfm004WqTC8dIS/PvaVRxTFy18x6mp8iYmJkphjROUAQBMqVSabs//yNx5rtIXnTgVH9bX4Zi6EGdv3USK4OKjVgPeP1aArroLaBHy8VGrAZ3nKvFfhwNHVMeWKNmbKkLnpca5Oq22IioqKmY1JWDv3r3xD4pPLvT/YzOJo4VKfHDyBD6/fQt7U/bhP7Z+fFhfhxNlp9GeJ8dn3TdwxmTE4Zws9LQ0o026H5/fvY3jJcW4/ADrl6bjlJl8UVZaqqItypiYmChXc9PrwKb+9DQcPV6Ik+VlaN0n8K1JxGg7kI4UwUWK4OJgZgb2pooW3rcIeGgVJaNNJqFtZ4rgoqO0BIVCYTZtKixtbT1fcg7Q+XSjbn7r1q0C2jTIZDLBSJEq6DEciHaF87/Dm3qdCwBiaQmw2ewdf5HGN1+CQL9EjLfNZqdOq7lz5XwN1arV9rXX1g5nHTx4HgC206agy0Se75OIg5dayEe7iXwRGRkpAoAYAIj2g+7wP1e2ZFpaWqKzumo+6BoQ8tFhaJnbvXu3wg+2uO0YsEobbh7v6R60CPm0edxozvul+/GeiZyNjY3NA4CN35wzMzO/ndRUfVgCJuTjhKbqvZUkPeNnKz5YRcI1yVAEF++aza7w8HARTeTrWsi58vKKEXWhlyK4OHw4F6lWg9t/mYiLj49P1lZUkH2XL3mmmi69naqt+dC3/4cVBJqqq63gy/Nn3YBDz5aVnZ1qb5srUCiamUxmEny8yTDAd2PayWKx4jkcjshpaHm1fNoZa7Q28BXdZxkDAELCw8N3+YFDaCIJkGFUlperBzIzlhD4/eLFexCEAp9kLBYr0tnRNkMRXLT4i/WGrsEBn1J8QRqjSKXKnqws9zob9e+69Xqnf8isfuL9DxYmEAhkERERfPCN1+2wzj9jwP4Dbl10ubCceuUAAAAASUVORK5CYII="},
+	{label:"翻译选中文本",url:"http://translate.google.de/#auto/zh-CN/%LINK_TEXT%",image:"http://translate.google.de/favicon.ico"},
 	{label:"搜索此链接文本",url:"http://www.baidu.com/baidu?wd=%LINK_TEXT%",image:"http://www.baidu.com/favicon.ico"},
-	{label:"搜索此链接文本",url:"http://www.bing.com/search?q=%LINK_TEXT%",image:"http://www.bing.com/s/a/bing_p.ico"}
+	{label:"搜索此链接文本",url:"http://www.bing.com/search?q=%LINK_TEXT%",image:"http://www.bing.com/s/a/bing_p.ico"},
 	];
 	var menu = PageMenu({
 		condition:"noinput noimage link",
@@ -273,16 +266,21 @@ new function () {
 new function () {
 	var items = [
 		{label:"搜索选中文本",url:"https://www.google.de/search?q=%s",image:"https://www.google.de/favicon.ico"},
+		{label:"谷歌站内搜索",url:"http://www.google.de/search?q=site:%HOST% %s",image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHDSURBVDhPpVJbKENhHJ887NmLcnmQZ+U6SZ7mEk+ur8qDXEpMLBSRJbRHlzSRDFuNkkQRHoaiXE44LxbTssk0zhpDdj7/H0ecsYflV//+5/+7fN853/kUf4ExFkkVJYpiElUhVbnUk8BDl6y/AZGMcbu2O41+lecrDFYhu38jgI4ZPPSQi2CHXdutRmM6uMnUrbHgAg8dPikiB15Tv3LGq3pWmdZ86OQcnok3UWxExwweOnxSRA4SCiuGtwRV1zLjrjwTNMdTKdExg4cOnxSRg4TyrLalQEbHIsPOCEu8EjN46PB9BIKBlcsG1oV07Tzj7G75G9AMHjp8UuQbdDARJKj7zXv2tGYT005uO7kL9+cZUMcMftCy//sMpHCMwy30Fncv+PJaLf60BiMLrvqRzRsrfy3/C1/hS9dDe2m32ZtaN8lyWo3Pupmdq1LdgqCqmQqg95mtvPXEIb8HP8MlnXPelGoDy20y+k/ttyPEF1AVUYW+iURGX7jutSUdc97kqlGmbjT4OZtLT6YEmTEUfL6XlLKWKU9y5RBTN4yFFwZgnl45ms2vHX86PncOhhUG6BOUFEh8fHzNpOfYsML/h0LxDlnLtXo5zlbFAAAAAElFTkSuQmCC"},
+		{label:"翻译选中文本",url:"http://translate.google.de/#auto/zh-CN/%s",image:"http://translate.google.de/favicon.ico"},
+		{},
+		{label:"搜索此小说",url:"https://www.google.de/search?q=site:booklink.me%20%s%20_%E6%9C%80%E6%96%B0%E7%AB%A0%E8%8A%82",image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFh0lEQVRYhb1XW0wTaRQ+aRqChhREJIYYH0zfmhBD9oEQHjaGF7Ntp8UuLJXWhkUWpEJFW7AbVxYRASWliIvQoiCl03JxZV3BWzItUC5VwAKF1G5FV9G4xiXGGGJMc/ahLXIZLlrXk5xM8mf++b7zncv/D8DGjAEAIXFxcWylUikjW1pOA0CYf/2rWKh7cICavlA7P5SdhfdVxzAjI0MBAMyvRWDzzNXOWYuAhxYBDymCi3bS6Nm0adNO+EoqhLo62mYCBCwCHg7lZuPRI0dOAUDIWhsjIyNZcrmcDwChwZANmepod1MEFxer8MBw5WV+fr5cLBYncTicneBLSQCEIZFI9kx23xhzlJZ4G2tr6yGIumG6/uhyLiZgEfDQKhLiYNaPOFKoxOn6unf2jnabUqnM5HA47Osmk26i4sx7KpAyRR7qamp0n0OCeUKtlk3V171ZTmC5UwQXh+Q56G66PN8nTkXLMsWcxta56OjohE8hEHrNbNaOqou864Gv58OHc7FAoWgGgF0bJcDsNBo1w/IcpIIAXlDAYHAzmcw9QFO0DAAIi4iIiNi2bVsYAGwGgBC1Wp0+duJnb9DABBcnNFXvExISVAAQRRc9c5yi7rhbDa897eaXj652PnV1tHsmf7vwNljZAwQG2sxPAOAbWunZbPYOl77h7ZJN/o3BggfcUVLsTUpKktISOHTokMiuOPzFwCiCizaZZOm6kI/66uouAGCtIKDVaAocp371rlZotgMSfNhwEWdMRpwxGbEvLWVNAtbvk/Fp17UVpOxXmp+u1gGhBEFIrSQ5cU95dIX0Y+oinL3ZgxYBDz3NTWjPy0VKwMPR4yocyspESsDD3pR96Cj+BfvSUnDop4Po1tWjRchHe5584TvTuob5LVu2JNKmAXwjdLtMJiuwk+RM76Io7xco0N2owyed7fhqcAAtQj669Q04WXEGn/15HS3JBM72dOOYuhAfm004WqTC8dIS/PvaVRxTFy18x6mp8iYmJkphjROUAQBMqVSabs//yNx5rtIXnTgVH9bX4Zi6EGdv3USK4OKjVgPeP1aArroLaBHy8VGrAZ3nKvFfhwNHVMeWKNmbKkLnpca5Oq22IioqKmY1JWDv3r3xD4pPLvT/YzOJo4VKfHDyBD6/fQt7U/bhP7Z+fFhfhxNlp9GeJ8dn3TdwxmTE4Zws9LQ0o026H5/fvY3jJcW4/ADrl6bjlJl8UVZaqqItypiYmChXc9PrwKb+9DQcPV6Ik+VlaN0n8K1JxGg7kI4UwUWK4OJgZgb2pooW3rcIeGgVJaNNJqFtZ4rgoqO0BIVCYTZtKixtbT1fcg7Q+XSjbn7r1q0C2jTIZDLBSJEq6DEciHaF87/Dm3qdCwBiaQmw2ewdf5HGN1+CQL9EjLfNZqdOq7lz5XwN1arV9rXX1g5nHTx4HgC206agy0Se75OIg5dayEe7iXwRGRkpAoAYAIj2g+7wP1e2ZFpaWqKzumo+6BoQ8tFhaJnbvXu3wg+2uO0YsEobbh7v6R60CPm0edxozvul+/GeiZyNjY3NA4CN35wzMzO/ndRUfVgCJuTjhKbqvZUkPeNnKz5YRcI1yVAEF++aza7w8HARTeTrWsi58vKKEXWhlyK4OHw4F6lWg9t/mYiLj49P1lZUkH2XL3mmmi69naqt+dC3/4cVBJqqq63gy/Nn3YBDz5aVnZ1qb5srUCiamUxmEny8yTDAd2PayWKx4jkcjshpaHm1fNoZa7Q28BXdZxkDAELCw8N3+YFDaCIJkGFUlperBzIzlhD4/eLFexCEAp9kLBYr0tnRNkMRXLT4i/WGrsEBn1J8QRqjSKXKnqws9zob9e+69Xqnf8isfuL9DxYmEAhkERERfPCN1+2wzj9jwP4Dbl10ubCceuUAAAAASUVORK5CYII="},
+		{label:"在百度云搜索",url:"https://www.google.de/search?q=site:pan.baidu.com%20%s",image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJuSURBVDhPrVNZaxNRGL0/U7JM0yQqCIIEV7CCti+CIm70Uakg+OCDiELNvlobmlQS27Sl2jbJzKRJZslMJmOa5Pjd65T2XQcud5nvnO989zuX/ZdPSqsI5boIJGUEEm2EC334vjRp1jCX6UBKKTQfi7U/3oIv3kSkqMODnxEEKZAH+CkglPX2RCpxcK5HexXz+b6YI6VzBJyZZ/atHkFKdzBPwfP5HoEVXM4quFlScGu9j3DyL3kgJQtyD04E2WOESVK4qAlgkMgkOrv9tYOS6uDAAdItGw+qOoEVQcDL8+CMnUrndQdIwYWEjBBlqxsT/NSGeN0wsLzr4MX3Lu6ukcIsDUrkwRnjkvnFSXQPd8oaPhw6KLQH2NFdLGxoeHfoYqNjo9z9jeUtU1x2lNR6cMb8pMCX6eJiRsGnXwYmADqWi2t5GfGmhVrPwf2KTvegYWnTQGxdh5Q/RxCjH0XKaM+AwciF5bh4uW3h7a6JPXOMqwUVn4+GopwDe4LWcIIndeOMoNpzMZ1OMJ1NacywZ4yxVNGgnQD3qiZW2yOkDk083NTw+IeFR3ULC6TIgzP2cV+HNhxhfHKCGREkZRevGiZ2beB6UcE2lfBs20ZKHqGs2Hi/PxAle3DGomkZKzsG8sdjJCjT05qO51sWlms9oWCloWOx0sebfQexooob33oIkaE8OGO+OPWdentlTUc03UYkR86jNl4qkusSZNuMCinREu3zkwtDBV3Y2oMzxk3BrcstK9GPObHukOdbYh0kq/PWccMJy9OavwcPTgrIQPxxcC/w+TSYvxFhaSLiVudZQ3TO3wN3rQf/l4+xP5yBeeudxxlpAAAAAElFTkSuQmCC"},
+		{label:"在 AMO 搜索",url:"https://addons.mozilla.org/zh-CN/firefox/search/?q=%s",image:"chrome://mozapps/skin/extensions/extensionGeneric-16.png"},
+		{label:"搜索相关图片",url:"https://www.google.com/search?hl=zh-CN&site=imghp&tbm=isch&source=hp&q=%s",
+			image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH9SURBVDhPzVE7i5pREP1+gYWFIMKCIPgHfKyFoCkEwdbKQny/xbeCoCK4i6KfqCyCCGIlbGN+wgrCohAUY20TXEgXWEg7uWfwC0tIlSoDhzv3zpkzjyv9v2axWD4ZjUbv3d2dV6/X8wkYDAavzWbzqlQq9Y36d3t4eHgtlUqUTCYpk8kQ/EQiwVgsFiSE7pnocrme3G63bDKZZKEsW61W2Ww2yyLxLZfL0Wg0+sFEYcFg8HO326VarUYibwWeVC6XCUin01QoFPgURCoWi7TZbOh8Pv8Mh8PPgUDgWVQ+Hg4Hmk6n3Al4UiqVIuBWRPJ4PKtYLEar1Youlws9Pj6yWD6fp1arxaKn04mazSbF43GSIpEIAbd8yW63y9Vqle+z2ewNsWg0ytWQ0O/3OSbuX/AuifYIQEuohBHq9TqTRMVvSBLtswg4jUaDY8J/RadQYvVQKMQkPGazWXI6nZH5fP5dScQ7Cg2HQ/L5fHW/3/+VBZQRlKUo/nK5pOv1SpPJhLeOsTqdDm23W9rv91SpVLjg7xHw30oXEMK/r9dr2u1272gZNh6PX47HIw0GA+6IdwcHQKIygiKCzfd6vXeHwyGLf5dF7AU/ofBYoN1uE4C2P3aBIBYIIcSwF8ThA+DwN2q1WrtOp7tXq9UMjUbD+OgrAO/P+226fzVJ+gV+cHLx+IUV6AAAAABJRU5ErkJggg=="},
+		{},
 		{label:"搜索选中文本",url:"http://www.baidu.com/baidu?wd=%s",image:"http://www.baidu.com/favicon.ico"},
 		{label:"搜索选中文本",url:"http://www.bing.com/search?q=%s",image:"http://www.bing.com/s/a/bing_p.ico"},
 		{},
-		{label:"德文搜索该词",url:"https://de.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"},
-		{label:"英文搜索该词",url:"https://en.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"},
-		{label:"中文搜索该词",url:"https://zh.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"},
-		{},
-		{label:"搜索相关图片",url:"https://www.google.com/search?hl=zh-CN&site=imghp&tbm=isch&source=hp&q=%s",
-			image:"https://www.google.de/favicon.ico"},
-		{label:"搜索相关图片",url:"http://www.bing.com/images/search?q=%s",image:"http://www.bing.com/s/a/bing_p.ico"}
+		{label:"德文搜索该词条",url:"https://de.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"},
+		{label:"英文搜索该词条",url:"https://en.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"},
+		{label:"中文搜索该词条",url:"https://zh.wikipedia.org/wiki/%s",image:"http://bits.wikimedia.org/favicon/wikipedia.ico"}
 		];
 	var menu = PageMenu({
 		condition:"select",
@@ -314,7 +312,8 @@ page([{
 		label:"发送到 OneNote",
 		condition: "nolink nomailto noimage nomedia",
 		image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMlSURBVDhPTZPvb1NlFMebaDDsla/IMKKRxWgQE98oMYbwH/jCFwSNcSQGNDAnZoOM8WKOzc0NNeAW5qQO04mKgCtzhdXZdRuspba97frrlq6/7mWlW+1dSexcXZt9vL13Q77Juc+53+c533POc881bOCJw7v2t021j6YkU6giXvAgDUeIGf2IgwLRb32I3/jwf+3Cd87F3QshnE3T1BhqarXgy/UDsw8Sy+TEHNlAFiWskBUWyfx5nyXPEkvuHBlHRl+dGRS/QsDoqwpsN3y4+502JZbnnkvC3TaGu/0mSiCPPCNxueFHhg6bmLfGiVsTJFSTbBKyXSZsDKIm32643WlJFdNFcqqyZe8Zft7TidA/jfibSO8bXTS92IrvagBpXCJ5I6lZZjKDf2Cjgnmjr7IYWCQ+HuWX17sZVgWMe7soFVa5PTzL0bpmhEtzeM8LePu8+PvnCA4Ecfe49QpSpiAFsYBsS/Hdq52Y64f44uVTTPTeIDIp0vB8C3O2MIHRCBPtU9hO2vF0e3F2OHWBmHoZSkAh9GuQnt2tTH9p5eJ7g7S81IJtaJqDz3yMLN5nEwtqtU6jwPhxu95CYiiI7JDxXhQ4+cIJzB0jSD6ZozubaXrtU95+upF0JMPa2tqGhI58vKALiAMCMXMM62eTNNQd51rnqHbg7EEj9c81c2DHMWK+pMY9Cst5O08+XrvPIJxx4Bh0YemdoP7ZY/zUcV07IIezvFV7RLNMbEnjyuUy6+vrmv/Bnla2bdnxpirgJHQpRHJW5txH33NrxKMdKP1Twtz3B32NJrLJHKUH/1IsrGh7WXXgPnnlNFsNW58yuD+fZeLsDN7R8MM+tVVNlF9YplKuPOQ3s9/8agrzIYt+B57uO8RsCf5WdPUqiqq/GVRcXkG5t0wxr++vrpQ4UNeI6d0ruoCz6xbzM2kWwnqflYqacbXMXymFtZWyJlTtfROusTkO7TrF5IkpXcB+5Hfi6leIjUSJXhORLBLpsTTiFZHID1Fc/R6iV++SuK7+BxYZR88d7Grw+PtWXUB91FadGnWqNKI6XRum8/+bzj/6bnjsP4D/2SwfIsl8AAAAAElFTkSuQmCC",
-		position: 111,
+		//insertBefore: "readable_by_evernote__context_menu",
+		insertAfter: "idmmzcc-dwnlall",
 		oncommand: function(){
 			var onenotePath = "D:\\Program Files\\Microsoft Office\\Office15\\Onenote.exe";
 			var focusedWindow = document.commandDispatcher.focusedWindow;
@@ -337,10 +336,30 @@ page([{
 			var args = ["/sidenote", "/paste"];
 			process.run(false, args, args.length);
 		}
-	}
+	},{
+		label: "当前日期 & 时间",
+		condition: "input",
+		position: 2,
+		oncommand: function() {
+			var localnow = new Date();
+			var yy = localnow.getFullYear(); 
+			var mm = localnow.getMonth()+1;
+			if(mm < 10) mm = '0' + mm;
+			var dd = localnow.getDate();
+			if(dd < 10) dd = '0' + dd;
+			var hh = localnow.getHours();
+			if(hh < 10) hh = '0' + hh; 
+			var mi = localnow.getMinutes();
+			if(mi < 10) mi = '0' + mi;
+			var localnowstr = yy + '.' + mm + '.' + dd + ' & ' + hh + ':' + mi;
+			addMenu.copy(localnowstr);
+			goDoCommand("cmd_paste");
+		},
+		image: ""
+	},
 ]);
 
-//隐藏相同项
+//隐藏相同项。必须，不能删除
 function syncHidden(event) {
 	Array.slice(event.target.children).forEach(function(elem){
 		var command = elem.getAttribute('command');
