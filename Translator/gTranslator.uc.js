@@ -7,8 +7,14 @@
 // @license        MIT License
 // @compatibility  Firefox 4
 // @charset        UTF-8
-// @version        2.2 2013/04/09 02:00 REMOVE E4X
-// @note           修改自用版 by defpt at 2014.02.23
+// @version        基于 Dannylee 脚本uc_google_translator.uc.js v2.3.0.1
+// @note           修改自用版 by defpt at 2014.02.24
+// @note           左键点击按钮直接翻译，如果有选中文字就翻译文字，否则翻译网页
+// @note           右键弹出设置菜单
+// @note           不勾选弹窗显示则直接替换原文本，否则弹窗显示翻译结果
+// @note           不勾选对比显示则只显示翻译结果，否则对比显示翻译结果
+// @homepageURL    https://github.com/defpt/userChromeJs/blob/master/Translator
+// @reviewURL      http://bbs.kafan.cn/thread-1690445-1-1.html
 // ==/UserScript==
 
 var gTranslator = {
@@ -88,13 +94,11 @@ var gTranslator = {
 				</toolbarbutton>\
 			</toolbar>\
 			<popup id="contentAreaContextMenu">\
-				<menuitem id="context-translator" label="Google 翻译选中文本" \
-					insertAfter="context-searchselect" \
+				<menuitem id="context-translator" label="谷歌翻译选中文本" \
 					class="menuitem-iconic" \
 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPnZExSwNBEEZPESStP8PKP2Fnr1hYiI2dkEoQJKWCnVXEIpDGQsRGJGKhFsKBHpEIFokJ4VQkpFMLm5E3OsvcmRBx4XG3e/u9md2LGB9vPfH0e+3A6/OD6KZhIx+u1Y5kb383I3h5uh8uIURgfaOoLC0vKjaHtNv4m8AHvWikAK7jCw0kjVgDq6UtWYslMH8pMnf2LjMnIlMHn4oK/IVZRTravumPFKjEC7hAaz0fPm+mCpKBgsfWbebshAy6sb/Bu4UL5VQiPnDuiWJT74EumFvLQGXbR6FfAsIGFwicFRBQ+TBOtDoC1girwIcNAiYghHDzNNEgAmRBwPBh5mMLx6FN+60EDdamKx2Z3Kl/C8ZXrjTMExCArzhbvVPoBAHPjCAfNhAQtJaBy4YgYAySsAF82NaMn/h/RxR9Ab4TXij6pKP0AAAAAElFTkSuQmCC" \
 					oncommand="gTranslator.selectionTranslation(event);"/> \
-				<menuitem id="context-page-translator" label="Google 翻译当前页面" \
-					insertAfter="context-sep-viewsource" \
+				<menuitem id="context-page-translator" label="谷歌翻译当前页面" \
 					class="menuitem-iconic" \
 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPnZExSwNBEEZPESStP8PKP2Fnr1hYiI2dkEoQJKWCnVXEIpDGQsRGJGKhFsKBHpEIFokJ4VQkpFMLm5E3OsvcmRBx4XG3e/u9md2LGB9vPfH0e+3A6/OD6KZhIx+u1Y5kb383I3h5uh8uIURgfaOoLC0vKjaHtNv4m8AHvWikAK7jCw0kjVgDq6UtWYslMH8pMnf2LjMnIlMHn4oK/IVZRTravumPFKjEC7hAaz0fPm+mCpKBgsfWbebshAy6sb/Bu4UL5VQiPnDuiWJT74EumFvLQGXbR6FfAsIGFwicFRBQ+TBOtDoC1girwIcNAiYghHDzNNEgAmRBwPBh5mMLx6FN+60EDdamKx2Z3Kl/C8ZXrjTMExCArzhbvVPoBAHPjCAfNhAQtJaBy4YgYAySsAF82NaMn/h/RxR9Ab4TXij6pKP0AAAAAElFTkSuQmCC" \
 					oncommand="gTranslator.pageTranslation(event);"/> \
@@ -223,11 +227,33 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		this.showmodeshow();
 	},
 
-	getSelectedText : function (e) {
-		var focusedWindow = document.commandDispatcher.focusedWindow;
-		var selectedText = focusedWindow.getSelection().toString();
+	getFocusedWindow: function(){
+        var focusedWindow = document.commandDispatcher.focusedWindow;
+        if (!focusedWindow || focusedWindow == window)
+          return window.content;
+        else
+          return focusedWindow;
+    },
+
+	getSelectedText: function(e) {
+    	var focusedWindow = this.getFocusedWindow();
+		var selectedsel = focusedWindow.getSelection();
+		if (selectedsel && !selectedsel.toString()) {
+			var node = document.commandDispatcher.focusedElement;
+			if (node &&
+				node.ownerDocument.defaultView == focusedWindow &&
+				(node.type == "text" || node.type == "textarea") &&
+				'selectionStart' in node &&
+				node.selectionStart != node.selectionEnd) {
+				var offsetStart = Math.min(node.selectionStart, node.selectionEnd);
+				var offsetEnd  = Math.max(node.selectionStart, node.selectionEnd);
+				var selectedText = node.value.substr(offsetStart, offsetEnd-offsetStart);
+				return selectedText;
+			}
+		}
+		var selectedText = selectedsel ? selectedsel.toString().replace(/^\s+/,"").replace(/\s+$/,"") : "";
 		return selectedText;
-	},
+    },
 
 	isValidTextLength : function (selectedtext) {
 		if (selectedtext.length > 0 && selectedtext.length <= 38000) {
@@ -257,6 +283,9 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	pageTranslation : function (e) {
 		var cel = this._targetlang;
 		var docurl = content.location.href;
+		if (docurl.match(/^about/)) {
+            return;
+        }
 		var fordUrl = "http://translate.google.de/translate?sl=auto&tl=" + cel + "&js=n&prev=_t&hl=" + cel + "&ie=UTF-8&u=" + encodeURIComponent(docurl);
 		gBrowser.selectedTab = gBrowser.addTab(fordUrl);
 	},
@@ -329,7 +358,10 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 				httpRequest.send(urlParams);
 				if (gTranslator._showpopuptext === true)
 					this.show("正在获取翻译结果,请等待...");
-			} catch (e) {}
+			} catch (e) {
+				if (gTranslator._showpopuptext === true)
+					this.show("翻译服务不可用或网络连接错误！");
+			}
 		} else { //ha a kijelolt szoveg hossza <=0 vagy >38000
 			var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 				.getService(Components.interfaces.nsIPromptService);
@@ -373,15 +405,6 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		var popup = document.getElementById("translationResult");
 		var box = document.getElementById("translationResultPopupBox");
 		popup.sizeTo(450, Math.max(box.boxObject.height * 1.0 + 15, 23));
-	},
-
-	insertAfter : function (newElement, targetElement) {
-		var aparent = targetElement.parentNode;
-		if (aparent.lastChild == targetElement) {
-			aparent.appendChild(newElement);
-		} else {
-			aparent.insertBefore(newElement, targetElement.nextSibling);
-		}
 	},
 
 	copyToClipboard : function (e, aValue) {
