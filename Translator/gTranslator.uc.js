@@ -7,7 +7,7 @@
 // @license        MIT License
 // @compatibility  Firefox 4
 // @charset        UTF-8
-// @version        基于 Dannylee 脚本uc_google_translator.uc.js v2.3.0.1
+// @version        基于 Dannylee 脚本uc_google_translator.uc.js v2.3.2.2
 // @note           修改自用版 by defpt at 2014.02.24
 // @note           左键点击按钮直接翻译，如果有选中文字就翻译文字，否则翻译网页
 // @note           右键弹出设置菜单
@@ -48,7 +48,7 @@ var gTranslator = {
 		var overlay = '\
 		<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" \
 				xmlns:html="http://www.w3.org/1999/xhtml"> \
-			<toolbar id="urlbar-icons">\
+			<toolbarpalette id="urlbar-icons">\
 				<toolbarbutton id="gTranslator" label="翻译器" \
 						context="gTranslator-contextmenu"\
 						tooltiptext = "左键翻译|右键菜单" \
@@ -92,7 +92,7 @@ var gTranslator = {
 							onclick = "gTranslator.setoridisplay(event);"/> \
 					</menupopup>\
 				</toolbarbutton>\
-			</toolbar>\
+			</toolbarpalette>\
 			<popup id="contentAreaContextMenu">\
 				<menuitem id="context-translator" label="谷歌翻译选中文本" \
 					class="menuitem-iconic" \
@@ -251,7 +251,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 				return selectedText;
 			}
 		}
-		var selectedText = selectedsel ? selectedsel.toString().replace(/^\s+/,"").replace(/\s+$/,"") : "";
+		var selectedText = selectedsel ? selectedsel.toString() : "";
 		return selectedText;
     },
 
@@ -359,10 +359,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 				httpRequest.send(urlParams);
 				if (gTranslator._showpopuptext === true)
 					this.show("正在获取翻译结果,请等待...");
-			} catch (e) {
-				if (gTranslator._showpopuptext === true)
-					this.show("翻译服务不可用或网络连接错误！");
-			}
+			} catch (e) {}
 		} else { //ha a kijelolt szoveg hossza <=0 vagy >38000
 			var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 				.getService(Components.interfaces.nsIPromptService);
