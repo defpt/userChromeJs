@@ -285,7 +285,9 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		var docurl = content.location.href;
 		if (docurl.match(/^about/)) {
             return;
-        }
+        } else if(docurl.match(/^https/)) {
+			docurl = docurl.replace(/https/i, "http");
+		}
 		var fordUrl = "http://translate.google.de/translate?sl=auto&tl=" + cel + "&js=n&prev=_t&hl=" + cel + "&ie=UTF-8&u=" + encodeURIComponent(docurl);
 		gBrowser.selectedTab = gBrowser.addTab(fordUrl);
 	},
