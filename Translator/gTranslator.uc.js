@@ -301,7 +301,8 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			function removeHTMLTags(mitkell) {
 				var strTagStrippedText = mitkell.replace(/<br>/ig, '\n').replace(/<\/span>/ig, "");
 				if (gTranslator._showoritext == false) {
-					strTagStrippedText = strTagStrippedText.replace(/<span title=[^>]+fff\'\">/ig, "").replace(/\s*\n+/ig, "\n");
+					strTagStrippedText = strTagStrippedText.replace(/<span title="[^"]*?" onmouseover=[^>]*?onmouseout=[^>]*?>/ig, "")
+						.replace(/\s*\n+/ig, "\n");
 				} else {
 					strTagStrippedText = strTagStrippedText.replace(/<span title=\"/ig, "")
 						.replace(/\"\sonmouseover[^>]+fff\'\">/ig, "\n  ")
