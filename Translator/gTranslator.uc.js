@@ -8,7 +8,7 @@
 // @compatibility  Firefox 4
 // @charset        UTF-8
 // @version        基于 Dannylee 脚本uc_google_translator.uc.js v2.3.2.2
-// @note           修改自用版 by defpt at 2014.02.24
+// @note           修改自用版 by defpt at 2014.02.25
 // @note           左键点击按钮直接翻译，如果有选中文字就翻译文字，否则翻译网页
 // @note           右键弹出设置菜单
 // @note           不勾选弹窗显示则直接替换原文本，否则弹窗显示翻译结果
@@ -303,7 +303,8 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			function removeHTMLTags(mitkell) {
 				var strTagStrippedText = mitkell.replace(/<br>/ig, '\n').replace(/<\/span>/ig, "");
 				if (gTranslator._showoritext == false) {
-					strTagStrippedText = strTagStrippedText.replace(/<span title=[^>]*onmouseover=[^>]*?onmouseout=[^>]*?>/ig, "")
+					strTagStrippedText = strTagStrippedText.replace(/\"\sonmouseover[^>]+fff\'\">/ig, "\n")
+						.replace(/<span title.+/ig, "")
 						.replace(/\s*\n+/ig, "\n");
 				} else {
 					strTagStrippedText = strTagStrippedText.replace(/<span title=\"/ig, "")
