@@ -297,7 +297,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 			var cel = this._targetlang;
 			var httpRequest = null;
 
-			var baseUrl = "http://translate.google.de/translate_t";
+			var baseUrl = "http://translate.google.de/";
 			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
 
 			function removeHTMLTags(mitkell) {

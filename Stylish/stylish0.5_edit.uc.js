@@ -61,7 +61,9 @@
 
 WindowHook.register("chrome://stylish/content/edit.xul",
   function winhook(aWindow) {
-    var EDITOR_PATH = "D:\\Program Files\\Notepad2\\Notepad2.exe";
+	
+    //var EDITOR_PATH = "D:\\Program Files\\Notepad2\\Notepad2.exe";//自用路径
+	var EDITOR_PATH = "";// 如果为空则为 about:config 中 view_source.editor.path，仅window下。
     var isNewEditor = (Services.prefs.getIntPref('extensions.stylish.editor') === 0);
     // get the checkbox
     var checkbox = aWindow.document.getElementById("wrap-lines");
