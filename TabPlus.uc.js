@@ -1,13 +1,15 @@
+(function() {
 // ==UserScript==
-// @name			NewTabPlus_mod
-// @description	    整合版标签增强
+// @name			TabPlus.uc.js
+// @description	    自用整合版标签增强
+// @namespace       TabPlus@gmail.com
 // @include			chrome://browser/content/browser.xul
 // @include			chrome://browser/content/bookmarks/bookmarksPanel.xul
 // @include			chrome://browser/content/history/history-panel.xul
 // @include			chrome://browser/content/places/places.xul
+// @Note            2014.03.21 最后一次修正整合 by defpt
 // ==/UserScript==
 
-(function() {
 	// 新标签打开:书签、历史、搜索栏
 	try {
 		eval('openLinkIn=' + openLinkIn.toString().
@@ -22,19 +24,6 @@
 		"if(/^javascript:/.test(url)||isTabEmpty(gBrowser.selectedTab)){loadCurrent();}else{this.handleRevert();gBrowser.loadOneTab(url, {postData: postData, inBackground: false, allowThirdPartyFixup: true});}"));
     }catch(e){}
 
-	/*主页新标签打开*/
-    try {
-        eval("BrowserGoHome = " + BrowserGoHome.toString().replace(
-            /switch \(where\) {/, "where = (gBrowser.currentURI.spec!="
-            +"'about:blank' || gBrowser.webProgress.isLoadingDocument"+
-            ") ? 'tab' : 'current'; $&")); 
-    }catch(e){}
-
-	// 滚轮切换标签
-	gBrowser.mTabContainer.addEventListener("DOMMouseScroll", function(event){
-		this.advanceSelectedTab(event.detail > 0 ? +1 : -1, true);
-	}, true);
-
 	//中键点击bookmark菜单不关闭
     try {
         eval('BookmarksEventHandler.onClick =' + BookmarksEventHandler.onClick.toString().replace('node.hidePopup()', ''));
@@ -45,13 +34,22 @@
     gBrowser.mTabContainer.addEventListener("click",
     function(e) {
         if (e.target.localName == "tab" && e.button == 2 && !e.ctrlKey) {
-            gBrowser.removeTab(e.target);
-            e.stopPropagation();
             e.preventDefault();
+            gBrowser.removeTab(e.target);
+			e.stopPropagation();
         }
     },
     false);
-
+	
+	//左键点击地址栏自动复制网址
+	document.getElementById('urlbar').addEventListener('click',
+	   function(e){
+		  if(e.button===0 )
+			 goDoCommand('cmd_copy');
+	   },
+	   false
+	);
+/* 
 	//鼠标停留标签自动聚焦
     (document.getElementById("tabbrowser-tabs") || gBrowser.mTabBox).addEventListener('mouseover',
     function self(e) {
@@ -70,14 +68,7 @@
         }
     },
     false);
-
-	// 标签上双击刷新
-	gBrowser.mTabContainer.addEventListener('dblclick', function (event){
-		if (event.target.localName == 'tab' && event.button == 0){
-			getBrowser().getBrowserForTab(event.target).reload();
-		}
-	}, false);
-	
+ */
 	//自动关闭下载产生的空白标签
 	eval("gBrowser.mTabProgressListener = " + gBrowser.mTabProgressListener.toString().replace(/(?=var location)/, '\
       if (aWebProgress.DOMWindow.document.documentURI == "about:blank"\
