@@ -11,7 +11,117 @@
 // @homepageURL    https://github.com/ywzhaiqi/userChromeJS/tree/master/addmenuPlus
 // @reviewURL      http://bbs.kafan.cn/thread-1554431-1-1.html
 // @note           0.0.8 Firefox 25 の getShortcutOrURI 廃止に仮対応
+// @note           0.0.7 Firefox 21 の Favicon 周りの変更に対応
+// @note           0.0.6 Firefox 19 に合わせて修正
+// @note           0.0.5 Remove E4X
+// @note           0.0.4 設定ファイルから CSS を追加できるようにした
+// @note           0.0.4 label の無い menu を splitmenu 風の動作にした
+// @note           0.0.4 Vista でアイコンがズレる問題を修正…したかも
+// @note           0.0.4 %SEL% の改行が消えてしまうのを修正
+// @note           0.0.3 keyword の新しい書式で古い書式が動かない場合があったのを修正
+// @note           %URL_HTMLIFIED%, %EOL_ENCODE% が変換できなかったミスを修正
+// @note           %LINK_OR_URL% 変数を作成（リンク URL がなければページの URL を返す）
+// @note           タブの右クリックメニューでは %URL% や %SEL% はそのタブのものを返すようにした
+// @note           keyword で "g %URL%" のような記述を可能にした
+// @note           ツールの再読み込みメニューの右クリックで設定ファイルを開くようにした
 // ==/UserScript==
+
+
+/***** 説明 *****
+
+◆ 脚本说明 ◆
+通过配置文件自定义菜单
+在编写的时候，参考了 Copy URL Lite+，得到作者允许。
+・http://www.code-404.net/articles/browsers/copy-url-lite
+
+
+◆ 如何使用？ ◆
+配置（_addmenu.js） 文件，请放在Chrome目录下。
+后缀名 .uc.js 可选。
+
+启动后，在浏览器中加载配置文件，并添加菜单。
+可以从“工具”菜单重新读取配置文件。
+
+
+◆ 格式 ◆
+page, tab, too, app 関数にメニューの素となるオブジェクトを渡す。
+オブジェクトのプロパティがそのまま menuitem の属性になります。
+
+○exec
+  启动外部应用程序。
+  パラメータは text プロパティを利用します。
+  自动显示该应用程序的图标。
+
+○keyword
+  指定了关键字的书签和搜索引擎。
+  text プロパティがあればそれを利用して検索などをします。
+  自动显示搜索引擎的图标。
+
+○text（変数が利用可能）
+  复制你想要的字符串到剪贴板。（Copy URL Lite+ 互換）
+  keyword, exec があればそれらの補助に使われます。
+
+○url（可用的变量）
+  打开你想要的网址。
+  内容によっては自動的にアイコンが付きます。
+
+○where
+  keyword, url でのページの開き方を指定できます（current, tab, tabshifted, window）
+  省略するとブックマークのように左クリックと中クリックを使い分けられます。
+
+○condition
+  メニューを表示する条件を指定します。（Copy URL Lite+ 互換）
+  省略すると url や text プロパティから自動的に表示/非表示が決まります。
+  select, link, mailto, image, media, input, noselect, nolink, nomailto, noimage, nomedia, noinput から組み合わせて使います。
+
+○oncommand, command
+  これらがある時は condition 以外の特殊なプロパティは無視されます。
+
+
+◆ サブメニュー ◆
+PageMenu, TabMenu, ToolMenu, AppMenu 関数を使って自由に追加できます。
+
+
+◆ 利用可能な変数 ◆
+%EOL%            改行(\r\n)
+%TITLE%          ページタイトル
+%URL%            URI
+%SEL%            選択範囲の文字列
+%RLINK%          リンクアンカー先の URL
+%IMAGE_URL%      画像の URL
+%IMAGE_ALT%      画像の alt 属性
+%IMAGE_TITLE%    画像の title 属性
+%LINK%           リンクアンカー先の URL
+%LINK_TEXT%      リンクのテキスト
+%RLINK_TEXT%     リンクのテキスト
+%MEDIA_URL%      メディアの URL
+%CLIPBOARD%      クリップボードの内容
+%FAVICON%        Favicon の URL
+%EMAIL%          リンク先の E-mail アドレス
+%HOST%           ページのホスト(ドメイン)
+%LINK_HOST%      リンクのホスト(ドメイン)
+%RLINK_HOST%     リンクのホスト(ドメイン)
+%LINK_OR_URL%    リンクの URL が取れなければページの URL
+%RLINK_OR_URL%   リンクの URL が取れなければページの URL
+
+%XXX_HTMLIFIED%  HTML エンコードされた上記変数（XXX → TITLE などに読み替える）
+%XXX_HTML%       HTML エンコードされた上記変数
+%XXX_ENCODE%     URI  エンコードされた上記変数
+
+◇ 簡易的な変数 ◇
+%h               ページのホスト(ドメイン)
+%i               画像の URL
+%l               リンクの URL
+%m               メディアの URL
+%p               クリップボードの内容
+%s               選択文字列
+%t               ページのタイトル
+%u               ページの URL
+
+基本的に Copy URL Lite+ の変数はそのまま使えます。
+大文字・小文字は区別しません。
+
+*/
 
 (function(css){
 
@@ -84,9 +194,14 @@ window.addMenu = {
         ins = $("context_closeTab");
         ins.parentNode.insertBefore(
             $C("menuseparator", { id: "addMenu-tab-insertpoint", class: "addMenu-insert-point" }), ins.nextSibling);
-        ins = $("prefSep");
+        ins = $("prefSep") || $("webDeveloperMenu");
         ins.parentNode.insertBefore(
             $C("menuseparator", { id: "addMenu-tool-insertpoint", class: "addMenu-insert-point" }), ins.nextSibling);
+        ins = $("appmenu-quit");
+        if (ins) {
+            ins.parentNode.insertBefore(
+                $C("menuseparator", { id: "addMenu-app-insertpoint", class: "addMenu-insert-point" }), ins.nextSibling);
+        }
         ins = $("devToolsSeparator");
         ins.parentNode.insertBefore($C("menuitem", {
             id: "addMenu-rebuild",
@@ -212,7 +327,8 @@ window.addMenu = {
         var aiueo = [
             { current: "page", submenu: "PageMenu", insertId: "addMenu-page-insertpoint" },
             { current: "tab" , submenu: "TabMenu" , insertId: "addMenu-tab-insertpoint"  },
-            { current: "tool", submenu: "ToolMenu", insertId: "addMenu-tool-insertpoint" }
+            { current: "tool", submenu: "ToolMenu", insertId: "addMenu-tool-insertpoint" },
+            { current: "app" , submenu: "AppMenu" , insertId: "addMenu-app-insertpoint"  }
         ];
 
         var data = loadText(aFile);
