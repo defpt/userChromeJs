@@ -40,15 +40,7 @@
         }
     },
     false);
-	
-	//左键点击地址栏自动复制网址，ctrl按下时恢复默认左键点击效果
-	document.getElementById('urlbar').addEventListener('click',
-	   function(e){
-		  if(e.button===0 && !e.ctrlKey)
-			 goDoCommand('cmd_copy');
-	   },
-	   false
-	);
+
 /* 
 	//鼠标停留标签自动聚焦
     (document.getElementById("tabbrowser-tabs") || gBrowser.mTabBox).addEventListener('mouseover',

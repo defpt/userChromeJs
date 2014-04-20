@@ -24,6 +24,7 @@
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
 * [InFormEnterLite.uc.js](https://github.com/defpt/userChromeJs/blob/master/InFormEnterLite.uc.js) 填表脚本，被我搞成快速回复了，貌似这个比论坛灌水脚本支持范围更广，现已弃用，理由同ContextMenu.uc.js
 * [MemoryMonitor.uc.js](https://github.com/defpt/userChromeJs/blob/master/MemoryMonitor.uc.js) 简单的FF内存监视器
+* [ReadLater2.uc.js](https://github.com/defpt/userChromeJs/blob/master/ReadLater2.uc.js) 标记链接或当前网页以便稍后阅读
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动。用了一段时间，发现错误控制台错误挺多，现已弃用，改用油侯脚本了
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能，我的必备脚本之一
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
@@ -33,5 +34,4 @@
 * [quickProxyModokiMod.uc.js](https://github.com/defpt/userChromeJs/blob/master/quickProxyModokiMod.uc.js) 简单的快速代理切换
 * [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)，**以后不再维护和更新**，FF29开始，火狐橙就要成为过去了
 * [rebuild_userChrome.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuild_userChrome.uc.xul) 自用 UC 管理器，工具栏固定图标，精简了菜单，我的必备脚本之一
-* [speedStartFF.uc.js](https://github.com/defpt/userChromeJs/blob/master/speedStartFF.uc.js) 加速启动火狐
 * [Example](https://github.com/defpt/userChromeJs/blob/master/Example) 学习UC脚本笔记以及范例收藏
