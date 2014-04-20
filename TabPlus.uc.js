@@ -30,7 +30,7 @@
         eval('checkForMiddleClick =' + checkForMiddleClick.toString().replace('closeMenus(event.target);', ''));
     } catch(e) {}
 
-	//右键关闭标签页
+	//右键关闭标签页，ctrl+右键打开菜单
     gBrowser.mTabContainer.addEventListener("click",
     function(e) {
         if (e.target.localName == "tab" && e.button == 2 && !e.ctrlKey) {
@@ -41,10 +41,10 @@
     },
     false);
 	
-	//左键点击地址栏自动复制网址
+	//左键点击地址栏自动复制网址，ctrl按下时恢复默认左键点击效果
 	document.getElementById('urlbar').addEventListener('click',
 	   function(e){
-		  if(e.button===0 )
+		  if(e.button===0 && !e.ctrlKey)
 			 goDoCommand('cmd_copy');
 	   },
 	   false
