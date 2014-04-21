@@ -4,6 +4,7 @@
 // @description    稍后阅读，标记链接或当前网页以便稍后阅读
 // @author         Alice0775
 // @include        main
+// @charset        UTF-8
 // @version        v2013.3.12
 // @note           LastMod 2013.03.12 by defpt
 // @note           v2009.07.31 by Alice0775
@@ -26,12 +27,12 @@ readLater = {
     const kXULNS =
          "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
     LOCALE = (Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch).getCharPref("general.useragent.locale")).indexOf("zh")==-1;
-    this.TOOLTIP      = LOCALE?"Read Later":"\u5168\u90E8\u79FB\u9664";
-    this.CLEARLABEL   = LOCALE?"All Remove" :"\u5168\u90E8\u79FB\u9664";
-    this.ALLOPENLABEL = LOCALE?"All Open"  :"\u5168\u90E8\u6253\u5F00";
-    this.ADDLABEL     = LOCALE?"Read this later!":"\u7A0D\u540E\u9605\u8BFB！";
-    this.CLEARWARNING = LOCALE?"Do you want to remove all?" :"\u5168\u90E8\u79FB\u9664？";
-    this.OPENALLWARNING = LOCALE?"Do you want to open all?" :"\u5168\u90E8\u6253\u5F00？";
+    this.TOOLTIP      = LOCALE?"Read Later":"稍后阅读";
+    this.CLEARLABEL   = LOCALE?"All Remove" :"全部移除";
+    this.ALLOPENLABEL = LOCALE?"All Open"  :"全部打开";
+    this.ADDLABEL     = LOCALE?"Read this later!":"标记！稍后再看 ^0^";
+    this.CLEARWARNING = LOCALE?"Do you want to remove all?" :"全部移除？";
+    this.OPENALLWARNING = LOCALE?"Do you want to open all?" :"全部打开？";
 
     this.popup= function(){}
     var statusbarpanel = document.createElementNS(kXULNS,"statusbarpanel");
@@ -72,10 +73,13 @@ readLater = {
     menuitem = document.createElementNS(kXULNS,"menuitem");
     menuitem.setAttribute("id","readLater-addList");
     //menuitem.setAttribute("accesskey","R");
+	menuitem.setAttribute("class","menuitem-iconic");
     menuitem.setAttribute("label",this.ADDLABEL);
-    menuitem.setAttribute("tooltiptext",this.ADDLABEL);
+    //menuitem.setAttribute("tooltiptext",this.ADDLABEL);
     menuitem.setAttribute("oncommand","readLater.addList()");
-    document.getElementById("contentAreaContextMenu").appendChild(menuitem);
+	menuitem.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH8SURBVDhPrZNdS1RRFIYHxpwvqK5C0ouCugiEoG8qFCn6oKC7oLrpF9SlM2coiCZFI8U5k5ZO0kUoRBH1D9JCC/qgoqAgCwQrpUIzM+s8rXXWvmhGwYtasFnszV7Pede714n8lwgyqYbAizUHjdGmcGViTUE2sciKb3flAvDieXLV0HsQOndC8yrIpiATk5xccAVe4pwrF0Bj1Kd7F/yYhNkp+PQKHl6B4l44tRS8+HyAqHDlCljiU9gGo49g6gP8niOMma8w3A2tawVSqqYUkI37nF4m0ldDWy30HYEXt0TNNwON3IOODSWQUkBGFHRshGc3YOCCST9bJaCjMPHGQQadEmunrAXnwey0Xdb8tB/Or4OuOhh/befDl82T+QqkhVwNXD8u5hXNB433Qwa5dtjMVU969oSvU+ZB0sdLQLpC6JIvNYihjw2iSs6sgCd9tn/QI3dSC5m4HO6cNJnt6wVSD5Nj1k5xH1w9BL9+wseX4ZzosLly9UBM9LfC9IR9ZajLzNKsMdAGLWvg84jNSucOdGJduXpQ6YcX3t2H71/g9glrp/8YzM3A85uQWwlv7wpAvOg9UAZQD7R3hfhbCNtRT7RIXye/ydzPb5b9bjmvllGO/TXKXnK/QC4G6cqCtqOeKFRfR59Y58T2ktPRgvw7Bf0BXfm/RCTyBxUNJkupltR2AAAAAElFTkSuQmCC");
+    //document.getElementById("contentAreaContextMenu").appendChild(menuitem);
+	document.getElementById("contentAreaContextMenu").insertBefore(menuitem, document.getElementById("inspect-separator"));
 
     statusbarpanel.setAttribute("ondraggesture","nsDragAndDrop.startDrag(event, readLater)");
     statusbarpanel.setAttribute("ondragover","nsDragAndDrop.dragOver(event, readLater)");
