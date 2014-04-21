@@ -27,6 +27,7 @@
 * [ReadLater2.uc.js](https://github.com/defpt/userChromeJs/blob/master/ReadLater2.uc.js) 标记链接或当前网页以便稍后阅读
 * [ScrollWithMouse.uc.js](https://github.com/defpt/userChromeJs/blob/master/ScrollWithMouse.uc.js)   免点击，光标放滚动条即可上下拖动页面滚动。用了一段时间，发现错误控制台错误挺多，现已弃用，改用油侯脚本了
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能，我的必备脚本之一
+* [UrlbarAutoCopy.uc.js](https://github.com/defpt/userChromeJs/blob/master/UrlbarAutoCopy.uc.js) 地址栏自动复制网址
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
