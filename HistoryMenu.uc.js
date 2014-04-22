@@ -23,8 +23,8 @@ location == "chrome://browser/content/browser.xul" && (function() {
             if (event.button == 2) {
                 event.preventDefault();
                 event.stopPropagation();
-                //undoCloseTab(); //最近关闭的标签页
-                toggleSidebar('viewHistorySidebar');
+                undoCloseTab(); //最近关闭的标签页
+                //toggleSidebar('viewHistorySidebar'); //打开侧栏历史
             }
         },
         false);
