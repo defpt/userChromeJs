@@ -6,8 +6,8 @@
 // @compatibility  Firefox 3.0 3.5 3.6 3.7a1pre  WinXP
 // @charset        UTF-8
 // @author         Alice0775
-// @version        2012/01/31 11:00 by Alice0775  12.0a1 about:newtab
 // @note           自用修改版 by defpt
+// @version        2012/01/31 11:00 by Alice0775  12.0a1 about:newtab
 // @note           左键：打开代理 中键：设置默认状态 右键：代理设置UI
 // ==/UserScript==
 
