@@ -6,12 +6,13 @@
 // @compatibility  Firefox 3.0 3.5 3.6 3.7a1pre  WinXP
 // @charset        UTF-8
 // @author         Alice0775
-// @version        v2014.04.25 by defpt
-// @note           左键：开关代理 中键：代理设置UI 右键：启动GAE
+// @version        v2014.04.26 by defpt
+// @note           2014.04.26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI
 // @note           2012/01/31 11:00 by Alice0775
 
 // ==/UserScript==
 /*******===代理相关说明=====
+    请配合goagent启动器 startgoa使用
 		0: 表示不使用代理
 		1：表示手动设置代理
 		2：表示自动代理配置
@@ -20,7 +21,8 @@
 */
 (function (css) {
 	var Proxytye_startFF = 0; //0 1 2 4 5 设置FF启动时代理状态
-	var goagentPath = "D:\\Program Files (x86)\\GoAgent\\goagent.exe";
+	var goagentPath = "D:\\Program Files (x86)\\GoAgent\\startgoa.exe";
+	var GAE_on = false;
 	
 	if (window.quickProxy) {
 		window.quickProxy.destroy();
@@ -83,13 +85,17 @@
 		
 		_click : function (e) {
 			if (e.button == 0) {
+				if(GAE_on == false){
+					this._goagent();
+					GAE_on = true;
+				}
 				this._switch();
 			}
 			if (e.button == 1) {
-				gBrowser.selectedTab = gBrowser.addTab("chrome://browser/content/preferences/connection.xul");
+				this._goagent();
 			}
 			if (e.button == 2) {
-				this._goagent();
+				gBrowser.selectedTab = gBrowser.addTab("chrome://browser/content/preferences/connection.xul");
 			}
 			e.preventDefault();
 		},
