@@ -4,5 +4,6 @@
 
 **quickProxyModokiMod.uc.js** 是简单修改版，左键：打开代理 中键：设置默认状态 右键：代理设置UI
 
-**quickProxyMod.uc.js** 自用修改版，左键：开关代理 中键：代理设置UI 右键：启动 GAE
+**quickProxyMod.uc.js** 左键：开关代理 中键：代理设置UI 右键：启动 GAE
 
+**quickProxyModdblclick.uc.js** 双击：启动 GAE 左键：打开代理 中键：设置默认状态 右键：代理设置UI
