@@ -21,16 +21,48 @@ GESTURES = {
 	"L" : {
 		name : "后退",
 		cmd : function () {
-			getWebNavigation().canGoBack && getWebNavigation().goBack();
+		getWebNavigation().canGoBack && getWebNavigation().goBack();
 		}
 	},
 	//前进
 	"R" : {
 		name : "前进",
 		cmd : function () {
-			getWebNavigation().canGoForward && getWebNavigation().goForward();
+		getWebNavigation().canGoForward && getWebNavigation().goForward();
 		}
 	},
+/* 	// 增强型后退,没后退翻到上一页
+	"L" : {
+		name : "后退",
+		cmd : function () {
+			var nav = gBrowser.webNavigation;
+			if (nav.canGoBack) {
+				nav.goBack();
+			} else {
+				var document = window._content.document;
+				var links = document.links;
+				for(i = 0; i < links.length; i++) {
+				if ((links[i].text == '上一頁') || (links[i].text == '上一页') || (links[i].text == '<上一页') || (links[i].text == '« 上一页') || (links[i].text == '<<上一页') || (links[i].text == '[上一页]') || (links[i].text == '翻上页') || (links[i].text == '【上一页】') || (links[i].text == 'Previous') || (links[i].text == 'Prev') || (links[i].text == 'previous') || (links[i].text == 'prev') || (links[i].text == '‹‹') || (links[i].text == '<')) document.location = links[i].href;
+				}
+			}
+		}
+	},
+	//增强型前进,没前进翻到下一页
+	"R" : {
+		name : "前进",
+		cmd : function () {
+			var nav = gBrowser.webNavigation;
+			if (nav.canGoForward) {
+				nav.goForward();
+			} else {
+				var document = window._content.document;
+				var links = document.links;
+				for(i = 0; i < links.length; i++) {
+				if ((links[i].text == '下一頁') || (links[i].text == '下一页') || (links[i].text == '下一页>') || (links[i].text == '下一页 »') ||(links[i].text == '下一页>>') || (links[i].text == '[下一页]') || (links[i].text == '翻下页') || (links[i].text == '【下一页】') || (links[i].text == 'Next') || (links[i].text == 'next') || (links[i].text == '››') || (links[i].text == '>')) document.location = links[i].href;
+				}
+			}
+		}
+	}, */
 	//刷新当前页面
 	"UD" : {
 		name : "刷新当前页面",
@@ -38,7 +70,7 @@ GESTURES = {
 			gBrowser.mCurrentBrowser.reload();
 		}
 	},
-	//刷新当前页面
+	// //刷新当前页面
 	"URD" : {
 		name : "刷新当前页面",
 		cmd : function () {
@@ -159,7 +191,7 @@ GESTURES = {
 		}
 	},
 	//清理浏览痕迹
-	"LDR" : {
+	"LUR" : {
 		name : "清理浏览痕迹",
 		cmd : function () {
 			Cc['@mozilla.org/browser/browserglue;1'].getService(Ci.nsIBrowserGlue).sanitize(window);
@@ -172,16 +204,11 @@ GESTURES = {
 			PlacesCommandHook.bookmarkCurrentPage(true, PlacesUtils.bookmarksMenuFolderId);
 		}
 	},
-	//页面所有区域截图
-	"DRULD" : {
-		name : "页面所有区域截图",
-		cmd : function () {
-			var canvas = document.createElementNS("http://www.w3.org/1999/xhtml", "canvas");
-			canvas.width = content.document.documentElement.scrollWidth;
-			canvas.height = content.document.documentElement.scrollHeight;
-			var ctx = canvas.getContext("2d");
-			ctx.drawWindow(content, 0, 0, canvas.width, canvas.height, "rgb(255,255,255)");
-			saveImageURL(canvas.toDataURL(), content.document.title + ".png", null, null, null, null, document);
+	//切换当前网页可编辑
+	"DLURD": {
+		name: "切换当前网页可编辑",
+		cmd: function() {
+			content.document.body.contentEditable = content.document.body.contentEditable == "true" ? "false" : "true";
 		}
 	},
 	//新建隐私窗口
@@ -193,7 +220,14 @@ GESTURES = {
 			});
 		}
 	},
-	//复制扩展清单
+	//清爽阅读 EverNote clearly
+	"RULDR" : {
+		name : "清爽阅读",
+		cmd : function () {
+			__readable_by_evernote.button__call();
+		}
+	},
+	//复制扩展清单，
 	"DLD" : {
 		name : "复制扩展清单",
 		cmd : function () {
@@ -206,5 +240,4 @@ GESTURES = {
 			})
 		}
 	},
-
-}
+};
