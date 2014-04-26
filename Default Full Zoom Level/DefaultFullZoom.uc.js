@@ -58,11 +58,11 @@ var FullZoom = {
 	// when first requested, then updated by the pref change listener as it changes.
 	// If there is no global value, then this should be undefined.
 
-	/*get globalValue() {
-	var globalValue = FullZoomConfig.defaultLv;
-	return this.globalValue = globalValue / 100;
-	},*/
-	globalValue : FullZoomConfig.defaultLv / 100,
+	get globalValue() {
+		var globalValue = FullZoomConfig.defaultLv;
+		return this.globalValue = globalValue / 100;
+	},
+	//globalValue : FullZoomConfig.defaultLv / 100,
 
 	get globalMode() {
 		//this.globalMode ; Text zoom or not
