@@ -108,7 +108,7 @@
 			case 0:
 			case 3:
 				icon.setAttribute("state", "disable");
-				icon.setAttribute("tooltiptext", "代理已关闭\n左键：打开代理\n中键：代理设置 UI\n右键：启动 GoAgent");
+				icon.setAttribute("tooltiptext", "代理已关闭\n左键：打开代理\n中键：启动 GAE\n右键：代理设置 UI");
 				return;
 			case 1:
 				var ip = this.getPref("network.proxy.http", "str", "");
@@ -126,7 +126,7 @@
 				break;
 			}
 			icon.setAttribute("state", "enable");
-			icon.setAttribute("tooltiptext", "代理已打开" + text1 + "\n左键：关闭代理\n中键：代理设置 UI\n右键：启动 GoAgent");
+			icon.setAttribute("tooltiptext", "代理已打开" + text1 + "\n左键：关闭代理\n中键：启动 GAE\n右键：代理设置 UI");
 		},
 
 		getPref : function (aPrefString, aPrefType, aDefault) {
