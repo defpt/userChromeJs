@@ -6,6 +6,7 @@
 
 ###多文件脚本
 * [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus) 神器级菜单设置脚本，我的必备脚本之一
+* [autoCopy](https://github.com/defpt/userChromeJs/tree/master/autoCopy) 自动复制选中内容，我的必备脚本之一
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [KeyChanger](https://github.com/defpt/userChromeJs/tree/master/KeyChanger) 快捷键设置uc脚本，我的必备脚本之一
 * [MouseGestures](https://github.com/defpt/userChromeJs/tree/master/MouseGestures) 鼠标手势脚本，我的必备脚本之一

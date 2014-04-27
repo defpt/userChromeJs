@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name           autoCopyMod.uc.js
+// @name           autoCopyBtn.uc.js
 // @namespace      ithinc#mozine.cn
-// @description    可控自动复制
+// @description    鍙帶鑷姩澶嶅埗,鍦板潃鏍忔寜閽増
 // @include        main
 // @compatibility  Firefox 3.0.x
 // @author         ithinc, iwo
@@ -26,7 +26,7 @@
 		var prefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 		var autocopyState = prefs.getIntPref("userChrome.autocopy.autocopyState");
 		var selection = getBrowserSelection();
-		//增加判断是否在输入框或按下功能键
+		//澧炲姞鍒ゆ柇鏄惁鍦ㄨ緭鍏ユ鎴栨寜涓嬪姛鑳介敭
 		var exceptTarget = (e.target.nodeName == "TEXTAREA" || e.target.type == "textarea" || e.target.type == "text" || e.target.type == "password" || e.target.type == "email");
 		var exceptoriginalTarget = (!e.originalTarget.ownerDocument || e.originalTarget.ownerDocument.designMode == "off" || e.originalTarget.ownerDocument.designMode == "undefined");
 		var exceptAlternativeKey = (e.ctrlKey || e.altKey);
