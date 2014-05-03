@@ -288,7 +288,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
         } else if(docurl.match(/^https/)) {
 			docurl = docurl.replace(/https/i, "http");
 		}
-		var fordUrl = "http://translate.google.de/translate?sl=auto&tl=" + cel + "&js=n&prev=_t&hl=" + cel + "&ie=UTF-8&u=" + encodeURIComponent(docurl);
+		var fordUrl = "http://translate.google.com/translate?hl=" + cel + "&sl=auto&tl=" + cel + "&u=" + encodeURIComponent(docurl);
 		gBrowser.selectedTab = gBrowser.addTab(fordUrl);
 	},
 
@@ -296,9 +296,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		if (this.isValidTextLength(whatToTranslate)) {
 			var cel = this._targetlang;
 			var httpRequest = null;
-
-			var baseUrl = "http://translate.google.de/";
-			var urlParams = "text=" + encodeURIComponent(whatToTranslate) + "&hl=" + cel + "&langpair=auto|" + cel + "&tbb=1";
+			var fullUrl = "http://translate.google.com/translate_t?text="+whatToTranslate+"&hl="+cel+"&langpair=auto|"+cel+"&tbb=1" ;
 
 			function removeHTMLTags(mitkell) {
 				var strTagStrippedText = mitkell.replace(/<br>/ig, "\n").replace(/<\/span>/ig, "");
@@ -352,17 +350,15 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 				}
 			}
 
-			try {
-				httpRequest = new XMLHttpRequest();
-				httpRequest.open("POST", baseUrl, true);
-				httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				httpRequest.setRequestHeader("Content-length", urlParams.length);
-				httpRequest.setRequestHeader("Connection", "close");
-				httpRequest.onload = infoReceived;
-				httpRequest.send(urlParams);
-				if (gTranslator._showpopuptext === true)
-					this.show("正在获取翻译结果,请等待...");
-			} catch (e) {}
+			httpRequest = new XMLHttpRequest();
+			httpRequest.open("GET", fullUrl, true);
+			httpRequest.onload = infoReceived;
+			httpRequest.send(null);
+			if (gTranslator._showpopuptext === true)
+				this.show("正在获取翻译结果,请等待...");
+			else
+           	    XULBrowserWindow.statusTextField.label="正在获取翻译结果,请等待...";
+				
 		} else { //ha a kijelolt szoveg hossza <=0 vagy >38000
 			var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 				.getService(Components.interfaces.nsIPromptService);
