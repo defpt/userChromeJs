@@ -17,6 +17,7 @@
 * [Translator](https://github.com/defpt/userChromeJs/blob/master/Translator) 翻译脚本
 
 ###单文件脚本
+* [000-AidBar.uc.js](https://github.com/defpt/userChromeJs/blob/master/000-AidBar.uc.js) 这是个按钮容器，位于标签栏，我用来辅助转移脚本并自动隐藏，hover 时显示~~~，[点击参看效果](http://bbs.kafan.cn/thread-1727795-1-1.html)
 * [ContextMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextMenu.uc.js) 右键菜单，添加了几个右键菜单，现在我已经弃用，比起addmenuplus脚本差多了
 * [contextSearcher.uc.js](https://github.com/defpt/userChromeJs/blob/master/contextSearcher.uc.js) 右键搜索增强脚本，基于原版添加了搜索完成后自动清空搜索栏并切回默认搜索引擎
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音，以后不再维护这个脚本
