@@ -286,8 +286,24 @@ window.addMenu = {
     exec: function(path, arg){
         var file    = Cc['@mozilla.org/file/local;1'].createInstance(Ci.nsILocalFile);
         var process = Cc['@mozilla.org/process/util;1'].createInstance(Ci.nsIProcess);
+        var UI = Cc["@mozilla.org/intl/scriptableunicodeconverter"].createInstance(Ci.nsIScriptableUnicodeConverter);
+        UI.charset = window.navigator.platform.toLowerCase().indexOf("win") >= 0? "GBK": "UTF-8";
+
         try {
-            var a = (typeof arg == 'string' || arg instanceof String) ? arg.split(/\s+/) : [arg];
+            var a;
+            if (typeof arg == 'string' || arg instanceof String) {
+                a = arg.split(/\s+/)
+            } else if (Array.isArray(arg)) {
+                a = arg;
+            } else {
+                a = [arg];
+            }
+
+            // 转换每个参数的编码
+            a.forEach(function(str, i){
+                a[i] = UI.ConvertFromUnicode(str);
+            });
+            
             file.initWithPath(path);
 
             if (!file.exists()) {
@@ -794,11 +810,12 @@ window.addMenu = {
         if (!aFile || !aFile.exists() || !aFile.isFile()) return;
         var editor = Services.prefs.getCharPref("view_source.editor.path");
         if (!editor) return this.log(U("编辑器的路径未设定。\n 请设置 view_source.editor.path"));
+
         try {
             var UI = Cc["@mozilla.org/intl/scriptableunicodeconverter"].createInstance(Ci.nsIScriptableUnicodeConverter);
             UI.charset = window.navigator.platform.toLowerCase().indexOf("win") >= 0? "GBK": "UTF-8";
             var path = UI.ConvertFromUnicode(aFile.path);
-            this.exec(editor, path);
+            this.exec(editor, [path]);
         } catch (e) {}
     },
     copy: function(aText) {
