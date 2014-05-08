@@ -3,6 +3,7 @@
 // @description     标签栏辅助自定义工具栏
 // @include         chrome://browser/content/browser.xul
 // @charset         UTF-8
+// @author          defpt
 // @homepageURL     https://github.com/defpt/userChromeJs/tree/master/AidBar.uc.js
 // @reviewURL       http://bbs.kafan.cn/thread-1727960-1-1.html
 (function() {
