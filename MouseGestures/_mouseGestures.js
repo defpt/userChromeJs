@@ -70,7 +70,7 @@ GESTURES = {
 			gBrowser.mCurrentBrowser.reload();
 		}
 	},
-	// //刷新当前页面
+	//刷新当前页面,故意重复，这个容易误识别
 	"URD" : {
 		name : "刷新当前页面",
 		cmd : function () {
@@ -98,7 +98,7 @@ GESTURES = {
 			BrowserReloadSkipCache();
 		}
 	},
-	//跳过缓存刷新当前页面
+	//跳过缓存刷新当前页面，故意重复，这个容易误识别
 	"DRU" : {
 		name : "跳过缓存刷新当前页面",
 		cmd : function () {
@@ -204,13 +204,6 @@ GESTURES = {
 			PlacesCommandHook.bookmarkCurrentPage(true, PlacesUtils.bookmarksMenuFolderId);
 		}
 	},
-	//切换当前网页可编辑
-	"DLURD": {
-		name: "切换当前网页可编辑",
-		cmd: function() {
-			content.document.body.contentEditable = content.document.body.contentEditable == "true" ? "false" : "true";
-		}
-	},
 	//新建隐私窗口
 	"URDL" : {
 		name : "新建隐私窗口",
@@ -225,19 +218,6 @@ GESTURES = {
 		name : "清爽阅读",
 		cmd : function () {
 			__readable_by_evernote.button__call();
-		}
-	},
-	//复制扩展清单，
-	"DLD" : {
-		name : "复制扩展清单",
-		cmd : function () {
-			Application.extensions ? Components.classes['@mozilla.org/widget/clipboardhelper;1'].getService(Components.interfaces.nsIClipboardHelper).copyString(Application.extensions.all.map(function (item, id) {
-					return id + 1 + ": " + item._item.name;
-				}).join("\n")) : Application.getExtensions(function (extensions) {
-				Components.classes['@mozilla.org/widget/clipboardhelper;1'].getService(Components.interfaces.nsIClipboardHelper).copyString(extensions.all.map(function (item, id) {
-						return id + 1 + ": " + item._item.name;
-					}).join("\n"));
-			})
 		}
 	},
 };

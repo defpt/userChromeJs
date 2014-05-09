@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name               EasyDrag.uc.js
 // @namespace          EasyDrag@gmail.com
+// @author             紫云飞
 // @description        从紫大博客定制,修复了拖拽链接的一个小bug
+// @homepageURL        http://www.cnblogs.com/ziyunfei/archive/2011/12/20/2293928.html
 // ==/UserScript==
 location == "chrome://browser/content/browser.xul" && (function(event) {
 	var self = arguments.callee;
@@ -56,19 +58,6 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edgimg);
 						return;
 					}
-					/* if (direction == "R") {
-						//下载图片(自己设置默认路径)
-						var path = "E:\\Pictures";
-						var uri = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI(edgimg, null, null)
-						var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
-						file.initWithPath(path);
-						file.append(getDefaultFileName(null, uri));
-						internalSave(null, null, null, null, null, null, null, {
-							file: file,
-							uri: uri
-						}, null, internalSave.length === 12 ? document : true, internalSave.length === 12 ? true : null, null);
-						return;
-					} */
 					if (direction == "R") {
 						//下载图片(不弹窗)
 						saveImageURL(edgimg, null, null, null, true, null, document);
@@ -77,23 +66,33 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 				} else if (event.dataTransfer.types.contains("text/x-moz-url")) {
 					var edglink = event.dataTransfer.getData("text/x-moz-url").replace(/[\n\r]+/, "\n").split("\n");//目标链接
 					if (direction == "U") {
-						//新标签打开链接(后台)
-						gBrowser.addTab(edglink[0]);
+						if (event.ctrlKey){
+							//下载链接
+							saveImageURL(event.dataTransfer.getData("text/x-moz-url").split("\n")[0], null, null, null, true, null, document);
+						} else {
+							//新标签打开链接(后台)
+							gBrowser.addTab(edglink[0]);
+						}
 						return;
 					}
 					if (direction == "D") {
-						//新标签打开链接(前台)
-						gBrowser.selectedTab = gBrowser.addTab(edglink[0]);
+						if (event.ctrlKey){
+							//下载链接
+							saveImageURL(event.dataTransfer.getData("text/x-moz-url").split("\n")[0], null, null, null, true, null, document);
+						} else {
+							//新标签打开链接(前台)
+							gBrowser.selectedTab = gBrowser.addTab(edglink[0]);
+						}
 						return;
 					}
 					if (direction == "L") {
 						//复制链接文字
-						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[0]);
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[1]);
 						return;
 					}
 					if (direction == "R") {
-						//复制链接+文字
-						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[1] + '\n' + edglink[0]);
+						//复制链接
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[0]);
 						return;
 					}
 				} else {
