@@ -24,7 +24,7 @@
 * [EasyDrag.uc.js](https://github.com/defpt/userChromeJs/tree/master/MouseGestures) 从紫大博客定制的自用拖拽脚本，修复一个拖拽链接bug以及添加一些自用功能，我的必备脚本之一
 * [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js) 
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
-* [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu.uc.js) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
+* [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
 * [InFormEnterLite.uc.js](https://github.com/defpt/userChromeJs/blob/master/InFormEnterLite.uc.js) 填表脚本，被我搞成快速回复了，貌似这个比论坛灌水脚本支持范围更广，现已弃用，理由同ContextMenu.uc.js
 * [MemoryMonitor.uc.js](https://github.com/defpt/userChromeJs/blob/master/MemoryMonitor.uc.js) 简单的FF内存监视器
 * [ReadLater2.uc.js](https://github.com/defpt/userChromeJs/blob/master/ReadLater2.uc.js) 标记链接或当前网页以便稍后阅读
