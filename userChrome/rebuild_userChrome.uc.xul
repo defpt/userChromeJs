@@ -9,6 +9,7 @@
 // @charset			UTF-8
 // @compatibility  Firefox21+
 // @author         Alice0775
+// @note           精简自用，添加了按钮位置选择，在脚本51行设置，如果1按钮在地址栏，如果 0 按钮在三道杠前面 by defpt
 // ==/UserScript==
  -->
 
@@ -21,13 +22,12 @@
 	"toolsbar_KeyChanger_rebuild",
 	"ucjsMouseGestures",
 	"organizeBookmarksSeparator",
-	"charsetMenu",
-	"webDeveloperMenu",
-	"aboutSeparator",
-	"mason-show",
 	"UpdateLocal",
 	"BackupProfiles",
+	//"abp-menuitem",
 	"refererChangerToggle",
+	"RedirectorToggle",
+	"mason-show",
 	"wordhighlight-toolbar-menuitem"
   ];
 if (window.userChromejs) {
@@ -48,19 +48,21 @@ if (window.userChromejs) {
     init: function(){
       window.addEventListener("unload",this , false);
       this.addPrefListener(userChromejs.readLaterPrefListener); // 登録処理
-	  
-	  var navBar = document.getElementById("nav-bar"); //urlbar-icons addon-bar TabsToolbar alltabs-button 
-	  if (!navBar) return;
-	  
+	  var isUrlbar = 0; //1表示地址栏，0表示三道杠按钮前面
+
 	  this.menuBtn = document.createElement("toolbarbutton");
 	  this.menuBtn.setAttribute("id", "userChromeJsManagerMenuBtn");
 	  this.menuBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
 	  this.menuBtn.setAttribute("label", "userChromeJs管理器");
 	  this.menuBtn.setAttribute("tooltiptext", "UC 脚本管理器");
-	  this.menuBtn.setAttribute("type", "menu");	  //this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACSSURBVDhPYxAUFPyvoKDwX09P7//Tp0//37t37//FixfBfJA4SP73fQacmD4GPHr0CAMPVwPMzMz+W1pa/re3t6eOAcYMDP9dgTgEiOOBuBqIJ3Fz/18MxLuB+AwQU24AzCl79uz5v27dOjANwyQbgI6RDQAFMDZMtAGg2MGGiTYAFLXYMNEGEAwDbJgOBnD/BwADYmWxGb6FigAAAABJRU5ErkJggg==");//原图
-      this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABeSURBVDhPY6AKSCms+x+SkPMfREOFwACXOAYYNQBVITrGJQ7CUO0IA0jFUO0QA3BhkEJs4iAM1Y4bgBTBDIAKkQYGlwHYMFQZbgBSBDIAF4Yqww3QbUTHUGWUAAYGAEyi7ERKirMnAAAAAElFTkSuQmCC");//自用
-	  //navBar.appendChild(this.menuBtn);
-	  navBar.insertBefore(this.menuBtn,document.getElementById('PanelUI-button'));  
+	  this.menuBtn.setAttribute("type", "menu");
+      this.menuBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABeSURBVDhPY6AKSCms+x+SkPMfREOFwACXOAYYNQBVITrGJQ7CUO0IA0jFUO0QA3BhkEJs4iAM1Y4bgBTBDIAKkQYGlwHYMFQZbgBSBDIAF4Yqww3QbUTHUGWUAAYGAEyi7ERKirMnAAAAAElFTkSuQmCC");
+	  
+	  if (isUrlbar) {
+		  document.getElementById("urlbar-icons").appendChild(this.menuBtn);
+	  } else {
+	      document.getElementById("nav-bar").insertBefore(this.menuBtn,document.getElementById('PanelUI-button'));  
+	  }
 
   		var xml_menuBtn = '\
 			<menupopup id="userChromejs_options"\

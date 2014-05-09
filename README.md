@@ -15,7 +15,8 @@
 * [Sidebar](https://github.com/defpt/userChromeJs/blob/master/Sidebar)   从lastdream2013版的SidebarMod.uc.js修改而来的侧边栏加强脚本
 * [Stylish](https://github.com/defpt/userChromeJs/tree/master/Stylish) stylish 扩展辅助编辑功能脚本
 * [Translator](https://github.com/defpt/userChromeJs/blob/master/Translator) 翻译脚本
-
+* [userChrome](https://github.com/defpt/userChromeJs/blob/master/userChrome) **UC脚本引导器以及UC脚本管理器**
+* 
 ###单文件脚本
 * [000-AidBar.uc.js](https://github.com/defpt/userChromeJs/blob/master/000-AidBar.uc.js) 这是个按钮容器，位于标签栏，我用来辅助转移脚本并自动隐藏，hover 时显示~~~，[点击参看效果](http://bbs.kafan.cn/thread-1727795-1-1.html)
 * [ContextMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextMenu.uc.js) 右键菜单，添加了几个右键菜单，现在我已经弃用，比起addmenuplus脚本差多了
