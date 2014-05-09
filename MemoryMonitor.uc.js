@@ -3,8 +3,11 @@
 // @description    简单的FF内存监视器
 // @include        main
 // @charset        UTF-8
-// @note           2014.02.10 删除自动重启功能，修复分级颜色显示：正常显示为黑色，超过预警值的0.6倍为蓝色，超出预警值显示为红色
+// @note           2014.05.09 修复内存超过1G时候的颜色显示错误问题
+// @note           2014.02.10 删除自动重启功能，修复分级颜色显示：正常显示为绿色，超过预警值的0.6倍为蓝色，超出预警值显示为红色
 // @note           2014.02.08 基于原MemoryMonitorMod.uc.js修改，兼容FF28+
+// @homepageURL    https://github.com/defpt/userChromeJs/blob/master/MemoryMonitor.uc.js
+// @reviewURL      http://bbs.kafan.cn/thread-1685929-1-1.html
 // ==/UserScript==
 var ucjsMM = {
 	_interval : 5000,
@@ -18,7 +21,7 @@ var ucjsMM = {
 
 	interval : null,
 	init : function () {
-		var toolbar = document.getElementById('urlbar-icons');
+		var toolbar = document.getElementById('urlbar');//identity-box urlbar-icons
 		var memoryPanel = document.createElement('statusbarpanel');
 		memoryPanel.id = 'MemoryDisplay';
 		memoryPanel.setAttribute('label', ucjsMM._MemoryValue + ucjsMM._prefix);
@@ -37,14 +40,15 @@ var ucjsMM = {
 			var displayValue = ucjsMM.addFigure(ucjsMM._MemoryValue);
 			var memoryPanel = document.getElementById('MemoryDisplay');
 			memoryPanel.setAttribute('label', displayValue + ucjsMM._prefix);
-			memoryPanel.setAttribute('onclick', "openUILinkIn('about:memory','tab')");
-			if (displayValue > ucjsMM._Warningvalue) {
+			memoryPanel.setAttribute('onclick', "openUILinkIn('about:memory','tab')"); 
+			if (ucjsMM._MemoryValue <= ucjsMM._Warningvalue * 0.6){
+				memoryPanel.style.color = 'green';
+			}
+			else if (ucjsMM._MemoryValue >= ucjsMM._Warningvalue) {
 				memoryPanel.style.color = 'red';
-			} else {
-				if (displayValue > ucjsMM._Warningvalue * 0.6)
-					memoryPanel.style.color = 'blue';
-				else 
-					memoryPanel.style.color = 'black';
+			}
+			else {
+				memoryPanel.style.color = 'blue';
 			}
 		} catch (ex) {
 			clearInterval(ucjsMM.interval);
