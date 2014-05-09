@@ -8,7 +8,7 @@
 
 **[_mouseGestures.js](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/_mouseGestures.js)** 是 ***MouseGestures2.uc.js*** 的配置文件，放chrome\Local路径下即可
 
-[**MouseGestures.uc.js**](https://github.com/defpt/userChromeJs/tree/master/MouseGestures/EasyDrag.uc.js) 从紫大博客定制的自用拖拽脚本，修复一个拖拽链接bug以及添加一些自用功能，我的必备脚本之一
+[**EasyDrag.uc.js**](https://github.com/defpt/userChromeJs/tree/master/MouseGestures/EasyDrag.uc.js) 从紫大博客定制的自用拖拽脚本，修复一个拖拽链接bug以及添加一些自用功能，我的必备脚本之一
 
-![ExternalFuncBtn](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/MouseGestures.png?raw=true)
-![EasyDrag](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/EasyDrag.png?raw=true)
+![MouseGestures](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/MouseGestures.png?raw=true)
+![EasyDrag](https://github.com/defpt/userChromeJs/blob/master/MouseGestures/Easydrag.png?raw=true)
