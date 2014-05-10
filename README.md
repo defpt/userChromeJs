@@ -6,6 +6,7 @@
 
 ###多文件脚本
 * [addMenuPlus](https://github.com/defpt/userChromeJs/tree/master/addMenuPlus) 神器级菜单设置脚本，我的必备脚本之一
+* [Appmenu](https://github.com/defpt/userChromeJs/blob/master/Appmenu) 自定义橙色菜单
 * [autoCopy](https://github.com/defpt/userChromeJs/tree/master/autoCopy) 自动复制选中内容，我的必备脚本之一
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [KeyChanger](https://github.com/defpt/userChromeJs/tree/master/KeyChanger) 快捷键设置uc脚本，我的必备脚本之一
@@ -35,6 +36,5 @@
 * [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理
 * [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器
 * [openImgRar.uc.js](https://github.com/defpt/userChromeJs/blob/master/openImgRar.uc.js) 解密内涵图，已集成在addmenuplus脚本配置中
-* [rebuildAppmenu.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuildAppmenu.uc.xul) 自用橙色菜单(FF20+)，**以后不再维护和更新**，FF29开始，火狐橙就要成为过去了
 * [rebuild_userChrome.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuild_userChrome.uc.xul) 自用 UC 管理器，工具栏固定图标，精简了菜单，我的必备脚本之一
 * [Example](https://github.com/defpt/userChromeJs/blob/master/Example) 学习UC脚本笔记以及范例收藏
