@@ -40,7 +40,7 @@ var ucjsMM = {
 			var displayValue = ucjsMM.addFigure(ucjsMM._MemoryValue);
 			var memoryPanel = document.getElementById('MemoryDisplay');
 			memoryPanel.setAttribute('label', displayValue + ucjsMM._prefix);
-			memoryPanel.setAttribute('onclick', "openUILinkIn('about:memory','tab')"); 
+			memoryPanel.setAttribute('onclick', "if(event.button==0)openUILinkIn('about:memory','tab');"); 
 			if (ucjsMM._MemoryValue <= ucjsMM._Warningvalue * 0.6){
 				memoryPanel.style.color = 'green';
 			}
