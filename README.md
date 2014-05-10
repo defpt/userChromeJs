@@ -17,14 +17,13 @@
 * [Stylish](https://github.com/defpt/userChromeJs/tree/master/Stylish) stylish 扩展辅助编辑功能脚本
 * [Translator](https://github.com/defpt/userChromeJs/blob/master/Translator) 翻译脚本
 * [userChrome](https://github.com/defpt/userChromeJs/blob/master/userChrome) **UC脚本引导器以及UC脚本管理器**
-* 
+
 ###单文件脚本
 * [000-AidBar.uc.js](https://github.com/defpt/userChromeJs/blob/master/000-AidBar.uc.js) 这是个按钮容器，位于标签栏，我用来辅助转移脚本并自动隐藏，hover 时显示~~~，[点击参看效果](http://bbs.kafan.cn/thread-1727795-1-1.html)
 * [ContextMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/ContextMenu.uc.js) 右键菜单，添加了几个右键菜单，现在我已经弃用，比起addmenuplus脚本差多了
 * [contextSearcher.uc.js](https://github.com/defpt/userChromeJs/blob/master/contextSearcher.uc.js) 右键搜索增强脚本，基于原版添加了搜索完成后自动清空搜索栏并切回默认搜索引擎
 * [DownloadPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/DownloadPlus.uc.js)  右键点击下载按钮新建下载+下载重命名+另存为+自动关闭下载产生的空白标签+完成下载提示音，以后不再维护这个脚本
 * [EasyDrag.uc.js](https://github.com/defpt/userChromeJs/tree/master/MouseGestures) 从紫大博客定制的自用拖拽脚本，修复一个拖拽链接bug以及添加一些自用功能，我的必备脚本之一
-* [ExternalAppBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalAppBtn.uc.js) 代替橙色菜单，以lastdream2013的代码为基础，整合了脚本 [MyMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/MyMenu.uc.js) 
 * [ExternalFuncBtn.uc.js](https://github.com/defpt/userChromeJs/blob/master/ExternalFuncBtn.uc.js)  多功能辅助按钮菜单， 以lastdream2013的代码为基础，整合了脚本 [JsToolsmenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/JsToolsmenu.uc.js)
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
 * [InFormEnterLite.uc.js](https://github.com/defpt/userChromeJs/blob/master/InFormEnterLite.uc.js) 填表脚本，被我搞成快速回复了，貌似这个比论坛灌水脚本支持范围更广，现已弃用，理由同ContextMenu.uc.js
