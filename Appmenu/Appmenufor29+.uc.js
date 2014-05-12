@@ -176,9 +176,8 @@ var Appmenu = {
         TabsToolbar.insertBefore(ExternalAppBtn,TabsToolbar.firstChild);
 		document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 #AppMenuButton{\
-	padding:0 !important;\
-	margin:0 0 6px 0!important;\
-	background: #FFF !important;\
+padding:0 !important;\
+margin:0 0 6px 0!important;\
 }\
 #AppMenuButton > dropmarker{display:none !important;}\
 ') + '"'), document.documentElement);
