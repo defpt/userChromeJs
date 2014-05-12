@@ -1,6 +1,15 @@
 ###说明文档：
 
-**Appmenufor29+.uc.js** 为FF29+提供经典版橙色菜单
+**Appmenufor29+.uc.js** 为FF29+提供经典版橙色菜单,在脚本中可通过设置
+
+	isUrlbar = 0; // 0：表示标签栏； 1：表示地址栏
+来确定按钮位置。**如果设置在标签栏**，建议配合以下css完善一下位置调整，**数字自己调节，直到满意为止**
+
+	#AppMenuButton{
+    	padding:0 !important;
+    	margin:0 0 6px 0!important;
+	}
+	#AppMenuButton > dropmarker{display:none !important;}
 
 **rebuildAppmenu.uc.xul** 为经典版FF重建橙色菜单
 
