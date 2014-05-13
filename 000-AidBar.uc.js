@@ -20,10 +20,12 @@
     max-width:16px;/*设置触发区宽度*/\
     opacity:0;\
     transition: 0.8s;\
+	transition-delay:2s;\
 }\
 #TabsToolbar_aidBar:hover{\
    max-width:300px;/*300px足够用了吧？*/\
     opacity:1;\
+	transition-delay:.2s;\
 }\
 ') + '"'), document.documentElement);
 	}
