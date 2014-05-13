@@ -166,6 +166,7 @@
                 // add menu
                 let xml = '\
                     <menupopup id="redirector-menupopup">\
+						<menuitem label="Enable" id="redirector-toggle" type="checkbox" autocheck="false" key="redirector-toggle-key" checked="' + this.state + '" oncommand="Redirector.toggle();" />\
 						<menuitem label="重载|编辑规则" id="redirector-rules" tooltiptext="左键重载、右键编辑" onclick="if (event.button == 2) {event.preventDefault();closeMenus(event.currentTarget); Redirector.edit();}else if(event.button == 0) { event.preventDefault(); Redirector.reload(true); Redirector.removeolditem(); Redirector.refreshmenupopup();}" />\
                         <menuseparator id="redirector-sepalator"/>\
                     </menupopup>\
@@ -189,7 +190,7 @@
 		removeolditem: function(){
 			var menuitem = document.getElementById("redirector-menupopup");
 			var childs = menuitem.childNodes;  
-			for(var i = childs.length - 1; i >= 3; i--){
+			for(var i = childs.length - 1; i >= 4; i--){
 				menuitem.removeChild(childs[i]);
 			}
 		},
