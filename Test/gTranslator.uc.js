@@ -18,7 +18,7 @@
 // ==/UserScript==
 
 var gTranslator = {
-	version: "0.1",
+	version: "0.2",
 	scriptURL:"https://raw.githubusercontent.com/defpt/userChromeJs/master/Test/gTranslator.uc.js",
 	versionURL:"https://raw.githubusercontent.com/defpt/userChromeJs/master/Test/version.json",
 	
