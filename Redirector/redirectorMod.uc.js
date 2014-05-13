@@ -146,8 +146,10 @@
         },
         iconClick: function(event) {
             switch(event.button) {
-                case 2:
+                case 0:
                     document.getElementById("redirector-toggle").doCommand();
+                    break;
+				case 1:
                     break;
                 default:
                     document.getElementById("redirector-menupopup").openPopup(null, null, event.clientX, event.clientY);
@@ -161,7 +163,7 @@
                 icon.setAttribute("id", "redirector-icon");
                 icon.setAttribute("context", "redirector-menupopup");
                 icon.setAttribute("onclick", "Redirector.iconClick(event);");
-                icon.setAttribute("tooltiptext", "重定向：左键菜单、右键开关");
+                icon.setAttribute("tooltiptext", "重定向：左键全局开关、右键打开菜单");
                 icon.setAttribute("style", "padding: 0px 2px; list-style-image: url(" + this.enableIcon + ")");
                 // add menu
                 let xml = '\
