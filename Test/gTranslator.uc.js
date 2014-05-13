@@ -17,6 +17,12 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1690445-1-1.html
 // ==/UserScript==
 
+const importModule = Components.utils.import;
+importModule("resource://gre/modules/Task.jsm");
+importModule("resource://gre/modules/osfile.jsm");
+importModule("resource://gre/modules/NetUtil.jsm");
+importModule("resource://gre/modules/Downloads.jsm");
+importModule( 'resource://services-common/observers.js');
 var gTranslator = {
 	version: "0.2",
 	scriptURL:"https://raw.githubusercontent.com/defpt/userChromeJs/master/Test/gTranslator.uc.js",
