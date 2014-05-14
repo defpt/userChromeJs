@@ -28,4 +28,4 @@
 	}
 
 ###autohidden
-![autohidden](https://github.com/defpt/userChromeJs/blob/master/AidBar/autohidden.png?raw=true)
+![autohidden](https://github.com/defpt/userChromeJs/blob/master/AidBar/autohidden.gif?raw=true)
