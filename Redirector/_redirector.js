@@ -20,6 +20,7 @@ rules = [
 	},{
 		name: "wiki中文>>简体中文",
 		from: /\:\/\/zh\.wikipedia\.org\/(?!zh\-cn\/)[^\/]+/i,
+		exclude: /favicon\.ico/i,  
 		to: '://zh.wikipedia.org/zh-cn',
 		regex: true
 	},{

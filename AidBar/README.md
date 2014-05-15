@@ -4,10 +4,20 @@
 
 - 容器 id为：TabsToolbar_aidBar
 
-- 带按钮的uc脚本可以直接把按钮设置在此容器，省去加载完毕后又用movebutton转移一步
-容器设置了最大宽度300px，可放置十几个按钮了，应该足够了，触发区设置了一个按钮图标大小16px
+- **带按钮的uc脚本**可以直接把按钮设置在此容器，常见的脚本基本默认把按钮设置在 urlbar-icons ,当然也有设置在 nav-bar 等，不过大多在地址栏，所以拿重定向脚本为例：打开脚本搜索 ***urlbar-icons*** 把这个改为 ***TabsToolbar_aidBar*** 重启FF即可，这里要注意一下的是，各种脚本使用image、statusbarpanel-iconic等，这样转移后可能有些图标放大或缩小（各脚本内部设置不统一）这时候可以自己用css调节一下padding、margin属性，我默认统一设置了padding:5px 2px !important;（见下面样式）
 
-- 至于扩展按钮，需要先把按钮拖到FF默认的一些工具栏，比如，拖到隐藏的菜单栏， 这样在y大原版脚本 movebutton 中设置转移到此id即可，欢迎试用反馈~~~
+- **至于扩展按钮，**需要先把按钮拖到FF默认的一些工具栏，比如，拖到隐藏的菜单栏， 这样在y大原版脚本 [movebutton](https://github.com/ywzhaiqi/userChromeJS/tree/master/moveButton) 中设置转移到此id即可，比如：
+
+		buttons:[
+		{ id: "scriptish-button", bar: "TabsToolbar_aidBar", pos: 1 },//scriptish扩展
+		{ id: "stylish-toolbar-button", bar: "TabsToolbar_aidBar", pos: 2 },//stylish 扩展
+		{ id: "masonTbButton", bar: "TabsToolbar_aidBar", pos: 3 },// Mason扩展
+		{ id: "abp-toolbarbutton", bar: "TabsToolbar_aidBar", pos: 4 },// ABP、ABE扩展
+		{ id: "lpt_lastpass-compact-btn", bar: "TabsToolbar_aidBar", pos: 5 },// Lastpass 扩展
+		],
+
+
+- 容器设置了最大宽度300px，可放置十几个按钮了，应该足够了，触发区设置了一个按钮图标大小16px
 
 这样直接使用，有点小问题，启动FF的时候，会有一个按钮显示大概1秒才会隐藏，目前没有找到完美的在脚本直接解决的方法，可把样式用stylish加载达到完美效果，样式如下：
 
