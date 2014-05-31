@@ -7,6 +7,19 @@ rules = [
 		regex: false,                           // 可选，true 表示 from 是正则表达式
 		resp: false                             // 可选，true 表示替换 response body
 	},
+	// {
+	//     name: "google链接加密",
+	//     from: /^http:\/\/(([^\.]+\.)?google\..+)/i,
+	//     exclude: /google\.cn/i,                 // 可选，排除例外规则
+	//     to: "https://$1",
+	//     regex: true
+	// },
+	// {
+	//     name: "google搜索结果禁止跳转",
+	//     from: /^https?:\/\/www\.google\.com\/url\?.*url=([^&]*).*/i,
+	//     to: "$1",
+	//     regex: true
+	// },
 	{
 		name: "wiki中文>>简体中文",
 		from: /\:\/\/zh\.wikipedia\.org\/(?!zh\-cn\/)[^\/]+/i,
