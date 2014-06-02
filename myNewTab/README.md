@@ -16,6 +16,6 @@
 `chrome://userchromejs/content/myNewTab/index.html`
 
 ###实际效果图
-![newtab0](https://github.com/defpt/userChromeJs/blob/master/myNewTab/newtab0.gif?raw=true)
-![newtab1](https://github.com/defpt/userChromeJs/blob/master/myNewTab/newtab1.gif?raw=true)
-![newtab2](https://github.com/defpt/userChromeJs/blob/master/myNewTab/newtab2.gif?raw=true)
+![newtab0](https://raw.githubusercontent.com/defpt/userChromeJs/master/myNewTab/newtab0.png)
+![newtab1](https://raw.githubusercontent.com/defpt/userChromeJs/master/myNewTab/newtab1.png)
+![newtab2](https://raw.githubusercontent.com/defpt/userChromeJs/master/myNewTab/newtab2.png)
