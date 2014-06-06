@@ -2,46 +2,46 @@ var Config = getMStr(function(){
 	var sites;
 /*
 新闻资讯
-	Feedly,  http://cloud.feedly.com/,     img/feedly.ico
-	IT 资讯,  http://www.ithome.com/list/,  img/ithome.ico
-	凤凰网,  http://www.ifeng.com/,        img/ifeng.ico
-	新浪网,  http://www.sina.com.cn/,      img/sina.ico
+	Feedly,  http://cloud.feedly.com/
+	IT 资讯,  http://www.ithome.com/list/
+	凤凰网,  http://www.ifeng.com/
+	新浪网,  http://www.sina.com.cn/
 在线应用
-	谷歌翻译, https://translate.google.de/#auto/zh-CN/, img/gtrans.ico
+	谷歌翻译, https://translate.google.de/#auto/zh-CN/
 	谷歌地图, https://www.google.de/maps/, img/gmaps.ico
-	站长工具, http://tool.oschina.net/, img/tools.ico
-	百度云, http://pan.baidu.com/disk/home?, img/baiduyun.ico
+	站长工具, http://tool.oschina.net/
+	百度云, http://pan.baidu.com/disk/home?
 火狐专区
-	卡饭火狐, http://bbs.kafan.cn/forum-215-1.html, img/kafan.ico
-	Mozest, https://g.mozest.com/, img/mozest.png
-	火狐吧, http://tieba.baidu.com/f?ie=utf-8&kw=firefox, img/tieba.png
-	官方 FTP, http://ftp.mozilla.org/pub/mozilla.org/firefox/, img/ftp.ico
+	卡饭火狐, http://bbs.kafan.cn/forum-215-1.html
+	Mozest, https://g.mozest.com/
+	火狐吧, http://tieba.baidu.com/f?ie=utf-8&kw=firefox
+	官方 FTP, http://ftp.mozilla.org/pub/mozilla.org/firefox/
 	Greasyfork, https://greasyfork.org/scripts, img/userscript.png
-	MDN 库, https://developer.mozilla.org/en-US/, img/mdn.png
+	MDN 库, https://developer.mozilla.org/en-US/
 影音娱乐
-	Youtube, https://www.youtube.com/, img/youtube.png
-	优酷视频, http://www.youku.com/, img/youku.ico
-	起点中文, http://www.qidian.com/Default.aspx, img/qidian.ico
-	豆瓣电台, http://douban.fm/, img/doubanfm.ico
-	落网电台, http://www.luoo.net/, img/luo.ico
-	BookLink, http://booklink.me/, img/booklink.png
+	Youtube, https://www.youtube.com/
+	优酷视频, http://www.youku.com/
+	起点中文, http://www.qidian.com/Default.aspx
+	豆瓣电台, http://douban.fm/
+	落网电台, http://www.luoo.net/
+	BookLink, http://booklink.me/
 资源收藏
-	ZD423, http://www.zdfans.com/, img/zd423.ico
-	软件阁, http://www.lite6.com/, img/lite6.ico
-	便携绿软, http://www.portablesoft.org/, img/portable.ico
+	ZD423, http://www.zdfans.com/
+	软件阁, http://www.lite6.com/
+	便携绿软, http://www.portablesoft.org/
 社区交流
-	百度空间, http://hi.baidu.com/home, img/hibaidu.ico
-	豆瓣, http://www.douban.com/, img/douban.ico
+	百度空间, http://hi.baidu.com/home
+	豆瓣, http://www.douban.com/
 	贴吧, http://tieba.baidu.com/, img/tieba.png
-	远景论坛, http://bbs.pcbeta.com/, img/pcbeta.ico
-	开元论坛, http://www.kaiyuan.de/, img/kaiyuan.ico
+	远景论坛, http://bbs.pcbeta.com/
+	开元论坛, http://www.kaiyuan.de/
 综合辅助
-	谷歌首页, https://www.google.de/, img/google.ico
-	百度首页, http://www.baidu.com/, img/baidu.ico
-	必应首页, http://www.bing.com/, img/bing.ico
-	维基百科, https://de.wikipedia.org/wiki/Wikipedia:Hauptseite, img/wiki.ico
-	网盘搜索, http://so.baiduyun.me/, img/baiduyun.ico
-	搜索图标, http://www.easyicon.net/, img/easyicon.ico
+	谷歌首页, https://www.google.de/
+	百度首页, http://www.baidu.com/
+	必应首页, http://www.bing.com/
+	维基百科, https://de.wikipedia.org/wiki/Wikipedia:Hauptseite
+	网盘搜索, http://so.baiduyun.me/
+	搜索图标, http://findicons.com/
 */
 });
 
@@ -51,9 +51,9 @@ var newTabDirPath = "extensions\\userChromeJS@mozdev.org\\content\\myNewTab";
 var bingImageDir = "bingImg";
 
 var useBingImage = 1;  // 1：使用 bing 的背景图片？ 0：不使用
-var updateImageTime = 2;  // 更新 bing 背景图片的间隔（单位：天）
+var updateImageTime = 8;  // 更新 bing 背景图片的间隔（单位：小时）
 var bingImageSize = 0;  // bing 图片的尺寸，0 为默认的 1366x768，1 为 1920x1080（大很多，可能会加载慢些）
-var bingMaxHistory = 10; // 最大历史天数，10天内应该有个好看的吧？
+var bingMaxHistory = 10; // 最大历史天数，可设置[2, 16]
 
 var isNewTab = 0;  // 1：强制新标签页打开 0：默认
 
@@ -97,7 +97,7 @@ var NewTab = {
 		var data = this.loadSetting();
 		var todayImg = 'chrome://userchromejs/content/myNewTab/bingImg/bingImg_0.jpg';
 		if (useBingImage) {
-			if (data.backgroundImage && (new Date().getTime() - data.lastCheckTime) < updateImageTime * 24 * 3600 * 1000) {
+			if (data.backgroundImage && (new Date().getTime() - data.lastCheckTime) < updateImageTime * 3600 * 1000) {
 				document.body.style.backgroundImage = 'url(' + data.backgroundImage + ')';
 			} else {
 				this.setAndSave(todayImg);
