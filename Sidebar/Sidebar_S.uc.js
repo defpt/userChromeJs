@@ -32,7 +32,7 @@
 					item,
 					btn,
 					frag = document.createDocumentFragment();
-					insertpoint = document.querySelector('#sidebar-header .tabs-closebutton');
+					insertpoint = document.querySelector('#sidebar-header .close-icon');
 				for (i = 0; i < len; i++) {
 					item = sitelist[i];
 					btn = frag.appendChild(document.createElement('toolbarbutton'));

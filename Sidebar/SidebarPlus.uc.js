@@ -96,7 +96,7 @@
 					menupopup,
 					menuitem,
 					frag = document.createDocumentFragment();
-					insertpoint = document.querySelector('#sidebar-header .tabs-closebutton');
+					insertpoint = document.querySelector('#sidebar-header .close-icon');
 				for (i = 0; i < len; i++) {
 					item = sitelist[i];
 					if (item.childs) {
