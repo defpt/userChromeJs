@@ -1,4 +1,4 @@
-/* :::::::: Sub-Script/Overlay Loader v3.0.42mod ::::::::::::::: */
+/* :::::::: Sub-Script/Overlay Loader v3.0.44mod ::::::::::::::: */
 
 // automatically includes all files ending in .uc.xul and .uc.js from the profile's chrome folder
 
@@ -14,6 +14,8 @@
 // 4.Support window.userChrome_js.loadOverlay(overlay [,observer]) //
 // Modified by Alice0775
 //
+// Date 2014/06/07 21:00 skip about:blank
+// Date 2014/06/07 19:00 turn off experiment by default
 // Date 2014/06/04 12:00 fixed possibility of shutdown crash
 // Date 2014/05/19 00:00 delay 0, experiment
 // Date 2013/10/06 00:00 allow to load scripts into about:xxx
@@ -55,6 +57,17 @@
 (function(){
   "use strict";
   // -- config --
+  /*
+    EXPERIMENT：取消延迟加载（实验性的）？true 为不延迟，false 为延迟。为 true 则一些脚本可能会运行不正常。
+      true 和 false 区别2点：
+        1、对非主界面的脚本本来有个 500ms 的延迟，true 后就没了。
+        2、本来是一个个加载 xul 文件，而 true 则把所有的 xul 加起来一次性加载。 前不久卡饭还有个 userChromejs 扩展的优化版，就是优化 xul 文件的加载。 
+    EXCLUDE_CHROMEHIDDEN：  排除隐藏的 window(popup等)
+    USE_0_63_FOLDER：如果为 true，好像只支持这几种文件夹名字 uc、xul、ucjs
+    FORCESORTSCRIPT：对脚本进行排序，这可能对脚本的运行顺序有影响
+    AUTOREMOVEBOM：对文件编码进行检测，但并不支持 gbk 编码
+  */
+  const EXPERIMENT = false; //実験:するtrue, しない[false]
   const EXCLUDE_CHROMEHIDDEN = false; //chromehiddenなwindow(popup等)ではロード: しないtrue, する[false]
   const USE_0_63_FOLDER = false; //0.63のフォルダ規則を使う[true], 使わないfalse
   const FORCESORTSCRIPT = false; //強制的にスクリプトをファイル名順でソートするtrue, しない[false]
@@ -62,9 +75,9 @@
   const REPLACECACHE = false; //スクリプトの更新日付によりキャッシュを更新する: true , しない:[false]
   //=====================USE_0_63_FOLDER = falseの時===================
   var UCJS      = new Array("UCJSFiles","userContent","userMenu"); //UCJS Loader 仕様を適用 (NoScriptでfile:///を許可しておく)
-  var arrSubdir = new Array("", "xul","BtnScript","PteScript","TabMixPlus","withTabMixPlus", "SubScript", "UCJSFiles", "userCrome.js.0.8","userContent","userMenu");    //スクリプトはこの順番で実行される
+  var arrSubdir = new Array("", "xul", "BtnScript", "PteScript", "TabMixPlus", "withTabMixPlus", "SubScript", "UCJSFiles", "userCrome.js.0.8","userContent","userMenu");    //スクリプトはこの順番で実行される
   //===================================================================
-  const ALWAYSEXECUTE   = 'rebuild_userChrome.uc.xul'; //常に実行するスクリプト
+  const ALWAYSEXECUTE   = 'rebuild_userChrome.uc.xul'; // 强制运行的脚本，无视禁用列表
   var INFO = true;
   var BROWSERCHROME = "chrome://browser/content/browser.xul"; //Firfox
   //var BROWSERCHROME = "chrome://navigator/content/navigator.xul"; //SeaMonkey:
@@ -109,6 +122,7 @@
     BROWSERCHROME: BROWSERCHROME,
     EXCLUDE_CHROMEHIDDEN: EXCLUDE_CHROMEHIDDEN,
     REPLACECACHE: REPLACECACHE,
+    EXPERIMENT: EXPERIMENT,
     get hackVersion () {
       delete this.hackVersion;
       return this.hackVersion = "0.8";
@@ -560,7 +574,7 @@ this.debug('Parsing getScripts: '+((new Date()).getTime()-Start) +'msec');
 
       var overlay;
 
-      if( false && true ){ //← uc.jsでのloadOverlayに対応
+      if( !this.EXPERIMENT && true ){ //← uc.jsでのloadOverlayに対応
         for(var m=0,len=this.overlays.length; m<len; m++){
           overlay = this.overlays[m];
           if( overlay.filename != this.ALWAYSEXECUTE
@@ -782,6 +796,38 @@ this.debug('Parsing getScripts: '+((new Date()).getTime()-Start) +'msec');
       setTimeout(function(doc){that.runOverlays(doc);},0, doc);
     },0, doc);
   }else{
+    if (!that.EXPERIMENT) {
+      setTimeout(function(doc){
+        that.runScripts(doc);
+        //面倒だからFirefox 3 の場合はeditBookmarkOverlay.xulを先読みしておく
+        var delay = 500;
+        if (location.href === that.BROWSERCHROME &&
+            typeof StarUI != 'undefined' &&
+            !(StarUI._overlayLoading || StarUI._overlayLoaded)) {
+          // xxxx bug 726440
+          StarUI._overlayLoading = true;
+          that.loadOverlay(
+            "chrome://browser/content/places/editBookmarkOverlay.xul",
+            (function (aSubject, aTopic, aData) {
+              //XXX We just caused localstore.rdf to be re-applied (bug 640158)
+              if ("retrieveToolbarIconsizesFromTheme" in window)
+                retrieveToolbarIconsizesFromTheme();
+              // Move the header (star, title, button) into the grid,
+              // so that it aligns nicely with the other items (bug 484022).
+              let header = this._element("editBookmarkPanelHeader");
+              let rows = this._element("editBookmarkPanelGrid").lastChild;
+              rows.insertBefore(header, rows.firstChild);
+              header.hidden = false;
+              this._overlayLoading = false;
+              this._overlayLoaded = true;
+              //this._doShowEditBookmarkPanel(aItemId, aAnchorElement, aPosition);
+            }).bind(StarUI)
+          );
+          delay = 0;
+        }
+        setTimeout(function(doc){that.runOverlays(doc);}, delay, doc);
+      },500, doc);
+    } else {
       that.runScripts(doc);
       //面倒だからFirefox 3 の場合はeditBookmarkOverlay.xulを先読みしておく
       if (location.href === that.BROWSERCHROME &&
@@ -810,6 +856,7 @@ this.debug('Parsing getScripts: '+((new Date()).getTime()-Start) +'msec');
         );
       }
       that.runOverlays(doc);
+    }
   }
   //Sidebar for Trunc
   if(location.href != that.BROWSERCHROME) return;
@@ -817,6 +864,7 @@ this.debug('Parsing getScripts: '+((new Date()).getTime()-Start) +'msec');
     window.document.addEventListener("load",
       function(event){
         if (!event.originalTarget.location) return;
+        if( /^about:blank/.test(event.originalTarget.location.href) )return;
         if( !/^(about:|chrome:)/.test(event.originalTarget.location.href) )return;
         var doc = event.originalTarget;
         var href = doc.location.href;

@@ -23,7 +23,7 @@
 **特别注意：**这个js文件中开始的看起来是注释的部分就是站点设置，除非你要编辑站点，否则不要删除。。。设置范例如下：
 
     新闻资讯
-    	Feedly,  http://cloud.feedly.com/
+    	Feedly,  http://cloud.feedly.com/, http://feedly.com/favicon.ico
     	IT 资讯,  http://www.ithome.com/list/, img/ithome.ico
     	凤凰网,  http://www.ifeng.com/, img/ifeng.png
     	新浪网,  http://www.sina.com.cn/
