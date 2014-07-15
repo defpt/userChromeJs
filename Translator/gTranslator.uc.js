@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name           gTranslator.uc.js
-// @description    google_translator扩展的UC脚本版
+// @description    基于 Dannylee 脚本uc_google_translator.uc.js的修改自用版翻译脚本
 // @author         Dannylee
 // @namespace      lidanny2012@gmail.com
 // @include        main
 // @license        MIT License
 // @compatibility  Firefox 4
 // @charset        UTF-8
-// @version        基于 Dannylee 脚本uc_google_translator.uc.js v2.3.2.2
-// @note           修改自用版 by defpt at 2014.02.25
+// @version        v2014.05.04 by defpt
+// @note           2014-05-04，更新了翻译的api，修复链接不到谷歌的情况
+// @note           2014-02-25，随原脚本更新部分代码，并完善正则
 // @note           左键点击按钮直接翻译，如果有选中文字就翻译文字，否则翻译网页
 // @note           右键弹出设置菜单
 // @note           不勾选弹窗显示则直接替换原文本，否则弹窗显示翻译结果
