@@ -6,15 +6,16 @@
 // @compatibility  Firefox 3.0 3.5 3.6 3.7a1pre  WinXP
 // @charset        UTF-8
 // @author         Alice0775
-// @version        v2014.07.21 by defpt
-// @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序
-// @note           2014-04-26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI
+// @version        v2014.07.22
+// @note           2014-07-22 使用bat、vbs代码代替startgoa.exe,实现单文件版uc脚本 by ywzhaiqi
+// @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序 bydefpt
+// @note           2014-04-26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI bydefpt
 // @note           2012-01-31 11:00 by Alice0775
 // @homepageURL    https://github.com/defpt/userChromeJs/blob/master/quickProxy/quickProxyMod.uc.js
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-    请配合goagent启动器 startgoa使用, strartgoa可在卡饭贴或者百度网盘下载
+    请配合goagent启动器 startgoa使用
 		0: 表示不使用代理
 		1：表示手动设置代理
 		2：表示自动代理配置
@@ -79,8 +80,64 @@
 		},
 		
 		_goagent:function(e){
-				var file = FileUtils.getFile('UChrm', ['local','GoAgent','startgoa.exe'], true);
-			file.launch();
+
+			// var file = FileUtils.getFile('UChrm', ['startGoagent.exe'], true);
+			// file.launch();
+			
+			var batText = function(){/*
+				@Echo Off
+				ver | FINDSTR "6.2. 6.3." > NUL
+				If ErrorLevel 1 (
+					SET exeName=goagent.exe
+				) else (
+					SET exeName=goagent-win8.exe
+				)
+
+				TaskList|Findstr /i %exeName% > Nul
+				If ErrorLevel 1 (
+					START "" "{GOAGENT}\%exeName%"
+				)
+				*/
+			}.toString().match(/\/\*([\s\S]+)\*\//)[1];
+
+			//var file = FileUtils.getFile('UChrm', ['local','GoAgent',]);
+			var filePath = "D:\\Program Files (x86)\\GoAgent\\";
+			
+			batText = batText.replace('{GOAGENT}', filePath);
+			var batPath = this.createTempFile(batText, "startGoagent.bat");
+			
+			var vbsText = 'set ws=wscript.createobject("wscript.shell")\n' +
+				'ws.run "' + batPath + ' /start",0';
+
+			this.runNative(this.createTempFile(vbsText, 'startGoagent.vbs'), []);
+		},
+
+		runNative: function(exePath, args, blocking) {
+		    if (typeof blocking == 'undefined') blocking = false;
+		    var exeFile = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
+		    exeFile.initWithPath(exePath);
+		    if (exeFile.exists()) {
+		        var proc = Cc["@mozilla.org/process/util;1"].createInstance(Ci.nsIProcess);
+		        proc.init(exeFile);
+		        proc["runw" in proc ? "runw" : "run"](blocking, args, args.length);
+		        return 0;
+		    } else {
+		        return -1;
+		    }
+		},
+		createTempFile : function(data, filename, charset) {
+		    var file = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("TmpD", Ci.nsIFile);
+		    file.append(filename);
+		    file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
+
+		    var foStream = Cc["@mozilla.org/network/file-output-stream;1"].createInstance(Ci.nsIFileOutputStream);
+		    foStream.init(file, 0x02 | 0x08 | 0x20, 0700, 0);
+		    var converter = Cc["@mozilla.org/intl/converter-output-stream;1"].createInstance(Ci.nsIConverterOutputStream);
+		    converter.init(foStream, charset || "gbk", 0, "?".charCodeAt(0));
+		    converter.writeString(data);
+		    converter.close();
+
+		    return file.path;
 		},
 		
 		_click : function (e) {
