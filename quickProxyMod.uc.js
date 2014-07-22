@@ -14,7 +14,7 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-    请配合goagent启动器 startgoa使用
+    请配合goagent启动器 startgoa使用, strartgoa可在卡饭贴或者百度网盘下载
 		0: 表示不使用代理
 		1：表示手动设置代理
 		2：表示自动代理配置
@@ -79,11 +79,7 @@
 		},
 		
 		_goagent:function(e){
-			if (navigator.userAgent.indexOf("Windows NT 6.2") > -1){
-				var file = FileUtils.getFile('UChrm', ['local','GoAgent','goagent-win8.exe'], true);
-			} else {
-				var file = FileUtils.getFile('UChrm', ['local','GoAgent','goagent.exe'], true);  
-			}
+				var file = FileUtils.getFile('UChrm', ['local','GoAgent','startgoa.exe'], true);
 			file.launch();
 		},
 		
