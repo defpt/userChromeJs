@@ -11,7 +11,6 @@
 * [DefaultFullZoom](https://github.com/defpt/userChromeJs/tree/master/Default%20Full%20Zoom%20Level)  可设置默认缩放百分比
 * [KeyChanger](https://github.com/defpt/userChromeJs/tree/master/KeyChanger) 快捷键设置uc脚本，我的必备脚本之一
 * [MouseGestures](https://github.com/defpt/userChromeJs/tree/master/MouseGestures) 鼠标手势脚本，我的必备脚本之一
-* [quickProxy](https://github.com/defpt/userChromeJs/tree/master/quickProxy) 快速切换代理
 * [RefererChange](https://github.com/defpt/userChromeJs/tree/master/RefererChange) 破解图片外链外置配置版
 * [Sidebar](https://github.com/defpt/userChromeJs/blob/master/Sidebar)   从lastdream2013版的SidebarMod.uc.js修改而来的侧边栏加强脚本
 * [Stylish](https://github.com/defpt/userChromeJs/tree/master/Stylish) stylish 扩展辅助编辑功能脚本
@@ -27,6 +26,7 @@
 * [HistoryMenu.uc.js](https://github.com/defpt/userChromeJs/blob/master/HistoryMenu) 历史按钮、左键打开菜单，右击恢复最后关闭的标签 
 * [InFormEnterLite.uc.js](https://github.com/defpt/userChromeJs/blob/master/InFormEnterLite.uc.js) 填表脚本，被我搞成快速回复了，貌似这个比论坛灌水脚本支持范围更广，现已弃用，理由同ContextMenu.uc.js
 * [MemoryMonitor.uc.js](https://github.com/defpt/userChromeJs/blob/master/MemoryMonitor.uc.js) 简单的FF内存监视器
+* [quickProxy](https://github.com/defpt/userChromeJs/blob/master/quickProxyMod.uc.js) 快速切换代理
 * [ReadLater2.uc.js](https://github.com/defpt/userChromeJs/blob/master/ReadLater2.uc.js) 标记链接或当前网页以便稍后阅读
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能，我的必备脚本之一
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
