@@ -15,7 +15,11 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-    请配合goagent启动器 startgoa使用
+		脚本里面放置了两种路径写法，默认使用的是绝对路径。如果想使用相对路径，请如下操作：
+		首先取消107行的注释，然后把109行注释掉（大概位置就是这些）。
+		默认路径如下：
+		相对路径是：配置下chrome\Local\GoAgent\
+		绝对路径是：D:\Program Files (x86)\GoAgent\
 		0: 表示不使用代理
 		1：表示手动设置代理
 		2：表示自动代理配置
@@ -99,11 +103,12 @@
 				)
 				*/
 			}.toString().match(/\/\*([\s\S]+)\*\//)[1];
-
-			//var file = FileUtils.getFile('UChrm', ['local','GoAgent',]);
+			//相对路径
+			var filePath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
+			//绝对路径
 			var filePath = "D:\\Program Files (x86)\\GoAgent\\";
 			
-			batText = batText.replace('{GOAGENT}', filePath);
+			batText = batText.replace('{GOAGENT}', filePath);			
 			var batPath = this.createTempFile(batText, "startGoagent.bat");
 			
 			var vbsText = 'set ws=wscript.createobject("wscript.shell")\n' +
