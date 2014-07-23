@@ -104,7 +104,7 @@
 				*/
 			}.toString().match(/\/\*([\s\S]+)\*\//)[1];
 			//相对路径
-			var filePath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
+			//var filePath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
 			//绝对路径
 			var filePath = "D:\\Program Files (x86)\\GoAgent\\";
 			
