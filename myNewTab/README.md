@@ -14,13 +14,25 @@
 
 **设置新标签页和主页**地址为：
 `chrome://userchromejs/content/myNewTab/index.html`
+在 about:config 分别搜索 browser.newtab.url、browser.startup.homepage 并设置
 
 **站点编辑：**
 看效果图中，在导航面板右上角有三个按钮，分别是定位、随机、编辑，其对应作用是打开文件放置路径、随机一个背景、编辑index.js文件。站点就保存在index.js文件中
 
 **解释一下这个随机：**默认用的是每天微软bing（非必应中国，如果喜欢必应中国壁纸，可以自己在index.js中改一下脚本中的地址）的默认壁纸，如果当天壁纸不喜欢，那么这时候随机就有用了，点一下随机，即可随机使用过去10天内bing的壁纸（定位到bingImg文件夹会发现里面有10张壁纸），同样可以在index.js中设置这个最大历史参数，个人觉得其实有那么三五张备份就够了，如果10天内的壁纸都不能看，那微软也太失败了……
 
-**特别注意：**这个js文件中开始的看起来是注释的部分就是站点设置，除非你要编辑站点，否则不要删除。。。设置范例如下：
+**Bing图片说明：**
+
+
+- 默认使用bing的背景图片，如果不喜欢bing背景图片，可点击编辑打开index.js文件，搜索 var useBingImage = 1; 把其改为 var useBingImage = 0;
+同时自己选择一张图片重命名为 default.jpg 放入img文件内替换原图片
+
+
+- 默认下载的bing图片为 1366x768，适合15英寸左右笔记本，如果使用的是大显示器，请编辑 index.js 搜索 var bingImageSize = 0; 改为 var bingImageSize = 1;这样下载的是1920x1080的大图
+
+**特别注意：**
+
+这个js文件中开始的看起来是注释的部分就是站点设置，除非你要编辑站点，否则不要删除。。。设置范例如下：
 
     新闻资讯
     	Feedly,  http://cloud.feedly.com/, http://feedly.com/favicon.ico

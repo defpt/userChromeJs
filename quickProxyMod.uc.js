@@ -8,8 +8,8 @@
 // @author         Alice0775
 // @version        v2014.07.22
 // @note           2014-07-22 使用bat、vbs代码代替startgoa.exe,实现单文件版uc脚本 by ywzhaiqi
-// @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序 bydefpt
-// @note           2014-04-26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI bydefpt
+// @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序 by defpt
+// @note           2014-04-26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI by defpt
 // @note           2012-01-31 11:00 by Alice0775
 // @homepageURL    https://github.com/defpt/userChromeJs/blob/master/quickProxyMod.uc.js
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html

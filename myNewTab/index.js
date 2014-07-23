@@ -2,26 +2,25 @@ var Config = getMStr(function(){
 	var sites;
 /*
 新闻资讯
-	Feedly,  http://cloud.feedly.com/
+	Feedly,  http://cloud.feedly.com/, http://feedly.com/favicon.ico
 	IT 资讯,  http://www.ithome.com/list/
 	凤凰网,  http://www.ifeng.com/
 	新浪网,  http://www.sina.com.cn/
 在线应用
-	谷歌翻译, https://translate.google.de/#auto/zh-CN/
+	谷歌翻译, https://translate.google.de/#auto/zh-CN/, https://translate.google.de/favicon.ico
 	谷歌地图, https://www.google.de/maps/, img/gmaps.ico
-	站长工具, http://tool.oschina.net/
-	百度云, http://pan.baidu.com/disk/home?
-火狐专区
-	卡饭火狐, http://bbs.kafan.cn/forum-215-1.html
-	Mozest, https://g.mozest.com/
-	火狐吧, http://tieba.baidu.com/f?ie=utf-8&kw=firefox
-	官方 FTP, http://ftp.mozilla.org/pub/mozilla.org/firefox/
-	Greasyfork, https://greasyfork.org/scripts, img/userscript.png
-	MDN 库, https://developer.mozilla.org/en-US/
+	站长工具, http://tool.oschina.net/, http://tool.oschina.net/img/favicon.ico
+	百度云, http://pan.baidu.com/disk/home, http://pan.baidu.com/res/static/images/favicon.ico
+网购专区
+	京东, http://www.jd.com/, http://www.jd.com/favicon.ico
+	天猫, http://www.tmall.com/, http://a.tbcdn.cn/p/mall/base/favicon.ico
+	Windeln, http://www.windeln.de/
+	Amazon, http://www.amazon.de/Angebote/b/ref=cs_top_nav_gb27?ie=UTF8&node=872398
+	淘宝， http://shop111413861.taobao.com/?spm=0.0.0.0.LwyA34
 影音娱乐
-	Youtube, https://www.youtube.com/
+	Youtube, https://www.youtube.com/, https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png
 	优酷视频, http://www.youku.com/
-	起点中文, http://www.qidian.com/Default.aspx
+	起点中文, http://www.qidian.com/Default.aspx, img/qidian.ico
 	豆瓣电台, http://douban.fm/
 	落网电台, http://www.luoo.net/
 	BookLink, http://booklink.me/
@@ -29,17 +28,19 @@ var Config = getMStr(function(){
 	ZD423, http://www.zdfans.com/
 	软件阁, http://www.lite6.com/
 	便携绿软, http://www.portablesoft.org/
+	炫电影, http://www.xuandy.com/
 社区交流
-	百度空间, http://hi.baidu.com/home
+	百度空间, http://hi.baidu.com/home, img/hibaidu.ico
 	豆瓣, http://www.douban.com/
 	贴吧, http://tieba.baidu.com/, img/tieba.png
 	远景论坛, http://bbs.pcbeta.com/
 	开元论坛, http://www.kaiyuan.de/
+	卡饭火狐, http://bbs.kafan.cn/forum-215-1.html
 综合辅助
-	谷歌首页, https://www.google.de/
-	百度首页, http://www.baidu.com/
-	必应首页, http://www.bing.com/
-	维基百科, https://de.wikipedia.org/wiki/Wikipedia:Hauptseite
+	谷歌首页, https://www.google.de/, https://www.google.de/favicon.ico
+	百度首页, http://www.baidu.com/, http://www.baidu.com/favicon.ico
+	必应首页, http://www.bing.com/, http://www.bing.com/favicon.ico
+	维基百科, https://de.wikipedia.org/wiki/Wikipedia:Hauptseite, https://bits.wikimedia.org/favicon/wikipedia.ico
 	网盘搜索, http://so.baiduyun.me/
 	搜索图标, http://findicons.com/
 */
@@ -54,7 +55,6 @@ var useBingImage = 1;  // 1：使用 bing 的背景图片？ 0：不使用
 var updateImageTime = 8;  // 更新 bing 背景图片的间隔（单位：小时）
 var bingImageSize = 0;  // bing 图片的尺寸，0 为默认的 1366x768，1 为 1920x1080（大很多，可能会加载慢些）
 var bingMaxHistory = 10; // 最大历史天数，可设置[2, 16]
-
 var isNewTab = 0;  // 1：强制新标签页打开 0：默认
 
 /*
@@ -93,20 +93,6 @@ var NewTab = {
 			return;
 		}
 
-		// 获取 bing 中国主页的背景图片
-		var data = this.loadSetting();
-		var todayImg = 'chrome://userchromejs/content/myNewTab/bingImg/bingImg_0.jpg';
-		if (useBingImage) {
-			if (data.backgroundImage && (new Date().getTime() - data.lastCheckTime) < updateImageTime * 3600 * 1000) {
-				document.body.style.backgroundImage = 'url(' + data.backgroundImage + ')';
-			} else {
-				this.setAndSave(todayImg);
-				for (var n=0; n < bingMaxHistory; n++){
-					this.getBingImage(n);
-				}
-			}
-		}
-
 		var siteData = this.parseDataText(Config.sites);
 		// console.log(siteData);
 		var tr, type;
@@ -129,21 +115,24 @@ var NewTab = {
 	// 设置背景图片并保存设置
 	setAndSave: function(ImgPath) {
 		document.body.style.backgroundImage = 'url(' + ImgPath + ')';
-		var Jsondata = {lastCheckTime: new Date().getTime(),backgroundImage: ImgPath};
+		var Jsondata = {
+			lastCheckTime: Date.now(),
+			backgroundImage: ImgPath
+		};
 		try {
 			this.prefs.setCharPref("jsonData", JSON.stringify(Jsondata));
-		} catch(e) {}
+		} catch (e) {}
 	},
 	getBingImage: function(idx) {
 		var self = this;
-		var url = 'http://www.bing.com/HPImageArchive.aspx?format=js&idx=' + idx + '&n=1&nc=' + new Date().getTime();
+		var url = 'http://www.bing.com/HPImageArchive.aspx?format=js&idx=' + idx + '&n=1&nc=' + Date.now();
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', url, true);
 		xhr.onload = function() {
 			var data = JSON.parse(xhr.responseText);
-			var imageUrl = data.images[0].url;
-
+			
 			// 处理图片地址
+			var imageUrl = data.images[0].url;
 			if (bingImageSize) {
 				imageUrl = imageUrl.replace('1366x768', '1920x1080');
 			}
@@ -154,14 +143,13 @@ var NewTab = {
 			// 本地图片路径
 			var file = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
 			file.appendRelativePath(newTabDirPath);
-			file.appendRelativePath(bingImageDir)
-			file.appendRelativePath("BingImg_" + idx + ".jpg")
+			file.appendRelativePath(bingImageDir);
+			file.appendRelativePath("BingImg_" + idx + ".jpg");
 
-			// 清楚旧图片
+			// 移除旧图片
 			if (file.exists()) {
  				file.remove(false);
  			}
-
 			//下载图片
 			var t = new Image();
 			t.src = imageUrl;
@@ -312,6 +300,19 @@ var NewTab = {
 	}
 };
 
+// 获取 bing 中国主页的背景图片
+if (useBingImage) {
+	var data = NewTab.loadSetting();
+	if (data.backgroundImage && (Date.now() - data.lastCheckTime) < updateImageTime * 3600 * 1000) {
+		document.body.style.backgroundImage = 'url(' + data.backgroundImage + ')';
+	} else {
+		var todayImg = 'chrome://userchromejs/content/myNewTab/bingImg/bingImg_0.jpg';
+		NewTab.setAndSave(todayImg);
+		for (var n = 0; n < bingMaxHistory; n++) {
+			NewTab.getBingImage(n);
+		}
+	}
+}
 window.addEventListener('load', function(){
 	NewTab.init();
 }, false);
