@@ -15,11 +15,10 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-		脚本里面放置了两种路径写法，默认使用的是绝对路径。如果想使用相对路径，请如下操作：
-		首先取消31行的注释，然后把33行注释掉（大概位置就是这些）。
+		脚本里面放置了两种路径写法，大概在30+行，可自行设置
 		默认路径如下：
 		相对路径是：配置下chrome\Local\GoAgent\
-		绝对路径是：D:\Program Files (x86)\GoAgent\
+		绝对路径是：D:\Program Files\GoAgent\
 		0: 表示不使用代理
 		1：表示手动设置代理
 		2：表示自动代理配置
@@ -28,9 +27,9 @@
 */
 (function (css) {
 	//相对路径
-	//var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
+	var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
 	//绝对路径
-	var GAEPath = "D:\\Program Files (x86)\\GoAgent\\";
+	//var GAEPath = "D:\\Program Files\\GoAgent\\";
 	
 	var Proxytye_startFF = 0; //0 1 2 4 5 设置FF启动时代理状态
 	var GAE_on = false;
