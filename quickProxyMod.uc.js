@@ -6,7 +6,8 @@
 // @compatibility  Firefox 3.0 3.5 3.6 3.7a1pre  WinXP
 // @charset        UTF-8
 // @author         Alice0775
-// @version        v2014.07.22
+// @version        v2014.07.25
+// @note           2014-07-25 修复对老版本FF的支持 by ywzhaiqi
 // @note           2014-07-22 使用bat、vbs代码代替startgoa.exe,实现单文件版uc脚本 by ywzhaiqi
 // @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序 by defpt
 // @note           2014-04-26 左键：开关代理+首次点击启动GAE 中键：启动GAE 右键：代理设置UI by defpt
@@ -15,7 +16,8 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-		脚本里面放置了两种路径写法，大概在30+行，可自行设置
+		脚本里面放置了两种路径写法，默认使用的是绝对路径。如果想使用相对路径，请如下操作：
+		首先取消31行的注释，然后把33行注释掉（大概位置就是这些）。
 		默认路径如下：
 		相对路径是：配置下chrome\Local\GoAgent\
 		绝对路径是：D:\Program Files\GoAgent\
@@ -27,9 +29,9 @@
 */
 (function (css) {
 	//相对路径
-	var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
+	//var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
 	//绝对路径
-	//var GAEPath = "D:\\Program Files\\GoAgent\\";
+	var GAEPath = "D:\\Program Files\\GoAgent\\";
 	
 	var Proxytye_startFF = 0; //0 1 2 4 5 设置FF启动时代理状态
 	var GAE_on = false;
@@ -88,26 +90,19 @@
 		},
 		
 		_goagent:function(e){
-
-			// var file = FileUtils.getFile('UChrm', ['startGoagent.exe'], true);
-			// file.launch();
-			
-			var batText = function(){/*
-				@Echo Off
-				ver | FINDSTR "6.2. 6.3." > NUL
-				If ErrorLevel 1 (
-					SET exeName=goagent.exe
-				) else (
-					SET exeName=goagent-win8.exe
-				)
-
-				TaskList|Findstr /i %exeName% > Nul
-				If ErrorLevel 1 (
-					START "" "{GOAGENT}\%exeName%"
-				)
-				*/
-			}.toString().match(/\/\*([\s\S]+)\*\//)[1];
-			
+			var batText = '\
+				@Echo Off\n\
+				ver | FINDSTR "6.2. 6.3." > NUL\n\
+				If ErrorLevel 1 (\n\
+				SET exeName=goagent.exe\n\
+				) else (\n\
+				SET exeName=goagent-win8.exe\n\
+				)\n\
+				TaskList|Findstr /i %exeName% > Nul\n\
+				If ErrorLevel 1 (\n\
+				START "" "{GOAGENT}\\%exeName%"\n\
+				)\
+			';			
 			batText = batText.replace('{GOAGENT}', GAEPath);			
 			var batPath = this.createTempFile(batText, "startGoagent.bat");		
 			var vbsText = 'set ws=wscript.createobject("wscript.shell")\n' +
