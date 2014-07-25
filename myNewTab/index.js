@@ -10,13 +10,14 @@ var Config = getMStr(function(){
 	谷歌翻译, https://translate.google.de/#auto/zh-CN/, https://translate.google.de/favicon.ico
 	谷歌地图, https://www.google.de/maps/, img/gmaps.ico
 	站长工具, http://tool.oschina.net/, http://tool.oschina.net/img/favicon.ico
+	火星语, http://www.huoxingyu.com/, img/huoxing.ico
 	百度云, http://pan.baidu.com/disk/home, http://pan.baidu.com/res/static/images/favicon.ico
 网购专区
-	京东, http://www.jd.com/, http://www.jd.com/favicon.ico
+	京东, http://www.jd.com/,    http://www.jd.com/favicon.ico
 	天猫, http://www.tmall.com/, http://a.tbcdn.cn/p/mall/base/favicon.ico
 	Windeln, http://www.windeln.de/
 	Amazon, http://www.amazon.de/Angebote/b/ref=cs_top_nav_gb27?ie=UTF8&node=872398
-	淘宝， http://shop111413861.taobao.com/?spm=0.0.0.0.LwyA34
+	淘宝, http://shop111413861.taobao.com/?spm=0.0.0.0.LwyA34
 影音娱乐
 	Youtube, https://www.youtube.com/, https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png
 	优酷视频, http://www.youku.com/
@@ -167,7 +168,7 @@ var NewTab = {
 		var data = [],
 			lines, line, arr, type;
 
-		// 处理下
+		// 逗号修正为英文逗号
 		text = text.replace(/，/g, ',');
 
 		lines = text.split('\n');
