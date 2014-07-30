@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name           quickProxyMod.uc.js
 // @namespace      http://space.geocities.yahoo.co.jp/gl/alice0775
-// @description    快速代理设置，自用修改版 
+// @description    快速代理设置，带GAE启动按钮
 // @include        main
-// @compatibility  Firefox 3.0 3.5 3.6 3.7a1pre  WinXP
+// @compatibility  
 // @charset        UTF-8
 // @author         Alice0775
 // @version        v2014.07.25
@@ -16,8 +16,7 @@
 // @reviewURL      http://bbs.kafan.cn/thread-1724548-1-1.html
 // ==/UserScript==
 /*******===代理相关说明=====
-		脚本里面放置了两种路径写法，默认使用的是绝对路径。如果想使用相对路径，请如下操作：
-		首先取消31行的注释，然后把33行注释掉（大概位置就是这些）。
+		脚本里面放置了两种路径写法，请自己设置适合路径
 		默认路径如下：
 		相对路径是：配置下chrome\Local\GoAgent\
 		绝对路径是：D:\Program Files\GoAgent\
@@ -28,6 +27,7 @@
 		5：表示使用系统代理设置
 */
 (function (css) {
+	Components.utils.import("resource://gre/modules/FileUtils.jsm");
 	//相对路径
 	//var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
 	//绝对路径
