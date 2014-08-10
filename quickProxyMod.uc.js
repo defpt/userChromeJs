@@ -6,7 +6,8 @@
 // @compatibility  
 // @charset        UTF-8
 // @author         Alice0775
-// @version        v2014.07.25
+// @version        v2014.08.10
+// @note           2014-08-10 变化无常，还是默认goagent.exe好了
 // @note           2014-07-25 修复对老版本FF的支持 by ywzhaiqi
 // @note           2014-07-22 使用bat、vbs代码代替startgoa.exe,实现单文件版uc脚本 by ywzhaiqi
 // @note           2014-07-21 默认设置gae放置在chrome/local，自动判断系统是否win8+ 启动不同程序 by defpt
@@ -92,12 +93,7 @@
 		_goagent:function(e){
 			var batText = '\
 				@Echo Off\n\
-				ver | FINDSTR "6.2. 6.3." > NUL\n\
-				If ErrorLevel 1 (\n\
 				SET exeName=goagent.exe\n\
-				) else (\n\
-				SET exeName=goagent-win8.exe\n\
-				)\n\
 				TaskList|Findstr /i %exeName% > Nul\n\
 				If ErrorLevel 1 (\n\
 				START "" "{GOAGENT}\\%exeName%"\n\
@@ -264,10 +260,10 @@
 		return document.insertBefore(pi, document.documentElement);
 	}
 })('\
-	#quickproxy-status {\
-		list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACtSURBVDhPtZLRDcIwDEQzBFOwRCrEJkh8lVHYCJHRii7xpc7FleCDJ0XN3dluUjX9hbUsG5bJAWZryVezZvaiNuTxupy911Yw4F7yybYVDgDIvP4avIknaHo/2SFawCa/LBqJ7gofT16v+u/lhn3FF+uykqAmPy1q+NDrGv5K1Oy9KO8wxLcwq3tsUt05CtRX3YmCqUgIczU5lL7qCQT+l9YG1RP4STT0DWNzSh+/vPJ+zsBLfwAAAABJRU5ErkJggg==");\
-	}\
-	#quickproxy-status[state="disable"] {\
-	  list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACpSURBVDhPtZLRDcIwDEQ9BFPwVVFG6CbM05FpwOZsOWdXgg+eFMl3Z6dJFfkLY5WhC3LCs3GXDVYlmrDJscg1e7a6Dd7BBaWhjSgty/pr9Et+AtM4gYVncIMP5YVoprur+qjtelofqzy0NryxW2gpPc+b7Ig+5DBrC3+lG85elwce6r+AFZ4PsQ7OAvZZB11Qmog2Z9M3dZ91AWE8aR5gXdBHwmEemIdFXgyA2y0tFxR1AAAAAElFTkSuQmCC");\
-	}\
-	');
+#quickproxy-status {\
+	list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACtSURBVDhPtZLRDcIwDEQzBFOwRCrEJkh8lVHYCJHRii7xpc7FleCDJ0XN3dluUjX9hbUsG5bJAWZryVezZvaiNuTxupy911Yw4F7yybYVDgDIvP4avIknaHo/2SFawCa/LBqJ7gofT16v+u/lhn3FF+uykqAmPy1q+NDrGv5K1Oy9KO8wxLcwq3tsUt05CtRX3YmCqUgIczU5lL7qCQT+l9YG1RP4STT0DWNzSh+/vPJ+zsBLfwAAAABJRU5ErkJggg==");\
+}\
+#quickproxy-status[state="disable"] {\
+  list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACpSURBVDhPtZLRDcIwDEQ9BFPwVVFG6CbM05FpwOZsOWdXgg+eFMl3Z6dJFfkLY5WhC3LCs3GXDVYlmrDJscg1e7a6Dd7BBaWhjSgty/pr9Et+AtM4gYVncIMP5YVoprur+qjtelofqzy0NryxW2gpPc+b7Ig+5DBrC3+lG85elwce6r+AFZ4PsQ7OAvZZB11Qmog2Z9M3dZ91AWE8aR5gXdBHwmEemIdFXgyA2y0tFxR1AAAAAElFTkSuQmCC");\
+}\
+');
