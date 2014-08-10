@@ -265,9 +265,9 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	},
 
 	ToolBarTranslatorClick : function (e) {
-		var tbt = document.getElementById("gTranslator");
-		if (e.target != tbt)
-			return;
+		// var tbt = document.getElementById("gTranslator");
+		// if (e.target != tbt)
+			// return;
 		var selectedText = this.getSelectedText();
 		if (this.isValidTextLength(selectedText)) {
 			this.selectionTranslation(e);
