@@ -265,9 +265,9 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 	},
 
 	ToolBarTranslatorClick : function (e) {
-		// var tbt = document.getElementById("gTranslator");
-		// if (e.target != tbt)
-			// return;
+		var tbt = document.getElementById("gTranslator");
+		if (e.target != tbt)
+			return;
 		var selectedText = this.getSelectedText();
 		if (this.isValidTextLength(selectedText)) {
 			this.selectionTranslation(e);
@@ -289,7 +289,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
         } else if(docurl.match(/^https/)) {
 			docurl = docurl.replace(/https/i, "http");
 		}
-		var fordUrl = "http://translate.google.com/translate?hl=" + cel + "&sl=auto&tl=" + cel + "&u=" + encodeURIComponent(docurl);
+		var fordUrl = "http://translate.google.cn/translate?hl=" + cel + "&sl=auto&tl=" + cel + "&u=" + encodeURIComponent(docurl);
 		gBrowser.selectedTab = gBrowser.addTab(fordUrl);
 	},
 
@@ -297,7 +297,7 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXN
 		if (this.isValidTextLength(whatToTranslate)) {
 			var cel = this._targetlang;
 			var httpRequest = null;
-			var fullUrl = "http://translate.google.com/translate_t?text="+whatToTranslate+"&hl="+cel+"&langpair=auto|"+cel+"&tbb=1" ;
+			var fullUrl = "http://translate.google.cn/translate_t?text="+whatToTranslate+"&hl="+cel+"&langpair=auto|"+cel+"&tbb=1" ;
 
 			function removeHTMLTags(mitkell) {
 				var strTagStrippedText = mitkell.replace(/<br>/ig, "\n").replace(/<\/span>/ig, "");
