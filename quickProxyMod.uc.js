@@ -32,7 +32,7 @@
 	//相对路径
 	//var GAEPath = FileUtils.getFile('UChrm', ['local','GoAgent',]).path;
 	//绝对路径
-	var GAEPath = "D:\\Program Files\\GoAgent\\";
+	var GAEPath = "D:\\Program Files\\GoAgent";
 	
 	var Proxytye_startFF = 0; //0 1 2 4 5 设置FF启动时代理状态
 	var GAE_on = false;
@@ -99,12 +99,14 @@
 				START "" "{GOAGENT}\\%exeName%"\n\
 				)\
 			';			
-			batText = batText.replace('{GOAGENT}', GAEPath);			
-			var batPath = this.createTempFile(batText, "startGoagent.bat");		
-			var vbsText = 'set ws=wscript.createobject("wscript.shell")\n' +
-				'ws.run "' + batPath + ' /start",0';
+			batText = batText.replace('{GOAGENT}', GAEPath);
+			var batFile = this.createTempFile(batText, "startGoagent.bat");
 
-			this.runNative(this.createTempFile(vbsText, 'startGoagent.vbs'), []);
+			var vbsText = 'set ws=wscript.createobject("wscript.shell")\n' +
+				'ws.run "' + batFile + ' /start",0';
+			var vbsFile = this.createTempFile(vbsText, 'startGoagent.vbs')
+
+			this.runNative(vbsFile, []);
 		},
 
 		runNative: function(exePath, args, blocking) {
@@ -123,6 +125,9 @@
 		createTempFile : function(data, filename, charset) {
 		    var file = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("TmpD", Ci.nsIFile);
 		    file.append(filename);
+			if (file.exists()) {
+		    	file.remove(false);
+		    }
 		    file.createUnique(Ci.nsIFile.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 
 		    var foStream = Cc["@mozilla.org/network/file-output-stream;1"].createInstance(Ci.nsIFileOutputStream);
