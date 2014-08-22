@@ -14,7 +14,7 @@
 ###bing图片说明：
 
 
-- 默认使用bing的背景图片，如果不喜欢bing背景图片，可从定位路径打开index.js文件，搜索 var usebingimage = 1; 把其改为 var usebingimage = 0; 同时自己选择一张图片重命名为 default.jpg 放入img文件内替换原图片。
+- 默认使用bing的背景图片，如果不喜欢bing背景图片，可从定位路径js文件夹内打开index.js文件，搜索 var usebingimage = 1; 把其改为 var usebingimage = 0; 同时自己选择一张图片重命名为 default.jpg 放入img文件内替换原图片。
 
 
 
