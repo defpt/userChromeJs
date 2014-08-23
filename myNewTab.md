@@ -1,7 +1,10 @@
 
 # myNewTab.xpi使用说明： #
+首发在卡饭：[一键安装myNewTab.xpi](http://bbs.kafan.cn/thread-1759418-1-1.html)
 
-首次安装，重启FF后，新建标签即可看到效果。在导航面板右上角有三个按钮，分别是定位、切换、编辑，其对应作用分别是打开扩展路径、切换或重新下载背景图片、编辑站点。
+安装后新建标签即可看到效果。在导航面板右上角有三个按钮，分别是定位、切换、编辑，其对应作用分别是打开扩展路径、切换或重新下载背景图片、编辑站点。
+###效果图如下：
+![mynewtab](https://github.com/defpt/userChromeJs/blob/master/Picture/mynewtab.png?raw=true)
 ###切换按钮释疑：
 
 
@@ -34,4 +37,10 @@
     	凤凰网,  http://www.ifeng.com/, img/ifeng.png
     	新浪网,  http://www.sina.com.cn/
 
-最上面的新闻资讯是分类，其下是站点，一般来说不用设置图标，打开的时候会自动补上站点默认图标，鉴于有些站点没有图标或者图标不好看，可以自己设置为喜欢的图标，建议图标放置在img文件夹内，调用方式如上图，可以是在线或本地的ico、png等格式
+最上面的新闻资讯是分类，其下是站点，一般来说不用设置图标，打开的时候会自动补上站点默认图标，鉴于有些站点没有图标或者图标不好看，可以自己设置为喜欢的图标，建议图标放置在img文件夹内，调用方式如上图，可以是在线或本地的ico、png等格式。
+
+###天气预报
+喜欢天气预报的还可以加上天气预报代码，[天气预报代码定制](http://www.tianqi.com/plugin/)
+个人觉得加在默认左上角就不错。**点击定位编辑index.js** 把定制的代码添加到下图中所示位置，效果图如下：
+
+![tqyb](https://github.com/defpt/userChromeJs/blob/master/Picture/tqyb.png?raw=true)
