@@ -36,11 +36,6 @@
 	
 	var Proxytye_startFF = 0; //0 1 2 4 5 设置FF启动时代理状态
 	var GAE_on = false;
-	
-	if (window.quickProxy) {
-		window.quickProxy.destroy();
-		delete window.quickProxy;
-	}
 
 	//-- config end--
 	var quickProxy = {

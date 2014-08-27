@@ -7,29 +7,22 @@
 ![mynewtab](https://github.com/defpt/userChromeJs/blob/master/Picture/mynewtab.png?raw=true)
 ###切换按钮释疑：
 
-
 - 1、用于切换背景，默认用的是每天微软bing的壁纸，如果当天壁纸不喜欢，那么这时候切换就有用了，点一下切换，即可使用过去10天内bing的壁纸（定位到bingimg文件夹会发现里面有10张壁纸），可以在index.js中设置这个最大历史参数，个人觉得其实有那么三五张备份就够了，如果10天内的壁纸都不能看，那微软也太失败了……
-
-
 
 - 2、用于下载背景图片，有时候由于网络原因会出现下载图片失败从而导致背景为灰色的情况，这时候可通过点击切换按钮重新下载图片，然后刷新即可
 
 ###bing图片说明：
 
-
 - 默认使用bing的背景图片，如果不喜欢bing背景图片，可从定位路径js文件夹内打开index.js文件，搜索 var usebingimage = 1; 把其改为 var usebingimage = 0; 同时自己选择一张图片重命名为 default.jpg 放入img文件内替换原图片。
-
-
 
 - 默认下载的bing图片为 1366x768，适合15英寸左右笔记本，如果使用的是大显示器，请编辑 index.js 搜索 var bingimagesize = 0; 改为 var bingimagesize = 1;这样下载的是1920x1080的大图
 
-
-
 - 使用大显示器可能背景没有拉伸到全屏，可点击定位打开以后，编辑style.css样式文件。 搜索：background-size:auto; 把其改为形如：background-size:1280px 800px;（数字设置为你的分辨率）
+
 ###搜索引擎设置：
 点击定位，用编辑器（比如notepad++）打开index.html以及search.js即可随意定制自己常用的搜索引擎，照猫画虎应该不难。。。此外，在index.html中搜索引擎列表中带**class="active"**为默认激活的搜索引擎，比如安装后默认就是百度，可以自己把其添加到其它搜索引擎上，**注意只能设置一个默认搜索引擎**
-###站点设置：
 
+###站点设置：
 **通过点击编辑，可进行站点配置，设置范例如下：**
 
 	新闻资讯
