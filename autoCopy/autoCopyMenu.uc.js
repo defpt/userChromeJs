@@ -6,8 +6,11 @@
 // @compatibility  Firefox 3.0.x
 // @author         ithinc, iwo
 // @charset        UTF-8
-// @version        LastMod 2014.04.12 by defpt
+// @version        LastMod 2014-08-31 by defpt
+// @note           2014-08-31 修正一下某些输入框也复制的问题
+// @note           2014-04-12 修改原脚本为自用版
 // @Note           https://g.mozest.com/redirect.php?goto=findpost&pid=299093&ptid=42980
+// @homepageURL    https://github.com/defpt/userChromeJs/tree/master/autoCopy
 // ==/UserScript==
 
 (function () {
@@ -27,7 +30,7 @@
 		var autocopyState = prefs.getIntPref("userChrome.autocopy.autocopyState");
 		var selection = getBrowserSelection();
 		//增加判断是否在输入框或按下功能键
-		var exceptTarget = (e.target.nodeName == "TEXTAREA" || e.target.type == "textarea" || e.target.type == "text" || e.target.type == "password" || e.target.type == "email");
+		var exceptTarget = (e.target.localName == "textarea" || e.target.type == "input" || e.target.type == "text" || e.target.type == "password" || e.target.type == "email" || e.target.contentEditable == "true");
 		var exceptoriginalTarget = (!e.originalTarget.ownerDocument || e.originalTarget.ownerDocument.designMode == "off" || e.originalTarget.ownerDocument.designMode == "undefined");
 		var exceptAlternativeKey = (e.ctrlKey || e.altKey);
 		var except = (exceptTarget && exceptoriginalTarget && !exceptAlternativeKey);
