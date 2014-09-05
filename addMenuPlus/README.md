@@ -3,11 +3,10 @@
 这是一个非常强大的定制 Firefox 各种菜单的 UC 脚本。通过外置配置文件可添加、修改、隐藏橙色菜单、菜单栏、以及页面和链接的右键菜单，修改后无需重启，重新载入配置文件即可生效。是我最喜欢的脚本之一！！！
 
 
-**zzzaddMenuPlus.uc.js** 是脚本文件，为了统一管理自用配置，我把配置路径设为本地Firefox配置文件夹下的 chrome\Local\ ,此外为了最后加载文件名前面加了zzz
+**[addMenuPlus.uc.js](https://github.com/ywzhaiqi/userChromeJS/blob/master/addmenuPlus/addMenuPlus.uc.js)** 是脚本文件
 
 
-**[_addmenu.js](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/_addmenu.js)** 是配置文件，使用 ywzhaiqi 修改的脚本直接放chrome路径下即可, 如果使用此处的自用版,那么要把配置文件放到自己建立的 chrome\Local\ 文件夹下 **值得一提的是里面有些绝对路径要自己设置一下，比如onenote等……**
-
+**[_addmenu.js](https://github.com/defpt/userChromeJs/blob/master/addMenuPlus/_addmenu.js)** 是配置文件
 
 **右键菜单**
 
