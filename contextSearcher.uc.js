@@ -5,7 +5,7 @@
 // @author         Griever
 // @include        main
 // @compatibility  Firefox 4
-// @version        基于原版 v0.0.8
+// @version        基于原版 v0.0.9
 // @note           修改自用版：添加搜索完成后自动清空搜索栏并切回默认搜索引擎
 // ==/UserScript==
 
@@ -19,8 +19,8 @@ window.contextSearcher = {
 
   _regexp: {
     hiragana: "[\\u3040-\\u309F]+",
-    katakana: "[\\u30A0-\\u30FA\\u30FC]+",
-    kanji   : "[\\u4E00-\\u9FA0]+",
+    katakana: "[\\u30A0-\\u30FA\\u30FC-\\u30FE]+",
+	kanji : "[\\u3005\\u4E00-\\u9FA0]+",
     suuji   : "[0-9_./,%-]+",
     eisu_han: "\\w[\\w\\-]*",
     eisu_zen: "[\\uFF41-\\uFF5A\\uFF21-\\uFF3A\\uFF10-\\uFF19]+",
@@ -48,9 +48,9 @@ window.contextSearcher = {
     var c = aChar.charCodeAt(0);
     //if (c >= 0x30 && c <= 0x39) return "suuji";
     if (c >= 0x30 && c <= 0x39 || c >= 0x41 && c <= 0x5A || c >= 0x61 && c <= 0x7A || c === 0x5F) return "eisu_han";
-    if (c >= 0x30A0 && c <= 0x30FA || c === 0x30FC) return "katakana";
+    if (c >= 0x30A0 && c <= 0x30FA || c >= 0x30FC && c <= 0x30FE) return "katakana";
     if (c >= 0x3040 && c <= 0x309F) return "hiragana";
-    if (c >= 0x4E00 && c <= 0x9FA0) return "kanji";
+    if (c >= 0x4E00 && c <= 0x9FA0 || c === 0x3005) return "kanji";
     if (c >= 0xFF41 && c <= 0x9F5A || c >= 0xFF21 && c <= 0xFF3A || c >= 0xFF10 && c <= 0xFF19) return "eisu_zen";
     if (c >= 0xFF00 && c <= 0xFFEF) return "hankaku";
     if (c >= 0x1100 && c <= 0x11FF || c >= 0xAC00 && c <= 0xD7AF || c >= 0x3130 && c <= 0x318F) return "hangul";

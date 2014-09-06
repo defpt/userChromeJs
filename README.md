@@ -30,8 +30,5 @@
 * [ReadLater2.uc.js](https://github.com/defpt/userChromeJs/blob/master/ReadLater2.uc.js) 标记链接或当前网页以便稍后阅读
 * [TabPlus.uc.js](https://github.com/defpt/userChromeJs/blob/master/TabPlus.uc.js) 自用标签增强，整合多个功能，我的必备脚本之一
 * [Updatebookmarklite.uc.js](https://github.com/defpt/userChromeJs/blob/master/Updatebookmarklite.uc.js) 用来更新书签网址、名称
-* [UserCSSLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserCSSLoader.uc.js) 自用微改版样式管理，已经改用扩展，以后不再维护
-* [UserScriptLoader.uc.js](https://github.com/defpt/userChromeJs/blob/master/UserScriptLoader.uc.js) 自用微改 uc 版油猴脚本加载器，已经改用扩展，以后不再维护
 * [openImgRar.uc.js](https://github.com/defpt/userChromeJs/blob/master/openImgRar.uc.js) 解密内涵图，已集成在addmenuplus脚本配置中
-* [rebuild_userChrome.uc.xul](https://github.com/defpt/userChromeJs/blob/master/rebuild_userChrome.uc.xul) 自用 UC 管理器，工具栏固定图标，精简了菜单，我的必备脚本之一
 * [Example](https://github.com/defpt/userChromeJs/blob/master/Example) 学习UC脚本笔记以及范例收藏
