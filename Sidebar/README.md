@@ -8,7 +8,7 @@
 
 上面3和4的两个样式可以使侧栏中的组件管理器和翻译页面完美显示，也就是**想要图中效果就的装**
 
-**此外就是 [Sidebar_S.uc.js](https://github.com/defpt/userChromeJs/blob/master/Sidebar/Sidebar_S.uc.js) 了，最近发现除了翻译和电台，其它站点很少使用，所以又来了个精简版，只保留了功能按钮、历史、组件、翻译和豆瓣电台**
+**此外就是 [Sidebar_S.uc.js](https://github.com/defpt/userChromeJs/blob/master/Sidebar/Sidebar_S.uc.js) 了，最近发现除了电台，其它站点很少使用，所以又来了个精简版，只保留了功能按钮、历史、组件、豆瓣电台**
 
 ###配合效果图
 

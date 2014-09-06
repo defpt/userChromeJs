@@ -8,7 +8,12 @@
     if (!document.getElementById('sidebar-box')) return;
 	if (!window.SidebarMod) {
 		window.SidebarMod = {
-			sitelist:[{
+			sitelist:[
+			{
+				name: '书签',
+				url: 'chrome://browser/content/bookmarks/bookmarksPanel.xul',
+				favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHCSURBVDhPlZE/SBxBFMY/olHEgFUStNVODKSSIAiBFJKApZAiYqWNWGqhYCPEO+90V43cYlC880BPFOz8U9hZKSEkpLFJYhEQNIfnzs4bYSZvLmNEPPTywQ/evPd9j9lZ3CXaQBfz1h3/T3oVNWoDOWbN1q5dvjj4Qq3jqAjXrl2eTICHKocRsQZlsbXtufH90hnU0wr21AqMxda258Y3pfOHTbTf06KW0SYz6KQsupmYWAKpLC9gRAaSlvGeeXeZxWu13dqqTz816/yXRtASfJHGuUqzuUzEAnSUxm/OetDfxuppAX44D0GLfN0ycN4ZfRhrKH6GMaMPonn0yxRO6COb7sB65GLtgM0Uw1cqvnyAPgrwkzEl+YAfKoVecxCU/iMXKX79WezSHJtLs12YwxNnvy3y8Vz4+EozbC6BmMZnvsUzZ78tOYVO4SFPHgeYMIFC6OHi6hx5OJWTeOPsN2VGUSmTGAnj0BwMKYktNYX2KImXNIkd27MzXjBojKlwsWuZWTyiODYpge9yAkPax2M3QsHDU5nAMM+OaQI5rX/VutG1zDjqZAypKI5XfJsq1/4nXljNsw4ZR2DOzur+doE/oEdo9V5pyj4AAAAASUVORK5CYII='
+			},{
 				name: '历史',
 				url: 'chrome://browser/content/history/history-panel.xul',
 				favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH7SURBVDhPhVI9a9tQFBUeO4YOwZTSH+Ch1I2esIdi10jvPYsMmTLkH5Sm9lI8FIsOHUsU+gOMKSGEBNwiB5K9xJbdQJYQYtWIYEonL82HBhNe7316LnbT2AcOsu5759xzr6zdB+FoibPlTPL6OJMUQkuo8nwEtvGsx/TtgOuXASci6hripkMuoy7ZufaXnqtr/0eP69UeI7coDBjpH7JseLKXDW+6RhgbGbdg9F5dj3FeNAryyck7KeR6GHCDYs2y6JZpss/4O+rq5oRRFWsS0PEXRD4G4QjFOLc6mjJAXPlLi2iCSa78zFNZhK6tuDMRMELwo0hWcYF49q8BIvINiimAcR2EW2MDxcO+nX5sWdYT06TnlsXOKKWP5GWFeBQylC89Tj6gEEa5gD2syCIAujdALJCQ4hRYi8lp1CENTPH7e/ohGqyhyU87/UBpJUC4O2mA4yAhDc81aSPfhPqBuaCu3wXGHu+Ac76oyhJ5j4U5j8UjIF59+pYsua2N8uaR/Hyz8HKf2dg936R1VdK0dbeTeuO2R6WN1uD1ZntqYZMofCkkofsAOHrhFVOqHKPktt8CBZqsu77tOOLv/99xnETOo1yKoTvsoKKOpgFjVGQSZQT0QPAVBBcyNnS+VzwGjgNGdTAaopHsCAsD1u7Enofyx6OFmZ9K07Q/7iAmIuxhVMIAAAAASUVORK5CYII='
@@ -16,10 +21,6 @@
 				name: '附加组件',
 				url: 'chrome://mozapps/content/extensions/extensions.xul',
 				favicon: "chrome://mozapps/skin/extensions/extensionGeneric-16.png#-moz-resolution=16,16"
-			},{
-				name: '侧栏翻译',
-				url: 'http://translate.google.de/#auto/zh-CN/',
-				favicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAElSURBVDhPrZE/awJBEEevEOz9JPkS6dIHLCzSpQtYBQIhpYF0dmJnkyKkE1FSaCMcxCNBwcI/ICYhiF20sBl5w82y4U4NwYUHe8f+3szsBkdZ65+FGM3ms1SqZVkupsr351C+PgYSH01fBK5vikrhIq/YN8xn/b8J/KAvOiig9W7Y1kDUDzVweVeSq1Ac5x2Rs9ZKTuoiuceN4kazea0iHbE/JIBfAi7QWmfvh19GcwVJqmAy7iVmJwj3r0v3GuwTAubOFEd6D1TmG6gGVDYB+4SAsKE/4sW8CAg+hZFWZ++PoQf3CQjxKreNyMn8LvTgLgEH7Fm5I0DAv50CHyoSov3T2rsG6MTuxwmwpgkAgYUNLhucgJUmyT68KX7Yh0wc/+8Kgi1VwxKf8jOsdgAAAABJRU5ErkJggg=='
 			},{
 				name: '豆瓣电台',
 				url: 'http://douban.fm/partner/sidebar',
@@ -42,33 +43,6 @@
 					btn.setAttribute('onclick', 'openWebPanel(this.getAttribute("tooltiptext"), this.getAttribute("url"))');
 				}
 				insertpoint.parentNode.insertBefore(frag, insertpoint);
-			},
-
-			//添加侧栏前进、后退、刷新按钮
-			addControlBtn: function(){
-					var SHBtn = document.getElementById("sidebar-header");
-					if(SHBtn) {
-							var _sidebarBtn = document.createElement('toolbarbutton');
-							_sidebarBtn.setAttribute('type', 'button');
-							_sidebarBtn.setAttribute("tooltiptext","左键：后退\n中键：刷新\n右键：前进");
-							_sidebarBtn.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
-							_sidebarBtn.setAttribute("image","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABaSURBVDhPzYzJEcAwCAPpJ62kaHfmHCMzJEbi4Y/3BSuNbE/OdnScTuZSniIbKEdGSQ1k2UtZuKEdFijnfhIgepWtD6QCKPf3PAiUHVVQ2YdqAK+GDeDcCrMLOe2fMX6PACcAAAAASUVORK5CYII=");
-							_sidebarBtn.addEventListener("click",
-							function(event) {
-									var webPanel = document.getElementById('sidebar').contentDocument.getElementById("web-panels-browser");
-									if (event.button == 2) {
-											event.preventDefault();
-											event.stopPropagation();
-											webPanel.contentWindow.history.forward();
-									} else if (event.button == 1){
-											webPanel.contentWindow.location.reload();
-									} else {
-											webPanel.contentWindow.history.back();
-									}
-							},
-							false);
-							SHBtn.insertBefore(_sidebarBtn, SHBtn.childNodes[2]);
-					}
 			},
 
 			toggleSidebar: function (commandID, forceOpen) {
@@ -162,7 +136,6 @@
 			init: function() {
 				window.toggleSidebar = this.toggleSidebar;
 				this.makeButton(this.sitelist);
-				this.addControlBtn();
 				this.modifySidebarClickBehaviour();
 			}
 		};
