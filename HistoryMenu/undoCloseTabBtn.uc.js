@@ -11,19 +11,20 @@
 	var buttonAttrs = {
 		id: "undoclosetab-button",
 		label: "恢复已关闭的标签",
-		tooltiptext: "左键：已关闭标签列表\n右键：恢复最后一次关闭的标签",
+		tooltiptext: "左键：恢复最后一次关闭的标签\n右键：已关闭标签列表",
 		class: "toolbarbutton-1 chromeclass-toolbar-additional",
-		type: "menu",
 		removable: "true",
 		context: "_child",
 		image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVQ4jaXSIQ7CQBRF0SMqKlgAghAEEtFFIBEsAYFENGyBFSBYAYtDIhDIQVCSSdOh7fQm38zLu+L/IU39J+ulRphazhLE5YAlytxyPA/cUeWU23OZKggSFxojeWI2RFJghS1ueEfZfsg+2mx8FxpwTgliSRfHJjv9E/wkXSwawa5PkKLEy4gP1qbCNbcMB8xzywXW8cMHRHtGPjrrfUUAAAAASUVORK5CYII=",
-		onclick: "if(event.button == 2) undoCloseTab();"
+		command: "History:UndoCloseTab"
 	};
 	
 	var uCTBtn = $C('toolbarbutton', buttonAttrs);
 
 	var popup = uCTBtn.appendChild($C("menupopup", {
+		oncommand: "event.stopPropagation();",
 		onpopupshowing: "this.parentNode.populateUndoSubmenu();",
+		context: "",
 		tooltip: "bhTooltip",
 		popupsinherittooltip: "true"
 	}));
