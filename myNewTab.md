@@ -5,6 +5,14 @@
 安装后新建标签即可看到效果。在导航面板右上角有三个按钮，分别是定位、切换、编辑，其对应作用分别是打开扩展路径、切换或重新下载背景图片、编辑站点。
 ###效果图如下：
 ![mynewtab](https://github.com/defpt/userChromeJs/blob/master/Picture/mynewtab.png?raw=true)
+##可设置参数：
+点击定位，进入js文件夹，编辑index.js，可以按需设置以下内容
+
+    var useBingImage = 1;  // 1：使用 bing 的背景图片？ 0：不使用
+    var updateImageTime = 12;  // 更新 bing 背景图片的间隔（单位：小时）
+    var bingImageSize = 0;  // bing 图片的尺寸，0 为默认的 1366x768，1 为 1920x1080（大很多，可能会加载慢些）
+    var bingMaxHistory = 10; // 最大历史天数，可设置[2, 16]
+    var isNewTab = 0;  // 1：强制新标签页打开 0：默认
 ###切换按钮释疑：
 
 - 1、用于切换背景，默认用的是每天微软bing的壁纸，如果当天壁纸不喜欢，那么这时候切换就有用了，点一下切换，即可使用过去10天内bing的壁纸（定位到bingimg文件夹会发现里面有10张壁纸），可以在index.js中设置这个最大历史参数，个人觉得其实有那么三五张备份就够了，如果10天内的壁纸都不能看，那微软也太失败了……
