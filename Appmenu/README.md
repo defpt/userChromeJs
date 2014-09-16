@@ -1,6 +1,6 @@
 ###说明文档：
 
-##特别说明：以上两脚本都已弃用，以后不在维护更新，建议使用[anoBtn.uc.js](https://github.com/feiruo/userChromeJS/blob/master/anoBtn/anoBtn.uc.js)
+##特别说明：以上两脚本都已弃用，以后不在维护更新，建议使用[anoBtn.uc.js](https://github.com/feiruo/userChromeJS/tree/master/anoBtn)
 
 **Appmenufor29+.uc.js** 为FF29+提供经典版橙色菜单,在脚本中可通过设置
 
