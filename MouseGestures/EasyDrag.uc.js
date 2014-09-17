@@ -16,6 +16,16 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 				gBrowser.mPanelContainer.removeEventListener(type, self, false);
 			});
 		}, false);
+		self.seemAsURL = function(url) { // 来自 Easy DragToGo+ 扩展，略作修正
+			var DomainName = /(\w+(\-+\w+)*\.)+\w{2,7}/i;
+			var HasSpace = /\S\s+\S/;
+			var KnowNameOrSlash = /^(www|bbs|forum|blog)|\//i;
+			var KnowTopDomain1 = /\.(com|net|org|gov|edu|info|mobi|mil|asia)$/i;
+			var KnowTopDomain2 = /\.(de|uk|eu|nl|it|cn|be|us|br|jp|ch|fr|at|se|es|cz|pt|ca|ru|hk|tw|pl|me|tv|cc)$/i;
+			var IsIpAddress = /^([1-2]?\d?\d\.){3}[1-2]?\d?\d/;
+			var seemAsURL = !HasSpace.test(url) && DomainName.test(url) && (KnowNameOrSlash.test(url) || KnowTopDomain1.test(url) || KnowTopDomain2.test(url) || IsIpAddress.test(url));
+			return seemAsURL;
+		};
 		return;
 	}
 	switch (event.type) {
@@ -55,24 +65,19 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 					}
 					if (direction == "L") {
 						//复制图片地址
-						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edgimg);
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString('[img]' + edgimg + '[/img]');
 						return;
 					}
 					if (direction == "R") {
 						//下载图片(不弹窗)
-						saveImageURL(edgimg, null, null, null, true, null, document);
+						saveImageURL(event.dataTransfer.getData("application/x-moz-file-promise-url"), null, null, null, true, null, document);
 						return;
 					}
 				} else if (event.dataTransfer.types.contains("text/x-moz-url")) {
 					var edglink = event.dataTransfer.getData("text/x-moz-url").replace(/[\n\r]+/, "\n").split("\n");//目标链接
 					if (direction == "U") {
-						if (event.ctrlKey){
-							//下载链接
-							saveImageURL(event.dataTransfer.getData("text/x-moz-url").split("\n")[0], null, null, null, true, null, document);
-						} else {
-							//新标签打开链接(后台)
-							gBrowser.addTab(edglink[0]);
-						}
+						//新标签打开链接(后台)
+						gBrowser.addTab(edglink[0]);
 						return;
 					}
 					if (direction == "D") {
@@ -86,36 +91,35 @@ location == "chrome://browser/content/browser.xul" && (function(event) {
 						return;
 					}
 					if (direction == "L") {
-						//复制链接文字
+						//复制链接文本
 						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[1]);
 						return;
 					}
 					if (direction == "R") {
-						//复制链接
+						//复制链接地址
 						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edglink[0]);
 						return;
 					}
 				} else {
 					var edgsel = event.dataTransfer.getData("text/unicode");//选中的文字
 					if (direction == "U") {
-						//Google搜索选中文字(站内\前台)
-						gBrowser.selectedTab = gBrowser.addTab('http://www.google.com/search?q=' + "site:" + content.location.host + " " + encodeURIComponent(edgsel));
+						//搜索框搜索选中文字(站内)(前台)
+						gBrowser.selectedTab = gBrowser.addTab();
+						BrowserSearch.loadSearch("site:" + content.location.host + " " + edgsel, false);
 						return;
 					}
 					if (direction == "D") {
-						//搜索框搜索选中文字(前台)
-						gBrowser.selectedTab = gBrowser.addTab();
-						BrowserSearch.loadSearch(edgsel, false);
+						//搜索框搜索选中文字(前台)[识别URL并打开]
+						(self.seemAsURL(edgsel) && (gBrowser.selectedTab = gBrowser.addTab(edgsel))) || ((gBrowser.selectedTab = gBrowser.addTab()) & BrowserSearch.loadSearch(edgsel, false));
 						return;
 					}
 					if (direction == "L") {
-						//Google翻译文本
-						gTranslator.selectionTranslation();
-						return;
+						//复制所选文字
+						Components.classes['@mozilla.org/widget/clipboardhelper;1'].createInstance(Components.interfaces.nsIClipboardHelper).copyString(edgsel);
 					}
 					if (direction == "R") {
-						//高亮显示
-						gWHT.highlightWord();
+						//页面内查找所选文字
+						gFindBar.onFindCommand();
 						return;
 					}
 				}

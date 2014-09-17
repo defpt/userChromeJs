@@ -111,6 +111,15 @@ location == "chrome://browser/content/browser.xul" && (function () {
 					gBrowser.removeCurrentTab();
 				}
 			},
+			//谷歌站内搜索
+			"LU" : {
+				name : "谷歌站内搜索",
+				cmd : function (self) {
+					var s = prompt('站内搜索——请输入待搜索字符串', '');
+					if (s.length > 0) 
+						gBrowser.addTab('http://www.google.de/search?q=site:' + encodeURIComponent(content.location.host) + ' ' + encodeURIComponent(s));
+				}
+			},
 			//最小化窗口
 			"LD" : {
 				name : "最小化窗口",
