@@ -30,10 +30,10 @@ var ucjsMM = {
 		toolbar.insertBefore(memoryPanel, toolbar.childNodes[3]);
 		document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 			#MemoryDisplay{\
-				padding:0 5px 0 0;\
-			    border-right: 1px silver solid!important;\
+				padding-left:0;\
+				font-size:12px;\
 			}\
-			#MemoryDisplay .statusbarpanel-text{margin:0px;}\
+			#MemoryDisplay .statusbarpanel-text{margin:0;}\
 		') + '"'), document.documentElement);
 		this.start();
 		this.interval = setInterval(this.start, this._interval);
