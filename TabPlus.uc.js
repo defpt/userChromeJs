@@ -1,4 +1,3 @@
-(function() {
 // ==UserScript==
 // @name			TabPlus.uc.js
 // @description	    自用整合版标签增强
@@ -7,9 +6,9 @@
 // @include			chrome://browser/content/bookmarks/bookmarksPanel.xul
 // @include			chrome://browser/content/history/history-panel.xul
 // @include			chrome://browser/content/places/places.xul
-// @Note            2014.03.21 最后一次修正整合 by defpt
+// @Note            2014.09.18 最后一次修正整合 by defpt
 // ==/UserScript==
-
+(function() {
 	// 新标签打开:书签、历史、搜索栏
 	try {
 		eval('openLinkIn=' + openLinkIn.toString().
@@ -41,26 +40,11 @@
     },
     false);
 
-/* 
-	//鼠标停留标签自动聚焦
-    (document.getElementById("tabbrowser-tabs") || gBrowser.mTabBox).addEventListener('mouseover',
-    function self(e) {
-        if ((self.target = e.target).localName === 'tab') {
-            if (!self.timeoutID) {
-                this.addEventListener('mouseout',
-                function() {
-                    clearTimeout(self.timeoutID);
-                },
-                false);
-            }
-            self.timeoutID = setTimeout(function() {
-                gBrowser.selectedTab = self.target;
-            },
-            200);
-        }
-    },
-    false);
- */
+	// 关闭当前标签页回到左边标签
+	try {
+		eval("gBrowser._blurTab = " + gBrowser._blurTab.toString().replace('this.selectedTab = tab;', "this.selectedTab = aTab.previousSibling? aTab.previousSibling : tab;"));
+	}catch(e){};
+	
 	//自动关闭下载产生的空白标签
 	eval("gBrowser.mTabProgressListener = " + gBrowser.mTabProgressListener.toString().replace(/(?=var location)/, '\
       if (aWebProgress.DOMWindow.document.documentURI == "about:blank"\
