@@ -11,10 +11,11 @@
 	var buttonAttrs = {
 		id: "undoclosetab-button",
 		label: "恢复已关闭的标签",
-		tooltiptext: "左键：恢复最后一次关闭的标签\n右键：已关闭标签列表",
+		tooltiptext: "恢复最近关闭的标签",
 		class: "toolbarbutton-1 chromeclass-toolbar-additional",
 		removable: "true",
-		context: "_child",
+		type: "menu-button", //点击按钮恢复最后一次关闭的标签，如果想左键恢复最后一次关闭的标签，右键打开已关闭标签列表，
+								// 那么改为(context: "_child",) 
 		image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmElEQVQ4jaXSIQ7CQBRF0SMqKlgAghAEEtFFIBEsAYFENGyBFSBYAYtDIhDIQVCSSdOh7fQm38zLu+L/IU39J+ulRphazhLE5YAlytxyPA/cUeWU23OZKggSFxojeWI2RFJghS1ueEfZfsg+2mx8FxpwTgliSRfHJjv9E/wkXSwawa5PkKLEy4gP1qbCNbcMB8xzywXW8cMHRHtGPjrrfUUAAAAASUVORK5CYII=",
 		command: "History:UndoCloseTab"
 	};

@@ -31,7 +31,8 @@ var ucjsMM = {
 		document.insertBefore(document.createProcessingInstruction('xml-stylesheet', 'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent('\
 			#MemoryDisplay{\
 				padding-left:0;\
-				font-size:12px;\
+				font-size:13px;\
+				margin-right:2px;\
 			}\
 			#MemoryDisplay .statusbarpanel-text{margin:0;}\
 		') + '"'), document.documentElement);
