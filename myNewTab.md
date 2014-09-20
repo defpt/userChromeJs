@@ -48,6 +48,6 @@
 
 ###天气预报
 喜欢天气预报的还可以加上天气预报代码，[天气预报代码定制](http://www.tianqi.com/plugin/)
-个人觉得加在默认左上角就不错。**点击定位编辑index.js** 把定制的代码添加到下图中所示位置，效果图如下：
+个人觉得加在默认左上角就不错。**点击定位编辑index.html** 把定制的代码添加到下图中所示位置，效果图如下：
 
 ![tqyb](https://github.com/defpt/userChromeJs/blob/master/Picture/tqyb.png?raw=true)
