@@ -1,5 +1,5 @@
 sites = {
-    'img.ph.126.net' : '@FORGE',
+	'img.ph.126.net' : '@FORGE',
     'isnowfy.com' : '@FORGE',
     'image.itmedia.co.jp' : '@FORGE',
     '2ch.net' : '@FORGE',
@@ -28,11 +28,11 @@ sites = {
     'media.chinagate.com' : 'http://www.wenxuecity.com/',
     'jdstatic.tankr.net' : 'http://jandan.net/',
     'sankakustatic.com' : 'http://chan.sankakucomplex.com/',
-
-    //下はデバッグ用
-    //'taruo.net' : 'example.co.jp',
+	'img.liufen.com': 'http://www.liufen.com.cn/',
     'postimage.org' : '@FORGE',
 	'hiphotos.baidu.com' : '@FORGE',
+	'hiphotos.bdimg.com' : '@FORGE',
 	'img.cnbeta.com' : '@FORGE',
 	'imgsrc.baidu.com' : '@FORGE',
+	'zol.com.cn' : '@BLOCK',
 };
