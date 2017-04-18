@@ -1,4 +1,4 @@
-###说明文档：
+### 说明文档：
 此脚本来自 [Griever/KeyChanger.uc.js](https://github.com/Griever/userChromeJS/blob/master/KeyChanger/KeyChanger.uc.js)
 这是可定制 Firefox 快捷键的脚本，通过外置配置文件可添加、修改火狐的快捷键，修改后无需重启，重新载入配置文件即可生效。是我最喜欢的脚本之一！！！
 

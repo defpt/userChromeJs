@@ -1,4 +1,4 @@
-##说明文档：
+## 说明文档：
 基于没有了状态栏，地址栏图标太多，所以才有了标签栏隐藏不常用按钮的想法~~~
 所以写了个单独脚本，姑且命名为000-AidBar.uc.js，把它当作一个按钮容器（位于标签栏）和000-windowhook.uc 一样最先加载（放chrome路径）
 
@@ -37,5 +37,5 @@
 		padding:5px 2px !important;
 	}
 
-###autohidden
+### autohidden
 ![autohidden](https://github.com/defpt/userChromeJs/blob/master/AidBar/autohidden.gif?raw=true)
